@@ -1,0 +1,15 @@
+<!DOCTYPE xml>
+
+
+<Camera
+  lookfrom="0 0 0"
+  lookat="0 5 0"
+  fov="60"
+  />
+
+<Sphere name="sphere" position="0 0 0" rotation="0 0 0" translation="0 4 0" radius="3" />
+
+<Light type="parallele" position="0 0 0"></Light>
+
+<Option name="anti-aliasing" value="4.0"/>
+
