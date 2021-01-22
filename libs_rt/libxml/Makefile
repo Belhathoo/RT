@@ -3,7 +3,8 @@ NAME = libxml.a
 
 SRCS = xml.c\
        xml_close.c\
-	   xml_set.c
+	   xml_set.c\
+	   xml_check.c
 
 OBJS = $(SRCS:.c=.o)
 
