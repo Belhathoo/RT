@@ -34,10 +34,10 @@ void  xml_set_tag(char *tag_str, t_xml *x)
   
   tag_str = xml_trim(tag_str, x);
   
-  if (ft_strchr(tag_str, '=') == NULL)
+  list = ft_strsplit(tag_str, '=');
+  if (ft_twodimlen(list) <= 1 ft_strchr(tag_str, '=') == NULL)
     xml_exit(x, ft_strdup("empty tag"), EXIT_FAILURE);
   
-  list = ft_strsplit(tag_str, '=');
 /* 
       checking empty tag !!
       split = null > tag_str null, need another if
