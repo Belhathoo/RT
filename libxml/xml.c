@@ -27,7 +27,6 @@ char *xml_set_attr(char *attr_str, t_xml *x)
   char *attr;
   int len;
 
-  // printf("\t[[%s]]\n", attr_str);
 
   attr = ft_strtrim(attr_str);
   len = ft_strlen(attr);
@@ -42,8 +41,9 @@ char *xml_set_attr(char *attr_str, t_xml *x)
   /* 
       closing tags !! 
   */
+  // printf("\t[[%s]]\n", attr);
   if (len <= 2 || attr[0] != '\"' || attr[len - 1] != '\"')
-    xml_exit(x, ft_strdup("syntax error2"), EXIT_FAILURE);
+    xml_exit(x, ft_strdup("syntax error; quotes"), EXIT_FAILURE);
   attr_str = ft_strsub(attr, 1, len - 2);
   free(attr); 
   return (attr_str);

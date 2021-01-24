@@ -20,7 +20,6 @@ void  xml_set_tag(char *tag_str, t_xml *x)
   char *chr_str;
   int i;
 
-  // printf("{{%s}}\n", tag_str);
   if (tag_str[0] == '/')
   {
     if (x->tags && ft_strncmp(&tag_str[1], x->tags->name, ft_strlen(x->tags->name)) == 0)
@@ -34,9 +33,14 @@ void  xml_set_tag(char *tag_str, t_xml *x)
   
   tag_str = xml_trim(tag_str, x);
   
+  printf("{{%s}}\n", tag_str);
+
   list = ft_strsplit(tag_str, '=');
-  if (ft_twodimlen(list) <= 1 ft_strchr(tag_str, '=') == NULL)
+
+  if (ft_twodimlen(list) <= 1 || ft_strchr(tag_str, '=') == NULL)
     xml_exit(x, ft_strdup("empty tag"), EXIT_FAILURE);
+  if (!(chr_str = ft_strchr(list[0], ' ')))
+  	xml_exit(x, ft_strdup("syntax error1"), EXIT_FAILURE);
   
 /* 
       checking empty tag !!
@@ -45,22 +49,24 @@ void  xml_set_tag(char *tag_str, t_xml *x)
 		xml_exit(x, ft_strdup("empty tag00"), EXIT_FAILURE);
 */
  
-  if (!(chr_str = ft_strchr(list[0], ' ')))
-  	xml_exit(x, ft_strdup("syntax error1"), EXIT_FAILURE);
+  if(check_tag(tag_str) == 0)
+    xml_exit(x, ft_strdup("Tag Unknown!"), 1); // check repeated tags !
 
   x->tags->name = xml_trim(ft_strsub(list[0], 0, chr_str - list[0]), x);
-  if(check_tag(x->tags->name) == 0)
-    xml_exit(x, ft_strdup("Tag Unknown!"), 1);
+
   x->tags->attr = xml_new_attr();
   x->tags->attr->name = xml_trim(ft_strdup(chr_str), x);
   i = 0;
   curr_attr = x->tags->attr;
   while (list[++i])
   {
+  // printf("LST: |%s|\n", list[i]);
+    if (ft_strchr(list[i], '\"') == NULL || !ft_strncmp(list[i], "\"\"", 2))
+      xml_exit(x, ft_strdup("empty attr."), EXIT_FAILURE);
+    if (check_attr(x->tags->name, curr_attr->name) == 0)
+      xml_exit(x, ft_strjoin(curr_attr->name, "; invalid attr."), EXIT_FAILURE);
     if (list[i + 1] == NULL)
     {
-       if (ft_strchr(list[i], '\"') == NULL)
-         xml_exit(x, ft_strdup("empty attr."), EXIT_FAILURE);
       curr_attr->value = xml_set_attr(ft_strdup(list[i]), x);
       continue ;
     }

@@ -7,10 +7,11 @@
   fov="60"
   />
 
-<Object name="sphere" position="0 0 0" rotation="0 0 0" translation="0 4 0" radius="3"/>
+<Object name="sphere" position="0 0 0" rotation="0 0 0" translation="0 4 0" radius="3"
+  color="0.1 0.0 1.0" material="al"/>
 
 <Light type="parallele" position="0 0 0"></Light>
 
-<Option name="anti-aliasing" value="4.0"/>
+<Option anti-aliasing="4.0"/>
 
-<l l/>
+

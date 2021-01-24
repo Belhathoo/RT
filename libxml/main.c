@@ -16,7 +16,7 @@ int main(int argc, char **argv)
 		printf("  [%s]\n", x->tags->name);
 		while (x->tags->attr)
 		{
-			printf("\t{%s \"%s\"}\n", x->tags->attr->name, x->tags->attr->value);
+			printf("\t{%s= '%s'}\n", x->tags->attr->name, x->tags->attr->value);
 			x->tags->attr = x->tags->attr->next;
 		}
 		x->tags = x->tags->next;
