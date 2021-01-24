@@ -1,5 +1,4 @@
-#ifndef XML_H
-# define XML_H
+#ifndef XML_H # define XML_H
 
 # include <libft.h>
 # include <fcntl.h>
