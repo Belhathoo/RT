@@ -31,9 +31,9 @@ void  xml_set_tag(char *tag_str, t_xml *x)
   x->tags = xml_new_tag();
   x->tags->next = xtag;
   
+  printf("{{%s}}\n", tag_str);
   tag_str = xml_trim(tag_str, x);
   
-  printf("{{%s}}\n", tag_str);
 
   list = ft_strsplit(tag_str, '=');
 
@@ -48,7 +48,8 @@ void  xml_set_tag(char *tag_str, t_xml *x)
   if (list == NULL)
 		xml_exit(x, ft_strdup("empty tag00"), EXIT_FAILURE);
 */
- 
+
+    /*    checking attr names   */
   if(check_tag(tag_str) == 0)
     xml_exit(x, ft_strdup("Tag Unknown!"), 1); // check repeated tags !
 
@@ -63,8 +64,11 @@ void  xml_set_tag(char *tag_str, t_xml *x)
   // printf("LST: |%s|\n", list[i]);
     if (ft_strchr(list[i], '\"') == NULL || !ft_strncmp(list[i], "\"\"", 2))
       xml_exit(x, ft_strdup("empty attr."), EXIT_FAILURE);
+    
+    /*    checking attr names   */
     if (check_attr(x->tags->name, curr_attr->name) == 0)
       xml_exit(x, ft_strjoin(curr_attr->name, "; invalid attr."), EXIT_FAILURE);
+    
     if (list[i + 1] == NULL)
     {
       curr_attr->value = xml_set_attr(ft_strdup(list[i]), x);

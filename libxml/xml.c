@@ -79,7 +79,7 @@ int xml_parse(t_xml *x)
       while (data[i] == '\t' || data[i] == '\n')
         data[i] = ' ';
       if (data[i] == '<')
-        return (-1);
+        {printf(("1st\n")); return (-1);}
       i++;
     }
     i++;

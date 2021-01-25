@@ -50,7 +50,8 @@ int     check_attr(char *t_name, char *a_name)
             return (1);}
     else if (!ft_strcmp(t_name, "Light"))
         {if (!ft_strcmp(a_name, "type") || !ft_strcmp(a_name, "position")\
-        || !ft_strcmp(a_name, "intensity") || !ft_strcmp(a_name, "color"))
+            || !ft_strcmp(a_name, "angle") || !ft_strcmp(a_name, "radius")\
+            || !ft_strcmp(a_name, "intensity") || !ft_strcmp(a_name, "color"))
             return (1);}
     return (0);
 }
