@@ -14,6 +14,7 @@
 
 /* Tmp Parse  */
 
+void			rt_rot_dir(t_vec *d, t_vec r);
 t_vec			rt_ctovec(char *str, t_rt *rt);
 double			rt_ctod(char *str, t_rt *rt);
 t_texture   	*rt_ctotxt(char *str, t_rt *rt);

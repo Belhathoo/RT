@@ -111,6 +111,7 @@ t_xml *xml_init(const char *chemin)
 	buf = NULL;
   if (!(x = (t_xml*)malloc(sizeof(t_xml))))
     xml_exit(x, "Cannot allocate", EXIT_FAILURE);
+  x->data = NULL;
   x->tags = NULL;
   x->cam_nbr = 0;
   x->obj_nbr = 0;

@@ -3,29 +3,29 @@ NAME = rt
 
 SRCS = rt.c\
 		rt_parse.c\
-		rt_convert.c\
-       rt_draw.c\
-       rt_events.c\
-       rt_hit.c\
-       rt_init.c\
-       rt_lighting.c\
-	   rt_shading.c\
-       rt_utils.c\
-       rt_close.c\
-	   rt_hit_sphere.c\
-	   rt_hit_cylinder.c\
-	   rt_hit_cone.c\
-	   rt_hit_plan.c\
-	   rt_hit_torus.c\
-	   rt_solve_quartic.c\
-	   rt_solve_cubic.c\
-	   rt_solve_quadric.c\
-	   rt_hit_parabole.c\
-	   rt_textures.c\
-	   ft_parse0.c ft_parse.c\
-	   load_txt.c\
-	   rt_hit_cube.c\
-	   rt_cube_case.c\
+		rt_parse_utils.c\
+		rt_draw.c\
+		rt_events.c\
+		rt_hit.c\
+		rt_init.c\
+		rt_lighting.c\
+		rt_shading.c\
+		rt_utils.c\
+		rt_close.c\
+		rt_hit_sphere.c\
+		rt_hit_cylinder.c\
+		rt_hit_cone.c\
+		rt_hit_plan.c\
+		rt_hit_torus.c\
+		rt_solve_quartic.c\
+		rt_solve_cubic.c\
+		rt_solve_quadric.c\
+		rt_hit_parabole.c\
+		rt_textures.c\
+		load_txt.c\
+		rt_hit_cube.c\
+		rt_cube_case.c\
+#ft_parse0.c ft_parse.c\
 
 SRC = $(add prefix srcs/, $(SRCS))
 SRCS_NORM = $(SRCS)

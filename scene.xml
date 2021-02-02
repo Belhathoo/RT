@@ -2,19 +2,17 @@
 
 
 <Camera
-  lookfrom="0 5.0 0"
+  lookfrom="0 0.0 5.0"
   lookat="0 0 0"
   fov="60"
   />
 
 <Object name="sphere" position="0 0 0" direction="0 01 0" rotation="0 01 0" 
-translation="0 0 0" radius="1.5" r="2.0" color="0.1 0.0 1.0" material="al" />
+translation="0 0 0" radius="1.5" r="2.0" color="0.77 0.76 0.72" material="Chrome" />
 
-<Object name="torus" position="0 0 0" direction="0 01 0" rotation="0 01 0" 
-translation="0 0 0" radius="5" r="2.0" color="0.1 01.0 1.0" material="al" />
 
-<Light type="parallele" position="02 20.0 050.0"
-intensity="1.0" color="1.0 1.0 1.00"></Light>
+<Light type="parallele" position="0 20.0 0.0"
+intensity="2.0" color="1.0 1.0 1.00"/>
 
 
 <Option anti-aliasing="4.0"/>

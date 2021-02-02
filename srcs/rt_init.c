@@ -5,7 +5,7 @@ t_camera	rt_init_camera(t_vec lookfrom, t_vec lookat, double vfov)
 	t_camera	c;
 	t_vec	vup;
 
-	vup = vec_unit(vec(0.001, 1.0, 0.001));
+	vup = vec_unit(vec(0.001, 1.001, 0.001));
 	c.half_h = tan((vfov * M_PI / 180.0) / 2.0);
 	c.half_w = (IMG_WIDTH / IMG_HEIGHT) * c.half_h;
 	c.origin = lookfrom;
@@ -40,12 +40,14 @@ t_light			*rt_init_light(void)
 	t_light	*light;
 
 	// recheck for other initialis// parameters
+	// init depends on the type ! plus default light!!
 
 	if (!(light = (struct s_l*)malloc(sizeof(struct s_l))))
 		rt_perror();
 		// rt_exit(rt, "Cannot allocate\n", EXIT_FAILURE);
-	light->col = vec(1.0, 1.0, 1.0);
-	light->intensity = 0.8;
+	// light->pos = vec(-15.0,5.0,15.0);
+	// light->col = vec(0.95, 0.95, 0.95);
+	// light->intensity = 0.8;
 	light->next = NULL;
 	return (light);
 }
@@ -61,15 +63,13 @@ t_object		*rt_init_object(void)
 
 	obj->name = NULL;
 	obj->material = NULL; // make default material!!
+	obj->txt = NULL;
 	obj->pos = vec(0.0, 0.0, 0.0);
 	obj->dir = vec(0.0, 1.0, 0.0);
 	obj->rot = vec(0.0, 0.0, 0.0);
-	obj->col = vec(-1.0, -1.0, -1.0);
-	obj->txt = NULL;
+	obj->col = vec(1.0, 1.0, 1.0);
 	obj->next = NULL;
 	/* init material coefs*/
-
-
   return (obj);
 }
 
