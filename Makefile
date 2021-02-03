@@ -25,7 +25,7 @@ SRCS = rt.c\
 		load_txt.c\
 		rt_hit_cube.c\
 		rt_cube_case.c\
-#ft_parse0.c ft_parse.c\
+ft_parse0.c ft_parse.c\
 
 SRC = $(add prefix srcs/, $(SRCS))
 SRCS_NORM = $(SRCS)
@@ -70,24 +70,13 @@ MLX = -lm -I $(MLX_DIR) -L $(MLX_DIR) -lmlx -lXext -lX11
 #MLX = -lm -I $(MLX_DIR) $(MLX_DIR)/libmlx.dylib -lXext -lX11
 endif
 
-#ifeq ($(shell uname), Darwin)
-#SDL2 = ./frameworks/SDL2.framework/Versions/A/SDL2
-#SDL2_IMAGE = ./frameworks/SDL2_image.framework/Versions/A/SDL2_image
-#SDL2_TTF = ./frameworks/SDL2_ttf.framework/Versions/A/SDL2_ttf
-#SDL2_MIXER = ./frameworks/SDL2_mixer.framework/Versions/A/SDL2_mixer
-#SDL_FLAGS = -F ./frameworks -framework SDL2 -framework SDL2_image -framework SDL2_ttf -framework SDL2_MIXER 
-#SDL_FLAGS = -I headers/SDL2 -F ./frameworks -framework SDL2 -framework SDL2_image -framework SDL2_ttf -framework SDL2_MIXER 
-#else
-#SDL_FLAGS = -lSDL2main -lSDL2 -lSDL2_image -lSDL2_ttf -lm
-#endif
 
 CFLAGS = #-Wall -Wextra -Werror
 LIBFT_DIR = libs/libft
 XML_DIR = libs/libxml
 VEC_DIR = libs/libvec
-LIBS = $(MLX) -L $(LIBFT_DIR) -lft -L $(XML_DIR) -lxml -L $(VEC_DIR) -lvec -lpthread
+LIBS = $(MLX) -L $(XML_DIR) -lxml -L $(LIBFT_DIR) -lft -L $(VEC_DIR) -lvec -lpthread
 INCS = -I $(LIBFT_DIR) -I $(XML_DIR) -I $(VEC_DIR) #-I headers/SDL2
-#LIBS += $(SDL_FLAGS)
 
 all: $(NAME)
 
@@ -100,12 +89,6 @@ $(NAME): $(OBJS_DIR) $(OBJ)
 	@gcc $(CFLAGS) -o $(NAME) $(filter-out $<, $+) $(LIBS)
 	@echo "$(BUILD_PRINT)"
 
-#ifeq ($(shell uname), Darwin)
-#	@install_name_tool -change @rpath/SDL2.framework/Versions/A/SDL2 $(SDL2) $(NAME)
-#	@install_name_tool -change @rpath/SDL2_image.framework/Versions/A/SDL2_image $(SDL2_IMAGE) $(NAME)
-#	@install_name_tool -change @rpath/SDL2_ttf.framework/Versions/A/SDL2_ttf $(SDL2_TTF) $(NAME)
-#	@install_name_tool -change @rpath/SDL2_mixer.framework/Versions/A/SDL2_mixer $(SDL2_MIXER) $(NAME)
-#endif
 
 $(OBJS_DIR):
 	@mkdir -p $@

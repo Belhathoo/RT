@@ -25,11 +25,11 @@ int	rt_check_obj(t_object *obj, t_rt *rt)
 {
 	char	*str;
 
-	str = ft_strdup(obj->name);
-	str = ft_strupcase(str);
 	if (obj->name == NULL)
 		rt_exit(rt, "Object shoud have a name!", EXIT_FAILURE);
-	else if (!ft_strcmp(str, "SPHERE"))
+	str = ft_strdup(obj->name);
+	str = ft_strupcase(str);
+	if (!ft_strcmp(str, "SPHERE"))
 		obj->hit = rt_hit_sphere;
 	else if (!ft_strcmp(str, "CYLINDER"))
 		obj->hit = rt_hit_cylinder;
@@ -77,9 +77,11 @@ void  rt_add_object(t_tag *tag, t_rt *rt)
 {
 	/*
 	   add different attributes Direction and Rotation !! redo rots functions!!*/
-	t_object  *obj;
+	t_object	*obj;
+	t_object	*tmp;
 
 	obj = rt_init_object();
+	tmp = rt->scene->object;
 	while (tag->attr)
 	{
 		// printf("**%s**\n", tag->attr->name);
@@ -114,10 +116,12 @@ void  rt_add_object(t_tag *tag, t_rt *rt)
 	}
 	rt_rot_dir(&obj->rot, obj->dir);
 	rt_set_coef(obj, rt);
-	if (rt->scene->object == NULL)
-		rt->scene->object = obj;
-	else
-		rt->scene->object->next = obj;
+	rt->scene->object = obj;
+	obj->next = tmp;
+	// if (rt->scene->object == NULL)
+	// 	rt->scene->object = obj;
+	// else
+	// 	rt->scene->object->next = obj;
 }
 
 void  rt_add_light(t_tag *tag, t_rt *rt)
@@ -191,7 +195,10 @@ void rt_parser(t_rt *rt, char **argv)
 		return;}// err. (check redo in main libxml)
 	xml_to_rt(x, rt);
 
-
+	xml_close(x);
+/*
+	size convert to deg f  Cone !
+*/
 
 	t_object *o, *tt;
 	t_camera c;
@@ -200,26 +207,25 @@ void rt_parser(t_rt *rt, char **argv)
 	l = rt->scene->light;
 	c = rt->scene->cam;
 	o = rt->scene->object;
-	// printf("Options:\taa %d\tl.int %f\n", rt->scene->anti_aliasing, rt->scene->light->intensity);
-	// printf("\n{Cam}\n\tlkat:\t%.2f %.2f  %.2f\n\tlkfrm:\t%.2f %.2f  %.2f\n\tfov:\t%.2f\n\n",\
-	// c.lookat.x, c.lookat.y, c.lookat.z, c.lookfrom.x, c.lookfrom.y, c.lookfrom.z,c.fov);
-	// while (l)
-	// {
-	// 	printf("{Light}\n\tpos\t%.2f %.2f %.2f\n", l->pos.x, l->pos.y, l->pos.z);
-	// 	printf("\tcol\t\t%.2f %.2f %.2f\n", l->col.x, l->col.y, l->col.z);
-	// 	l = l->next;
-	// }
+	printf("Options:\t %d\n", rt->scene->anti_aliasing);
+	printf("\n{Cam}\n\tlkat:\t%.2f %.2f  %.2f\n\tlkfrm:\t%.2f %.2f  %.2f\n\tfov:\t%.2f\n\n",\
+	c.lookat.x, c.lookat.y, c.lookat.z, c.lookfrom.x, c.lookfrom.y, c.lookfrom.z,c.fov);
+	while (l)
+	{
+		printf("{Light}\n\tpos\t%.2f %.2f %.2f\n", l->pos.x, l->pos.y, l->pos.z);
+		printf("\tcol\t\t%.2f %.2f %.2f\n", l->col.x, l->col.y, l->col.z);
+		l = l->next;
+	}
 
-	// while (o)
-	// {
-	// 	printf("[%s]\n", o->name);
-	// 	printf("\tmat:\t\t%s\n", o->material);
-	// 	printf("\tsize\t\t%.2f\n", o->size);
-	// 	printf("\tpos\t\t%.2f %.2f %.2f\n", o->pos.x, o->pos.y, o->pos.z);
-	// 	printf("\tdir(rot!)\t%.2f %.2f %.2f\n", o->rot.x, o->rot.y, o->rot.z);
-	// 	printf("\tcol\t\t%.2f %.2f %.2f\n", o->col.x, o->col.y, o->col.z);
-	// 	o = o->next;
-	// }
+	while (o)
+	{
+		printf("[%s]\n", o->name);
+		printf("\tmat:\t\t%s\n", o->material);
+		printf("\tsize\t\t%.2f\n", o->size);
+		printf("\tpos\t\t%.2f %.2f %.2f\n", o->pos.x, o->pos.y, o->pos.z);
+		printf("\tdir(rot!)\t%.2f %.2f %.2f\n", o->rot.x, o->rot.y, o->rot.z);
+		printf("\tcol\t\t%.2f %.2f %.2f\n", o->col.x, o->col.y, o->col.z);
+		o = o->next;
+	}
 
-	xml_close(x);
 }

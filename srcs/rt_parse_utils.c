@@ -1,35 +1,35 @@
 
 # include <rt.h>
 
-t_vec		ft_rot_x(t_vec old, double theta)
-{
-	t_vec	new;
+// t_vec		ft_rot_x(t_vec old, double theta)
+// {
+// 	t_vec	new;
 
-	new.x = old.x;
-	new.y = old.y * cos(theta) - old.z * sin(theta);
-	new.z = old.y * sin(theta) + old.z * cos(theta);
-	return (new);
-}
+// 	new.x = old.x;
+// 	new.y = old.y * cos(theta) - old.z * sin(theta);
+// 	new.z = old.y * sin(theta) + old.z * cos(theta);
+// 	return (new);
+// }
 
-t_vec		ft_rot_y(t_vec old, double theta)
-{
-	t_vec	new;
+// t_vec		ft_rot_y(t_vec old, double theta)
+// {
+// 	t_vec	new;
 
-	new.x = old.x * cos(theta) + old.z * sin(theta);
-	new.y = old.y;
-	new.z = -old.x * sin(theta) + old.z * cos(theta);
-	return (new);
-}
+// 	new.x = old.x * cos(theta) + old.z * sin(theta);
+// 	new.y = old.y;
+// 	new.z = -old.x * sin(theta) + old.z * cos(theta);
+// 	return (new);
+// }
 
-t_vec		ft_rot_z(t_vec old, double theta)
-{
-	t_vec	new;
+// t_vec		ft_rot_z(t_vec old, double theta)
+// {
+// 	t_vec	new;
 
-	new.x = old.x * cos(theta) - old.y * sin(theta);
-	new.y = old.x * sin(theta) + old.y * cos(theta);
-	new.z = old.z;
-	return (new);
-}
+// 	new.x = old.x * cos(theta) - old.y * sin(theta);
+// 	new.y = old.x * sin(theta) + old.y * cos(theta);
+// 	new.z = old.z;
+// 	return (new);
+// }
 
 
 // t_vect		project(t_vect direction, t_vect rotation)
@@ -60,21 +60,27 @@ void	rt_rot_dir(t_vec *r, t_vec d)
 	t_vec tmp;
 	t_vec res;
 	double	previous_x;
-//if r.x=r.y=r.z skip
-	tmp = *r;
-	res.x = d.x;
-	res.y = d.y * cos(tmp.x) + d.z * sin(tmp.x);
-	res.z = -d.y * sin(tmp.x) + d.z * cos(tmp.x);
+	
+	// tmp = *r;
+	// if (tmp.x == 0 && tmp.y == 0 && tmp.z == 0)
+	// {
+	// 	*r = d;
+	// 	return ;
+	// }
+	// res.x = d.x;
+	// res.y = d.y * cos(tmp.x) + d.z * sin(tmp.x);
+	// res.z = -d.y * sin(tmp.x) + d.z * cos(tmp.x);
 
-	previous_x = res.x;
-	res.x = res.x *cos(tmp.y) + res.z * sin(tmp.y);
-	res.z = -res.x * sin(tmp.y) + res.z * cos(tmp.y);
+	// previous_x = res.x;
+	// res.x = res.x *cos(tmp.y) + res.z * sin(tmp.y);
+	// res.z = -res.x * sin(tmp.y) + res.z * cos(tmp.y);
 
-	previous_x = res.x;
-	res.x = res.x * cos(tmp.z) - res.y * sin(tmp.z);
-	res.y = previous_x * sin(tmp.z) + res.y * cos(tmp.z); 
+	// previous_x = res.x;
+	// res.x = res.x * cos(tmp.z) - res.y * sin(tmp.z);
+	// res.y = previous_x * sin(tmp.z) + res.y * cos(tmp.z); 
 
-	*r = res;
+	// *r = res;
+	*r = d;
 }
 
 
@@ -111,7 +117,7 @@ t_texture   *rt_ctotxt(char *str, t_rt *rt)
 {
     char        **each;
     t_texture   *txt;
-    int bpp, size, endian;
+    // int bpp, size, endian;
 
     each = ft_strsplit(str, ' ');
     if (!each && ft_twodimlen(each) != 1)
