@@ -7,16 +7,18 @@
   fov="60"
   />
 
-<Object name="plan" position="0.0 -3.0 -0.0" direction="0 01 0" rotation="0 01 0" 
-translation="0 0 0" radius="0.30" color="0.5 0 0.5" material="al" />
+<Object name="cone" position="0.0 -3.0 -10.0" direction="01 01 0" rotation="0 01 0" 
+translation="0 0 0" radius="0.30" texture="damier" material="ko" />
 
 <Object name="sphere" position="5.0 3.0 -1" direction="0 01 0" rotation="0 0 0" 
 translation="0 0 0" radius="2.0" color="0 0 1" material="al" />
 
 
 <Object name="sphere" position="-0.9 1.0 0.0" direction="0 01 0" rotation="0 0 0" 
-translation="0 0 0" radius="2.0" color="1 1 1" material="Chrome" />
+translation="0 0 0" radius="2.0" texture= "damier" material="Chrome" />
 
+<Object name="torus" position="-3.9 1.0 -2.0" direction="0 1 01" rotation="0 0 0" 
+translation="0 0 0" radius="3.0" r="1.0" color="0.1 1 1" material="ko"/>
 
 <Light type="parallele" position="0 0.0 20.0"
 intensity="1.0" color="1.0 1.0 1.00"/>

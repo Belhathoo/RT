@@ -127,6 +127,7 @@ t_texture   *rt_ctotxt(char *str, t_rt *rt)
 		txt->is_txt = 1;
 	else
 	{
+		printf("LOLO\n");
 		txt->img = mlx_xpm_file_to_image(rt->mlx, each[0], &txt->width, &txt->height);
 		if (!txt->img)
 			rt_exit(rt, "Texture: file unsupported", EXIT_FAILURE);

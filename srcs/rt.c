@@ -29,6 +29,7 @@ int main(int argc, char **argv)
 	rt.scene = rt_init_scene();
 	rt.mlx = mlx_init();
 	if (argc == 2)
+		// ft_parser(argv[1], &rt);
 		rt_parser(&rt, argv);
 	else
 		rt_exit(&rt, ft_strdup("usage: ./rt scene_file"), EXIT_FAILURE);

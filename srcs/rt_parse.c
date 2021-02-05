@@ -200,32 +200,32 @@ void rt_parser(t_rt *rt, char **argv)
 	size convert to deg f  Cone !
 */
 
-	t_object *o, *tt;
-	t_camera c;
-	t_light	*l;
+	// t_object *o, *tt;
+	// t_camera c;
+	// t_light	*l;
 
-	l = rt->scene->light;
-	c = rt->scene->cam;
-	o = rt->scene->object;
-	printf("Options:\t %d\n", rt->scene->anti_aliasing);
-	printf("\n{Cam}\n\tlkat:\t%.2f %.2f  %.2f\n\tlkfrm:\t%.2f %.2f  %.2f\n\tfov:\t%.2f\n\n",\
-	c.lookat.x, c.lookat.y, c.lookat.z, c.lookfrom.x, c.lookfrom.y, c.lookfrom.z,c.fov);
-	while (l)
-	{
-		printf("{Light}\n\tpos\t%.2f %.2f %.2f\n", l->pos.x, l->pos.y, l->pos.z);
-		printf("\tcol\t\t%.2f %.2f %.2f\n", l->col.x, l->col.y, l->col.z);
-		l = l->next;
-	}
+	// l = rt->scene->light;
+	// c = rt->scene->cam;
+	// o = rt->scene->object;
+	// printf("Options:\t %d\n", rt->scene->anti_aliasing);
+	// printf("\n{Cam}\n\tlkat:\t%.2f %.2f  %.2f\n\tlkfrm:\t%.2f %.2f  %.2f\n\tfov:\t%.2f\n\n",\
+	// c.lookat.x, c.lookat.y, c.lookat.z, c.lookfrom.x, c.lookfrom.y, c.lookfrom.z,c.fov);
+	// while (l)
+	// {
+	// 	printf("{Light}\n\tpos\t%.2f %.2f %.2f\n", l->pos.x, l->pos.y, l->pos.z);
+	// 	printf("\tcol\t\t%.2f %.2f %.2f\n", l->col.x, l->col.y, l->col.z);
+	// 	l = l->next;
+	// }
 
-	while (o)
-	{
-		printf("[%s]\n", o->name);
-		printf("\tmat:\t\t%s\n", o->material);
-		printf("\tsize\t\t%.2f\n", o->size);
-		printf("\tpos\t\t%.2f %.2f %.2f\n", o->pos.x, o->pos.y, o->pos.z);
-		printf("\tdir(rot!)\t%.2f %.2f %.2f\n", o->rot.x, o->rot.y, o->rot.z);
-		printf("\tcol\t\t%.2f %.2f %.2f\n", o->col.x, o->col.y, o->col.z);
-		o = o->next;
-	}
+	// while (o)
+	// {
+	// 	printf("[%s]\n", o->name);
+	// 	printf("\tmat:\t\t%s\n", o->material);
+	// 	printf("\tsize\t\t%.2f\n", o->size);
+	// 	printf("\tpos\t\t%.2f %.2f %.2f\n", o->pos.x, o->pos.y, o->pos.z);
+	// 	printf("\tdir(rot!)\t%.2f %.2f %.2f\n", o->rot.x, o->rot.y, o->rot.z);
+	// 	printf("\tcol\t\t%.2f %.2f %.2f\n", o->col.x, o->col.y, o->col.z);
+	// 	o = o->next;
+	// }
 
 }
