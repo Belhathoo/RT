@@ -3,7 +3,7 @@
 
 # include <libft.h>
 # include <fcntl.h>
-//# include <stdio.h>//delete me and add 2>/dev/null in makefile
+# include <stdio.h>//delete me and add 2>/dev/null in makefile
 
 typedef struct	s_attr
 {

@@ -25,10 +25,7 @@ typedef struct	s_ray
 typedef	struct	s_texture
 {
 	int			is_txt;
-	// SDL_Surface	*surface;
-	// Uint32		*data;
 	void		*img;
-	char		*filename;
 	int			*buf;
 	int			width;
 	int			height;
@@ -80,6 +77,7 @@ typedef	struct	s_l
 	t_vec		col;
 	double		intensity;
 	double		flashlight;
+	double		radius; // for soft shaddows !! not for sure
 	double		angle;
 	int			type;
 	struct s_l	*next;

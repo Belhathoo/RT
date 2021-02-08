@@ -9,8 +9,8 @@ void xml_exit(t_xml *x, char *msg, int err)
   {
     ft_putstr("libxml: ");
     ft_putendl(msg);
-    if (msg)
-      free(msg);
+    // if (msg)
+    //   free(msg);
     xml_close(x);
     exit(EXIT_FAILURE);
   }

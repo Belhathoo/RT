@@ -4,6 +4,7 @@ NAME = rt
 SRCS = rt.c\
 		rt_parse.c\
 		rt_parse_utils.c\
+		rt_parse_check.c\
 		rt_draw.c\
 		rt_events.c\
 		rt_hit.c\

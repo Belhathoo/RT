@@ -50,7 +50,7 @@ void  xml_set_tag(char *tag_str, t_xml *x)
     /*    checking attr names   */
 
   x->tags->name = xml_trim(ft_strsub(list[0], 0, chr_str - list[0]), x);
-  if (!ft_strcmp(x->tags->name, "Camera"))
+  if (!ft_strncmp(x->tags->name, "Camera", 6))
     x->cam_nbr++;
   if (!ft_strcmp(x->tags->name, "Object"))
     x->obj_nbr++;

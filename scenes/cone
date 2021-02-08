@@ -1,22 +1,11 @@
-[
-	"Camera":
-	{
-		"lookfrom": "0.0 0.0 10.0"
-		"lookat": "0.0 0.0 0.0"
-		"fov": "60.0"
-	}
-	"Object": "Cone"
-	{
-		"position": "0.0 0.0 0.0"
-		"rotation": "0.0 1.0 0.0 0.0 z"
-		"translation": "0.0 0.0 0.0"
-		"color": "1 0 0.4"
-		"size": "10.0"
-	}
-	"Light":
-	{
-		"position": "100 50 0"
-		"color": "1 1 1"
-		"intensity": "0.5"
-	}
-]
+<!DOCTYPE xml>
+
+
+<Camera
+  lookfrom="0 0.0 25.0"
+  lookat="0 0 0"
+  fov="60"
+  />
+
+<Object name="cone" position="0.0 -3.0 -10.0" direction="01 01 0" rotation="0 01 0" 
+translation="0 0 0" radius="0.30" color="1.0 0.5 1.0" material="ko" />

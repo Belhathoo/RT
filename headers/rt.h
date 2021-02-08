@@ -19,8 +19,12 @@ t_vec			rt_ctovec(char *str, t_rt *rt);
 double			rt_ctod(char *str, t_rt *rt);
 t_texture   	*rt_ctotxt(char *str, t_rt *rt);
 
-void			ft_parser(char *file, t_rt *p);
 void			rt_parser(t_rt *p, char **av);
+void			rt_check_obj(t_object *o, t_rt *rt);
+void			rt_check_obj_name(t_object *obj, t_rt *rt);
+void			rt_check_cam(t_camera c, t_rt *rt);
+
+void			ft_parser(char *file, t_rt *p);
 void			ft_get_data(t_rt *p, int fd);
 int				ft_fr(char **str);
 

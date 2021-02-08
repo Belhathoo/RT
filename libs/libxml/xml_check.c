@@ -61,7 +61,8 @@ int     xml_check_attr(char *t_name, char *a_name, t_xml *x)
     {
         if (!ft_strcmp(a_name, "type") || !ft_strcmp(a_name, "position")\
             || !ft_strcmp(a_name, "angle") || !ft_strcmp(a_name, "radius")\
-            || !ft_strcmp(a_name, "intensity") || !ft_strcmp(a_name, "color"))
+            || !ft_strcmp(a_name, "intensity") || !ft_strcmp(a_name, "color")\
+            || !ft_strcmp(a_name, "direction"))
             return (1);
     }
     return (0);

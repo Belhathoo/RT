@@ -30,6 +30,7 @@ char *xml_set_attr(char *attr_str, t_xml *x)
 
   attr = ft_strtrim(attr_str);
   len = ft_strlen(attr);
+  // printf("__%s__\n", attr_str);
   if (attr[len - 1] == '/')
   {
     attr[len - 1] = '\0';
@@ -100,6 +101,7 @@ int xml_parse(t_xml *x)
     i++;
   }
   free(x->data);
+  // close(x->fd);
   return (EXIT_SUCCESS);
 }
 
@@ -121,7 +123,7 @@ t_xml *xml_init(const char *chemin)
 		xml_exit(x, ft_strjoin(chemin, ": must be a file"), EXIT_FAILURE);
   if (get_next_line(x->fd, &buf) == 0)
     xml_exit(x, ft_strjoin(chemin, ": empty file"), EXIT_FAILURE);
-  if (ft_strcmp(buf, "<!DOCTYPE xml>") != 0)
+  if (ft_strncmp(buf, "<!DOCTYPE xml>", 14) != 0)
     xml_exit(x, ft_strjoin(chemin, ": document type <!DOCTYPE xml>"), EXIT_FAILURE);
   free(buf);
   x->tags = NULL; //!

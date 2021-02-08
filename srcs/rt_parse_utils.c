@@ -51,37 +51,37 @@
 // 	return (new);
 // }
 
-void	rt_rot_dir(t_vec *r, t_vec d)
-{
-/*
-	check if dir = 0 0 0 (err sauf sphere || set default with a warning msg)
-*/
+// void	rt_rot_dir(t_vec *r, t_vec d)
+// {
+// /*
+// 	check if dir = 0 0 0 (err sauf sphere || set default with a warning msg)
+// */
 
-	t_vec tmp;
-	t_vec res;
-	double	previous_x;
+// 	t_vec tmp;
+// 	t_vec res;
+// 	double	previous_x;
 	
-	// tmp = *r;
-	// if (tmp.x == 0 && tmp.y == 0 && tmp.z == 0)
-	// {
-	// 	*r = d;
-	// 	return ;
-	// }
-	// res.x = d.x;
-	// res.y = d.y * cos(tmp.x) + d.z * sin(tmp.x);
-	// res.z = -d.y * sin(tmp.x) + d.z * cos(tmp.x);
+// 	// tmp = *r;
+// 	// if (tmp.x == 0 && tmp.y == 0 && tmp.z == 0)
+// 	// {
+// 	// 	*r = d;
+// 	// 	return ;
+// 	// }
+// 	// res.x = d.x;
+// 	// res.y = d.y * cos(tmp.x) + d.z * sin(tmp.x);
+// 	// res.z = -d.y * sin(tmp.x) + d.z * cos(tmp.x);
 
-	// previous_x = res.x;
-	// res.x = res.x *cos(tmp.y) + res.z * sin(tmp.y);
-	// res.z = -res.x * sin(tmp.y) + res.z * cos(tmp.y);
+// 	// previous_x = res.x;
+// 	// res.x = res.x *cos(tmp.y) + res.z * sin(tmp.y);
+// 	// res.z = -res.x * sin(tmp.y) + res.z * cos(tmp.y);
 
-	// previous_x = res.x;
-	// res.x = res.x * cos(tmp.z) - res.y * sin(tmp.z);
-	// res.y = previous_x * sin(tmp.z) + res.y * cos(tmp.z); 
+// 	// previous_x = res.x;
+// 	// res.x = res.x * cos(tmp.z) - res.y * sin(tmp.z);
+// 	// res.y = previous_x * sin(tmp.z) + res.y * cos(tmp.z); 
 
-	// *r = res;
-	*r = d;
-}
+// 	// *r = res;
+// 	*r = d;
+// }
 
 
 t_vec   rt_ctovec(char *str, t_rt *rt)
@@ -117,7 +117,7 @@ t_texture   *rt_ctotxt(char *str, t_rt *rt)
 {
     char        **each;
     t_texture   *txt;
-    // int bpp, size, endian;
+    int bpp, size, endian;
 
     each = ft_strsplit(str, ' ');
     if (!each && ft_twodimlen(each) != 1)
@@ -127,11 +127,11 @@ t_texture   *rt_ctotxt(char *str, t_rt *rt)
 		txt->is_txt = 1;
 	else
 	{
-		printf("LOLO\n");
 		txt->img = mlx_xpm_file_to_image(rt->mlx, each[0], &txt->width, &txt->height);
 		if (!txt->img)
 			rt_exit(rt, "Texture: file unsupported", EXIT_FAILURE);
-    	txt->buf = (int *)mlx_get_data_addr(txt->img, &rt->bpp,  &rt->size, &rt->endian);
+    	txt->buf = (int *)mlx_get_data_addr(txt->img, &bpp,  &size, &endian);
+	
 	}
 	ft_free_twodim(&each);
 	return (txt);

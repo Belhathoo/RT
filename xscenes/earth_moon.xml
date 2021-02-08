@@ -1,0 +1,11 @@
+<!DOCTYPE xml>
+
+
+<Camera
+  lookfrom="0 0.0 25.0"
+  lookat="0 0 0"
+  fov="60"
+  />
+
+<Object name="cone" position="0.0 -3.0 -10.0" direction="01 01 0" rotation="0 01 0" 
+translation="0 0 0" radius="0.30" texture="damier" material="ko" />

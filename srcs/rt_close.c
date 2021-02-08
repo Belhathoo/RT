@@ -11,8 +11,8 @@ void    rt_free_objects(t_object *object)
 	{
 		tmp = obj->next;
 		free(obj->name);
-    free(obj->material);
-    free(obj->txt);
+    	free(obj->material);
+    	free(obj->txt);
 		free(obj);
 		obj = tmp;
 	}
