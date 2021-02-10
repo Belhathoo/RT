@@ -44,7 +44,8 @@ t_light			*rt_init_light(void)
 	if (!(light = (struct s_l*)malloc(sizeof(struct s_l))))
 		rt_perror();
 	// rt_exit(rt, "Cannot allocate\n", EXIT_FAILURE);
-	// light->pos = vec(-15.0,5.0,15.0);
+
+	light->pos = vec(-15.0,5.0,15.0);
 	light->col = vec(1.0, 1.0, 1.0);
 	light->intensity = 0.8;
 	light->next = NULL;
@@ -63,12 +64,13 @@ t_object		*rt_init_object(void)
 	obj->name = NULL;
 	obj->material = NULL; // make default material!!
 	obj->txt = NULL;
+	obj->noi.is_noise = 0;
 	obj->pos = vec(0.0, 0.0, 0.0);
+	obj->size = 2.0;
 	obj->dir = vec(0.0, 1.0, 0.0);
 	obj->rot = vec(0.0, 0.0, 0.0);
 	obj->col = vec(1.0, 0.7, 0.3);
 	obj->next = NULL;
-	/* init material coefs*/
 	return (obj);
 }
 
@@ -80,11 +82,11 @@ t_scene		*rt_init_scene(void)
 		rt_perror();
 	scene->anti_aliasing = 3;
 	scene->ambient = 0.8;
-	scene->object = NULL;
-	scene->light = NULL;
 	scene->cam.lookfrom = vec(10.0, 10.0 ,20.0);
 	scene->cam.lookat = vec(0.0, 0.0, 0.0);
 	scene->cam.fov = 60;
+	scene->object = NULL;
+	scene->light = NULL;
 	return (scene);
 }
 

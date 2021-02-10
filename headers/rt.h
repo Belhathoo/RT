@@ -18,11 +18,13 @@ void			rt_rot_dir(t_vec *d, t_vec r);
 t_vec			rt_ctovec(char *str, t_rt *rt);
 double			rt_ctod(char *str, t_rt *rt);
 t_texture   	*rt_ctotxt(char *str, t_rt *rt);
+t_noise			rt_add_noise(char *val, t_rt *rt);
 
 void			rt_parser(t_rt *p, char **av);
+void			rt_check_cam(t_camera c, t_rt *rt);
 void			rt_check_obj(t_object *o, t_rt *rt);
 void			rt_check_obj_name(t_object *obj, t_rt *rt);
-void			rt_check_cam(t_camera c, t_rt *rt);
+void			rt_check_lights(t_light *l, t_rt *rt);
 
 void			ft_parser(char *file, t_rt *p);
 void			ft_get_data(t_rt *p, int fd);
@@ -33,6 +35,7 @@ int				ft_fr(char **str);
  * Raytracer
  */
 t_ray			rt_ray(t_vec a, t_vec b);
+t_ray			rt_get_ray(t_camera *p, double u, double v);
 t_vec 			rt_raytracer(t_thread *t, t_ray *r, int d);
 t_vec 			rt_anti_aliasing(t_thread *t, int col, int row);
 void			*rt_run(t_thread *t);
@@ -94,19 +97,20 @@ t_object		*x_deux(t_object *compos, t_object *obj);
 t_object		*x_trois(t_object *compos, t_object *obj);
 t_object		*x_quatre(t_object *compos, t_object *obj);
 
-void			rt_get_repere(t_scene *scene);
+void			rt_get_repere(t_object *ob);
 
 /*
-* Textures
+* Textures && Noises
 */
 
 t_texture		*rt_init_txt(t_rt *rt);
 //t_vec   		rt_texture(double u, double v);
-t_vec			rt_txt_damier(t_hit *rec);
 int				rt_load_txt(t_rt *rt, t_object *o);
 t_vec			rt_get_color_from_texture(t_object *o, double *u, double *v);
 t_vec  			torus_txt(t_hit *rec);
 
+t_vec			rt_txt_damier(t_hit *rec);
+t_vec			rt_noise(t_object *o, t_hit rec);
 
 /*
  * Events

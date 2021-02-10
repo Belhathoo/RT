@@ -26,7 +26,9 @@ void			ft_ambient(t_light *l, t_thread *th, t_vec *col)
 {
 	t_object	*o;
 	double		ia;
-    
+     /*
+	 	recheck !!
+	 */
 	o = th->rec.curr_obj;
 	ia = o->ka * th->rt->scene->ambient;
 	if (!l)

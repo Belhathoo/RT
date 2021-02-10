@@ -53,17 +53,16 @@ void  rt_add_object(t_tag *tag, t_rt *rt)
 		else if (!ft_strcmp(tag->attr->name, "r"))
 			obj->r = rt_ctod(tag->attr->value, rt);    
 		else if (!ft_strcmp(tag->attr->name, "texture"))
-			// rt_load_txt(rt, obj);
 			obj->txt = rt_ctotxt(tag->attr->value, rt);
+			// rt_load_txt(rt, obj);
+		else if (!ft_strcmp(tag->attr->name, "noise"))
+			obj->noi = rt_add_noise(tag->attr->value, rt);
 		else if (!ft_strcmp(tag->attr->name, "material"))
 			obj->material = ft_strdup(tag->attr->value);
-		//else if (!ft_strcmp(tag->attr->name, "noise"))
-		// 	obj->noise = ft_strdup(tag->attr->value);
 		else
 			rt_exit(rt, ft_strjoin(tag->name, "Unknown attribut"), EXIT_FAILURE);
 		tag->attr = tag->attr->next;
 	}
-	  	rt_rot_dir(&obj->rot, obj->dir);
 	rt_check_obj(obj, rt);
 	rt->scene->object = obj;
 	obj->next = tmp;
@@ -94,7 +93,7 @@ void  rt_add_light(t_tag *tag, t_rt *rt)
 			l->angle = rt_ctod(tag->attr->value, rt);
 		tag->attr = tag->attr->next;
 	}
-	// rt_check_lights(l, rt);
+	rt_check_lights(l, rt);
 	rt->scene->light = l;
 	l->next = tmp;
 }
@@ -104,7 +103,7 @@ void  rt_add_option(t_tag *tag, t_rt *rt)
 	while(tag->attr)
 	{
 		if (!ft_strcmp(tag->attr->name, "anti-aliasing"))
-			rt->scene->anti_aliasing = rt_ctod(tag->attr->value, rt);
+			rt->scene->anti_aliasing = rt_ctod(tag->attr->value, rt); //atoi
 //		if (!ft_strcmp(tag->attr->name, "filtre"))
 //			rt->filter = fnct for filters;		
 		tag->attr = tag->attr->next;

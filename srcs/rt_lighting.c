@@ -62,9 +62,9 @@ int		rt_lighting(t_thread *th, t_light *l)
 	d_s[0] = vec(0.0, 0.0, 0.0);
 	while (l != NULL)
 	{
+		shade = 0;
 		l_vec = vec_sub(l->pos, th->rec.p);
-		shade = ft_shading(th, l_vec);
-		if (shade == 0)
+		if ((shade = ft_shading(th, l_vec)) == 0)
 			ft_phong(th, l, l_vec, d_s);
 		l = l->next;
 	}

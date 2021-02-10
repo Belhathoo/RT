@@ -2,13 +2,14 @@
 NAME = rt
 
 SRCS = rt.c\
+		rt_init.c\
 		rt_parse.c\
 		rt_parse_utils.c\
 		rt_parse_check.c\
 		rt_draw.c\
-		rt_events.c\
+		rt_draw_utils.c\
 		rt_hit.c\
-		rt_init.c\
+		rt_events.c\
 		rt_lighting.c\
 		rt_shading.c\
 		rt_utils.c\
@@ -18,14 +19,14 @@ SRCS = rt.c\
 		rt_hit_cone.c\
 		rt_hit_plan.c\
 		rt_hit_torus.c\
+		rt_hit_parabole.c\
+		rt_hit_cube.c\
 		rt_solve_quartic.c\
 		rt_solve_cubic.c\
 		rt_solve_quadric.c\
-		rt_hit_parabole.c\
-		rt_textures.c\
-		load_txt.c\
-		rt_hit_cube.c\
+rt_textures.c\
 		rt_cube_case.c\
+load_txt.c\
 ft_parse0.c ft_parse.c\
 
 SRC = $(add prefix srcs/, $(SRCS))

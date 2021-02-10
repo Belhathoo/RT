@@ -33,8 +33,8 @@ int     rt_hit_plan(t_object *obj, t_ray *ray, t_hit *record)
     {
         record->p = vec_ray(ray, record->t);
 	    record->n = obj->rot;
-        if (cutt_plane(record, obj) == 0)
-            return (0);
+        // if (cutt_plane(record, obj) == 0)
+        //     return (0);
         plane_uv(record, obj);
         return (1);
     }

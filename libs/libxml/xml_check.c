@@ -37,13 +37,13 @@ void    xml_check_tag(char  *t_name, t_xml *x)
 int     xml_check_attr(char *t_name, char *a_name, t_xml *x)
 {
     if (!ft_strcmp(t_name, "Object"))
-    { //printf("\n||%s||\n", t_name);
+    {
         if (!ft_strcmp(a_name, "name") || !ft_strcmp(a_name, "position")\
             || !ft_strcmp(a_name, "direction") ||!ft_strcmp(a_name, "translation")\
             || !ft_strcmp(a_name, "rotation") || !ft_strcmp(a_name, "radius")\
             || !ft_strcmp(a_name, "r") || !ft_strcmp(a_name, "color")\
-            || !ft_strcmp(a_name, "texture")
-            || !ft_strcmp(a_name, "noise") || !ft_strcmp(a_name, "material"))
+            || !ft_strcmp(a_name, "texture") || !ft_strcmp(a_name, "noise")\
+            || !ft_strcmp(a_name, "material"))
             return (1);
     }
     else if (!ft_strcmp(t_name, "Camera"))
@@ -54,7 +54,7 @@ int     xml_check_attr(char *t_name, char *a_name, t_xml *x)
     }
     else if (!ft_strcmp(t_name, "Option"))
     {
-        if (!ft_strcmp(a_name, "anti-aliasing") || !ft_strcmp(a_name, "filtre"))
+        if (!ft_strcmp(a_name, "anti-aliasing") || !ft_strcmp(a_name, "filter"))
             return (1);
     }
     else if (!ft_strcmp(t_name, "Light"))

@@ -16,6 +16,43 @@
  * Structures
  */
 
+typedef	struct	s_coef
+{
+	double		m;
+	double		n;
+	double		o;
+	double		p;
+	double		q;
+}				t_coef;
+
+typedef struct	s_quartic
+{
+	double		a;
+	double		b;
+	double		c;
+	double		d;
+	double		z;
+	double		u;
+	double		v;
+	double		sub;
+	double		sq_a;
+	double		p;
+	double		q;
+	double		r;
+}				t_quartic;
+
+typedef struct	s_cubic
+{
+	double		a;
+	double		b;
+	double		c;
+	double		d;
+	double		sq_a;
+	double		p;
+	double		q;
+	double		cb_p;
+}				t_cubic;
+
 typedef struct	s_ray
 {
 	t_vec		origin;
@@ -63,7 +100,7 @@ typedef struct	s_o
 	float		ks;//coef specular
 	float		ke;//power of specular
 	float		kr;//coef reflexion
-	float		kf;//coef refraction
+	float		kt;//coef refraction
 	float		shininess;
 	int			(*hit)();
 	struct s_o	*compos;
@@ -104,43 +141,6 @@ typedef struct	s_hit
 	double		coef[4];
 	double		delta;//eq 2eme deg
 }				t_hit;
-
-typedef	struct	s_coef
-{
-	double		m;
-	double		n;
-	double		o;
-	double		p;
-	double		q;
-}				t_coef;
-
-typedef struct	s_quartic
-{
-	double		a;
-	double		b;
-	double		c;
-	double		d;
-	double		z;
-	double		u;
-	double		v;
-	double		sub;
-	double		sq_a;
-	double		p;
-	double		q;
-	double		r;
-}				t_quartic;
-
-typedef struct	s_cubic
-{
-	double		a;
-	double		b;
-	double		c;
-	double		d;
-	double		sq_a;
-	double		p;
-	double		q;
-	double		cb_p;
-}				t_cubic;
 
 
 

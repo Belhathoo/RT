@@ -2,19 +2,16 @@
 
 
 <Camera
-	lookfrom="0 0.0 25.0"
-	lookat="0 0 0"
-	fov="60"
-	/>
+  lookfrom="0 05.0 25.0"
+  lookat="0 0 0"
+  fov="60"
+  />
 
-<Object name="sphere" position="0.0 4.0 -15"
- direction="0.0 1.0 0.0" color="0.0 1.0 1.0" radius="20.0"/>
+<Option anti-aliasing="2"/>
+
+<Object name="plan" position="0.0 -0 -0.0" direction="0 01.0 0" 
+color="01 1.0 1.0" material="ko" />
 
 
-<Object name="sphere" position="0.0 01.0 05.0" direction="01 01 0"
- rotation="0 01 0" translation="0 0 0" radius="02.0" color="1 1 0" material="ko"/>
 
-<Light position="10.0 10.1 10.0" intensity="0.8" color="1.0 1.0 1.0">
-<Light position="-10.0 10.1 10.0" intensity="0.8" color="1.0 1.0 1.0">
-<Light position="0.0 10.1 10.0" intensity="0.8" color="1.0 1.0 1.0">
 

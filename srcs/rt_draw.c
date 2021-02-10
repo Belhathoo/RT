@@ -1,41 +1,19 @@
 # include <rt.h>
 
-t_ray		rt_ray(t_vec a, t_vec b)
-{
-	t_ray	r;
-
-	r.origin = a;
-	r.dir = b;
-	return (r);
-}
-
-static t_ray rt_get_ray(t_camera *p, double u, double v)
-{
-	return (rt_ray(p->origin, vec_unit(vec_sub(vec_add(p->lower_left_corner,
-							vec_add(vec_pro_k(p->horizontal, u),
-								vec_pro_k(p->vertical, v))), p->origin))));
-}
-
-
 t_vec rt_raytracer(t_thread *th, t_ray *r, int depth)
 {
 	t_vec		color;
 	t_object	*o;
-	int			c;
-    int			l = 1;
-	
+
 	th->rec.col = vec(0.0, 0.0, 0.0);
 	color = vec(0.0, 0.0, 0.0);
 	if (rt_hit(th->rt->scene, r, &th->rec))
 	{
 		o = th->rec.curr_obj;	
-		if(o->txt)
-		{		// "is_txt = 1 => Damier txt" else "Img txt"
-			if (o->txt->is_txt == 1)
-				th->rec.col =  rt_txt_damier(&th->rec);
-			else
-				th->rec.col = rt_get_color_from_texture(o, &th->rec.u, &th->rec.v);
-		}
+		if (o->txt)
+			th->rec.col = rt_get_color_from_texture(o, &th->rec.u, &th->rec.v);
+		else if (o->noi.is_noise == 1)
+			th->rec.col =  rt_noise(o, th->rec);
 		else
 			th->rec.col = th->rec.curr_obj->col;
 		rt_lighting(th, th->rt->scene->light);
@@ -100,71 +78,6 @@ void		*rt_run(t_thread *t)
 	pthread_exit(NULL);
 }
 
-
-int			equal(t_vec vect1, t_vec vect2)
-{
-	if (vect1.y == vect2.y)
-		return (1);
-	if (vect1.y == -vect2.y)
-		return (2);
-	return (0);
-}
-
-
-// void	set_repere(t_vec dir, t_vec *vec1, t_vec *vec2)
-// {
-// 	t_vec	up;
-
-// 	up = vec(0.0, 1.0, 0.0);
-
-// 	if (equal(up, dir) == 1)
-// 	{
-// 		*vec1 = vec(1.0, 0.0, 0.0);
-// 		*vec2 = vec(0.0, 0.0, 1.0);
-// 	}
-// 	else
-// 	{
-// 		if (equal(up, dir) == 2)
-// 		{
-// 			*vec1 = vec(-1.0, 0.0, 0.0);
-// 			*vec2 = vec(0.0, 0.0, 1.0);
-// 		}
-// 		else
-// 		{
-// 			*vec1 = vec_cross(up, dir);
-// 			*vec2 = vec_cross(*vec1, dir);
-// 		}
-// 	}
-// }
-
-
-void	rt_get_repere(t_scene *scene)
-{
-	t_object *o;
-	o = scene->object;
-	while (o)
-  {
-
-	//set_repere(o->rot, &o->vec1, &o->vec2);
-	if (o->rot.x == 0.0 && o->rot.y == 0.0)
-		o->vec1 = vec(1 / sqrt(2), 1 / sqrt(2), 0);
-	else if (o->rot.x == 0.0 && o->rot.z == 0.0)
-		o->vec1 = vec(1 / sqrt(2), 0, 1 / sqrt(2));
-	else if (o->rot.z == 0.0 && o->rot.y == 0.0)
-		o->vec1 = vec(0, 1 / sqrt(2), 1 / sqrt(2));
-	else if (o->rot.x == 0.0)
-		o->vec1 = vec(1, 0, 0);
-	else if (o->rot.y == 0.0)
-		o->vec1 = vec(0, 1, 0);
-	else if (o->rot.z == 0.0)
-		o->vec1 = vec(0, 0, 1);
-	 else
-		o->vec1 = vec_unit(vec(-(o->rot.y + o->rot.z) / o->rot.x, 1, 1));
-		o->vec2 = (vec_cross(o->rot ,o->vec1));
-		o = o->next;
-  }	
-}
-
 void		rt_start(t_rt *rt) 
 {
 	pthread_t	thread[NBTHREAD];
@@ -172,8 +85,6 @@ void		rt_start(t_rt *rt)
 	int i;
 
 	i = -1;
-   //rt_get_repere(rt->scene);
-   //add_(rt->scene->object);
 	while (++i < NBTHREAD)
 	{
 		div[i].rt = rt;
