@@ -147,7 +147,6 @@ t_texture   *rt_ctotxt(char *str, t_rt *rt)
 
 void	rt_get_repere(t_object *o)
 {
-	//set_repere(o->rot, &o->vec1, &o->vec2);
 	if (o->rot.x == 0.0 && o->rot.y == 0.0)
 		o->vec1 = vec(1 / sqrt(2), 1 / sqrt(2), 0);
 	else if (o->rot.x == 0.0 && o->rot.z == 0.0)

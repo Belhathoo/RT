@@ -4,7 +4,7 @@
 
 double      ffmax(double a, double b)
 {
-    return(a > b ? a : b);
+	return(a > b ? a : b);
 }
 
 t_vec		ft_reflect(t_vec v, t_vec n)
@@ -34,7 +34,7 @@ t_vec		ft_specular(t_thread *th, t_light *l, t_vec lo, double f_att)
 	o = th->rec.curr_obj;
 	refl = vec_unit((ft_reflect(vec_unit(lo), th->rec.n)));
 	s = pow(ffmax(0.0, vec_dot(refl,
-						vec_unit(th->rec.ray->dir))), o->shininess);
+					vec_unit(th->rec.ray->dir))), o->shininess);
 	s *= o->ks * l->intensity;
 	spec = vec_add(th->rec.col, l->col);
 	spec = vec_pro_k(spec, s * f_att);
@@ -57,17 +57,26 @@ int		rt_lighting(t_thread *th, t_light *l)
 	t_vec		d_s[2];
 	int			shade;
 
-	ft_ambient(l, th, &th->rec.col);
-	d_s[1] = vec(0.0, 0.0, 0.0);
+	shade = 0;
 	d_s[0] = vec(0.0, 0.0, 0.0);
+	d_s[1] = vec(0.0, 0.0, 0.0);
+double f_att = 0;
+
+	ft_ambient(l, th, &th->rec.col);
 	while (l != NULL)
 	{
-		shade = 0;
 		l_vec = vec_sub(l->pos, th->rec.p);
 		if ((shade = ft_shading(th, l_vec)) == 0)
-			ft_phong(th, l, l_vec, d_s);
+		{
+
+			f_att = ft_clamping(1 /
+					((vec_length(l_vec) + vec_length(th->rec.ray->dir)) * 0.02));
+			d_s[0] = vec_add(d_s[0], ft_diffuse(th, l, l_vec, f_att));
+			d_s[1] = vec_add(d_s[1], ft_specular(th, l, l_vec, f_att));
+		}
+		// ft_phong(th, l, l_vec, d_s);
 		l = l->next;
 	}
 	th->rec.col = vec_add(th->rec.col, vec_add(d_s[0], d_s[1]));
-    return (0);
+	return (0);
 }

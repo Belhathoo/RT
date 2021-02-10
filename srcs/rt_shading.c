@@ -26,13 +26,22 @@ void			ft_ambient(t_light *l, t_thread *th, t_vec *col)
 {
 	t_object	*o;
 	double		ia;
+	t_vec		c;
      /*
 	 	recheck !!
 	 */
+	c = vec(0.0, 0.0, 0.0);
 	o = th->rec.curr_obj;
-	ia = o->ka * th->rt->scene->ambient;
-	if (!l)
-		*col = vec_pro_k(*col, o->ka);
-	else
-		*col = vec_pro_k(vec_prod(th->rt->scene->light->col, *col), ia);
+	ia = th->rt->scene->ambient;
+
+	// if (l)
+	// {
+	// 	while (l)
+	// 	{
+	// 		c = vec_add(c, l->col);
+	// 		*col = vec_pro_k(vec_prod(c, *col), ia * l->intensity);
+	// 		l = l->next;
+	// 	}
+	// }
+	*col = vec_pro_k(*col, o->ka * ia);
 }

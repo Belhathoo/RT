@@ -87,7 +87,8 @@ void    rt_check_obj(t_object *o, t_rt *rt)
 	/*
 		radius for cone ((angle ]0 -180]))!!!!!!!!!
 	*/
-	if (o->dir.x == 0 && o->dir.y == 0 && o->dir.z == 0)
+	if (ft_strcmp(o->name, "sphere") &&\
+		(o->dir.x == 0 && o->dir.y == 0 && o->dir.z == 0))
 		rt_exit(rt, "obj: direction vector is non-zero!", EXIT_FAILURE);
 	if (o->size <= 0.0 && ft_strcmp(o->name, "plan") != 0)
 		rt_exit(rt, "obj: radius should be positive", EXIT_FAILURE);
@@ -102,7 +103,7 @@ void    rt_check_obj(t_object *o, t_rt *rt)
 void	rt_check_lights(t_light *l, t_rt *rt)
 {
 		/*
-		init dir/radius/angle for other light types !!!!
+		minit dir/radius/angle for other light types !!!!
 		*/
 	// if (l->dir.x == 0 && l->dir.y == 0 && l->dir.z == 0)
 	// 	rt_exit(rt, "light: direction vector is non-zero!", EXIT_FAILURE);

@@ -112,6 +112,9 @@ typedef	struct	s_l
 	t_vec		pos;
 	t_vec		dir;
 	t_vec		col;
+	t_vec		diff;
+	t_vec		spec;
+
 	double		intensity;
 	double		flashlight;
 	double		radius; // for soft shaddows !! not for sure
