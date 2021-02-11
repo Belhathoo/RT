@@ -80,10 +80,23 @@ typedef struct	s_noise
 	//t_perlin	p;
 }				t_noise;
 
+typedef struct s_m
+{
+	float		ka;//coef ambient
+	float		kd;//coef diffuse
+	float		ks;//coef specular
+	float		ke;//power of specular
+	float		kr;//coef reflexion
+	float		kt;//coef refraction
+	float		shininess;
+}				t_material;
+
 typedef struct	s_o
 {
 	char		*name;
 	char		*material;
+	float		size;//radius or angle
+	double		r;
 	t_vec		pos;//position
 	t_vec		dir;
 	t_vec		rot;//rotation
@@ -93,8 +106,11 @@ typedef struct	s_o
 	t_vec		vec1;
 	t_vec		vec2;
 	t_vec 		p; //
-	float		size;//radius or angle
-	double		r;
+	int			(*hit)();
+	int			is_sliced;
+	t_vec		sl_vec;
+	t_vec		sl_pnt;
+
 	float		ka;//coef ambient
 	float		kd;//coef diffuse
 	float		ks;//coef specular
@@ -102,7 +118,8 @@ typedef struct	s_o
 	float		kr;//coef reflexion
 	float		kt;//coef refraction
 	float		shininess;
-	int			(*hit)();
+	struct s_m	mat;
+	
 	struct s_o	*compos;
 	struct s_o	*next;
 }				t_object;

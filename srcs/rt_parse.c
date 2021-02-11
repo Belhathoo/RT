@@ -54,11 +54,14 @@ void  rt_add_object(t_tag *tag, t_rt *rt)
 			obj->r = rt_ctod(tag->attr->value, rt);    
 		else if (!ft_strcmp(tag->attr->name, "texture"))
 			obj->txt = rt_ctotxt(tag->attr->value, rt);
-			// rt_load_txt(rt, obj);
 		else if (!ft_strcmp(tag->attr->name, "noise"))
 			obj->noi = rt_add_noise(tag->attr->value, rt);
 		else if (!ft_strcmp(tag->attr->name, "material"))
 			obj->material = ft_strdup(tag->attr->value);
+		else if (!ft_strcmp(tag->attr->name, "slice_vec") && (obj->is_sliced = 1))
+			obj->sl_vec = rt_ctovec(tag->attr->value, rt);
+		else if (!ft_strcmp(tag->attr->name, "slice_pnt") && (obj->is_sliced = 1))
+			obj->sl_pnt = rt_ctovec(tag->attr->value, rt);
 		else
 			rt_exit(rt, ft_strjoin(tag->name, "Unknown attribut"), EXIT_FAILURE);
 		tag->attr = tag->attr->next;

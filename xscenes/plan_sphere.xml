@@ -2,16 +2,15 @@
 
 
 <Camera
-  lookfrom="0 05.0 25.0"
+  lookfrom="0 0.0 25.0"
   lookat="0 0 0"
   fov="60"
   />
 
 <Option anti-aliasing="2"/>
 
-<Object name="plan" position="0.0 -0 -0.0" direction="0 01.0 0" 
-color="01 1.0 1.0" material="ko" />
 
-
+<Object name="cone" radius="30"  direction="1 1 0" noise="damier"/>
+<Light position="0 40 5.0"/>
 
 

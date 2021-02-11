@@ -5,7 +5,7 @@ t_camera	rt_init_camera(t_vec lookfrom, t_vec lookat, double vfov)
 	t_camera	c;
 	t_vec	vup;
 
-	vup = vec_unit(vec(0.001, 1.001, 0.001));
+	vup = vec_unit(vec(0.00001, 1.00011, 0.00001));
 	c.half_h = tan((vfov * M_PI / 180.0) / 2.0);
 	c.half_w = (IMG_WIDTH / IMG_HEIGHT) * c.half_h;
 	c.origin = lookfrom;
@@ -63,13 +63,16 @@ t_object		*rt_init_object(void)
 
 	obj->name = NULL;
 	obj->material = NULL; // make default material!!
-	obj->txt = NULL;
-	obj->noi.is_noise = 0;
 	obj->pos = vec(0.0, 0.0, 0.0);
 	obj->size = 2.0;
 	obj->dir = vec(0.0, 1.0, 0.0);
 	obj->rot = vec(0.0, 0.0, 0.0);
 	obj->col = vec(1.0, 0.7, 0.3);
+	obj->txt = NULL;
+	obj->noi.is_noise = 0;
+	obj->is_sliced = 0;
+	obj->sl_pnt = vec(0.0, 0.0, 0.0);
+	obj->sl_vec = vec(0.0, -1.0, 0.0);
 	obj->next = NULL;
 	return (obj);
 }

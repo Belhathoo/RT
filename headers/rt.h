@@ -44,7 +44,7 @@ int				rt_draw(t_rt *rt);
 
 /*
  * Lighting
- */
+*/
 
 void			ft_ambient(t_light *l, t_thread *th, t_vec *col);
 int				ft_shading(t_thread *th, t_vec lo);
@@ -53,7 +53,7 @@ t_vec			ft_reflect(t_vec v, t_vec n);
 
 /*
  * Hit
- */
+*/
 
 int				rt_hit_sphere(t_object *obj, t_ray *ray, t_hit *record);
 int				rt_hit_cylinder(t_object *obj, t_ray *ray, t_hit *record);
@@ -64,9 +64,11 @@ int				rt_hit_torus(t_object *obj, t_ray *ray, t_hit *record);
 int             rt_hit_parabol(t_object *obj, t_ray *ray, t_hit *record);
 int     		rt_hit_cube(t_object *oo, t_ray *r, t_hit *record);
 
+int				rt_slicing(t_object *o, t_ray *r, t_hit *rec);
+
 /*
  * Utils
- */
+*/
 
 t_vec			vec_ray(t_ray *r, double t);
 t_vec			rt_int_to_rgb(int x);
@@ -96,6 +98,8 @@ t_object		*x_un(t_object *compos, t_object *obj);
 t_object		*x_deux(t_object *compos, t_object *obj);
 t_object		*x_trois(t_object *compos, t_object *obj);
 t_object		*x_quatre(t_object *compos, t_object *obj);
+
+void		ft_float_swap(double *a, double *b);
 
 void			rt_get_repere(t_object *ob);
 

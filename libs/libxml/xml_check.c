@@ -43,6 +43,7 @@ int     xml_check_attr(char *t_name, char *a_name, t_xml *x)
             || !ft_strcmp(a_name, "rotation") || !ft_strcmp(a_name, "radius")\
             || !ft_strcmp(a_name, "r") || !ft_strcmp(a_name, "color")\
             || !ft_strcmp(a_name, "texture") || !ft_strcmp(a_name, "noise")\
+            || !ft_strcmp(a_name, "slice_vec") || !ft_strcmp(a_name, "slice_pnt")\
             || !ft_strcmp(a_name, "material"))
             return (1);
     }

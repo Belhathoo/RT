@@ -1,5 +1,13 @@
 # include <rt.h>
 
+void		ft_float_swap(double *a, double *b)
+{
+	double	tmp;
+	tmp = *a;
+	*a = *b;
+	*b = tmp;
+}
+
 void			rt_adjustment(t_vec *c)
 {
 	c->x = ft_clamping(c->x);
