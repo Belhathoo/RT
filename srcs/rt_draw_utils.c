@@ -22,6 +22,8 @@ t_vec	rt_noise(t_object *o, t_hit rec)
 {
 	t_vec	ret;
 
+	ret = vec (0.0, 0.0, 1.0);
 	if (o->noi.type == 1)
 		return (rt_txt_damier(&rec));
+	return (ret);
 }

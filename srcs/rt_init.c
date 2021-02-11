@@ -84,7 +84,7 @@ t_scene		*rt_init_scene(void)
 	if (!(scene = (struct s_scene*)malloc(sizeof(struct s_scene))))
 		rt_perror();
 	scene->anti_aliasing = 3;
-	scene->ambient = 0.8;
+	scene->ambient = 1.0;
 	scene->cam.lookfrom = vec(10.0, 10.0 ,20.0);
 	scene->cam.lookat = vec(0.0, 0.0, 0.0);
 	scene->cam.fov = 60;

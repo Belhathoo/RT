@@ -121,6 +121,7 @@ t_noise		rt_add_noise(char *val, t_rt *rt)
 		n.type = 1;
 
 	n.is_noise = 1;
+	return (n);
 }
 
 t_texture   *rt_ctotxt(char *str, t_rt *rt)
