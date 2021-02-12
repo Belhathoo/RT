@@ -19,13 +19,13 @@ t_vec rt_raytracer(t_thread *th, t_ray *r, int depth)
 		rt_lighting(th, th->rt->scene->light);
 		color = th->rec.col;
 
-		// t_ray rf;
-		// if (depth > 1 && !ft_strcmp(th->rec.curr_obj->name, "PLANE"))
-		// {
-		// 	rf.dir = ft_reflect(r->dir, th->rec.n);
-		// 	rf.origin = vec_add(th->rec.p, vec_pro_k(rf.dir, 0.001));
-		// 	color = vec_add(color, vec_pro_k(rt_raytracer(th, &rf, depth -1), 0.7));
-		// }
+		t_ray rf;
+		if (depth > 1 && o->kr > 0)
+		{
+			rf.dir = ft_reflect(r->dir, th->rec.n);
+			rf.origin = vec_add(th->rec.p, vec_pro_k(rf.dir, 0.001));
+			color = vec_add(color, vec_pro_k(rt_raytracer(th, &rf, depth -1), o->kr));
+		}
 	}
 	// color = th->rec.col;
 	rt_adjustment(&color);

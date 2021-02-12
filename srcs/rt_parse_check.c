@@ -48,7 +48,7 @@ void			rt_set_coef(t_object *o, t_rt *rt)
 	   specific coef for textures (NO SPECULAR)
 	   */
 	if (!o->material)
-		o->material = ft_strdup("chrome");
+		o->material = ft_strdup("ko");
 	if (!ft_strcmp(o->material, "chrome"))
 	{
 		o->ka = 0.25;
@@ -64,6 +64,15 @@ void			rt_set_coef(t_object *o, t_rt *rt)
 		o->ks = 0.774;
 		o->shininess = 76.8;
 		o->kt = 2.42;
+	}
+	else if (!ft_strcmp(o->material, "gold"))
+	{
+		o->ka = 0.247;
+		o->kd = 0.5;
+		o->ks = 0.5;
+		o->shininess = 51.2;
+		o->kr = 0.8;
+		o->kt = 0.0;
 	}
 	else
 	{
