@@ -5,7 +5,7 @@ t_camera	rt_init_camera(t_vec lookfrom, t_vec lookat, double vfov)
 	t_camera	c;
 	t_vec	vup;
 
-	vup = vec_unit(vec(0.00001, 1.00011, 0.00001));
+	vup = vec_unit(vec(0.00001, 1.0001, 0.00001));
 	c.half_h = tan((vfov * M_PI / 180.0) / 2.0);
 	c.half_w = (IMG_WIDTH / IMG_HEIGHT) * c.half_h;
 	c.origin = lookfrom;
@@ -85,9 +85,6 @@ t_scene		*rt_init_scene(void)
 		rt_perror();
 	scene->anti_aliasing = 3;
 	scene->ambient = 1.0;
-	scene->cam.lookfrom = vec(10.0, 10.0 ,20.0);
-	scene->cam.lookat = vec(0.0, 0.0, 0.0);
-	scene->cam.fov = 60;
 	scene->object = NULL;
 	scene->light = NULL;
 	return (scene);

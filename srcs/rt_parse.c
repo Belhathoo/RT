@@ -6,6 +6,9 @@ void  rt_add_camera(t_tag *tag, t_rt *rt)
 {
 	t_camera  cam;
 
+	cam.lookfrom = vec(10.0, 10.0 ,20.0);
+	cam.lookat = vec(0.0, 0.0, 0.0);
+	cam.fov = 60;
 	while (tag->attr)
 	{
 		if (!ft_strcmp(tag->attr->name, "lookat"))
