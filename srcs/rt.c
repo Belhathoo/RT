@@ -29,14 +29,13 @@ int main(int argc, char **argv)
 	rt.scene = rt_init_scene();
 	rt.mlx = mlx_init();
 	if (argc == 2)
-		// ft_parser(argv[1], &rt);
 		rt_parser(&rt, argv);
 	else
 		rt_exit(&rt, ft_strdup("usage: ./rt scene_file"), EXIT_FAILURE);
 	rt.win = mlx_new_window(rt.mlx, WIN_WIDTH, WIN_HEIGHT, "RT");
 	rt.img = mlx_new_image(rt.mlx, IMG_WIDTH, IMG_HEIGHT);
 	rt.data = (int*)mlx_get_data_addr(rt.img, &rt.bpp, &rt.size, &rt.endian);
-	//background(&rt);
+	background(&rt);
 	rt_draw(&rt);
 	mlx_hook(rt.win, 17, (1L << 17), rt_close, &rt);
 	mlx_hook(rt.win, 2, (1L << 0), rt_keys, &rt);

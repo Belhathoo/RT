@@ -1,16 +1,18 @@
 <!DOCTYPE xml>
 
+<Option anti-aliasing="2"/>
 
 <Camera
-  lookfrom="0 0.0 25.0"
+  lookfrom="0 5.0 15.0"
   lookat="0 0 0"
   fov="60"
   />
 
 <Option anti-aliasing="2"/>
 
+<Object name="plan" position="0.0 -03 -0.0" direction="0 01.0 0" 
+color="0.9 0.84 0" material="gold" />
+<Object name="sphere" color="0 0 0"  noise="damier"/>
 
-<Object name="cone" radius="30"  direction="1 1 0" noise="damier"/>
-<Light position="0 40 5.0"/>
-
-
+<Light position="0.0 5.0 16.0" intensity="1" />
+<Light />

@@ -54,8 +54,9 @@ void			rt_set_coef(t_object *o, t_rt *rt)
 		o->ka = 0.25;
 		o->kd = 0.9;
 		o->ks = 0.29;
+		o->kr = 0.0;
+		o->kt = 0.0;
 		o->shininess = 0.088;
-		return;
 	}
 	else if (!ft_strcmp(o->material, "diamond"))
 	{
@@ -64,6 +65,7 @@ void			rt_set_coef(t_object *o, t_rt *rt)
 		o->ks = 0.774;
 		o->shininess = 76.8;
 		o->kt = 2.42;
+		o->kr = 0.0;
 	}
 	else if (!ft_strcmp(o->material, "gold"))
 	{
@@ -74,14 +76,30 @@ void			rt_set_coef(t_object *o, t_rt *rt)
 		o->kr = 0.8;
 		o->kt = 0.0;
 	}
+	else if (!ft_strcmp(o->material, "al"))
+	{
+		o->ka = 0.9;
+		o->kd = 0.9;
+		o->ks = 0.5;
+		o->shininess = 51.2;
+		o->kr = 0.99;
+		o->kt = 0.0;
+	}
 	else
 	{
 		o->ka = 0.5;
 		o->kd = 0.6;
 		o->ks = 0.6;
+		o->kr = 0.0;
+		o->kt = 0.0;
 		o->shininess = 90;
 	}
-
+	if(o->txt)
+		{
+			o->ka = 1.0;
+			o->shininess = 0;
+			o->ks = 0;
+		}
 }
 
 void	rt_rot_dir(t_vec *r, t_vec d)
@@ -98,7 +116,10 @@ void    rt_check_obj(t_object *o, t_rt *rt)
 	*/
 	if (ft_strcmp(o->name, "sphere") &&\
 		(o->dir.x == 0 && o->dir.y == 0 && o->dir.z == 0))
+	{	
+		o->dir = vec(1.0, 1.0, 0.0);
 		rt_exit(rt, "obj: direction vector is non-zero!", EXIT_FAILURE);
+	}
 	if (o->size <= 0.0 && ft_strcmp(o->name, "plan") != 0)
 		rt_exit(rt, "obj: radius should be positive", EXIT_FAILURE);
 	if (o->txt && o->noi.is_noise == 1)
