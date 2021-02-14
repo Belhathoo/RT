@@ -51,7 +51,7 @@ t_vec rt_anti_aliasing(t_thread *t, int col, int row)
 			r = rt_get_ray(&t->rt->scene->cam, 
 					(double)((col + ((ss[0] + 0.5)/ anti_a)) / IMG_WIDTH),
 					(double)((row + ((ss[1] + 0.5) / anti_a)) / IMG_HEIGHT));
-			color = vec_add(color, rt_raytracer(t, &r, 50));
+			color = vec_add(color, rt_raytracer(t, &r, 20));
 		}
 	}
 	return (vec_div_k(color, anti_a * anti_a));

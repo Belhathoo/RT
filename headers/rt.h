@@ -46,10 +46,10 @@ int				rt_draw(t_rt *rt);
  * Lighting
 */
 
-void			ft_ambient(t_light *l, t_thread *th, t_vec *col);
-int				ft_shading(t_thread *th, t_vec lo);
+void			rt_ambient(t_light *l, t_thread *th, t_vec *col);
+int				rt_shading(t_thread *th, t_vec lo);
 int				rt_lighting(t_thread *th, t_light *t);
-t_vec			ft_reflect(t_vec v, t_vec n);
+t_vec			rt_reflect(t_vec v, t_vec n);
 
 /*
  * Hit
