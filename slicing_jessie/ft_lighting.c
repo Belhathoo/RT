@@ -22,7 +22,7 @@ t_vec		ft_diffuse(t_thread *th, t_light *l, t_vec lo, double f_att)
 	double	d;
 	t_vec	diff;
 
-	d = th->rec.curr_obj->kd * l->intensity;
+	d = th->rec.curr_obj->mat.kd * l->intensity;
 	d *= ffmax(0.0, ft_dot(ft_unit_vec(lo), th->rec.normal));
 	diff = ft_produit(th->rec.curr_obj->color, l->color);
 	diff = ft_pro_k(diff, d * f_att);
@@ -40,7 +40,7 @@ t_vec		ft_specular(t_thread *th, t_light *l, t_vec lo, double f_att)
 	refl = ft_unit_vec((ft_reflect(ft_unit_vec(lo), th->rec.normal)));
 	s = pow(ffmax(0.0, ft_dot(refl,
 						ft_unit_vec(th->rec.ray->dir))), o->shininess);
-	s *= o->ks * l->intensity;
+	s *= o->mat.ks * l->intensity;
 	spec = ft_plus(o->color, l->color);
 	spec = ft_pro_k(spec, s * f_att);
 	return (spec);

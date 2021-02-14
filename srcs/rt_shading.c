@@ -43,5 +43,5 @@ void			ft_ambient(t_light *l, t_thread *th, t_vec *col)
 	// 		l = l->next;
 	// 	}
 	// }
-	*col = vec_pro_k(*col, o->ka * ia);
+	*col = vec_pro_k(*col, o->mat.ka * ia);
 }

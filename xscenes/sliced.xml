@@ -1,15 +1,20 @@
 <!DOCTYPE xml>
 
 
-<Camera />
+<Camera   lookfrom="0 0.0 25.0"
+  lookat="0 0 0"
+  fov="60"
+  />
 
 <Object name="cone" position="-5.0 0.0 0.0" direction="0 1.0  0" 
 translation="0 0 0" color="0.5 0.5 0.9" material="ko" 
-slice_vec="0 1 0" radius="0.5" slice_pnt="-5 0.0 0" material="g"/>
+slice_vec="0 1 0" slice_pnt="0 -5.0 0" radius="0.5" material="g"/>
 
-<Object name="plan" noise="damier" position="0 -8.0 0" direction="0 1.0 0">
 
-<Object name="sphere" direction="0 0 1" position="0 0 0" material="gold"
-radius="3" slice_vec="0 -1 0" />
+<Object name="sphere" direction="0 0 1" position="0 0 -2.0" material="gold"
+radius="3" />
+
+<Object name="cylinder" position="9 0 0" slice_pnt="-5 0 -5" slice_vec="0 -1 0"
+color="1 0 1" />
  
 <Light position="10 20.0 30" intensity="1.0" />

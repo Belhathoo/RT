@@ -39,9 +39,9 @@ void			ft_ambient(t_light *l, t_thread *th, t_vec *col)
 	double		ia;
 
 	o = th->rec.curr_obj;
-	ia = o->ka * th->p->scene->amb;
+	ia = o->mat.ka * th->p->scene->amb;
 	if (!l)
-		*col = ft_pro_k(o->color, o->ka);
+		*col = ft_pro_k(o->color, o->mat.ka);
 	else
 		*col = ft_pro_k(ft_produit(th->p->scene->light->color, o->color), ia);
 }

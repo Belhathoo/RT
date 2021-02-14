@@ -59,7 +59,7 @@ int			rt_hit_sphere(t_object *sphere, t_ray *r, t_hit *rec)
 			rec->n = vec_div_k(vec_sub(rec->p, sphere->pos), sphere->size);
 			sphere_uv(sphere, rec);
 			if (sphere->is_sliced == 1 && rt_slicing(sphere, r, rec) == 0)
-				return 0;
+				return (0);
 			return (1);
 		}
 	}

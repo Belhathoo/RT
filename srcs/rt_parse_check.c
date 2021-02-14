@@ -51,54 +51,55 @@ void			rt_set_coef(t_object *o, t_rt *rt)
 		o->material = ft_strdup("ko");
 	if (!ft_strcmp(o->material, "chrome"))
 	{
-		o->ka = 0.25;
-		o->kd = 0.9;
-		o->ks = 0.29;
-		o->kr = 0.0;
-		o->kt = 0.0;
-		o->shininess = 0.088;
+		o->mat.ka = 0.25;
+		o->mat.kd = 0.9;
+		o->mat.ks = 0.29;
+		o->mat.kr = 0.0;
+		o->mat.kt = 0.0;
+		o->mat.shininess = 0.088;
 	}
 	else if (!ft_strcmp(o->material, "diamond"))
 	{
-		o->ka = 0.25;
-		o->kd = 0.4;
-		o->ks = 0.774;
-		o->shininess = 76.8;
-		o->kt = 2.42;
-		o->kr = 0.0;
+		o->mat.ka = 0.25;
+		o->mat.kd = 0.4;
+		o->mat.ks = 0.774;
+		o->mat.shininess = 76.8;
+		o->mat.kt = 2.42;
+		o->mat.kr = 0.0;
 	}
 	else if (!ft_strcmp(o->material, "gold"))
 	{
-		o->ka = 0.247;
-		o->kd = 0.5;
-		o->ks = 0.5;
-		o->shininess = 51.2;
-		o->kr = 0.8;
-		o->kt = 0.0;
+		o->mat.ka = 0.247;
+		o->mat.kd = 0.5;
+		o->mat.ks = 0.5;
+		o->mat.shininess = 51.2;
+		o->mat.kr = 0.8;
+		o->mat.kt = 0.0;
 	}
 	else if (!ft_strcmp(o->material, "al"))
 	{
-		o->ka = 0.9;
-		o->kd = 0.9;
-		o->ks = 0.5;
-		o->shininess = 51.2;
-		o->kr = 0.99;
-		o->kt = 0.0;
+		// o->mat = (t_material){}
+		o->mat.ka = 0.9;
+		o->mat.kd = 0.9;
+		o->mat.ks = 0.5;
+		o->mat.shininess = 51.2;
+		o->mat.kr = 0.99;
+		o->mat.kt = 0.0;
 	}
 	else
 	{
-		o->ka = 0.5;
-		o->kd = 0.6;
-		o->ks = 0.6;
-		o->kr = 0.0;
-		o->kt = 0.0;
-		o->shininess = 90;
+		o->mat.ka = 0.5;
+		o->mat.kd = 0.6;
+		o->mat.ks = 0.6;
+		o->mat.kr = 0.0;
+		o->mat.kt = 0.0;
+		o->mat.shininess = 90;
 	}
 	if(o->txt)
 		{
-			o->ka = 1.0;
-			o->shininess = 0;
-			o->ks = 0;
+			o->mat.ka = 1.0;
+			o->mat.shininess = 0;
+			o->mat.ks = 0;
 		}
 }
 

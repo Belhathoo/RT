@@ -82,10 +82,12 @@ typedef struct	s_noise
 
 typedef struct s_m
 {
-	float		ka;//coef ambient
-	float		kd;//coef diffuse
-	float		ks;//coef specular
-	float		ke;//power of specular
+	// t_vec		ka;
+	// t_vec		kd;//coef diffuse
+	// t_vec		ks;//coef specular
+	float	ka;
+	float	kd;
+	float	ks;
 	float		kr;//coef reflexion
 	float		kt;//coef refraction
 	float		shininess;
@@ -111,13 +113,6 @@ typedef struct	s_o
 	t_vec		sl_vec;
 	t_vec		sl_pnt;
 
-	float		ka;//coef ambient
-	float		kd;//coef diffuse
-	float		ks;//coef specular
-	float		ke;//power of specular
-	float		kr;//coef reflexion
-	float		kt;//coef refraction
-	float		shininess;
 	struct s_m	mat;
 	
 	struct s_o	*compos;
