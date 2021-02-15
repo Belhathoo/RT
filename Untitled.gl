@@ -253,6 +253,7 @@ vec3 LightPixel (vec3 rayPos, vec3 rayDir, vec3 diffuse, vec3 normal, float spec
     
     // see if we are in shadow by casting in the light direction and seeing if we hit the object.
     // if we do hit the object, return just the ambient lighting shaded color we have already calculated.
+    
     if (doShadow && normal.y >= 0.9 && RayIntersectObject(rayPos, -LIGHT_DIRECTIONAL_DIR).x >= 0.0)
         return pixelColor;
     

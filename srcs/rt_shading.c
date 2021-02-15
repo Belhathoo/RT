@@ -2,7 +2,7 @@
 
 #include <rt.h>
 
-int				ft_shading(t_thread *th, t_vec lo)
+int				rt_shading(t_thread *th, t_vec lo)
 {
 	t_ray		sh_r;
 	t_hit	    rec;
@@ -22,7 +22,7 @@ int				ft_shading(t_thread *th, t_vec lo)
 	return (0);
 }
 
-void			ft_ambient(t_light *l, t_thread *th, t_vec *col)
+void			rt_ambient(t_light *l, t_thread *th, t_vec *col)
 {
 	t_object	*o;
 	double		ia;

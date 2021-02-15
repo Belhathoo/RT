@@ -1,0 +1,16 @@
+<!DOCTYPE xml>
+
+
+<Camera
+  lookfrom="0 .0 5.0"
+  lookat="0 0 0"
+  fov="60"
+  />
+
+<Option anti-aliasing="2"/>
+
+
+<Object name="plan" position="0 -4 -10.0"
+direction="0 0 1" />
+
+<Light position="0.0 5.0 15.01" color="1.0 1.0 1.0"/>

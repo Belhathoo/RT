@@ -8,9 +8,9 @@
   />
 
 <Object name="cylinder" position="0.0 0.0 0.0" direction="0 1.0  0" 
-translation="0 0 0" radius="02.0" color="0.5 0.5 0.9" material="ko"  slice_vec="0 -1 0"/>
+translation="0 0 0" radius="02.0" color="0.5 0.5 0.9" material="ko" />
 
-<Object name="sphere" direction="0 0 1" position="-5 3 0" material="gold" />
+<Object name="sphere" direction="0 0 1" position="-5 3 0" />
  
 <Light position="10 20.0 30" intensity="1.0" />
 <Light position="05 10 20" intensity="1.0" />

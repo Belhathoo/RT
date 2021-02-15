@@ -20,11 +20,17 @@ t_vec rt_raytracer(t_thread *th, t_ray *r, int depth)
 		color = th->rec.col;
 
 		t_ray rf;
-		if (depth > 1 && o->mat.kr > 0)
+		t_ray rt;
+		float f, t;	// reflection & refraction 
+
+		if (depth > 1  && (o->mat.kr > 0 || o->mat.kt > 0))
 		{
-			rf.dir = ft_reflect(r->dir, th->rec.n);
+			rf.dir = rt_reflect(r->dir, th->rec.n);
 			rf.origin = vec_add(th->rec.p, vec_pro_k(rf.dir, 0.001));
-			color = vec_add(color, vec_pro_k(rt_raytracer(th, &rf, depth -1), o->mat.kr));
+
+			// color = vec_add(color, vec_pro_k(rt_raytracer(th, &rf, depth -1), o->mat.kr));
+			color = vec_add(color, vec_pro_k(rt_raytracer(th, &rf, depth -1),\
+				fresnel_ref(o, 1.125, th->rec.n, rf.dir)));
 		}
 	}
 	// color = th->rec.col;
