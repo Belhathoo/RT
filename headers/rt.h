@@ -59,11 +59,13 @@ int				rt_hit_sphere(t_object *obj, t_ray *ray, t_hit *record);
 int				rt_hit_cylinder(t_object *obj, t_ray *ray, t_hit *record);
 int				rt_hit_cone(t_object *obj, t_ray *ray, t_hit *record);
 int				rt_hit_plan(t_object *obj, t_ray *ray, t_hit *record);
+int     rt_hit_plan_cube(t_object *o, t_ray *r, t_hit *rec);
+
 int				rt_hit(t_scene *scene, t_ray *r, t_hit *record);
 int				rt_hit_torus(t_object *obj, t_ray *ray, t_hit *record);
 int             rt_hit_parabol(t_object *obj, t_ray *ray, t_hit *record);
 int     		rt_hit_cube(t_object *oo, t_ray *r, t_hit *record);
-
+int				rt_hit_care(t_object *o, t_ray *ray, t_hit *rec);
 int				rt_slicing(t_object *o, t_ray *r, t_hit *rec);
 
 /*

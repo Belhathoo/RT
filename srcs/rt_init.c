@@ -67,6 +67,8 @@ t_object		*rt_init_object(void)
 	obj->size = 2.0;
 	obj->r = 1.0;
 	obj->dist = 4.0;
+	obj->l = 4.0;
+	obj->L = 4.0;
 	obj->height = 5.0;
 	obj->angle = 40.0;
 	obj->dir = vec(0.0, 1.0, 0.0);
@@ -78,6 +80,7 @@ t_object		*rt_init_object(void)
 	obj->sl_pnt = vec(0.0, 0.0, 0.0);
 	obj->sl_vec = vec(0.0, -1.0, 0.0);
 	obj->next = NULL;
+	obj->compos = NULL;
 	return (obj);
 }
 

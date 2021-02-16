@@ -28,9 +28,9 @@ t_vec rt_raytracer(t_thread *th, t_ray *r, int depth)
 			rf.dir = rt_reflect(r->dir, th->rec.n);
 			rf.origin = vec_add(th->rec.p, vec_pro_k(rf.dir, 0.001));
 
-			// color = vec_add(color, vec_pro_k(rt_raytracer(th, &rf, depth -1), o->mat.kr));
-			color = vec_add(color, vec_pro_k(rt_raytracer(th, &rf, depth -1),\
-				fresnel_ref(o, 1.125, th->rec.n, rf.dir)));
+			color = vec_add(color, vec_pro_k(rt_raytracer(th, &rf, depth -1), o->mat.kr));
+			// color = vec_add(color, vec_pro_k(rt_raytracer(th, &rf, depth -1),\
+			// 	fresnel_ref(o, 1.125, th->rec.n, rf.dir)));
 		}
 	}
 	// color = th->rec.col;
@@ -57,7 +57,7 @@ t_vec rt_anti_aliasing(t_thread *t, int col, int row)
 			r = rt_get_ray(&t->rt->scene->cam, 
 					(double)((col + ((ss[0] + 0.5)/ anti_a)) / IMG_WIDTH),
 					(double)((row + ((ss[1] + 0.5) / anti_a)) / IMG_HEIGHT));
-			color = vec_add(color, rt_raytracer(t, &r, 20));
+			color = vec_add(color, rt_raytracer(t, &r, 4));
 		}
 	}
 	return (vec_div_k(color, anti_a * anti_a));

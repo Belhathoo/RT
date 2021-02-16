@@ -33,6 +33,8 @@ void     rt_check_obj_name(t_object *obj, t_rt *rt)
 		obj->hit = rt_hit_torus;
 	else if (!ft_strcmp(str, "PARABOL"))
 		obj->hit = rt_hit_parabol;
+	else if (!ft_strcmp(str, "RECTANGLE"))
+		obj->hit = rt_hit_care;
 	else
 	{
 		ft_strdel(&str);
@@ -130,6 +132,8 @@ void    rt_check_obj(t_object *o, t_rt *rt)
 	}
 	if (o->size <= 0.0 && ft_strcmp(o->name, "plan") != 0)
 		rt_exit(rt, "obj: radius should be positive", EXIT_FAILURE);
+	if (!ft_strcmp(o->name, "cone")) // check size
+		o->size *= M_PI / 180 / 2;
 	if (o->txt && o->noi.is_noise == 1)
 		rt_exit(rt, "obj: either texture either noise", EXIT_FAILURE);
 	rt_rot_dir(&o->rot, o->dir);

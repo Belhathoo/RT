@@ -21,7 +21,8 @@ int			rt_slicing(t_object *o, t_ray *r, t_hit *rec)
   t_object  plan;
 	double  t;
   t_vec p;
-  ax = vec_unit(o->sl_vec);
+
+  ax = vec_unit((o->sl_vec));
   my = vec_unit(vec_sub(rec->p, vec_add(o->pos, o->sl_pnt)));
 	if (vec_dot(my, ax) <= 0)
 	{
