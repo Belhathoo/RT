@@ -1,14 +1,6 @@
 /* ************************************************************************** */
 #include <rt.h>
 
-void  add_(t_object *o)
-{ 
-
-	if (ft_strcmp(o->name, "Cube") == 0)
-		get_cube_compos( o);
-
-}
-
 void background(t_rt *rt)
 {
 	int i;

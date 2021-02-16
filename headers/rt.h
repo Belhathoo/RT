@@ -92,7 +92,6 @@ void			add_compos(t_object *o, t_vec r, int x, t_object *head);
 void			add_aux_o(t_object *o, t_vec r, int x, t_object *head);
 void    		get_cube_compos(t_object *obj);
 void			rt_check(t_object *compos, t_object *obj, int x);
-void  			add_(t_object *o);
 t_object		*x_zero(t_object *compos, t_object *obj);
 t_object		*x_un(t_object *compos, t_object *obj);
 t_object		*x_deux(t_object *compos, t_object *obj);

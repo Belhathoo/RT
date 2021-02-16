@@ -109,6 +109,13 @@ void	rt_rot_dir(t_vec *r, t_vec d)
 	*r = d;
 }
 
+void	rt_comp_obj(t_object *o)
+{
+	if (ft_strcmp(o->name, "cube") == 0)
+		get_cube_compos(o);
+
+}
+
 void    rt_check_obj(t_object *o, t_rt *rt)
 {
 
@@ -127,6 +134,7 @@ void    rt_check_obj(t_object *o, t_rt *rt)
 		rt_exit(rt, "obj: either texture either noise", EXIT_FAILURE);
 	rt_rot_dir(&o->rot, o->dir);
 	rt_get_repere(o);
+	rt_comp_obj(o);
 	rt_adjustment(&o->col);
 	rt_set_coef(o, rt);
 }

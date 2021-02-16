@@ -98,7 +98,10 @@ typedef struct	s_o
 	char		*name;
 	char		*material;
 	float		size;//radius or angle
-	double		r;
+	float		r;
+	float		dist;
+	float		height;
+	float		angle;
 	t_vec		pos;//position
 	t_vec		dir;
 	t_vec		rot;//rotation

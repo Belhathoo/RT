@@ -66,6 +66,9 @@ t_object		*rt_init_object(void)
 	obj->pos = vec(0.0, 0.0, 0.0);
 	obj->size = 2.0;
 	obj->r = 1.0;
+	obj->dist = 4.0;
+	obj->height = 5.0;
+	obj->angle = 40.0;
 	obj->dir = vec(0.0, 1.0, 0.0);
 	obj->rot = vec(0.0, 0.0, 0.0);
 	obj->col = vec(1.0, 0.7, 0.3);
