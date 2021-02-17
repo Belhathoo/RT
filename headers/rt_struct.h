@@ -100,10 +100,9 @@ typedef struct	s_o
 	float		size;//radius or angle
 	float		r;
 	float		dist;
+	float		width;
 	float		height;
 	float		angle;
-	float		l;
-	float		L;
 	t_vec		pos;//position
 	t_vec		dir;
 	t_vec		rot;//rotation

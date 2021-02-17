@@ -3,7 +3,7 @@
 
 <Camera
 
-  lookfrom="0 05.0 25.0"
+  lookfrom="0 15.0 .0"
   lookat="0 0 0"
   fov="60"
   />
@@ -11,9 +11,11 @@
 <Option anti-aliasing="2"/>
 
 
-<Object name="cube" position="0 0.0 0.0" color="1 1 1" direction="0.0 1.0 0.0"/>
-<Object name="plan" position="-8.0 8 -8.0" color="0.0 0 10" material="gold"/>
 
-<Light position="10 30.0 30.0"/>
+<Object name="rectangle" color="0 0 1" direction="0 -1 0" position="-2.0 -6.0 -3.0" 
+ width="10.0" height="18.0" material="al"/>
 
+<Object name="cube" position="0 03.0 0" direction="0 1 0"/>
+
+<Light position="0 15.0 .0"/>
 

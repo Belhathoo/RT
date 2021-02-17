@@ -11,7 +11,7 @@
 # define IMG_HEIGHT 500
 # define WIN_WIDTH 1080
 # define WIN_HEIGHT 720
-# define NBTHREAD 4
+# define NBTHREAD 3
 # define MAX  1e+9 // distance max de propagation
 # define MIN 1e-4 
 # define  EQN_EPS 1e-9    // dist min

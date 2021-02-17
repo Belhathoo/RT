@@ -35,6 +35,10 @@ void     rt_check_obj_name(t_object *obj, t_rt *rt)
 		obj->hit = rt_hit_parabol;
 	else if (!ft_strcmp(str, "RECTANGLE"))
 		obj->hit = rt_hit_care;
+	else if (!ft_strcmp(str, "L_CYLINDER"))
+		obj->hit = rt_hit_l_cylinder;
+	else if (!ft_strcmp(str, "L_CONE"))
+		obj->hit = rt_hit_l_cone;
 	else
 	{
 		ft_strdel(&str);
@@ -83,9 +87,10 @@ void			rt_set_coef(t_object *o, t_rt *rt)
 		// o->mat = (t_material){}
 		o->mat.ka = 0.9;
 		o->mat.kd = 0.9;
-		o->mat.ks = 0.5;
-		o->mat.shininess = 51.2;
-		o->mat.kr = 0.99;
+		o->mat.ks = 1.0;
+		o->mat.shininess = 20;
+		// o->mat.kr = 0.99;
+		o->mat.kr = 0.0;
 		o->mat.kt = 0.0;
 	}
 	else
@@ -132,8 +137,7 @@ void    rt_check_obj(t_object *o, t_rt *rt)
 	}
 	if (o->size <= 0.0 && ft_strcmp(o->name, "plan") != 0)
 		rt_exit(rt, "obj: radius should be positive", EXIT_FAILURE);
-	if (!ft_strcmp(o->name, "cone")) // check size
-		o->size *= M_PI / 180 / 2;
+	o->angle *= M_PI / 180 / 2;
 	if (o->txt && o->noi.is_noise == 1)
 		rt_exit(rt, "obj: either texture either noise", EXIT_FAILURE);
 	rt_rot_dir(&o->rot, o->dir);

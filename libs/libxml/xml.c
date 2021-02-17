@@ -43,7 +43,7 @@ char *xml_set_attr(char *attr_str, t_xml *x)
       closing tags !! 
   */
   if (len <= 2 || attr[0] != '\"' || attr[len - 1] != '\"')
-    xml_exit(x, ft_strdup("syntax error; quotes"), EXIT_FAILURE);
+    xml_exit(x, ft_strdup("syntax error: quotes"), EXIT_FAILURE);
   attr_str = ft_strsub(attr, 1, len - 2);
   free(attr); 
   return (attr_str);

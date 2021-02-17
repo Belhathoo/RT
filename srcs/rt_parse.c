@@ -53,6 +53,14 @@ void  rt_add_object(t_tag *tag, t_rt *rt)
 			obj->col = rt_ctovec(tag->attr->value, rt);
 		else if (!ft_strcmp(tag->attr->name, "radius"))
 			obj->size = rt_ctod(tag->attr->value, rt);
+		else if (!ft_strcmp(tag->attr->name, "size"))
+			obj->size = rt_ctod(tag->attr->value, rt);
+		else if (!ft_strcmp(tag->attr->name, "angle"))
+			obj->angle = rt_ctod(tag->attr->value, rt);
+		else if (!ft_strcmp(tag->attr->name, "height"))
+			obj->height = rt_ctod(tag->attr->value, rt);
+		else if (!ft_strcmp(tag->attr->name, "width"))
+			obj->width = rt_ctod(tag->attr->value, rt);
 		else if (!ft_strcmp(tag->attr->name, "r"))
 			obj->r = rt_ctod(tag->attr->value, rt);    
 		else if (!ft_strcmp(tag->attr->name, "texture"))
@@ -66,7 +74,7 @@ void  rt_add_object(t_tag *tag, t_rt *rt)
 		else if (!ft_strcmp(tag->attr->name, "slice_pnt") && (obj->is_sliced = 1))
 			obj->sl_pnt = rt_ctovec(tag->attr->value, rt);
 		else
-			rt_exit(rt, ft_strjoin(tag->name, "Unknown attribut"), EXIT_FAILURE);
+			rt_exit(rt, ft_strjoin(tag->name, ": Unknown attribut"), EXIT_FAILURE);
 		tag->attr = tag->attr->next;
 	}
 	rt_check_obj(obj, rt);

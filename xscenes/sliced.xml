@@ -6,9 +6,9 @@
   fov="60"
   />
 
-<Object name="cone" position="-5.0 0.0 0.0" direction="0.0 1.0  0" 
+<Object name="cone" position="-5.0 02.0 02.0" direction="0.0 1.0  0" 
 translation="0 2.0 0" color="0.5 0.5 0.9" material="ko" 
-slice_vec="0 1 0" slice_pnt="-10.0 -01.0 10" radius="0.5" material="g"/>
+slice_vec="0 1 0" slice_pnt="10.0 -2.0 10" radius="50"/>
 
 
 <Object name="sphere" direction="0 0 1" position="0 0 -2.0" material="gold"

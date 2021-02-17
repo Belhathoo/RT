@@ -57,7 +57,9 @@ float	fresnel_ref(t_object *o, float ior, t_vec n, t_vec d);
 
 int				rt_hit_sphere(t_object *obj, t_ray *ray, t_hit *record);
 int				rt_hit_cylinder(t_object *obj, t_ray *ray, t_hit *record);
+int				rt_hit_l_cylinder(t_object *o, t_ray *r, t_hit *rec);
 int				rt_hit_cone(t_object *obj, t_ray *ray, t_hit *record);
+int				rt_hit_l_cone(t_object *o, t_ray *r, t_hit *rec);
 int				rt_hit_plan(t_object *obj, t_ray *ray, t_hit *record);
 int     rt_hit_plan_cube(t_object *o, t_ray *r, t_hit *rec);
 
@@ -66,6 +68,7 @@ int				rt_hit_torus(t_object *obj, t_ray *ray, t_hit *record);
 int             rt_hit_parabol(t_object *obj, t_ray *ray, t_hit *record);
 int     		rt_hit_cube(t_object *oo, t_ray *r, t_hit *record);
 int				rt_hit_care(t_object *o, t_ray *ray, t_hit *rec);
+
 int				rt_slicing(t_object *o, t_ray *r, t_hit *rec);
 
 /*
@@ -79,15 +82,7 @@ int				rt_rgb_to_int(t_vec c);
 void			rt_mlx_putpixel(t_rt *rt, int x, int y, int color);
 int				rt_check_distance(t_object *obj, double c[5], t_hit *rec, t_ray *ray);
 int				rt_solve_quartic(double w[5], double s[4]);
-static int		rt_case_two(double coeffs[4], double s[4], t_quartic *q);
-static int		rt_case_norm(t_quartic *q);
-static int		rt_case_one(double coeffs[4], double s[4], double *q,
-				double *p);
 int				rt_solve_cubic(double w[4], double s[3]);
-static int		rt_case_3(double s[3], double *q, double *d);
-static int		rt_case_2(double s[3], double *q, double *p,
-				double *cb_p);
-static int		rt_case_1(double s[2], double *q);
 int				rt_solve_quadric(double w[3], double s[2]);
 int				rt_is_zero(double delta);
 void			add_compos(t_object *o, t_vec r, int x, t_object *head);

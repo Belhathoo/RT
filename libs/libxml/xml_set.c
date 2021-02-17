@@ -65,7 +65,7 @@ void  xml_set_tag(char *tag_str, t_xml *x)
   while (list[++i])
   {
     if (ft_strchr(list[i], '\"') == NULL || !ft_strncmp(list[i], "\"\"", 2))
-      xml_exit(x, ft_strdup("empty attr."), EXIT_FAILURE);
+      xml_exit(x, ft_strdup(" empty attr."), EXIT_FAILURE);
     
     /*    checking attr names   */
     if (xml_check_attr(x->tags->name, curr_attr->name, x) == 0)
@@ -80,7 +80,7 @@ void  xml_set_tag(char *tag_str, t_xml *x)
       chr_str = ft_strrchr(list[i], ' ');
 
     if (!chr_str)
-    	xml_exit(x, ft_strdup("syntax error01"), EXIT_FAILURE);
+    	xml_exit(x, ft_strdup(" syntax error01"), EXIT_FAILURE);
 
     curr_attr->value = xml_set_attr(ft_strsub(list[i], 0, chr_str - list[i]), x);
     if (list[i + 1] == NULL)

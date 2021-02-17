@@ -64,13 +64,13 @@ t_object		*rt_init_object(void)
 	obj->name = NULL;
 	obj->material = NULL; // make default material!!
 	obj->pos = vec(0.0, 0.0, 0.0);
-	obj->size = 2.0;
+	obj->size = 3.0;
+	obj->angle = 35;
 	obj->r = 1.0;
 	obj->dist = 4.0;
-	obj->l = 4.0;
-	obj->L = 4.0;
-	obj->height = 5.0;
-	obj->angle = 40.0;
+	obj->width = 4.0;
+	obj->height = 2.50;
+	obj->angle = 30.0;
 	obj->dir = vec(0.0, 1.0, 0.0);
 	obj->rot = vec(0.0, 0.0, 0.0);
 	obj->col = vec(1.0, 0.7, 0.3);
@@ -90,7 +90,7 @@ t_scene		*rt_init_scene(void)
 
 	if (!(scene = (struct s_scene*)malloc(sizeof(struct s_scene))))
 		rt_perror();
-	scene->anti_aliasing = 3;
+	scene->anti_aliasing = 2;
 	scene->ambient = 1.0;
 	scene->object = NULL;
 	scene->light = NULL;
