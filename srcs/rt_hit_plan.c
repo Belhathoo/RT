@@ -12,22 +12,17 @@ int      cutt_plane(t_hit *rec, t_object *o)
 
 	if (o->name && !ft_strcmp(o->name, "rectangle"))
 	{
-		largeur = o->width;
-		longeur = o->height;
-		if ((fabs(vec_dot(pnt, o->vec1)) > largeur 
-					|| fabs(vec_dot(pnt, o->vec2)) > longeur))
+		if ((fabs(vec_dot(pnt, o->vec1)) > o->width 
+					|| fabs(vec_dot(pnt, o->vec2)) > o->height))
 			return (0);
-		else 
-			return (1);
 	}
 	else
 	{
 		if ((fabs(vec_dot(pnt, o->vec1)) > o->size
 					|| fabs(vec_dot(pnt, o->vec2)) > o->size))
 			return (0);
-		else 
-			return (1);
 	}
+    return (1);
 }
 
 
@@ -54,7 +49,7 @@ int     rt_hit_plan(t_object *o, t_ray *r, t_hit *rec)
 		return (0);
 	rec->t = t;
 	rec->p = vec_ray(r, rec->t);
-	rec->n = o->rot;
+	rec->n = vec_dot(r->dir, o->rot) < 0? vec_pro_k(o->rot, -1) : o->rot;
 	plane_uv(rec, o);
 	return (1);
 }
@@ -82,10 +77,10 @@ int         rt_hit_care(t_object *o, t_ray *ray, t_hit *rec)
 	if (rec->t >= 1e-4 && rec->t < rec->closest)
 	{
 		rec->p = vec_ray(ray, rec->t);
-		rec->n = vec_dot(ray->dir, o->rot) < 0? vec_pro_k(o->rot, -1) : o->rot;
-		plane_uv(rec, o);
 		if (cutt_plane(rec, o) == 0)
 			return (0);
+		rec->n = vec_dot(ray->dir, o->rot) < 0? vec_pro_k(o->rot, -1) : o->rot;
+		plane_uv(rec, o);
 		return (1);
 	}
 	return (0);

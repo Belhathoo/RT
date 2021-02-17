@@ -2,8 +2,7 @@
 
 
 <Camera
-
-  lookfrom="0 15.0 20.0"
+  lookfrom="0 05.0 8.0"
   lookat="0 0 0"
   fov="60"
   />
@@ -13,8 +12,8 @@
 
 
 
-<Object name="rectangle" color="0 0 1" direction="0 -1 0" position="-2.0 -6.0 -3.0"  width="10.0" height="18.0" material="al"/>
-<Object name="cube" position="0 03.0 0" direction="0 1 0"/>
-
-<Light position="0 15.0 5.0"/>
-
+<Object name="cube" color=" 1.0 1.0 1.0" size="2" position="0 0.0 0" direction="0 1 0" noise="damier"/>
+<Object name="sphere" position="0 3.0 0" radius="1.0" material="gold"/>
+<Light position="0 5.0 0.0"/>
+<Light position="5 0 0" />
+<Light position="-5 0 0"/>
