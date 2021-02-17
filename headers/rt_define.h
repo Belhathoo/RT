@@ -14,7 +14,7 @@
 # define NBTHREAD 3
 # define MAX  1e+9 // distance max de propagation
 # define MIN 1e-4 
-# define  EQN_EPS 1e-9    // dist min
+# define  EPS 1e-9    // dist min
 
 # define S_LIGHT 0 //spot light; usual one
 # define P_LIGHT 1 //parallele light; following one direction

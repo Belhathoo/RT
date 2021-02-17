@@ -17,24 +17,24 @@ void		sphere_uv(t_object *o, t_hit *rec)
 	return;
 }
 
-int     rt_hit_sphere(t_object *obj, t_ray *ray, t_hit *record)
+int     rt_hit_sphere(t_object *obj, t_ray *ray, t_hit *rec)
 {
-	record->or = vec_sub(ray->origin, obj->pos);// ray origin
-	record->a = vec_dot(ray->dir, ray->dir);
-	record->b = 2.0 * vec_dot(record->or, ray->dir); 
-	record->c = vec_dot(record->or, record->or) - (obj->size * obj->size);
-	record->delta = record->b * record->b - 4.0 * record->a * record->c;
+	rec->or = vec_sub(ray->origin, obj->pos);// ray origin
+	rec->a = vec_dot(ray->dir, ray->dir);
+	rec->b = 2.0 * vec_dot(rec->or, ray->dir); 
+	rec->c = vec_dot(rec->or, rec->or) - (obj->size * obj->size);
+	rec->delta = rec->b * rec->b - 4.0 * rec->a * rec->c;
 
-	if (record->delta >= 0.0)
+	if (rec->delta >= 0.0)
 	{
-		record->t0 = (-record->b - sqrt(record->delta)) / (2 * record->a);
-		record->t1 = (-record->b + sqrt(record->delta)) / (2 * record->a);
-		record->t = record->t0 < record->t1 ? record->t0 : record->t1;
-		if (record->t >= 1e-4 && record->t < record->closest)
+		rec->t0 = (-rec->b - sqrt(rec->delta)) / (2 * rec->a);
+		rec->t1 = (-rec->b + sqrt(rec->delta)) / (2 * rec->a);
+		rec->t = rec->t0 < rec->t1 ? rec->t0 : rec->t1;
+		if (rec->t >= EPS && rec->t < rec->closest)
 		{
-			record->p = vec_ray(ray, record->t);
-			record->n = vec_unit(vec_sub(record->p, obj->pos));
-			sphere_uv(obj, record);
+			rec->p = vec_ray(ray, rec->t);
+			rec->n = vec_unit(vec_sub(rec->p, obj->pos));
+			sphere_uv(obj, rec);
 			return (1);
 		}
 	}
