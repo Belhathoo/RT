@@ -51,32 +51,7 @@ void		rt_phong(t_thread *th, t_light *l, t_vec lo, t_vec *d_s)
 	d_s[1] = vec_add(d_s[1], rt_specular(th, l, lo, f_att));
 }
 
-#define	N1 1.00029
 
-float	fresnel_ref(t_object *o, float ior, t_vec n, t_vec d)
-{
-	float	ret;
-	float	x, y;
-	float	cs;
-
-
-	x = (ior - N1) / (N1 + ior);
-	cs = -vec_dot(n, d);
-	if (ior > N1)
-	{
-		y = ior / N1;
-		y = y * y * (1.0 - cs*cs);
-
-		if (y > 1.0)
-			return (1.0);
-		cs = sqrt(1 - y);
-	}
-	y = 1.0 - cs;
-	ret = x + (1 - x) * y*y*y*y*y;
-
-	ret = o->mat.kr + (1.0 - o->mat.kr) * ret;
-	return (ret);
-}
 
 int		rt_lighting(t_thread *th, t_light *l)
 {

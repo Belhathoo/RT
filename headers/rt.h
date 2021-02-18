@@ -50,7 +50,10 @@ void			rt_ambient(t_light *l, t_thread *th, t_vec *col);
 int				rt_shading(t_thread *th, t_vec lo);
 int				rt_lighting(t_thread *th, t_light *t);
 t_vec			rt_reflect(t_vec v, t_vec n);
-float	fresnel_ref(t_object *o, float ior, t_vec n, t_vec d);
+
+float           rt_fresnel_ref(float ior, float n1, t_vec n, t_vec d);
+void            rt_check_l_ref(t_thread *th, t_ray *r, t_object *o, int depth);
+
 /*
  * Hit
 */
@@ -61,13 +64,12 @@ int				rt_hit_l_cylinder(t_object *o, t_ray *r, t_hit *rec);
 int				rt_hit_cone(t_object *obj, t_ray *ray, t_hit *record);
 int				rt_hit_l_cone(t_object *o, t_ray *r, t_hit *rec);
 int				rt_hit_plan(t_object *obj, t_ray *ray, t_hit *record);
-int     rt_hit_plan_cube(t_object *o, t_ray *r, t_hit *rec);
+int				rt_hit_care(t_object *o, t_ray *ray, t_hit *rec);
 
 int				rt_hit(t_scene *scene, t_ray *r, t_hit *record);
 int				rt_hit_torus(t_object *obj, t_ray *ray, t_hit *record);
 int             rt_hit_parabol(t_object *obj, t_ray *ray, t_hit *record);
 int     		rt_hit_cube(t_object *oo, t_ray *r, t_hit *record);
-int				rt_hit_care(t_object *o, t_ray *ray, t_hit *rec);
 
 int				rt_slicing(t_object *o, t_ray *r, t_hit *rec);
 
@@ -75,6 +77,7 @@ int				rt_slicing(t_object *o, t_ray *r, t_hit *rec);
  * Utils
 */
 
+double          ffmax(double a, double b);
 t_vec			vec_ray(t_ray *r, double t);
 t_vec			rt_int_to_rgb(int x);
 void			rt_adjustment(t_vec *c);
@@ -109,7 +112,7 @@ int				rt_load_txt(t_rt *rt, t_object *o);
 t_vec			rt_get_color_from_texture(t_object *o, double *u, double *v);
 t_vec  			torus_txt(t_hit *rec);
 
-t_vec			rt_txt_damier(t_hit *rec);
+t_vec			rt_noise_damier(t_hit *rec);
 t_vec			rt_noise(t_object *o, t_hit rec);
 
 /*

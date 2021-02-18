@@ -1,32 +1,21 @@
 <!DOCTYPE xml>
 
 <Camera
-  lookfrom="-6.0 5.0 3.50"
+  lookfrom="0.0 15.0 0.0"
   lookat="0 0 0"
   fov="60"
   />
 
-<Option anti-aliasing="3.0"/>
+<Option anti-aliasing="2.0"/>
 
-<Object name="torus" radius="2.0" r="0.75"  position="-3 2.0 -1.0" direction="0 0 -1" 
-texture="xpm/grid.xpm"/>
+<Object name="rectangle" position="0 -15 0" 
+width="10" height="4" direction="0. -1.0 0"
+radius="6"   material="gld"/>
 
-<Object name="sphere" position="-8.0 4.0 -15" texture="xpm/0.xpm"/>
-
-<Object name="cone" position="15.0 3 -1.0" direction="0 1 0"
-radius="60" texture="xpm/corner.xpm" />
-
-
-
-<Object name="plan" position="0 -2 0" texture="xpm/mur.xpm" material="gold"/>
-
-
-<Object name="sphere" position="0.0 0.0 4.0" color="0 0 1.0" material="gold" />
-
-<Object name="sphere" position="16.0 0.0 -10.0" noise="damier" />
+<Object name="sphere" position="0.0 0 3.0" color="1 0.1 1"
+radius="4" material="diamond" />
 
 
 
-<Light intensity="1" />
  
-<Light position="10 20.0 30" color="0 0 1" intensity="1.0" />
+<Light position="0 5.0 010" />

@@ -12,6 +12,7 @@ SRCS = rt.c\
 		rt_events.c\
 		rt_lighting.c\
 		rt_light_shading.c\
+		rt_light_ref.c\
 		rt_utils.c\
 		rt_close.c\
 		rt_hit_sphere.c\
@@ -24,6 +25,7 @@ SRCS = rt.c\
 		rt_solve_quartic.c\
 		rt_solve_cubic.c\
 		rt_solve_quadric.c\
+		rt_noise.c\
 rt_textures.c\
 		rt_cube_case.c\
 #load_txt.c\

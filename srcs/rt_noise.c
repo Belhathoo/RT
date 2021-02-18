@@ -28,12 +28,45 @@ t_noise		rt_add_noise(char *val, t_rt *rt) //parser
 	return (n);
 }
 
+t_vec  torus_noise(t_hit *rec)
+{
+	int i;
+	int j;
+    int oddity;
+
+	i = (int)(10 * rec->u);
+	j = (int)(10 * rec->v);
+	if ((i & 0x01) == (j & 0x01))
+		oddity = 1;
+	else
+		oddity = 0;
+	if ((((10 * rec->u - i) < 0.2) && oddity) || ((10 * rec->v - j) < 0.2))
+	  return (vec(0, 0, 0));
+	else 
+	  return (vec(1, 1, 1));
+}
+
+t_vec		rt_noise_damier(t_hit *rec)
+{
+	int pro1;
+	int pro2;
+	
+	if (ft_strcmp(rec->curr_obj->name, "TORUS") == 0)
+		return (torus_noise(rec));
+	pro1 = floor(rec->u * 14);
+	pro2 = floor(rec->v * 14);
+	if (fabs(fmod(pro1, 2)) == fabs(fmod(pro2, 2)))
+		return (vec(0, 0, 0));
+	return (vec(1, 1, 1));
+	
+}
+
 t_vec	rt_noise(t_object *o, t_hit rec)
 {
 	t_vec	ret;
 
 	ret = vec (0.0, 0.0, 1.0);
 	if (o->noi.type == 0)
-		return (rt_txt_damier(&rec));
+		return (rt_noise_damier(&rec));
 	return (ret);
 }

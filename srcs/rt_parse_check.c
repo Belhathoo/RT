@@ -62,7 +62,7 @@ void			rt_set_coef(t_object *o, t_rt *rt)
 		o->mat.ks = 0.29;
 		o->mat.kr = 0.0;
 		o->mat.kt = 0.0;
-		o->mat.shininess = 0.088;
+		o->mat.shininess = 5;
 	}
 	else if (!ft_strcmp(o->material, "diamond"))
 	{
@@ -73,9 +73,18 @@ void			rt_set_coef(t_object *o, t_rt *rt)
 		o->mat.kt = 2.42;
 		o->mat.kr = 0.0;
 	}
+	else if (!ft_strcmp(o->material, "ice"))
+	{
+		o->mat.ka = 0.25;
+		o->mat.kd = 0.4;
+		o->mat.ks = 0.5;
+		o->mat.shininess = 50;
+		o->mat.kt = 1.5;
+		o->mat.kr = 0.0;
+	}
 	else if (!ft_strcmp(o->material, "gold"))
 	{
-		o->mat.ka = 0.247;
+		o->mat.ka = 0.5;
 		o->mat.kd = 0.5;
 		o->mat.ks = 0.5;
 		o->mat.shininess = 51.2;
@@ -85,7 +94,7 @@ void			rt_set_coef(t_object *o, t_rt *rt)
 	else if (!ft_strcmp(o->material, "al"))
 	{
 		// o->mat = (t_material){}
-		o->mat.ka = 0.9;
+		o->mat.ka = 0.75;
 		o->mat.kd = 0.9;
 		o->mat.ks = 1.0;
 		o->mat.shininess = 20;
@@ -95,12 +104,12 @@ void			rt_set_coef(t_object *o, t_rt *rt)
 	}
 	else
 	{
-		o->mat.ka = 0.5;
+		o->mat.ka = 0.7;
 		o->mat.kd = 0.6;
 		o->mat.ks = 0.6;
 		o->mat.kr = 0.0;
 		o->mat.kt = 0.0;
-		o->mat.shininess = 90;
+		o->mat.shininess = 50;
 	}
 	if(o->txt)
 		{
