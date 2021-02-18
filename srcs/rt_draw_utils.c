@@ -18,12 +18,11 @@ t_ray rt_get_ray(t_camera *p, double u, double v)
 								vec_pro_k(p->vertical, v))), p->origin))));
 }
 
-t_vec	rt_noise(t_object *o, t_hit rec)
+void		rt_mlx_putpixel(t_rt *rt, int x, int y, int color)
 {
-	t_vec	ret;
-
-	ret = vec (0.0, 0.0, 1.0);
-	if (o->noi.type == 1)
-		return (rt_txt_damier(&rec));
-	return (ret);
+	if (x >= 0 && x < IMG_WIDTH
+			&& y >= 0 && y < IMG_HEIGHT)
+	{
+		rt->data[y * (int)IMG_WIDTH + x] = color;
+	}
 }

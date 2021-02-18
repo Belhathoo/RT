@@ -11,7 +11,7 @@ SRCS = rt.c\
 		rt_hit.c\
 		rt_events.c\
 		rt_lighting.c\
-		rt_shading.c\
+		rt_light_shading.c\
 		rt_utils.c\
 		rt_close.c\
 		rt_hit_sphere.c\
@@ -27,7 +27,6 @@ SRCS = rt.c\
 rt_textures.c\
 		rt_cube_case.c\
 #load_txt.c\
-#ft_parse0.c ft_parse.c\
 
 SRC = $(add prefix srcs/, $(SRCS))
 SRCS_NORM = $(SRCS)

@@ -33,7 +33,6 @@ t_vec rt_raytracer(t_thread *th, t_ray *r, int depth)
 			// 	fresnel_ref(o, 1.125, th->rec.n, rf.dir)));
 		}
 	}
-	// color = th->rec.col;
 	rt_adjustment(&color);
 	return (color);
 }

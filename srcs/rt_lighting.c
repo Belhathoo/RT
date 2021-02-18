@@ -1,16 +1,16 @@
 /* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rt_lighting.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: belhatho <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/18 15:55:26 by belhatho          #+#    #+#             */
+/*   Updated: 2021/02/18 15:55:29 by belhatho         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <rt.h>
-
-double      ffmax(double a, double b)
-{
-	return(a > b ? a : b);
-}
-
-t_vec		rt_reflect(t_vec v, t_vec n)
-{
-	return (vec_sub(v, vec_pro_k(vec_pro_k(n, 2), vec_dot(v, n))));
-}
 
 t_vec		rt_diffuse(t_thread *th, t_light *l, t_vec lo, double f_att)
 {

@@ -14,6 +14,8 @@ void		sphere_uv(t_object *o, t_hit *rec)
 	theta = asin(p.y / o->size);
 	rec->u = (phi + M_PI) / (2.0 * M_PI); 
 	rec->v = (theta + M_PI / 2.0) / M_PI ;
+	rec->u = rec->u -floor(rec->u);
+	rec->v = rec->v -floor(rec->v);
 	return;
 }
 

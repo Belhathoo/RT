@@ -1,89 +1,6 @@
 
 # include <rt.h>
 
-// t_vec		ft_rot_x(t_vec old, double theta)
-// {
-// 	t_vec	new;
-
-// 	new.x = old.x;
-// 	new.y = old.y * cos(theta) - old.z * sin(theta);
-// 	new.z = old.y * sin(theta) + old.z * cos(theta);
-// 	return (new);
-// }
-
-// t_vec		ft_rot_y(t_vec old, double theta)
-// {
-// 	t_vec	new;
-
-// 	new.x = old.x * cos(theta) + old.z * sin(theta);
-// 	new.y = old.y;
-// 	new.z = -old.x * sin(theta) + old.z * cos(theta);
-// 	return (new);
-// }
-
-// t_vec		ft_rot_z(t_vec old, double theta)
-// {
-// 	t_vec	new;
-
-// 	new.x = old.x * cos(theta) - old.y * sin(theta);
-// 	new.y = old.x * sin(theta) + old.y * cos(theta);
-// 	new.z = old.z;
-// 	return (new);
-// }
-
-
-// t_vect		project(t_vect direction, t_vect rotation)
-// {
-// 	t_vect new;
-// 	double		previous_x;
-
-// 	new.x = direction.x;
-// 	new.y = direction.y * cos(rotation.x) + direction.z * sin(rotation.x);
-// 	new.z = -direction.y * sin(rotation.x) + direction.z * cos(rotation.x);
-
-// 	previous_x = new.x;
-// 	new.x = new.x * cos(rotation.y) + new.z * sin(rotation.y);
-// 	new.z = -new.x * sin(rotation.y) + new.z * cos(rotation.y);
-
-// 	previous_x = new.x;
-// 	new.x = new.x * cos(rotation.z) - new.y * sin(rotation.z);
-// 	new.y = previous_x * sin(rotation.z) + new.y * cos(rotation.z);
-// 	return (new);
-// }
-
-// void	rt_rot_dir(t_vec *r, t_vec d)
-// {
-// /*
-// 	check if dir = 0 0 0 (err sauf sphere || set default with a warning msg)
-// */
-
-// 	t_vec tmp;
-// 	t_vec res;
-// 	double	previous_x;
-
-// 	// tmp = *r;
-// 	// if (tmp.x == 0 && tmp.y == 0 && tmp.z == 0)
-// 	// {
-// 	// 	*r = d;
-// 	// 	return ;
-// 	// }
-// 	// res.x = d.x;
-// 	// res.y = d.y * cos(tmp.x) + d.z * sin(tmp.x);
-// 	// res.z = -d.y * sin(tmp.x) + d.z * cos(tmp.x);
-
-// 	// previous_x = res.x;
-// 	// res.x = res.x *cos(tmp.y) + res.z * sin(tmp.y);
-// 	// res.z = -res.x * sin(tmp.y) + res.z * cos(tmp.y);
-
-// 	// previous_x = res.x;
-// 	// res.x = res.x * cos(tmp.z) - res.y * sin(tmp.z);
-// 	// res.y = previous_x * sin(tmp.z) + res.y * cos(tmp.z); 
-
-// 	// *r = res;
-// 	*r = d;
-// }
-
-
 t_vec   rt_ctovec(char *str, t_rt *rt)
 {
 	char    **each;
@@ -113,16 +30,6 @@ double   rt_ctod(char *str, t_rt *rt)
 	return (ret);
 }
 
-t_noise		rt_add_noise(char *val, t_rt *rt)
-{
-	t_noise	n;
-
-	if (!ft_strcmp(val, "damier"))
-		n.type = 1;
-
-	n.is_noise = 1;
-	return (n);
-}
 
 t_texture   *rt_ctotxt(char *str, t_rt *rt)
 {
