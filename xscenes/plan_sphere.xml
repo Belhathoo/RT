@@ -1,19 +1,19 @@
 <!DOCTYPE xml>
 
 <Camera
-  lookfrom="0.0 15.0 0.0"
+  lookfrom="0.0 15.10 1.0"
   lookat="0 0 0"
   fov="60"
   />
 
 <Option anti-aliasing="2.0"/>
 
-<Object name="rectangle" position="0 -15 0" 
-width="10" height="4" direction="0. -1.0 0"
-radius="6"   material="gld"/>
+<Object name="sphere" position="0 -25 0.0" 
+width="10" height="14" direction="0. -1.0 0"
+radius="22"  noise="damier" material="gld"/>
 
-<Object name="sphere" position="0.0 0 3.0" color="1 0.1 1"
-radius="4" material="diamond" />
+<Object name="sphere" position="0.0 1.0 0.0" 
+radius="4" material="gold" />
 
 
 

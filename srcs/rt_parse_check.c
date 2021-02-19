@@ -66,11 +66,11 @@ void			rt_set_coef(t_object *o, t_rt *rt)
 	}
 	else if (!ft_strcmp(o->material, "diamond"))
 	{
-		o->mat.ka = 0.25;
+		o->mat.ka = 0.8;
 		o->mat.kd = 0.4;
 		o->mat.ks = 0.774;
 		o->mat.shininess = 76.8;
-		o->mat.kt = 2.42;
+		o->mat.kt = 1.42;
 		o->mat.kr = 0.0;
 	}
 	else if (!ft_strcmp(o->material, "ice"))
@@ -80,7 +80,7 @@ void			rt_set_coef(t_object *o, t_rt *rt)
 		o->mat.ks = 0.5;
 		o->mat.shininess = 50;
 		o->mat.kt = 1.5;
-		o->mat.kr = 0.0;
+		o->mat.kr = 0.2;
 	}
 	else if (!ft_strcmp(o->material, "gold"))
 	{

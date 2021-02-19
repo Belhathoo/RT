@@ -12,6 +12,7 @@
 # define WIN_WIDTH 1080
 # define WIN_HEIGHT 720
 # define NBTHREAD 3
+# define MAX_DEPTH 25
 # define MAX  1e+9 // distance max de propagation
 # define MIN 1e-4 
 # define  EPS 1e-9    // dist min

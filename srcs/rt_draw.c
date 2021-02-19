@@ -17,8 +17,8 @@ t_vec rt_raytracer(t_thread *th, t_ray *r, int depth)
 		else
 			th->rec.col = o->col;
 		
+		(o->mat.kt * o->mat.kr == 0) ? rt_check_l_ref(th, r, o, depth) : 0;
 		rt_lighting(th, th->rt->scene->light);
-		rt_check_l_ref(th, r, o, depth);
 		color = th->rec.col;
 	}
 	rt_adjustment(&color);
@@ -35,7 +35,7 @@ t_vec rt_anti_aliasing(t_thread *t, int col, int row)
 	color = vec(0, 0, 0);
 	anti_a = t->rt->scene->anti_aliasing;
 	ss[0] = -1;
-
+	t->rec.inside = 0;
 	while ( ++ss[0] < anti_a)
 	{
 		ss[1] = -1;
@@ -44,7 +44,7 @@ t_vec rt_anti_aliasing(t_thread *t, int col, int row)
 			r = rt_get_ray(&t->rt->scene->cam, 
 					(double)((col + ((ss[0] + 0.5)/ anti_a)) / IMG_WIDTH),
 					(double)((row + ((ss[1] + 0.5) / anti_a)) / IMG_HEIGHT));
-			color = vec_add(color, rt_raytracer(t, &r, 50));
+			color = vec_add(color, rt_raytracer(t, &r, MAX_DEPTH));
 		}
 	}
 	return (vec_div_k(color, anti_a * anti_a));

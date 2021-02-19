@@ -17,7 +17,6 @@ t_vec		rt_reflect(t_vec v, t_vec n)
 	return (vec_sub(v, vec_pro_k(vec_pro_k(n, 2), vec_dot(v, n))));
 }
 
-#define	N1 1.00029
 
 float	rt_fresnel_ref(float ior, float n1, t_vec n, t_vec d)
 {
@@ -44,15 +43,27 @@ float	rt_fresnel_ref(float ior, float n1, t_vec n, t_vec d)
 	return (ret);
 }
 
-t_vec       rt_refract(t_vec i, t_vec n, float n1, float n2)
+#define	N1 1.1
+
+t_vec       rt_refract(t_thread *th, t_vec i, t_vec n, float n1, float n2)
 {
     t_vec   ret;
     float   ior;
+	float	k;
+	float	cosi;
 
-    ior = n1 / n2;
+    // ior = n1 / n2;
     // ior = rt_fresnel_ref(n1, n2, n, i);
-    ret = vec_pro_k(n, ior * vec_dot(n, i) - sqrt(1 - ior*ior * (1-vec_dot(n, i))*(1-vec_dot(n, i))));
-    ret = vec_add(vec_pro_k(i, ior), ret);
+    // ret = vec_pro_k(n, ior * vec_dot(n, i) - sqrt(1 - ior*ior * (1-vec_dot(n, i))*(1-vec_dot(n, i))));
+    // ret = vec_add(vec_pro_k(i, ior), ret);
+
+	ior = 1.1;
+
+	ior = th->rec.inside ? ior : 1 / ior;
+	cosi = -1 * vec_dot(i, n);
+	k = 1 - ior * ior * (1 - cosi * cosi);
+	ret = vec_add(vec_pro_k(i, ior), vec_pro_k(n, ior * cosi - sqrt(k)));
+	ret = vec_unit(ret);
     return (ret);
 }
 
@@ -62,35 +73,31 @@ void        rt_check_l_ref(t_thread *th, t_ray *r, t_object *o, int depth)
 {
 		t_ray       rf;
 		t_ray       rt;
-        t_vec       color;
+        t_vec       f_col;
+		t_vec		t_col;
+		t_vec		color;
 
-        color = th->rec.col; 
+		if (vec_dot(r->dir, th->rec.n) < 0)
+		{
+			th->rec.inside = 1;
+			th->rec.n = vec_pro_k(th->rec.n, -1.0); 
+		}
+        f_col = vec(0, 0, 0);
 		if (depth > 1  && o->mat.kr > 0)
 		{
 			rf.dir = rt_reflect(r->dir, th->rec.n);
 			rf.origin = vec_add(th->rec.p, vec_pro_k(rf.dir, 0.001));
-
-			color = vec_add(color, vec_pro_k(rt_raytracer(th, &rf, depth - 1), o->mat.kr));
-			// color = vec_add(color, vec_pro_k(rt_raytracer(th, &rf, depth -1),\
-			// 	rt_fresnel_ref(o, 1.125, th->rec.n, rf.dir)));
+			f_col = vec_pro_k(rt_raytracer(th, &rf, depth - 1), o->mat.kr);
 		}
+		t_col = vec(0, 0, 0);
         if (depth > 1  && o->mat.kt > 0)
 		{
-			rt.dir = rt_refract(r->dir, th->rec.n, N1, o->mat.kt);
+			rt.dir = rt_refract(th, r->dir, th->rec.n, N1, o->mat.kt);
 			rt.origin = vec_add(th->rec.p, vec_pro_k(rf.dir, 0.001));
-
-            color = rt_raytracer(th, &rt, depth - 1);
-            if (th->rec.curr_obj != o)
-			    color = vec_add(color, vec_pro_k(rt_raytracer(th, &rf, depth -1), o->mat.kt));
-				    // ,rt_fresnel_ref(N1, o->mat.kt, th->rec.n, rf.dir)));
-            else
-            {
-                /// print direction refacted ray !!! recheck -- close to work ^^
-                
-                rt_check_l_ref(th, &rt, th->rec.curr_obj, depth - 1);
-                // depth--;
-                // color = th->rec.curr_obj->col;
-            }
+			t_col = vec_add(th->rec.col, vec_pro_k(rt_raytracer(th, &rf, depth - 1), 1 / o->mat.kr));
+            depth--;
 		}
-        th->rec.col = color;
+		color = vec_pro_k(f_col, rt_fresnel_ref(N1, o->mat.kt, th->rec.n, r->dir));
+		color = vec_add(color, vec_pro_k(t_col, (1 - rt_fresnel_ref(N1, o->mat.kt, th->rec.n, r->dir))));
+		th->rec.col = vec_prod(color, th->rec.col);
 }

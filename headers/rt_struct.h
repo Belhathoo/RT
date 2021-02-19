@@ -157,8 +157,9 @@ typedef struct	s_hit
 	double		a;//eq 2eme deg
 	double		b;//eq 2eme deg
 	double		c;//eq 2eme deg
-	double		coef[4];
 	double		delta;//eq 2eme deg
+	double		coef[4];
+	int			inside;
 }				t_hit;
 
 
