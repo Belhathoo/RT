@@ -2,19 +2,29 @@
 
 
 <Camera
-	lookfrom="0 0.0 15.0"
+	lookfrom="-0.0 02.0 10.0"
 	lookat="0 0 0"
 	fov="60"
 	/>
 
-<Object name="sphere" position="0 0 -2.0" direction="0 01 0" rotation="0 01 0" 
-translation="0 0 0" radius="1.5" r="2.0" color="0.77 0.76 0.72" material="Chrome" />
+<Option anti-aliasing="2.0"/>
 
-<Object name="plan" position="0 -3 -50" rotation="0 0 0"
-direction="0 1 0 " material="ko"/>
+<Object name="cube" position="0 4.0 -15" material="gold"/>
 
-<Light type="parallele" position="0 20.0 0.0"
-	intensity="2.0" color="1.0 1.0 1.00"/>
+<Object name="sphere" position="-3.50 0 -1.0" radius="2"
+color="1.0 1.00 1.0" material="diamond" />
 
+<Object name="sphere" position="-9.0 0.0 -10.0" radius="3.5"
+color="1.00 0 0.0" material="diamond" />
 
-<Option anti-aliasing="4.0"/>
+<Object name="sphere" radius="2.0"/>
+
+<Object name="sphere" position="3.50 0 -1.0 " color="0 0.2 0.9"
+material="gold" radius="2.0"/>
+
+<Object name="plan" position="0 -5 -50" rotation="0 0 0"
+direction="0 1 0 " noise="damier" material="ko"/>
+
+<Light type="parallele" position="0 5.0 05.0"
+	intensity="1.0" />
+
