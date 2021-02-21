@@ -17,8 +17,9 @@ t_vec rt_raytracer(t_thread *th, t_ray *r, int depth)
 		else
 			th->rec.col = o->col;
 		rt_lighting(th, th->rt->scene->light);
-		rt_check_l_ref(th, r, o, depth);
 		color = th->rec.col;
+		
+		rt_check_l_ref(th, r, o, &color, depth);
 	}
 	rt_adjustment(&color);
 	return (color);

@@ -2,6 +2,11 @@
 # include <rt.h>
 
 
+t_vec		rt_reflect(t_vec v, t_vec n)
+{
+	return (vec_sub(v, vec_pro_k(vec_pro_k(n, 2), vec_dot(v, n))));
+}
+
 t_ray		rt_ray(t_vec a, t_vec b)
 {
 	t_ray	r;

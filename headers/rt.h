@@ -52,7 +52,7 @@ int				rt_lighting(t_thread *th, t_light *t);
 t_vec			rt_reflect(t_vec v, t_vec n);
 
 float           rt_fresnel_ref(float ior, float n1, t_vec n, t_vec d);
-void            rt_check_l_ref(t_thread *th, t_ray *r, t_object *o, int depth);
+void            rt_check_l_ref(t_thread *th, t_ray *r, t_object *o, t_vec *c, int depth);
 
 /*
  * Hit
