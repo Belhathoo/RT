@@ -18,7 +18,6 @@ t_vec rt_raytracer(t_thread *th, t_ray *r, int depth)
 			th->rec.col = o->col;
 		rt_lighting(th, th->rt->scene->light);
 		color = th->rec.col;
-		
 		rt_check_l_ref(th, r, o, &color, depth);
 	}
 	rt_adjustment(&color);
@@ -91,7 +90,14 @@ void		rt_start(t_rt *rt)
 int			rt_draw(t_rt *rt)
 {
 	ft_bzero(rt->data, IMG_WIDTH * IMG_HEIGHT * 4);
-	rt_start(rt);
-	mlx_put_image_to_window(rt->mlx, rt->win, rt->img, 40, 180);
+	// int a = rt->scene->anti_aliasing;
+	// int b = 1;
+	// while (b <= a )
+	// {	
+		// rt->scene->anti_aliasing = b;
+		rt_start(rt);
+		mlx_put_image_to_window(rt->mlx, rt->win, rt->img, 40 +10, 180);
+	// 	b++;
+	// }
 	return (EXIT_SUCCESS);
 }

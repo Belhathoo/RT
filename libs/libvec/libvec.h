@@ -22,5 +22,6 @@ t_vec       vec_cross(t_vec a, t_vec b);
 double      vec_dot(t_vec a, t_vec b);
 double      vec_length(t_vec a);
 double      vec_lengthsquared(t_vec a);
+t_vec       vec_fabs(t_vec v);
 
 #endif

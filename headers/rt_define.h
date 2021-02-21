@@ -20,6 +20,7 @@
 # define S_LIGHT 0 //spot light; usual one
 # define P_LIGHT 1 //parallele light; following one direction
 
+
 /*
  * MLX KEYS
  */
@@ -29,6 +30,15 @@
 # else
 #  include <key_linux.h>
 # endif
+
+
+
+# define DAMIER 0
+# define CIRCLES 1
+# define VORONOI1 2
+# define VORONOI2 3
+# define VORONOI3 4
+
 
 /*
  * Filters

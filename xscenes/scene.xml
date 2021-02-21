@@ -2,27 +2,25 @@
 
 
 <Camera
-	lookfrom="-0.0 5.0 10.0"
+	lookfrom="-0.0 0.0 20.0"
 	lookat="0 0 0"
 	fov="60"
 	/>
 
-<Option anti-aliasing="3.0"/>
+<Option anti-aliasing="2.0"/>
 
-<Object name="sphere" position="-3.50 0 -1.0" radius="2"
-color="0.7 0.7 1.0" material="diamond" />
 
-<Object name="sphere" position="3.0 4.0 6.0" radius="2"
-color="1.0 1.0 1.0" material="ice" />
 
-<Object name="sphere" position="0 0 2" radius="1.50"/>
+<Object name="sphere" position="0.0 0.0 6.0" radius="2.5"
+color="1.0 1.0 1.0"  texture="xpm/earth1.xpm" material="diamond" />
 
-<Object name="sphere" position="3.50 0 -1.0 " color="0 0.2 0.9"
+<Object name="sphere" position="-5 0 2" texture="xpm/moon.xpm" radius="1.50"/>
+
+<Object name="sphere" position="7 0 3.0 " color="0 0.2 0.9"
 material="gold" radius="2.0"/>
 
-<Object name="plan" position="0 -5 -50" rotation="0 0 0"
-direction="0 1 0 " texture="xpm/mur.xpm" material="ko"/>
+<Object name="plan" position="0 0 14.0" rotation="0 0 0"
+direction="0 0 1" texture="xpm/stars.xpm" material="diamond"/>
 
-<Light type="parallele" position="0 5.0 05.0"
-	intensity="1.0" />
 
+<Light position=" 0 0 15" />

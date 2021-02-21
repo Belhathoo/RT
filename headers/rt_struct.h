@@ -32,6 +32,34 @@ typedef	struct	s_texture
 	float		scale;
 }				t_texture;
 
+typedef struct  s_cell
+{ //// wherre is it !!
+	t_vec	base;
+	t_vec	cell;
+	t_vec	cellcol;
+	t_vec	tocell;
+	t_vec   closest;
+	t_vec	closetcell;
+	t_vec	toclosest;
+	t_vec	diff;
+	t_vec	tocenter;
+	t_vec	celldifference;
+	double	mindistocell;
+	double  minedgedistance;
+	double	edgedistance;
+	
+}				t_cell;
+
+typedef struct	s_voronoi
+{
+	float		valuechange;
+	float		isborder;
+	t_vec	    cellcolor;
+	t_vec		p;
+	t_vec		noise_v;
+}				t_voronoi;
+
+
 typedef struct	s_noise
 {
 	int			is_noise;
@@ -42,6 +70,7 @@ typedef struct	s_noise
 	t_vec		col2;
 	//t_perlin	p;
 }				t_noise;
+
 
 typedef struct s_m
 {

@@ -52,6 +52,19 @@ t_light			*rt_init_light(void)
 	return (light);
 }
 
+t_noise			rt_init_noise(void)
+{
+	t_noise n;
+
+	n.is_noise = 0;
+	n.type = 0;
+	n.col1 = vec(1.0, 1.0, 1.0);
+	n.col2 = vec(0.0, 0.0, 0.0);
+	n.scale1 = 2.0;
+	n.scale2 = 2.0;
+	return (n);
+}
+
 t_object		*rt_init_object(void)
 {
 	t_object *obj;
@@ -75,7 +88,7 @@ t_object		*rt_init_object(void)
 	obj->rot = vec(0.0, 0.0, 0.0);
 	obj->col = vec(1.0, 0.7, 0.3);
 	obj->txt = NULL;
-	obj->noi.is_noise = 0;
+	obj->noi = rt_init_noise();
 	obj->is_sliced = 0;
 	obj->sl_pnt = vec(0.0, 0.0, 0.0);
 	obj->sl_vec = vec(0.0, -1.0, 0.0);

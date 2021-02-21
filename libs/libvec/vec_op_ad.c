@@ -21,3 +21,8 @@ double      vec_lengthsquared(t_vec a)
 {
 	return (a.x * a.x + a.y * a.y + a.z * a.z);
 }
+
+t_vec    vec_fabs(t_vec v)
+{
+	return (vec(fabs(v.x), fabs(v.y), fabs(v.z)));
+}

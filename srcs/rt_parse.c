@@ -65,8 +65,18 @@ void  rt_add_object(t_tag *tag, t_rt *rt)
 			obj->r = rt_ctod(tag->attr->value, rt);    
 		else if (!ft_strcmp(tag->attr->name, "texture"))
 			obj->txt = rt_ctotxt(tag->attr->value, rt);
-		else if (!ft_strcmp(tag->attr->name, "noise"))
-			obj->noi = rt_add_noise(tag->attr->value, rt);
+		
+		else if (!ft_strcmp(tag->attr->name, "noise")  && (obj->noi.is_noise = 1))
+			obj->noi.type = rt_add_noise(tag->attr->value, rt);
+		else if (!ft_strcmp(tag->attr->name, "n_scale"))
+			obj->noi.scale1 = rt_ctod(tag->attr->value, rt);
+		else if (!ft_strcmp(tag->attr->name, "n_scale1"))
+			obj->noi.scale2 = rt_ctod(tag->attr->value, rt);
+		else if (!ft_strcmp(tag->attr->name, "n_color"))
+			obj->noi.col1 = rt_ctovec(tag->attr->value, rt);
+		else if (!ft_strcmp(tag->attr->name, "n_color1"))
+			obj->noi.col2 = rt_ctovec(tag->attr->value, rt);
+
 		else if (!ft_strcmp(tag->attr->name, "material"))
 			obj->material = ft_strdup(tag->attr->value);
 		else if (!ft_strcmp(tag->attr->name, "slice_vec") && (obj->is_sliced = 1))

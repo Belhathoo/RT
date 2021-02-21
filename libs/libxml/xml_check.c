@@ -47,8 +47,8 @@ int     xml_check_attr(char *t_name, char *a_name, t_xml *x)
             || !ft_strcmp(a_name, "material") || !ft_strcmp(a_name, "size")\
             || !ft_strcmp(a_name, "height")|| !ft_strcmp(a_name, "width")\
             || !ft_strcmp(a_name, "angle") || !ft_strcmp(a_name, "n_scale")\
-            || !ft_strcmp(a_name, "n_scale1") || !ft_strcmp(a_name, "col_noise")
-            || !ft_strcmp(a_name, "col1_noise"))
+            || !ft_strcmp(a_name, "n_scale1") || !ft_strcmp(a_name, "n_color")
+            || !ft_strcmp(a_name, "n_color1"))
             return (1);
     }
     else if (!ft_strcmp(t_name, "Camera"))

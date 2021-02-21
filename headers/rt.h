@@ -18,7 +18,6 @@ void			rt_rot_dir(t_vec *d, t_vec r);
 t_vec			rt_ctovec(char *str, t_rt *rt);
 double			rt_ctod(char *str, t_rt *rt);
 t_texture   	*rt_ctotxt(char *str, t_rt *rt);
-t_noise			rt_add_noise(char *val, t_rt *rt);
 
 void			rt_parser(t_rt *p, char **av);
 void			rt_check_cam(t_camera c, t_rt *rt);
@@ -58,6 +57,8 @@ void            rt_check_l_ref(t_thread *th, t_ray *r, t_object *o, t_vec *c, in
  * Hit
 */
 
+int				rt_hit(t_scene *scene, t_ray *r, t_hit *record);
+
 int				rt_hit_sphere(t_object *obj, t_ray *ray, t_hit *record);
 int				rt_hit_cylinder(t_object *obj, t_ray *ray, t_hit *record);
 int				rt_hit_l_cylinder(t_object *o, t_ray *r, t_hit *rec);
@@ -66,12 +67,14 @@ int				rt_hit_l_cone(t_object *o, t_ray *r, t_hit *rec);
 int				rt_hit_plan(t_object *obj, t_ray *ray, t_hit *record);
 int				rt_hit_care(t_object *o, t_ray *ray, t_hit *rec);
 
-int				rt_hit(t_scene *scene, t_ray *r, t_hit *record);
 int				rt_hit_torus(t_object *obj, t_ray *ray, t_hit *record);
 int             rt_hit_parabol(t_object *obj, t_ray *ray, t_hit *record);
 int     		rt_hit_cube(t_object *oo, t_ray *r, t_hit *record);
 
-int				rt_slicing(t_object *o, t_ray *r, t_hit *rec);
+int				rt_hit_glasse(t_object *o, t_ray *r,  t_hit *rec);
+int             rt_hit_cube_troue(t_object *obj, t_ray *ray, t_hit *record);
+
+// int				rt_slicing(t_object *o, t_ray *r, t_hit *rec);
 
 /*
  * Utils
@@ -107,13 +110,25 @@ void			rt_get_repere(t_object *ob);
 */
 
 t_texture		*rt_init_txt(t_rt *rt);
-//t_vec   		rt_texture(double u, double v);
 int				rt_load_txt(t_rt *rt, t_object *o);
 t_vec			rt_get_color_from_texture(t_object *o, double *u, double *v);
-t_vec  			torus_txt(t_hit *rec);
+t_vec  			rt_torus_noise(t_hit *rec);
 
+int     		rt_add_noise(char *val, t_rt *rt);
 t_vec			rt_noise_damier(t_hit *rec);
 t_vec			rt_noise(t_object *o, t_hit rec);
+t_vec		    rt_rand1dto3d(double value);
+t_vec		    rt_rand3dto3d(t_vec value);
+t_vec            vec_floor(t_vec v);
+long double		rand1dto1d(long double value, long double mutator);
+double		    rt_rand3dto1d(t_vec value, t_vec dot_dir);
+double		    rt_rand1dto1d(double value, double mutator);
+float	        rt_smoothstep(float a, float b, float x);
+float	        rt_step(float a, float x);
+double	        rt_frac(double value);
+t_vec	        rt_lerp(t_vec a, t_vec b, float f);
+t_vec           rt_voronoi(t_vec p,  t_object *o);
+t_vec           rt_start_voronoi(t_vec p, t_object *o);
 
 /*
  * Events

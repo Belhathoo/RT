@@ -22,14 +22,21 @@ SRCS = rt.c\
 		rt_hit_torus.c\
 		rt_hit_parabole.c\
 		rt_hit_cube.c\
+		rt_hit_cube_troue.c\
+		rt_hit_glasse.c\
 		rt_solve_quartic.c\
 		rt_solve_cubic.c\
 		rt_solve_quadric.c\
 		rt_noise.c\
+		rt_noise_utils.c\
+		rt_voronoi.c\
+		rt_voronoi_utils.c\
+		rt_rand.c\
 rt_textures.c\
 		rt_cube_case.c\
 #load_txt.c\
 
+#rt_rotation.c
 SRC = $(add prefix srcs/, $(SRCS))
 SRCS_NORM = $(SRCS)
 

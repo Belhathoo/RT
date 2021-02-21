@@ -19,6 +19,7 @@ void     rt_check_obj_name(t_object *obj, t_rt *rt)
 		rt_exit(rt, "Object shoud have a name!", EXIT_FAILURE);
 	str = ft_strdup(obj->name);
 	str = ft_strupcase(str);
+	
 	if (!ft_strcmp(str, "SPHERE"))
 		obj->hit = rt_hit_sphere;
 	else if (!ft_strcmp(str, "CYLINDER"))
@@ -39,6 +40,10 @@ void     rt_check_obj_name(t_object *obj, t_rt *rt)
 		obj->hit = rt_hit_l_cylinder;
 	else if (!ft_strcmp(str, "L_CONE"))
 		obj->hit = rt_hit_l_cone;
+	else if (!ft_strcmp(str, "GLASSE"))
+	     obj->hit = rt_hit_glasse;
+	else if (!ft_strcmp(str, "CUBE_TROUE"))
+	     obj->hit = rt_hit_cube_troue;
 	else
 	{
 		ft_strdel(&str);
@@ -70,7 +75,7 @@ void			rt_set_coef(t_object *o, t_rt *rt)
 		o->mat.kd = 0.4;
 		o->mat.ks = 0.774;
 		o->mat.shininess = 76.8;
-		o->mat.kt = 2.42;
+		o->mat.kt = 2.41;
 		o->mat.kr = 0.0;
 	}
 	else if (!ft_strcmp(o->material, "ice"))
@@ -79,7 +84,7 @@ void			rt_set_coef(t_object *o, t_rt *rt)
 		o->mat.kd = 0.4;
 		o->mat.ks = 0.5;
 		o->mat.shininess = 50;
-		o->mat.kt = 1.00;
+		o->mat.kt = 1.31;
 		o->mat.kr = 0.0;
 	}
 	else if (!ft_strcmp(o->material, "gold"))
