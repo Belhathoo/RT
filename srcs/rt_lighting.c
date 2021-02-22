@@ -17,10 +17,9 @@ t_vec		rt_diffuse(t_thread *th, t_light *l, t_vec lo, double f_att)
 	double	d;
 	t_vec	diff;
 
-	d = th->rec.curr_obj->mat.kd * l->intensity;
-	d *= ffmax(0.0, vec_dot(vec_unit(lo), th->rec.n));
+	d = ffmax(0.0, vec_dot(vec_unit(lo), th->rec.n)) * l->intensity;
 	diff = vec_prod(th->rec.col, l->col);
-	diff = vec_pro_k(diff, d * f_att);
+	diff = vec_prod(diff, vec_pro_k(th->rec.curr_obj->mat.kd, d * f_att));
 	return (diff);
 }
 
@@ -35,9 +34,9 @@ t_vec		rt_specular(t_thread *th, t_light *l, t_vec lo, double f_att)
 	refl = vec_unit((rt_reflect(vec_unit(lo), th->rec.n)));
 	s = pow(ffmax(0.0, vec_dot(refl,
 					vec_unit(th->rec.ray->dir))), o->mat.shininess);
-	s *= o->mat.ks * l->intensity;
+	s *= l->intensity;
 	spec = vec_add(th->rec.col, l->col);
-	spec = vec_pro_k(spec, s * f_att);
+	spec = vec_prod(spec, vec_pro_k(o->mat.ks, s * f_att));
 	return (spec);
 }
 

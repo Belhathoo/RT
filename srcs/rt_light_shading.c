@@ -42,16 +42,11 @@ void			rt_ambient(t_light *l, t_thread *th, t_vec *col)
 	 */
 	c = vec(0.0, 0.0, 0.0);
 	o = th->rec.curr_obj;
+	
 	ia = th->rt->scene->ambient;
-
-	// if (l)
-	// {
-	// 	while (l)
-	// 	{
-	// 		c = vec_add(c, l->col);
-	// 		*col = vec_pro_k(vec_prod(c, *col), ia * l->intensity);
-	// 		l = l->next;
-	// 	}
-	// }
-	*col = vec_pro_k(*col, o->mat.ka * ia);
+	// ia *= (!l) ? 1 : l->intensity ;
+	if (!l)
+		*col = vec_prod(*col, vec_pro_k(o->mat.ka, ia));
+	else
+		*col = vec_prod(*col, vec_prod(l->col, vec_pro_k(o->mat.ka, ia)));
 }

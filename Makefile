@@ -12,7 +12,7 @@ SRCS = rt.c\
 		rt_events.c\
 		rt_lighting.c\
 		rt_light_shading.c\
-		rt_light_ref.c\
+		rt_ref.c\
 		rt_utils.c\
 		rt_close.c\
 		rt_hit_sphere.c\

@@ -58,20 +58,21 @@ void			rt_set_coef(t_object *o, t_rt *rt)
 	/* check if txt !!!
 	   specific coef for textures (NO SPECULAR)
 	   */
-	if (!o->material)
-		o->material = ft_strdup("ko");
-	if (!ft_strcmp(o->material, "chrome"))
-		o->mat = (t_material){0.25, 0.9, 0.29, 0, 0, 12};
-	else if (!ft_strcmp(o->material, "diamond"))
-		o->mat = (t_material){0.8, 0.4, 0.774, 0.0 ,2.410, 76.8};
-	else if (!ft_strcmp(o->material, "ice"))
-		o->mat = (t_material){0.25, 0.42, 0.5, 0.0, 1.3120, 70};
-	else if (!ft_strcmp(o->material, "gold"))
-		o->mat = (t_material){0.5, 0.5, 0.5 ,0.8 ,0, 51.2};
-	else if (!ft_strcmp(o->material, "al"))
-		o->mat = (t_material){0.72, 0.92, 1.0 ,0.7 ,0, 25};
-	else
-		o->mat = (t_material){0.7, 0.6, 0.6, 0.0, 0.0, 50};
+	// if (!o->material)
+	// 	o->material = ft_strdup("ko"); // aff > return
+	// if (!ft_strcmp(o->material, "chrome"))
+	// 	o->mat = (t_material){0.25, 0.9, 0.29, 0, 0, 12};
+	// else if (!ft_strcmp(o->material, "diamond"))
+	// 	o->mat = (t_material){0.8, 0.4, 0.774, 0.0 ,2.410, 76.8};
+	// else if (!ft_strcmp(o->material, "ice"))
+	// 	o->mat = (t_material){0.25, 0.42, 0.5, 0.0, 1.3120, 70};
+	// else if (!ft_strcmp(o->material, "gold"))
+	// 	o->mat = (t_material){0.5, 0.5, 0.5 ,0.8 ,0, 51.2};
+	// else if (!ft_strcmp(o->material, "al"))
+	// 	o->mat = (t_material){0.72, 0.92, 1.0 ,0.0 ,0, 25};
+	// else
+		o->mat = (t_material){vec(0.5, 0.5, 0.5), vec(0.5, 0.5, 0.5),\
+		vec(0.30, 0.30, 0.30) ,0.05 ,0.0, 50};
 	// if(o->txt)
 	// {
 	// 	o->mat.ka = 1.0;

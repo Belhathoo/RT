@@ -1,20 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_light_ref.c                                     :+:      :+:    :+:   */
+/*   rt_ref.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: belhatho <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/18 15:54:33 by belhatho          #+#    #+#             */
-/*   Updated: 2021/02/18 15:54:49 by belhatho         ###   ########.fr       */
+/*   Created: 2021/02/22 10:54:47 by belhatho          #+#    #+#             */
+/*   Updated: 2021/02/22 10:55:14 by belhatho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include <rt.h>
-
-
-
-
 
 int       rt_refract(t_vec i, t_vec n, float ior, t_vec *rf)
 {
@@ -65,7 +61,7 @@ void        rt_check_l_ref(t_thread *th, t_ray *r, t_object *o, t_vec *color, in
 			ior = 1 / o->mat.kt;
 		}
 		if (rt_refract(r->dir, out_n, ior, &(rf.dir)) == 0)
-			rf.dir = refl;ho
+			rf.dir = refl;
 		rf.origin = vec_add(th->rec.p, vec_pro_k(rf.dir, 0.001));
 		*color = vec_add(*color, rt_raytracer(th, &rf, depth - 1));
 	}

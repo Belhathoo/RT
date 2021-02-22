@@ -2,20 +2,17 @@
 
 
 <Camera
-  lookfrom="-02.0 05.0 15"
+  lookfrom="-0.0 015.0 0"
   lookat="0 0 0"
   fov="60"
   />
 
 <Option anti-aliasing="2"/>
 
-<Object name="plan" texture="xpm/stars.xpm" material="diamond" position="0 -5 0">
+<Object name="plan" color="1 1 1" material="al" position="0 -5 0">
 
-<Object name="sphere"  material="al" />
-
-<Object name="sphere" position="3 1 2" color="1.0 1 1" material="ice" />
-
-<Object name="sphere" position="-3 -1 -2" color="0 0 1" material="gold" />
+<Object name="sphere"  material="i2ce" />
 
 
-<Light />
+
+<Light position="2 5 -10"/>
