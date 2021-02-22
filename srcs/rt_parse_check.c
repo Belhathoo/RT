@@ -19,7 +19,7 @@ void     rt_check_obj_name(t_object *obj, t_rt *rt)
 		rt_exit(rt, "Object shoud have a name!", EXIT_FAILURE);
 	str = ft_strdup(obj->name);
 	str = ft_strupcase(str);
-	
+
 	if (!ft_strcmp(str, "SPHERE"))
 		obj->hit = rt_hit_sphere;
 	else if (!ft_strcmp(str, "CYLINDER"))
@@ -41,9 +41,9 @@ void     rt_check_obj_name(t_object *obj, t_rt *rt)
 	else if (!ft_strcmp(str, "L_CONE"))
 		obj->hit = rt_hit_l_cone;
 	else if (!ft_strcmp(str, "GLASSE"))
-	     obj->hit = rt_hit_glasse;
+		obj->hit = rt_hit_glasse;
 	else if (!ft_strcmp(str, "CUBE_TROUE"))
-	     obj->hit = rt_hit_cube_troue;
+		obj->hit = rt_hit_cube_troue;
 	else
 	{
 		ft_strdel(&str);
@@ -61,67 +61,23 @@ void			rt_set_coef(t_object *o, t_rt *rt)
 	if (!o->material)
 		o->material = ft_strdup("ko");
 	if (!ft_strcmp(o->material, "chrome"))
-	{
-		o->mat.ka = 0.25;
-		o->mat.kd = 0.9;
-		o->mat.ks = 0.29;
-		o->mat.kr = 0.0;
-		o->mat.kt = 0.0;
-		o->mat.shininess = 5;
-	}
+		o->mat = (t_material){0.25, 0.9, 0.29, 0, 0, 12};
 	else if (!ft_strcmp(o->material, "diamond"))
-	{
-		o->mat.ka = 0.8;
-		o->mat.kd = 0.4;
-		o->mat.ks = 0.774;
-		o->mat.shininess = 76.8;
-		o->mat.kt = 2.41;
-		o->mat.kr = 0.0;
-	}
+		o->mat = (t_material){0.8, 0.4, 0.774, 0.0 ,2.410, 76.8};
 	else if (!ft_strcmp(o->material, "ice"))
-	{
-		o->mat.ka = 0.25;
-		o->mat.kd = 0.4;
-		o->mat.ks = 0.5;
-		o->mat.shininess = 50;
-		o->mat.kt = 1.31;
-		o->mat.kr = 0.0;
-	}
+		o->mat = (t_material){0.25, 0.42, 0.5, 0.0, 1.3120, 70};
 	else if (!ft_strcmp(o->material, "gold"))
-	{
-		o->mat.ka = 0.5;
-		o->mat.kd = 0.5;
-		o->mat.ks = 0.5;
-		o->mat.shininess = 51.2;
-		o->mat.kr = 0.8;
-		o->mat.kt = 0.0;
-	}
+		o->mat = (t_material){0.5, 0.5, 0.5 ,0.8 ,0, 51.2};
 	else if (!ft_strcmp(o->material, "al"))
-	{
-		// o->mat = (t_material){}
-		o->mat.ka = 0.75;
-		o->mat.kd = 0.9;
-		o->mat.ks = 1.0;
-		o->mat.shininess = 20;
-		// o->mat.kr = 0.99;
-		o->mat.kr = 0.0;
-		o->mat.kt = 0.0;
-	}
+		o->mat = (t_material){0.72, 0.92, 1.0 ,0.7 ,0, 25};
 	else
-	{
-		o->mat.ka = 0.7;
-		o->mat.kd = 0.6;
-		o->mat.ks = 0.6;
-		o->mat.kr = 0.0;
-		o->mat.kt = 0.0;
-		o->mat.shininess = 50;
-	}
-	if(o->txt)
-		{
-			o->mat.ka = 1.0;
-			o->mat.shininess = 0;
-			o->mat.ks = 0;
-		}
+		o->mat = (t_material){0.7, 0.6, 0.6, 0.0, 0.0, 50};
+	// if(o->txt)
+	// {
+	// 	o->mat.ka = 1.0;
+	// 	o->mat.shininess = 0;
+	// 	o->mat.ks = 0;
+	// }
 }
 
 void	rt_rot_dir(t_vec *r, t_vec d)
@@ -141,10 +97,10 @@ void    rt_check_obj(t_object *o, t_rt *rt)
 {
 
 	/*
-		radius for cone ((angle ]0 -180]))!!!!!!!!!
-	*/
+	   radius for cone ((angle ]0 -180]))!!!!!!!!!
+	   */
 	if (ft_strcmp(o->name, "sphere") &&\
-		(o->dir.x == 0 && o->dir.y == 0 && o->dir.z == 0))
+			(o->dir.x == 0 && o->dir.y == 0 && o->dir.z == 0))
 	{	
 		o->dir = vec(1.0, 1.0, 0.0);
 		rt_exit(rt, "obj: direction vector is non-zero!", EXIT_FAILURE);
@@ -163,16 +119,16 @@ void    rt_check_obj(t_object *o, t_rt *rt)
 
 void	rt_check_lights(t_light *l, t_rt *rt)
 {
-		/*
-		minit dir/radius/angle for other light types !!!!
-		*/
+	/*
+	   minit dir/radius/angle for other light types !!!!
+	   */
 	// if (l->dir.x == 0 && l->dir.y == 0 && l->dir.z == 0)
 	// 	rt_exit(rt, "light: direction vector is non-zero!", EXIT_FAILURE);
 	if ((l->intensity = ft_clamping(l->intensity)) == 0.0)
 		rt_exit(rt, "light: intensity is a positive number ]0-1]", EXIT_FAILURE);
 	if (l->angle)
-// check if soft first !! for radius !
-	// if (l->radius <= 0.0)
-	// 	rt_exit(rt, "light: radius should be positive", EXIT_FAILURE);
-	rt_adjustment(&l->col);
+		// check if soft first !! for radius !
+		// if (l->radius <= 0.0)
+		// 	rt_exit(rt, "light: radius should be positive", EXIT_FAILURE);
+		rt_adjustment(&l->col);
 }

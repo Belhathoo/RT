@@ -2,7 +2,7 @@
 
 
 <Camera
-	lookfrom="-0.0 0.0 20.0"
+	lookfrom="-0.0 0.0 15.0"
 	lookat="0 0 0"
 	fov="60"
 	/>
@@ -19,8 +19,8 @@ color="1.0 1.0 1.0"  texture="xpm/earth1.xpm" material="diamond" />
 <Object name="sphere" position="7 0 3.0 " color="0 0.2 0.9"
 material="gold" radius="2.0"/>
 
-<Object name="plan" position="0 0 14.0" rotation="0 0 0"
-direction="0 0 1" texture="xpm/stars.xpm" material="diamond"/>
+<Object name="plan" position="0 0 9.0" rotation="0 0 0"
+direction="0 0 1" texture="xpm/stars.xpm" material="ice"/>
 
 
 <Light position=" 0 0 15" />

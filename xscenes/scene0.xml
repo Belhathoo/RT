@@ -1,35 +1,30 @@
 <!DOCTYPE xml>
 
 <Camera
-  lookfrom="-6.0 5.0 20.50"
+  lookfrom="0.0 0.0 15.50"
   lookat="0 0 0"
   fov="60"
   />
 
 <Option anti-aliasing="1.0"/>
 
-<Object name="torus" radius="2.0" r="0.75"  position="-3 2.0 -1.0" direction="0 0 -1" 
-texture="xpm/grid.xpm"/>
+<Object name="sphere" position="8.0 0.0 -3.0" texture="xpm/0.xpm"/>
 
-<Object name="sphere" position="-8.0 4.0 -15" texture="xpm/0.xpm"/>
-
-<Object name="cone" position="15.0 3 -1.0" direction="0 1 0"
-radius="60" texture="xpm/corner.xpm" />
+<Object name="l_cone" position="3.0 0 08.0" direction="0 1 0" 
+noise="damier" n_color="1 1 0" n_scale="3"/>
 
 
+<Object name="sphere" position="-12.0 0 0" noise="voronoi1" 
+n_scale="1.0" material="chrome"/>
 
-<Object name="plan" position="0 -2 0" noise="damier" n_scale="4.0" material="gold"/>
+<Object name="sphere" material="al" position="-7.0 .0 -4.0" noise="damier" />
 
+<Object name="sphere" position="0.0 -2.0 0.0" color="0 0 1.0" material="gold" />
 
-<Object name="sphere" position="0.0 0.0 2.0" color="0 0 1.0" material="gold" />
-
-<Object name="plan" direction="0 0 1" position="0.0 1.0 6.0"
- color="1.0 1.0 01.0" noise="voronoi1" n_scale="1.0" material="ice" />
-
-<Object name="sphere" position="16.0 0.0 -10.0" noise="damier" />
+<Object name="plan" direction="0 0 1" noise="voronoi1" material="ice" position="0 0 10"/>
 
 
 
-<Light intensity="1" />
+
  
 <Light position="10 20.0 30"  intensity="1.0" />

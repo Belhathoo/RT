@@ -65,7 +65,7 @@ void        rt_check_l_ref(t_thread *th, t_ray *r, t_object *o, t_vec *color, in
 			ior = 1 / o->mat.kt;
 		}
 		if (rt_refract(r->dir, out_n, ior, &(rf.dir)) == 0)
-			rf.dir = refl;
+			rf.dir = refl;ho
 		rf.origin = vec_add(th->rec.p, vec_pro_k(rf.dir, 0.001));
 		*color = vec_add(*color, rt_raytracer(th, &rf, depth - 1));
 	}
