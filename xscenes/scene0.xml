@@ -1,30 +1,40 @@
 <!DOCTYPE xml>
 
 <Camera
-  lookfrom="0.0 02.0 15.50"
+  lookfrom="0.0 0.0 15.50"
   lookat="0 0 0"
   fov="60"
   />
 
 <Option anti-aliasing="1.0"/>
 
-<Object name="sphere" position="8.0 0.0 -3.0" texture="xpm/0.xpm"/>
+<Object name="l_cylinder" position="-7.0 0.0 -10.0" height="10" direction="0 1 0" 
+noise="damier" n_color="1 1 0" n_scale="5"/>
 
-<Object name="l_cylinder" position="0.0 2.0 -5.0" direction="0 1 0" 
-noise="damier" n_color="1 1 0" n_scale="3"/>
+<Object name="plan" n_scale="15" direction="0 1 0"  
+material="al" texture="xpm/brick.xpm" position="0 -5.0 10"/>
 
+
+<Object name="sphere" position="8.0 0.0 -5.0" direction="1.0 0 1"
+material="al" texture="xpm/sun.xpm"/>
 
 <Object name="sphere" position="0.0 -1.0 0.0"  
-n_scale="1.0" noise="voronoi1" material="diamond"/>
+ color="1.0 1.0 1.0" material="ice"/>
 
-<Object name="sphere" material="ko" position="-6.0 .0 -6.0" noise="damier" />
+<Object name="cube" position="0.0 -1.0 0.0" color="1 0 0"  size="1" />
 
-<Object name="sphere" position="-11.0 0 -3.0"  color="0 0 1.0" material="gold" />
+<Object name="sphere" position="-12.0 0 -3.0"  color="0 0 1.0" material="gold" />
 
-<Object name="plan" noise="voronoi1" n_scale="5" direction="0 1 0"  
-material="chrome" position="0 -5.0 10"/>
+<Object name="sphere" material="diamond" n_scale="1.0" noise="voronoi1"
+position="-6.0 00.0 -6.0" n_color="1 0 0"  />
 
 
 
+
+
+<Light position="0.0 0 10" intensity="1.0"/>
+<Light position="0.0 15.0 0" intensity="1.0"/>
+<Light position="10.0 10 10" intensity="1.0"/>
+<Light position="-10.0 10 10" intensity="1.0"/>
 
  

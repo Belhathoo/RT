@@ -12,6 +12,16 @@ t_vec		vec(double x, double y, double z)
 	return (v);
 }
 
+t_vec		vec3(double x)
+{
+	t_vec	v;
+
+	v.x = x;
+	v.y = x;
+	v.z = x;
+	return (v);
+}
+
 t_vec		vec_add(t_vec a, t_vec b)
 {
 	return (vec(a.x + b.x, a.y + b.y, a.z + b.z));

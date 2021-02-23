@@ -11,6 +11,7 @@ typedef struct	s_vector
 }				t_vec;
 
 t_vec		vec(double x, double y, double z);
+t_vec		vec3(double x);
 t_vec		vec_unit(t_vec a);
 t_vec		vec_sub(t_vec a, t_vec b);
 t_vec		vec_add(t_vec a, t_vec b);

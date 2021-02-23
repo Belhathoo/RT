@@ -58,27 +58,35 @@ void			rt_set_coef(t_object *o, t_rt *rt)
 	/* check if txt !!!
 	   specific coef for textures (NO SPECULAR)
 	   */
-	// if (!o->material)
-	// 	o->material = ft_strdup("ko"); // aff > return
-	// if (!ft_strcmp(o->material, "chrome"))
-	// 	o->mat = (t_material){0.25, 0.9, 0.29, 0, 0, 12};
-	// else if (!ft_strcmp(o->material, "diamond"))
-	// 	o->mat = (t_material){0.8, 0.4, 0.774, 0.0 ,2.410, 76.8};
-	// else if (!ft_strcmp(o->material, "ice"))
-	// 	o->mat = (t_material){0.25, 0.42, 0.5, 0.0, 1.3120, 70};
-	// else if (!ft_strcmp(o->material, "gold"))
-	// 	o->mat = (t_material){0.5, 0.5, 0.5 ,0.8 ,0, 51.2};
-	// else if (!ft_strcmp(o->material, "al"))
-	// 	o->mat = (t_material){0.72, 0.92, 1.0 ,0.0 ,0, 25};
-	// else
-		o->mat = (t_material){vec(0.5, 0.5, 0.5), vec(0.5, 0.5, 0.5),\
-		vec(0.30, 0.30, 0.30) ,0.05 ,0.0, 50};
-	// if(o->txt)
-	// {
-	// 	o->mat.ka = 1.0;
-	// 	o->mat.shininess = 0;
-	// 	o->mat.ks = 0;
-	// }
+	if (!o->material)
+		o->material = ft_strdup("ko"); // aff > return
+	if (!ft_strcmp(o->material, "bl_plastic"))
+		o->mat = (t_material){vec3(0.0), vec3(0.01), vec3(0.5), 32, 0.0, 0.0};
+	if (!ft_strcmp(o->material, "cu"))
+		o->mat = (t_material){vec(0.33, 0.23, 0.02), vec(0.78, 0.568, 0.113)\
+		, vec(0.99, 0.94, 0.807), 27.897, 0.0, 0.0};
+	if (!ft_strcmp(o->material, "chrome"))
+		o->mat = (t_material){vec3(0.25), vec3(0.4), vec3(0.774), 76.70, 0.0, 0.0};
+	else if (!ft_strcmp(o->material, "gold"))
+		o->mat = (t_material){vec(0.24, 0.199, 0.074), vec(0.75, 0.606, 0.226),\
+			vec(0.628, 0.555, 0.3660), 51.2, 0.8, 0.0};
+		else if (!ft_strcmp(o->material, "mirror"))
+		o->mat = (t_material){vec3(1.0), vec3(1.0), vec3(1), 100, 1.0, 0.0};
+	else if (!ft_strcmp(o->material, "diamond"))
+		o->mat = (t_material){vec3(0.8), vec3(0.4), vec3(0.4), 76.80, 0.0, 2.41};
+	else if (!ft_strcmp(o->material, "ice"))
+		o->mat = (t_material){vec3(0.25), vec3(0.42), vec3(0.5), 70, 0.0, 1.32};
+	else if (!ft_strcmp(o->material, "al"))
+		o->mat = (t_material){vec3(0.92), vec3(0.92), vec3(0.8), 25, 0.0 ,0.0};
+	else
+		o->mat = (t_material){vec3(0.7), vec3(0.5),\
+			vec3(0.30), 50 ,0.0 ,0.0};
+	if(o->txt)
+	{
+		o->mat.ka = vec3(1.0);
+		o->mat.shininess = 0;
+		o->mat.ks = vec3(0.0);
+	}
 }
 
 void	rt_rot_dir(t_vec *r, t_vec d)
@@ -100,12 +108,8 @@ void    rt_check_obj(t_object *o, t_rt *rt)
 	/*
 	   radius for cone ((angle ]0 -180]))!!!!!!!!!
 	   */
-	if (ft_strcmp(o->name, "sphere") &&\
-			(o->dir.x == 0 && o->dir.y == 0 && o->dir.z == 0))
-	{	
-		o->dir = vec(1.0, 1.0, 0.0);
+	if (o->dir.x == 0 && o->dir.y == 0 && o->dir.z == 0)
 		rt_exit(rt, "obj: direction vector is non-zero!", EXIT_FAILURE);
-	}
 	if (o->size <= 0.0 && ft_strcmp(o->name, "plan") != 0)
 		rt_exit(rt, "obj: radius should be positive", EXIT_FAILURE);
 	o->angle *= M_PI / 180 / 2;
@@ -127,7 +131,7 @@ void	rt_check_lights(t_light *l, t_rt *rt)
 	// 	rt_exit(rt, "light: direction vector is non-zero!", EXIT_FAILURE);
 	if ((l->intensity = ft_clamping(l->intensity)) == 0.0)
 		rt_exit(rt, "light: intensity is a positive number ]0-1]", EXIT_FAILURE);
-	if (l->angle)
+	// if (l->angle)
 		// check if soft first !! for radius !
 		// if (l->radius <= 0.0)
 		// 	rt_exit(rt, "light: radius should be positive", EXIT_FAILURE);

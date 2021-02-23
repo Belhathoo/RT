@@ -49,7 +49,8 @@ int     rt_hit_plan(t_object *o, t_ray *r, t_hit *rec)
 		return (0);
 	rec->t = t;
 	rec->p = vec_ray(r, rec->t);
-	rec->n = vec_dot(r->dir, o->rot) < 0 ? vec_pro_k(o->rot, -1.0) : o->rot;
+	rec->n = vec_dot(r->dir, o->rot) > 0 ? vec_pro_k(o->rot, -1.0) : o->rot;
+	// rec->n = o->rot;
 	plane_uv(rec, o);
 	return (1);
 }
@@ -65,7 +66,9 @@ int         rt_hit_care(t_object *o, t_ray *ray, t_hit *rec)
 		rec->p = vec_ray(ray, rec->t);
 		if (cutt_plane(rec, o) == 0)
 			return (0);
-		rec->n = (vec_dot(ray->dir, o->rot) < 0) ? vec_pro_k(o->rot, -1) : o->rot;
+		rec->n = (vec_dot(ray->dir, o->rot) < 0) ? vec_pro_k(o->rot, -1.0) : o->rot;
+			// rec->n = o->rot;
+
 		plane_uv(rec, o);
 		return (1);
 	}
