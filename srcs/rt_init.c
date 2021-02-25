@@ -91,7 +91,9 @@ t_object		*rt_init_object(void)
 	obj->noi = rt_init_noise();
 	obj->is_sliced = 0;
 	obj->sl_pnt = vec(0.0, 0.0, 0.0);
-	obj->sl_vec = vec(0.0, -1.0, 0.0);
+	obj->sl_vec = vec(0.0, -1.0, 0.0);;
+	obj->refl = 0.0;
+	obj->refr = 0.0;
 	obj->next = NULL;
 	obj->compos = NULL;
 	return (obj);
@@ -103,7 +105,7 @@ t_scene		*rt_init_scene(void)
 
 	if (!(scene = (struct s_scene*)malloc(sizeof(struct s_scene))))
 		rt_perror();
-	scene->anti_aliasing = 2;
+	scene->anti_aliasing = 1;
 	scene->ambient = 1.0;
 	scene->object = NULL;
 	scene->light = NULL;

@@ -1,0 +1,27 @@
+<!DOCTYPE xml>
+
+
+<Camera
+	lookfrom="0 8.0 10.0"
+	lookat="0 0 0"
+	fov="60"
+	/>
+
+
+<Option anti-aliasing="2" />
+
+
+<Object name="plan" color="1 1 1"
+material="wate0r"  n_scale="1.5" position="0 -5 0" />
+
+<Object name="plan" texture="xpm/brick.xpm"  position="0 -6 0" />
+
+
+<Object name="sphere" position="-1.0 00 0" radius="2.0" color="0 0 01"
+  material="ice"/>
+
+<Object name="cube" position="01.0 2.0 4.0" radius="1.5"
+  material="al"/>
+
+
+<Light position=" 0 5.0 10.0 "/>

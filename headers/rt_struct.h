@@ -107,6 +107,8 @@ typedef struct	s_o
 	t_vec		sl_pnt;
 
 	struct s_m	mat;
+	float		refl;
+	float		refr;
 	
 	struct s_o	*compos;
 	struct s_o	*next;

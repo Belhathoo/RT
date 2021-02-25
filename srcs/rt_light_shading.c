@@ -12,40 +12,62 @@
 
 #include <rt.h>
 
-int				rt_shading(t_thread *th, t_vec lo)
+int				rt_shading(t_thread *th, t_hit record, t_light *l, t_vec lo, t_vec *col)
 {
-	t_ray		sh_r;
 	t_hit	    rec;
 	t_object	*o;
+	t_vec	out_n;
+	float	ior;
+	t_ray	sr;
 
-	o = th->rt->scene->object;
-	sh_r = rt_ray(vec_add(th->rec.p, vec_pro_k(lo, 0.001)), lo);
-	rec.closest = vec_length(sh_r.dir);
-	sh_r.dir = vec_unit(sh_r.dir);
-	while (o != NULL)
+
+	sr = rt_ray(vec_add(record.p, vec_pro_k(lo, 0.001)), vec_unit(lo));
+
+	if (rt_hit(th->rt->scene, &sr, &rec))
 	{
-		if (o != th->rec.curr_obj)
-			if (rt_hit(th->rt->scene, &sh_r, &rec))
-				return (1);
-		o = o->next;
+		o = rec.curr_obj;
+		if (o->refr == 0)
+			return (1);
+		else
+		{
+			rt_refraction(th, &sr, rec.curr_obj, MAX_DEPTH);
+			if (th->rec.curr_obj == rec.curr_obj)
+{				if (vec_dot(rec.ray->dir, vec_unit(vec_sub(rec.p, l->pos))) >= 0)
+			{
+				*col = vec_pro_k(vec3(1.0), vec_dot(rec.ray->dir,\
+				vec_unit(vec_sub(rec.p, l->pos))));
+				return(0);
+			}
+}				// {
+				// 	*col = vec_add(*col, vec_pro_k(l->col,\
+				// 	ffmax(0.0, vec_dot(rec.ray->dir, rec.n))));
+				// 	return(1);
+				// }
+				else
+					return (0);
+		}
+		// 	else
+		// 		*col = vec_add(*col, vec_pro_k(*col, ffmax(0.0, vec_dot(sr.dir, lo))));
+		// 		return (1);
+		// }
 	}
 	return (0);
 }
 
-void			rt_ambient(t_light *l, t_thread *th, t_vec *col)
+void			rt_ambient(t_light *l, t_hit rec, t_vec *col)
 {
 	t_object	*o;
 	double		ia;
 	t_vec		c;
-     /*
-	 	recheck !!
-	 */
+	/*
+	   recheck !!
+	   */
 	c = vec(0.0, 0.0, 0.0);
-	o = th->rec.curr_obj;
-	
-	ia = 0.25;//th->rt->scene->ambient;
-	*col = vec_pro_k(*col, ia);
-	
+	o = rec.curr_obj;
+
+	ia = 0.025;//th->rt->scene->ambient;
+	*col = vec_pro_k(rec.col, ia);
+
 	// ia *= (!l) ? 1 : l->intensity ;
 	// if (!l)
 	// 	*col = vec_prod(*col, vec_pro_k(o->mat.ka, ia));

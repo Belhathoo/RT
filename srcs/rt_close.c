@@ -47,8 +47,8 @@ void    rt_exit(t_rt *rt, char *msg, int err)
   {
     ft_putstr("error: ");
     ft_putendl(msg);
-    if (msg)
-      free(msg);
+    // if (msg)
+    //   free(msg);
     rt_free_lights(rt->scene->light);
     rt_free_objects(rt->scene->object);
     free(rt->scene);

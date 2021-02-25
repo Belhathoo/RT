@@ -1,24 +1,25 @@
 # include <rt.h>
 
-t_vec rt_raytracer(t_thread *th, t_ray *r, int depth)
+t_vec rt_raytracer(t_thread *th, t_hit rec, t_ray *r, int depth)
 {
 	t_vec		color;
 	t_object	*o;
 
-	th->rec.col = vec(0.0, 0.0, 0.0);
-	color = vec(0.0, 0.0, 0.0);
-	if (rt_hit(th->rt->scene, r, &th->rec))
+	rec.col = vec3(0.0);
+	color = vec3(0.0);
+	if (rt_hit(th->rt->scene, r, &rec))
 	{
-		o = th->rec.curr_obj;	
+		o = rec.curr_obj;	
 		if (o->txt)
-			th->rec.col = rt_get_color_from_texture(o, &th->rec.u, &th->rec.v);
+			rec.col = rt_get_color_from_texture(o, &rec.u, &rec.v);
 		else if (o->noi.is_noise == 1)
-			th->rec.col =  rt_noise(o, th->rec);
+			rec.col =  rt_noise(o, rec);
 		else
-			th->rec.col = o->col;
-		rt_lighting(th, th->rt->scene->light);
-		color = th->rec.col;
-		rt_check_l_ref(th, r, o, &color, depth);
+			rec.col = o->col;
+		th->rec = rec;
+		rec.col = rt_lighting(th, rec, th->rt->scene->light);
+		color = vec_add(rec.col, rt_reflection(th, r, o, depth));
+		color = vec_add(color, rt_refraction(th, r, o, depth));		
 	}
 	rt_adjustment(&color);
 	return (color);
@@ -35,6 +36,7 @@ t_vec rt_anti_aliasing(t_thread *t, int col, int row)
 	anti_a = t->rt->scene->anti_aliasing;
 	ss[0] = -1;
 	t->rec.inside = 0;
+	t->rec.curr_obj = NULL;
 	while ( ++ss[0] < anti_a)
 	{
 		ss[1] = -1;
@@ -43,7 +45,7 @@ t_vec rt_anti_aliasing(t_thread *t, int col, int row)
 			r = rt_get_ray(&t->rt->scene->cam, 
 					(double)((col + ((ss[0] + 0.5)/ anti_a)) / IMG_WIDTH),
 					(double)((row + ((ss[1] + 0.5) / anti_a)) / IMG_HEIGHT));
-			color = vec_add(color, rt_raytracer(t, &r, MAX_DEPTH));
+			color = vec_add(color, rt_raytracer(t, t->rec, &r, MAX_DEPTH));
 		}
 	}
 	return (vec_div_k(color, anti_a * anti_a));
@@ -94,9 +96,9 @@ int			rt_draw(t_rt *rt)
 	// int b = 1;
 	// while (b <= a )
 	// {	
-		// rt->scene->anti_aliasing = b;
-		rt_start(rt);
-		mlx_put_image_to_window(rt->mlx, rt->win, rt->img, 40 +10, 180);
+	// rt->scene->anti_aliasing = b;
+	rt_start(rt);
+	mlx_put_image_to_window(rt->mlx, rt->win, rt->img, 40 +10, 180);
 	// 	b++;
 	// }
 	return (EXIT_SUCCESS);

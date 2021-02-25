@@ -2,19 +2,20 @@
 
 
 <Camera
-	lookfrom="0 0.0 25.0"
+	lookfrom="0 15.0 8.0"
 	lookat="0 0 0"
 	fov="60"
 	/>
 
-<Object name="sphere" position="0.0 0.0 -25"
- direction="0.0 1.0 0.0"  n_scale="6" color="0.0 1.0 1.0" radius="20.0"/>
+<Option anti-aliasing="1" />
+
+<Object name="sphere" position="0.0 -48.0 -5" material="gol0d"
+ direction="0.0 1.0 0.0"  n_scale="6" color="1.0 1.0 0.0" radius="50.0"/>
 
 
-<Object name="sphere" position="0.0 0.0 0.0" direction="01 01 0"
- rotation="0 01 0" translation="0 0 0" noise="voronoi1" radius="04.0" color="1 1 0" material="ice"
-/>
-<Light position="10.0 10.1 10.0" intensity="0.5" color="1.0 1.0 1.0">
-<Light position="-10.0 10.1 10.0" intensity="0.5" color="1.0 1.0 1.0">
+<Object name="sphere" position="0.0 05.0 0.0" direction="01 01 01"
+ rotation="0 01 0" translation="0 0 0"  radius="2.0" color="1 0 0.0"
+  material="ice"/>
+
 <Light position="0.0 10.1 10.0" intensity="0.5" color="1.0 1.0 1.0">
 

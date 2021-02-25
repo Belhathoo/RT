@@ -12,7 +12,6 @@ t_vec   rt_ctovec(char *str, t_rt *rt)
 	ret.x = ft_atod(each[0]);
 	ret.y = ft_atod(each[1]);
 	ret.z = ft_atod(each[2]);
-	// printf("SPLIT:\t%s %s %s\nRET:\t%.2f %.2f %.2f\n",each[0], each[1], each[2], ret.x,ret.y, ret.z);
 	ft_free_twodim(&each);
 	return (ret);
 }

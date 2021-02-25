@@ -1,0 +1,16 @@
+<!DOCTYPE xml>
+
+
+<Camera
+  lookfrom="-0.0 0.0 15.0"
+  lookat="0 0 0"
+  fov="60"
+  />
+
+<Option anti-aliasing="2"/>
+
+<Object name="rectangle" direction=" 01 0 0" color="1 1 1" material="al" 
+position="0 0 0">
+
+
+<Light position="2 5 -10"/>

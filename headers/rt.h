@@ -35,7 +35,7 @@ int				ft_fr(char **str);
  */
 t_ray			rt_ray(t_vec a, t_vec b);
 t_ray			rt_get_ray(t_camera *p, double u, double v);
-t_vec 			rt_raytracer(t_thread *t, t_ray *r, int d);
+t_vec 			rt_raytracer(t_thread *t, t_hit rec, t_ray *r, int d);
 t_vec 			rt_anti_aliasing(t_thread *t, int col, int row);
 void			*rt_run(t_thread *t);
 void			rt_start(t_rt *rt);
@@ -45,14 +45,17 @@ int				rt_draw(t_rt *rt);
  * Lighting
 */
 
-void			rt_ambient(t_light *l, t_thread *th, t_vec *col);
-int				rt_shading(t_thread *th, t_vec lo);
-int				rt_lighting(t_thread *th, t_light *t);
+void			rt_ambient(t_light *l, t_hit rec, t_vec *col);
+int				rt_shading(t_thread *th, t_hit r, t_light *l, t_vec lo, t_vec *c);
+t_vec				rt_lighting(t_thread *th, t_hit r, t_light *t);
+
 t_vec			rt_reflect(t_vec v, t_vec n);
+int       rt_refract(t_vec i, t_vec n, float ior, t_vec *rf);
+t_vec		rt_reflection(t_thread *th, t_ray *r, t_object *o, int dpth);
+t_vec		rt_refraction(t_thread *th, t_ray *r, t_object *o, int depth);
+
 
 float           rt_fresnel_ref(float ior, float n1, t_vec n, t_vec d);
-void            rt_check_l_ref(t_thread *th, t_ray *r, t_object *o, t_vec *c, int depth);
-
 /*
  * Hit
 */

@@ -7,7 +7,7 @@
 	fov="60"
 	/>
 
-<Option anti-aliasing="2.0"/>
+<Option anti-aliasing="01.0"/>
 
 
 
@@ -19,8 +19,8 @@ color="1.0 1.0 1.0"  texture="xpm/earth1.xpm" material="diamond" />
 <Object name="sphere" position="7 0 3.0 " color="0 0.2 0.9"
 material="gold" radius="2.0"/>
 
-<Object name="plan" position="0 0 9.0" rotation="0 0 0"
-direction="0 0 1" texture="xpm/stars.xpm" material="ice"/>
+<Object name="plan" position="0 0 -9.0" rotation="0 0 0"
+direction="0 0 1" texture="xpm/stars.xpm" material="ice0"/>
 
 
-<Light position=" 0 0 15" />
+<Light position=" 0 05 15" />

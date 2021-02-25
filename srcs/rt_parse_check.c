@@ -75,18 +75,26 @@ void			rt_set_coef(t_object *o, t_rt *rt)
 	else if (!ft_strcmp(o->material, "diamond"))
 		o->mat = (t_material){vec3(0.8), vec3(0.4), vec3(0.4), 76.80, 0.0, 2.41};
 	else if (!ft_strcmp(o->material, "ice"))
-		o->mat = (t_material){vec3(0.25), vec3(0.42), vec3(0.5), 70, 0.0, 1.32};
+		o->mat = (t_material){vec3(0.8), vec3(0.42), vec3(0.5), 30, 0.0, 1.001};
+	else if (!ft_strcmp(o->material, "glass"))
+		o->mat = (t_material){vec3(0.25), vec3(0.42), vec3(0.5), 70, 0.0, 1.50};
+	else if (!ft_strcmp(o->material, "water"))
+		o->mat = (t_material){vec3(0.25), vec3(0.42), vec3(0.5), 70, 0.0, 1.33};
 	else if (!ft_strcmp(o->material, "al"))
-		o->mat = (t_material){vec3(0.92), vec3(0.92), vec3(0.8), 25, 0.0 ,0.0};
+		o->mat = (t_material){vec3(0.92), vec3(0.999), vec3(0.8), 25, 0.30, 0.0};
 	else
-		o->mat = (t_material){vec3(0.7), vec3(0.5),\
+		o->mat = (t_material){vec3(0.7), vec3(0.8),\
 			vec3(0.30), 50 ,0.0 ,0.0};
-	if(o->txt)
-	{
-		o->mat.ka = vec3(1.0);
-		o->mat.shininess = 0;
-		o->mat.ks = vec3(0.0);
-	}
+	// if(o->txt)
+	// {
+	// 	o->mat.ka = vec3(1.0);
+	// 	o->mat.shininess = 0;
+	// 	o->mat.ks = vec3(0.0);
+	// }
+	if (o->refr == 0.0)
+		o->refr = o->mat.kt;
+	if (o->refl == 0.0)
+		o->refl = o->mat.kr;
 }
 
 void	rt_rot_dir(t_vec *r, t_vec d)
