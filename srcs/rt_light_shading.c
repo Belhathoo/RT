@@ -21,40 +21,48 @@ int				rt_shading(t_thread *th, t_hit record, t_light *l, t_vec lo, t_vec *col)
 	t_ray	sr;
 
 
-	sr = rt_ray(vec_add(record.p, vec_pro_k(lo, 0.001)), vec_unit(lo));
+	sr.dir = vec_unit(lo);
+	sr.origin = vec_add(th->rec.p, vec_pro_k(sr.dir, 0.001));
 
-	if (rt_hit(th->rt->scene, &sr, &rec))
-	{
-		o = rec.curr_obj;
-		if (o->refr == 0)
-			return (1);
-		else
+	o = record.curr_obj;
+		if (rt_hit(th->rt->scene, &sr, &rec, vec_length(lo)))
 		{
-			rt_refraction(th, &sr, rec.curr_obj, MAX_DEPTH);
-			if (th->rec.curr_obj == rec.curr_obj)
-{				if (vec_dot(rec.ray->dir, vec_unit(vec_sub(rec.p, l->pos))) >= 0)
-			{
-				*col = vec_pro_k(vec3(1.0), vec_dot(rec.ray->dir,\
-				vec_unit(vec_sub(rec.p, l->pos))));
-				return(0);
-			}
-}				// {
-				// 	*col = vec_add(*col, vec_pro_k(l->col,\
-				// 	ffmax(0.0, vec_dot(rec.ray->dir, rec.n))));
-				// 	return(1);
-				// }
-				else
-					return (0);
+			// if(!ft_strcmp(rec.curr_obj->name, "sphere"))
+			// 	printf("--%s--\n", th->rec.curr_obj->name);
+			// 	return(0);
+			return (1);
 		}
+	// {
+		// if (o->refr == 0)
+		// if (o != rec.curr_obj)
+		// 	return (1);
+		// else
+		// {
+		// 	rt_refraction(th, &sr, rec.curr_obj, MAX_DEPTH);
+		// 	if (th->rec.curr_obj == rec.curr_obj)
+		// 	{				if (vec_dot(rec.ray->dir, vec_unit(vec_sub(rec.p, l->pos))) >= 0)
+		// 		{
+		// 			*col = vec_pro_k(vec3(1.0), vec_dot(rec.ray->dir,\
+		// 						vec_unit(vec_sub(rec.p, l->pos))));
+		// 			return(0);
+		// 		}
+		// 	}				// {
+		// 	// 	*col = vec_add(*col, vec_pro_k(l->col,\
+		// 	// 	ffmax(0.0, vec_dot(rec.ray->dir, rec.n))));
+		// 	// 	return(1);
+		// 	// }
 		// 	else
-		// 		*col = vec_add(*col, vec_pro_k(*col, ffmax(0.0, vec_dot(sr.dir, lo))));
-		// 		return (1);
+		// 		return (0);
 		// }
-	}
+		// // 	else
+		// // 		*col = vec_add(*col, vec_pro_k(*col, ffmax(0.0, vec_dot(sr.dir, lo))));
+		// // 		return (1);
+		// //
+	// }
 	return (0);
 }
 
-void			rt_ambient(t_light *l, t_hit rec, t_vec *col)
+void			rt_ambient(double amb, t_light *l, t_hit rec, t_vec *col)
 {
 	t_object	*o;
 	double		ia;
@@ -65,12 +73,9 @@ void			rt_ambient(t_light *l, t_hit rec, t_vec *col)
 	c = vec(0.0, 0.0, 0.0);
 	o = rec.curr_obj;
 
-	ia = 0.025;//th->rt->scene->ambient;
-	*col = vec_pro_k(rec.col, ia);
-
-	// ia *= (!l) ? 1 : l->intensity ;
-	// if (!l)
-	// 	*col = vec_prod(*col, vec_pro_k(o->mat.ka, ia));
-	// else
-	// 	*col = vec_prod(*col, vec_prod(l->col, vec_pro_k(o->mat.ka, ia)));
+	ia = amb;
+	ia *= (!l) ? 1 : l->intensity ;
+	*col = vec_pro_k(o->col, ia);
+	if (l)
+		*col = vec_prod(*col, vec_prod(o->mat.ka, l->col));
 }

@@ -2,16 +2,17 @@
 
 
 <Camera
-	lookfrom="0 15.0 10.0"
+	lookfrom="0 5.0 10.0"
 	lookat="0 0 0"
 	fov="60"
 	/>
 
+<Option anti-aliasing="3.0"/>
 <Object name="plan" texture="xpm/brick.xpm"
-material="al" position="0 -5 0" />
+material="a0l" position="0 -5 0" />
 
 <Object name="sphere" position="4 00 0" radius="2.0" color="1 0 0"
-  material="ice"/>
+  noise="voronoi1" material="ice"/>
 
 <Object name="sphere" position="-10 00 -4.0" radius="2.0" color="0 0 0"
   material="gold"/>
@@ -23,4 +24,6 @@ material="al" position="0 -5 0" />
   material="al"/>
 
 
+<Light position=" 10 10 10.0 "/>
 <Light position=" 0 10 10.0 "/>
+<Light position=" -10  10 10.0 "/>

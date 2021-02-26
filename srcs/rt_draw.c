@@ -7,7 +7,7 @@ t_vec rt_raytracer(t_thread *th, t_hit rec, t_ray *r, int depth)
 
 	rec.col = vec3(0.0);
 	color = vec3(0.0);
-	if (rt_hit(th->rt->scene, r, &rec))
+	if (rt_hit(th->rt->scene, r, &rec, MAX))
 	{
 		o = rec.curr_obj;	
 		if (o->txt)
@@ -17,8 +17,9 @@ t_vec rt_raytracer(t_thread *th, t_hit rec, t_ray *r, int depth)
 		else
 			rec.col = o->col;
 		th->rec = rec;
-		rec.col = rt_lighting(th, rec, th->rt->scene->light);
-		color = vec_add(rec.col, rt_reflection(th, r, o, depth));
+		rt_lighting(th, rec, th->rt->scene->light);
+		color = th->rec.col;
+		color = vec_add(color, rt_reflection(th, r, o, depth));
 		color = vec_add(color, rt_refraction(th, r, o, depth));		
 	}
 	rt_adjustment(&color);
@@ -92,8 +93,9 @@ void		rt_start(t_rt *rt)
 int			rt_draw(t_rt *rt)
 {
 	ft_bzero(rt->data, IMG_WIDTH * IMG_HEIGHT * 4);
-	// int a = rt->scene->anti_aliasing;
-	// int b = 1;
+	
+	int a = rt->scene->anti_aliasing;
+	int b = 1;
 	// while (b <= a )
 	// {	
 	// rt->scene->anti_aliasing = b;

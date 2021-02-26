@@ -106,7 +106,7 @@ t_scene		*rt_init_scene(void)
 	if (!(scene = (struct s_scene*)malloc(sizeof(struct s_scene))))
 		rt_perror();
 	scene->anti_aliasing = 1;
-	scene->ambient = 1.0;
+	scene->ambient = 0.1;
 	scene->object = NULL;
 	scene->light = NULL;
 	return (scene);

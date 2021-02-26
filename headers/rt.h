@@ -45,7 +45,7 @@ int				rt_draw(t_rt *rt);
  * Lighting
 */
 
-void			rt_ambient(t_light *l, t_hit rec, t_vec *col);
+void			rt_ambient(double amb, t_light *l, t_hit rec, t_vec *col);
 int				rt_shading(t_thread *th, t_hit r, t_light *l, t_vec lo, t_vec *c);
 t_vec				rt_lighting(t_thread *th, t_hit r, t_light *t);
 
@@ -60,7 +60,7 @@ float           rt_fresnel_ref(float ior, float n1, t_vec n, t_vec d);
  * Hit
 */
 
-int				rt_hit(t_scene *scene, t_ray *r, t_hit *record);
+int				rt_hit(t_scene *scene, t_ray *r, t_hit *record, double closest);
 
 int				rt_hit_sphere(t_object *obj, t_ray *ray, t_hit *record);
 int				rt_hit_cylinder(t_object *obj, t_ray *ray, t_hit *record);

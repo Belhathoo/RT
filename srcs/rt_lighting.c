@@ -47,7 +47,7 @@ t_vec		rt_lighting(t_thread *th, t_hit rec, t_light *l)
 	t_vec	color;
 
 	color = vec3(0.0);
-	rt_ambient(l, rec, &color);
+	rt_ambient(th->rt->scene->ambient, l, rec, &color);
 	while (l)
 	{
 		l_vec = vec_sub(l->pos, rec.p);
@@ -60,5 +60,6 @@ t_vec		rt_lighting(t_thread *th, t_hit rec, t_light *l)
 		}
 		l = l->next;
 	}
+	th->rec.col =  color;
 	return (color);
 }

@@ -73,13 +73,13 @@ void			rt_set_coef(t_object *o, t_rt *rt)
 		else if (!ft_strcmp(o->material, "mirror"))
 		o->mat = (t_material){vec3(1.0), vec3(1.0), vec3(1), 100, 1.0, 0.0};
 	else if (!ft_strcmp(o->material, "diamond"))
-		o->mat = (t_material){vec3(0.8), vec3(0.4), vec3(0.4), 76.80, 0.0, 2.41};
+		o->mat = (t_material){vec3(0.8), vec3(0.4), vec3(0.2), 146.80, 0.0, 2.41};
 	else if (!ft_strcmp(o->material, "ice"))
-		o->mat = (t_material){vec3(0.8), vec3(0.42), vec3(0.5), 30, 0.0, 1.001};
+		o->mat = (t_material){vec3(0.8), vec3(0.2), vec3(0.2), 10, 0.0, 1.001};
 	else if (!ft_strcmp(o->material, "glass"))
-		o->mat = (t_material){vec3(0.25), vec3(0.42), vec3(0.5), 70, 0.0, 1.50};
+		o->mat = (t_material){vec3(0.25), vec3(0.2), vec3(0.5), 70, 0.0, 1.50};
 	else if (!ft_strcmp(o->material, "water"))
-		o->mat = (t_material){vec3(0.25), vec3(0.42), vec3(0.5), 70, 0.0, 1.33};
+		o->mat = (t_material){vec3(0.5), vec3(0.1), vec3(0.05), 20, 0.0, 1.33};
 	else if (!ft_strcmp(o->material, "al"))
 		o->mat = (t_material){vec3(0.92), vec3(0.999), vec3(0.8), 25, 0.30, 0.0};
 	else

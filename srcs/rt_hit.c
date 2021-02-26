@@ -39,7 +39,7 @@
 // 	return (1);
 // }
 
-int rt_hit(t_scene *scene, t_ray *r, t_hit *rec)
+int rt_hit(t_scene *scene, t_ray *r, t_hit *rec, double closest)
 {
 	t_object	*o;
 	int			check_hit;
@@ -47,7 +47,7 @@ int rt_hit(t_scene *scene, t_ray *r, t_hit *rec)
 
 	check_hit = 0;
 	o = scene->object;
-	record.closest = MAX;
+	record.closest = closest;
 	record.curr_obj = NULL;
 	while (o)
 	{
