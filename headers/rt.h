@@ -36,7 +36,7 @@ t_ray			rt_get_ray(t_camera *p, double u, double v);
 t_vec 			rt_raytracer(t_thread *t, t_hit rec, t_ray *r, int d);
 t_vec 			rt_anti_aliasing(t_thread *t, int col, int row);
 // void			rt_start(t_rt *rt);
-// int				rt_draw(t_rt *rt);
+int				rt_draw(t_rt *rt);
 
 
 t_vec	    	anti_aa(t_thread *t, double col, double row, int select);

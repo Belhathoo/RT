@@ -7,10 +7,11 @@
  * Macros
  */
 
-# define IMG_WIDTH 1000
-# define IMG_HEIGHT 500
-# define WIN_WIDTH 1080
 # define WIN_HEIGHT 720
+# define WIN_WIDTH 1080
+# define IMG_HEIGHT 500
+# define IMG_WIDTH 1000
+
 # define NBTHREAD 4
 # define MAX_DEPTH 50
 # define MAX  1e+9 // distance max de propagation

@@ -111,6 +111,8 @@ t_scene		*rt_init_scene(void)
 	scene->ambient = 0.15;
 	scene->object = NULL;
 	scene->light = NULL;
+	scene->sl_obj = NULL;
+	scene->key = 0;
 	return (scene);
 }
 

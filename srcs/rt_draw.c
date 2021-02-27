@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rt_draw.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: belhatho <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/27 10:55:26 by belhatho          #+#    #+#             */
+/*   Updated: 2021/02/27 10:55:37 by belhatho         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 # include <rt.h>
 
 t_vec rt_raytracer(t_thread *th, t_hit rec, t_ray *r, int depth)
@@ -19,7 +31,7 @@ t_vec rt_raytracer(t_thread *th, t_hit rec, t_ray *r, int depth)
 		th->rec = rec;
 		rt_lighting(th, rec, th->rt->scene->light);
 		color = th->rec.col;
-		color = vec_add(color, rt_reflection(th, r, o, depth));
+		color = vec_add(color, vec_pro_k(rt_reflection(th, r, o, depth), o->refl));		
 		color = vec_add(color, rt_refraction(th, r, o, depth));		
 	}
 	rt_adjustment(&color);
@@ -32,7 +44,7 @@ t_vec rt_anti_aliasing(t_thread *t, int col, int row)
 	t_vec	color;
 	int		ss[2];
 	int		anti_a;
-	
+
 	color = vec(0, 0, 0);
 	color = anti_aa(t, (double)col, (double)row, t->rt->scene->select);
 	color = vec_div_k(color, t->rt->scene->select + 1);
@@ -89,14 +101,16 @@ void	progress_fill(t_rt *rt)
 	{
 		j = -1;
 		while (++j < 8)
-			rt_mlx_putpixel(rt, i, IMG_HEIGHT - 8 + j, 0xFF0000);
+			rt_mlx_putpixel(rt, i, IMG_HEIGHT -4 + j, 0xFF0000);
 	}
 }
 
 int		progress_bar(t_rt *rt)
 {
 	ft_bzero(rt->data, IMG_WIDTH * IMG_HEIGHT * 4);
-	if (rt->scene->progress == 1)
+	if (rt->scene->key)
+	{
+		if (rt->scene->progress == 1)
 		rt_start(rt, rt_run_12);
 	else if (rt->scene->progress == 2)
 		rt_start(rt, rt_run_25);
@@ -113,26 +127,6 @@ int		progress_bar(t_rt *rt)
 		rt->scene->progress++;
 		mlx_put_image_to_window(rt->mlx, rt->win, rt->img, 40, 180);
 	}
+	}
 	return 0;
-}
-
-// void		rt_auto_draw(t_rt *rt)
-// {
-// 	ft_bzero(rt->data, IMG_WIDTH * IMG_HEIGHT * 4);
-// 	if (rt->scene->progress == 1)
-// 		rt_start(rt, rt_run_25);
-// 	else if (rt->scene->progress == 2)
-// 		rt_start(rt, rt_run_50);
-// 	else
-// 		rt_start(rt, rt_run);
-// }
-
-
-
-int			rt_draw(t_rt *rt)
-{
-	ft_bzero(rt->data, IMG_WIDTH * IMG_HEIGHT * 4);
-	rt_start(rt, rt_run_12);
-	mlx_put_image_to_window(rt->mlx, rt->win, rt->img, 40, 180);
-	return (EXIT_SUCCESS);
 }

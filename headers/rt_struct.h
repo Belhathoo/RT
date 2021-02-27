@@ -151,12 +151,14 @@ typedef struct	s_scene
 	t_camera	cam;
 	t_light		*light;
 	t_object	*object;
+	t_object	*sl_obj;
 	float		ambient;
 	int			aa;
 
+	int			max_anti_a;
 	int			progress;//progress bar
 	int			select;
-	int			max_anti_a;
+	int			key;
 	t_vec		data1[9][IMG_WIDTH*IMG_HEIGHT];//IMG_WIDTH*IMG_HEIGHT
 
 }				t_scene;

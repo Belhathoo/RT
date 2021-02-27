@@ -48,10 +48,10 @@
 ** Keyboard ARROWS
 */
 
-# define K_AR_L 123
-# define K_AR_R 124
-# define K_AR_U 126
-# define K_AR_D 125
+# define K_LFT 123
+# define K_RGHT 124
+# define K_UP 126
+# define K_DWN 125
 
 /*
 ** Keyboard NUMPAD
