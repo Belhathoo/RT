@@ -2,28 +2,31 @@
 
 
 <Camera
-	lookfrom="0 5.0 10.0"
+	lookfrom="0 04.0 12.0"
 	lookat="0 0 0"
 	fov="60"
 	/>
 
-<Option anti-aliasing="3.0"/>
-<Object name="plan" texture="xpm/brick.xpm"
-material="a0l" position="0 -5 0" />
+<Option aa="1.0"/>
 
-<Object name="sphere" position="4 00 0" radius="2.0" color="1 0 0"
-  noise="voronoi1" material="ice"/>
+<Object name="plan" scale="1" noise="voronoi1"
+material="ice" n_color="1 0 0" position="0 -5 0" />
 
-<Object name="sphere" position="-10 00 -4.0" radius="2.0" color="0 0 0"
-  material="gold"/>
+<Object name="plan" position="0 -10 0" texture="xpm/brick.xpm" material="al"/>
+
+<Object name="sphere" position="4 00 0" radius="2.0" color="0 0 1.0"
+ material="glass"/>
+
+<Object name="sphere" position="-11.0 2 -6"  radius="3.0" color="0. 0.0 0" n_color1="0 0 1.0"
+ n_color="1.0 1.0 0.0" material="gold"/>
 
 <Object name="sphere" position="-4 00 0" radius="2.0" color="0 0 01"
   material="diamond"/>
 
-<Object name="sphere" radius="2.0"
-  material="al"/>
+<Object name="sphere" radius="2.0" noise="voronoi2"
+  material="ic0e" scale="0.25"/>
 
 
-<Light position=" 10 10 10.0 "/>
-<Light position=" 0 10 10.0 "/>
-<Light position=" -10  10 10.0 "/>
+<Light position=" 10 5 20.0 "/>
+<Light position=" 0 5 -10.0 "/>
+<Light position=" -10  5 20.0 "/>

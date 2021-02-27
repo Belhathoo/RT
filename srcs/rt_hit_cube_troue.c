@@ -1,7 +1,11 @@
 
 #include <rt.h>
 
-int     rt_hit_cube_troue(t_object *obj, t_ray *ray, t_hit *record)
+
+
+///// normale ya wld l9hbaaaa
+
+int     rt_cube_params(t_object *obj, t_ray *ray, t_hit *record)
 {
 	t_vec		x;
 	double		c[5];
@@ -21,4 +25,13 @@ int     rt_hit_cube_troue(t_object *obj, t_ray *ray, t_hit *record)
 	(x.z * x.z * x.z * x.z) - 5 * ((x.x * x.x) + (x.y * x.y) + (x.z * x.z)) +
 	11.8;
     return(rt_check_distance(obj, c, record, ray));
+}
+
+
+int     rt_hit_cube_troue(t_object *obj, t_ray *ray, t_hit *record)
+{
+	if (rt_cube_params(obj, ray, record))
+	{
+		record->p = vec_ray(ray, record->t);
+	}
 }

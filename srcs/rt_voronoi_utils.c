@@ -1,9 +1,10 @@
 
+#include <rt.h>
+
 /*
  ** return a or b depends on f
  ** a + f * (b - a)
 */
-#include <rt.h>
 
 t_vec	rt_lerp(t_vec a, t_vec b, float f)
 {

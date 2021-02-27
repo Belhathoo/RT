@@ -6,7 +6,7 @@
   fov="60"
   />
 
-<Option anti-aliasing="2.0"/>
+<Option aa="2.0"/>
 
 <Object name="sphere" position="0 -25 0.0" 
 width="10" height="14" direction="0. -1.0 0"

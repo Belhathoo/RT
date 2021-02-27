@@ -27,20 +27,20 @@ int				rt_keys(int key, t_rt *rt)
   if (key == K_ESC)
 		rt_close(rt);
     /*xyz 120 121 122 */
-    if (key == K_X)
-    {
-      rt->scene->cam = rt_init_camera(ft_rot_vec(rt->scene->cam.lookfrom, vec(1, 0, 0), 5), rt->scene->cam.lookat, rt->scene->cam.fov);
-      rt_draw(rt);
-    }
-    if (key == K_Y)
-    {
-      rt->scene->cam = rt_init_camera(ft_rot_vec(rt->scene->cam.lookfrom, vec(0, 1, 0), 5), rt->scene->cam.lookat, rt->scene->cam.fov);
-      rt_draw(rt);
-    }
-    if (key == K_Z)
-    {
-      rt->scene->cam = rt_init_camera(ft_rot_vec(rt->scene->cam.lookfrom, vec(0, 0, 1), 5), rt->scene->cam.lookat, rt->scene->cam.fov);
-      rt_draw(rt);
-    }
+    // if (key == K_X)
+    // {
+    //   rt->scene->cam = rt_init_camera(ft_rot_vec(rt->scene->cam.lookfrom, vec(1, 0, 0), 5), rt->scene->cam.lookat, rt->scene->cam.fov);
+    //   rt_draw(rt);
+    // }
+    // if (key == K_Y)
+    // {
+    //   rt->scene->cam = rt_init_camera(ft_rot_vec(rt->scene->cam.lookfrom, vec(0, 1, 0), 5), rt->scene->cam.lookat, rt->scene->cam.fov);
+    //   rt_draw(rt);
+    // }
+    // if (key == K_Z)
+    // {
+    //   rt->scene->cam = rt_init_camera(ft_rot_vec(rt->scene->cam.lookfrom, vec(0, 0, 1), 5), rt->scene->cam.lookat, rt->scene->cam.fov);
+    //   rt_draw(rt);
+    // }
   return (0);
 }

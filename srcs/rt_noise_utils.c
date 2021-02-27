@@ -1,12 +1,10 @@
 
 #include<rt.h>
 
+#include<rt.h>
+
 int		rt_add_noise(char *val, t_rt *rt) //parser
 {
-
-	// arefaire with return type int instead of struct noise
-
-
 	if (!ft_strcmp(val, "damier"))
 		return (0);
 	else if (!ft_strcmp(val, "circles"))
@@ -17,8 +15,8 @@ int		rt_add_noise(char *val, t_rt *rt) //parser
 	   	return (3);
 	else if (!ft_strcmp(val, "voronoi3"))
 	   	return (4);
-	rt_exit(rt, "noise: Uknown type!", EXIT_FAILURE);
-	return (-1);	
+	else
+		rt_exit(rt, "noise: Unknown type!", EXIT_FAILURE);
 }
 
 t_vec  rt_torus_noise(t_hit *rec)

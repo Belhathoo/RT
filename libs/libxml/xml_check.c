@@ -30,9 +30,6 @@ void    xml_check_tag(char  *t_name, t_xml *x)
     atrribute for lights depends on the value of the Type's attr_Value
 */
 
-/*
-    only one of the 3 (col || txt || noise)
-*/
 
 int     xml_check_attr(char *t_name, char *a_name, t_xml *x)
 {
@@ -46,9 +43,8 @@ int     xml_check_attr(char *t_name, char *a_name, t_xml *x)
             || !ft_strcmp(a_name, "slice_vec") || !ft_strcmp(a_name, "slice_pnt")\
             || !ft_strcmp(a_name, "material") || !ft_strcmp(a_name, "size")\
             || !ft_strcmp(a_name, "height")|| !ft_strcmp(a_name, "width")\
-            || !ft_strcmp(a_name, "angle") || !ft_strcmp(a_name, "n_scale")\
-            || !ft_strcmp(a_name, "n_scale1") || !ft_strcmp(a_name, "n_color")
-            || !ft_strcmp(a_name, "n_color1"))
+            || !ft_strcmp(a_name, "angle") || !ft_strcmp(a_name, "scale")\
+            || !ft_strcmp(a_name, "n_color") || !ft_strcmp(a_name, "n_color1"))
             return (1);
     }
     else if (!ft_strcmp(t_name, "Camera"))
@@ -59,7 +55,7 @@ int     xml_check_attr(char *t_name, char *a_name, t_xml *x)
     }
     else if (!ft_strcmp(t_name, "Option"))
     {
-        if (!ft_strcmp(a_name, "anti-aliasing") || !ft_strcmp(a_name, "filter"))
+        if (!ft_strcmp(a_name, "aa") || !ft_strcmp(a_name, "filter"))
             return (1);
     }
     else if (!ft_strcmp(t_name, "Light"))

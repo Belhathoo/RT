@@ -11,6 +11,7 @@
 # include <math.h>
 # include <float.h>
 # include <pthread.h>
+# include <rt_define.h>
 
 /*
  * Structures
@@ -32,54 +33,24 @@ typedef	struct	s_texture
 	float		scale;
 }				t_texture;
 
-typedef struct  s_cell
-{ //// wherre is it !!
-	t_vec	base;
-	t_vec	cell;
-	t_vec	cellcol;
-	t_vec	tocell;
-	t_vec   closest;
-	t_vec	closetcell;
-	t_vec	toclosest;
-	t_vec	diff;
-	t_vec	tocenter;
-	t_vec	celldifference;
-	double	mindistocell;
-	double  minedgedistance;
-	double	edgedistance;
-	
-}				t_cell;
-
-typedef struct	s_voronoi
-{
-	float		valuechange;
-	float		isborder;
-	t_vec	    cellcolor;
-	t_vec		p;
-	t_vec		noise_v;
-}				t_voronoi;
-
 
 typedef struct	s_noise
 {
 	int			is_noise;
 	int			type;
-	float		scale1;
-	float		scale2;
 	t_vec		col1;
 	t_vec		col2;
-	//t_perlin	p;
 }				t_noise;
 
 
 typedef struct s_m
 {
 	t_vec		ka;
-	t_vec		kd;//coef diffuse
-	t_vec		ks;//coef specular
+	t_vec		kd;
+	t_vec		ks;
 	float		shininess;
-	float		kr;//coef reflexion
-	float		kt;//coef refraction
+	float		kr;
+	float		kt;
 }				t_material;
 
 typedef struct	s_o
@@ -87,24 +58,27 @@ typedef struct	s_o
 	char		*name;
 	char		*material;
 	float		size;//radius or angle
+	float		radius;
+	float		angle;
 	float		r;
 	float		dist;
 	float		width;
 	float		height;
-	float		angle;
 	t_vec		pos;//position
 	t_vec		dir;
 	t_vec		rot;//rotation
 	t_vec		col;//color
-	t_texture	*txt;
-	t_noise		noi;
 	t_vec		vec1;
 	t_vec		vec2;
-	t_vec 		p; //
-	int			(*hit)();
-	int			is_sliced;
 	t_vec		sl_vec;
 	t_vec		sl_pnt;
+	// t_vec 		p; //
+
+	t_texture	*txt;
+	t_noise		noi;
+	float		scale;
+	int			(*hit)();
+	int			is_sliced;
 
 	struct s_m	mat;
 	float		refl;
@@ -150,6 +124,7 @@ typedef struct	s_hit
 	double		c;//eq 2eme deg
 	double		delta;//eq 2eme deg
 	double		coef[4];
+	double      mob[7];
 	int			inside;
 }				t_hit;
 
@@ -177,7 +152,13 @@ typedef struct	s_scene
 	t_light		*light;
 	t_object	*object;
 	float		ambient;
-	int			anti_aliasing;
+	int			aa;
+
+	int			progress;//progress bar
+	int			select;
+	int			max_anti_a;
+	t_vec		data1[9][IMG_WIDTH*IMG_HEIGHT];//IMG_WIDTH*IMG_HEIGHT
+
 }				t_scene;
 
 typedef struct	s_rt
@@ -200,6 +181,18 @@ typedef struct	s_thread
 	t_hit		rec;
     t_texture   *t;
 }				t_thread;
+
+typedef struct	s_voronoi
+{
+	float		valuechange;
+	float		isborder;
+	t_vec	    cellcolor;
+	t_vec		p;
+	t_vec		noise_v;
+	t_vec		fcolor;
+	t_vec		ffcolor;
+	t_vec		fcol;
+}				t_voronoi;
 
 typedef	struct	s_coef
 {
@@ -238,4 +231,22 @@ typedef struct	s_cubic
 	double		cb_p;
 }				t_cubic;
 
+
+typedef struct  s_cell
+{ //// wherre is it !!
+	t_vec	base;
+	t_vec	cell;
+	t_vec	cellcol;
+	t_vec	tocell;
+	t_vec   closest;
+	t_vec	closetcell;
+	t_vec	toclosest;
+	t_vec	diff;
+	t_vec	tocenter;
+	t_vec	celldifference;
+	double	mindistocell;
+	double  minedgedistance;
+	double	edgedistance;
+	
+}				t_cell;
 #endif

@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "rt.h": "c",
+        "rt_struct.h": "c"
+    }
+}

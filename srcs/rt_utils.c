@@ -48,8 +48,22 @@ t_vec		rt_int_to_rgb(int x)
    return (vec_div_k(p, 256));
 }
 
-
 t_vec		vec_ray(t_ray *r, double t)
 {
 	return (vec_add(r->origin, vec_pro_k(r->dir, t)));
+}
+
+int		is_equal(t_vec a, t_vec b)
+{
+	return ((a.x == b.x) && (a.y == b.y) && (a.z == b.z));
+}
+
+ double		radtodeg(double angle)
+{
+	return ((angle * 180) / M_PI);
+}
+
+double		degtorad(double angle)
+{
+	return ((angle * M_PI) / 180);
 }

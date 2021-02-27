@@ -7,7 +7,7 @@
 	fov="60"
 	/>
 
-<Option anti-aliasing="1" />
+<Option aa="1" />
 
 <Object name="sphere" position="0.0 -48.0 -5" material="gol0d"
  direction="0.0 1.0 0.0"  n_scale="6" color="1.0 1.0 0.0" radius="50.0"/>

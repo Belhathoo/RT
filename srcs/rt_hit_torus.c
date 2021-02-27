@@ -1,7 +1,7 @@
 
 #include <rt.h>
 
-void  torus_uv(t_object *o, t_hit *rec)
+void  torus_uv(t_hit *rec, t_object *o)
 {
 	t_vec p;
 	double phi;
@@ -21,7 +21,7 @@ void  torus_uv(t_object *o, t_hit *rec)
 	return;
 }
 
-t_vec		rt_torus_normal(t_object *obj, t_hit *rec, t_ray *ray)
+t_vec		rt_torus_normal(t_ray *ray, t_hit *rec, t_object *obj)
 {
 	t_vec normal;
 	double k;
@@ -41,7 +41,7 @@ t_vec		rt_torus_normal(t_object *obj, t_hit *rec, t_ray *ray)
    return (normal);
 }
 
-int     rt_hit_torus(t_object *obj, t_ray *ray, t_hit *record)
+static int     rt_torus_params(t_ray *ray, t_hit *record, t_object *obj)
 {
       t_coef c;
       double coe[5];
@@ -63,29 +63,14 @@ int     rt_hit_torus(t_object *obj, t_ray *ray, t_hit *record)
        return(rt_check_distance(obj, coe, record, ray));   
 }
 
-int				rt_check_distance(t_object *obj, double c[5], t_hit *rec, t_ray *ray)
+int			rt_hit_torus(t_object *obj, t_ray *ray, t_hit *record)
 {
-	double	s[4];
-	int		i;
-	int		num;
-    
-	rec->t = rec->closest;
-	i = -1;
-	if ((num = rt_solve_quartic(c, s)))
+	if (rt_torus_params(ray, record, obj))
 	{
-		while (++i < num)
-		{
-			if (s[i] >= MIN && s[i] < rec->t)
-				rec->t = s[i];
-		}
-		if (rec->t >= MIN && rec->t < rec->closest)
-		{
-			rec->p = vec_ray(ray, rec->t);
-			rec->n = rt_torus_normal(obj, rec, ray);
-			torus_uv(obj, rec);
-			return (1);
-		}
+		record->p = vec_ray(ray, record->t);
+		record->n = rt_torus_normal(ray, record, obj);
+		torus_uv(record, obj);
+		return (1);
 	}
-	return (0);
+	return(0);
 }
-

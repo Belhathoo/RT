@@ -3,6 +3,7 @@ NAME = rt
 
 SRCS = rt.c\
 		rt_init.c\
+		rt_auto_anti.c\
 		rt_parse.c\
 		rt_parse_utils.c\
 		rt_parse_check.c\
@@ -17,26 +18,31 @@ SRCS = rt.c\
 		rt_close.c\
 		rt_hit_sphere.c\
 		rt_hit_cylinder.c\
+		rt_hit_lcylinder.c\
 		rt_hit_cone.c\
+		rt_hit_lcone.c\
 		rt_hit_plan.c\
 		rt_hit_torus.c\
 		rt_hit_parabole.c\
 		rt_hit_cube.c\
-		rt_hit_cube_troue.c\
-		rt_hit_glasse.c\
+		rt_hit_dingdong.c\
 		rt_solve_quartic.c\
 		rt_solve_cubic.c\
 		rt_solve_quadric.c\
+		rt_textures.c\
 		rt_noise.c\
+		rt_hit_glasse.c\
+		rt_hit_cube_troue.c\
 		rt_noise_utils.c\
 		rt_voronoi.c\
 		rt_voronoi_utils.c\
 		rt_rand.c\
-rt_textures.c\
-		rt_cube_case.c\
-#load_txt.c\
+		rt_hit_mobius.c\
+		rt_distances.c\
+		rt_rotation.c\
+		rt_cube_compos.c\
 
-#rt_rotation.c
+
 SRC = $(add prefix srcs/, $(SRCS))
 SRCS_NORM = $(SRCS)
 
@@ -77,7 +83,6 @@ MLX = -I $(MLX_DIR) -L $(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
 else
 $(info $(shell uname) detected)
 MLX = -lm -I $(MLX_DIR) -L $(MLX_DIR) -lmlx -lXext -lX11
-#MLX = -lm -I $(MLX_DIR) $(MLX_DIR)/libmlx.dylib -lXext -lX11
 endif
 
 
@@ -86,7 +91,7 @@ LIBFT_DIR = libs/libft
 XML_DIR = libs/libxml
 VEC_DIR = libs/libvec
 LIBS = $(MLX) -L $(XML_DIR) -lxml -L $(LIBFT_DIR) -lft -L $(VEC_DIR) -lvec -lpthread
-INCS = -I $(LIBFT_DIR) -I $(XML_DIR) -I $(VEC_DIR) #-I headers/SDL2
+INCS = -I $(LIBFT_DIR) -I $(XML_DIR) -I $(VEC_DIR)
 
 all: $(NAME)
 

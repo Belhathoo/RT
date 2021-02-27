@@ -7,7 +7,7 @@
   fov="60"
   />
 
-<Option anti-aliasing="2"/>
+<Option aa="2"/>
 
 
 <Object name="cube" color=" 1.0 1.0 1.0" size="2" position="0 0.0 0" 

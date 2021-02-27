@@ -13,7 +13,7 @@ t_vec rt_raytracer(t_thread *th, t_hit rec, t_ray *r, int depth)
 		if (o->txt)
 			rec.col = rt_get_color_from_texture(o, &rec.u, &rec.v);
 		else if (o->noi.is_noise == 1)
-			rec.col =  rt_noise(o, rec);
+			rec.col =  rt_noise(o, &rec);
 		else
 			rec.col = o->col;
 		th->rec = rec;
@@ -32,24 +32,11 @@ t_vec rt_anti_aliasing(t_thread *t, int col, int row)
 	t_vec	color;
 	int		ss[2];
 	int		anti_a;
-
+	
 	color = vec(0, 0, 0);
-	anti_a = t->rt->scene->anti_aliasing;
-	ss[0] = -1;
-	t->rec.inside = 0;
-	t->rec.curr_obj = NULL;
-	while ( ++ss[0] < anti_a)
-	{
-		ss[1] = -1;
-		while (++ss[1] < anti_a)
-		{
-			r = rt_get_ray(&t->rt->scene->cam, 
-					(double)((col + ((ss[0] + 0.5)/ anti_a)) / IMG_WIDTH),
-					(double)((row + ((ss[1] + 0.5) / anti_a)) / IMG_HEIGHT));
-			color = vec_add(color, rt_raytracer(t, t->rec, &r, MAX_DEPTH));
-		}
-	}
-	return (vec_div_k(color, anti_a * anti_a));
+	color = anti_aa(t, (double)col, (double)row, t->rt->scene->select);
+	color = vec_div_k(color, t->rt->scene->select + 1);
+	return (color);
 }
 
 void		*rt_run(t_thread *t)
@@ -73,7 +60,7 @@ void		*rt_run(t_thread *t)
 	pthread_exit(NULL);
 }
 
-void		rt_start(t_rt *rt) 
+void		rt_start(t_rt *rt, void* (*rt_runner)(t_thread *t)) 
 {
 	pthread_t	thread[NBTHREAD];
 	t_thread	div[NBTHREAD];
@@ -84,24 +71,68 @@ void		rt_start(t_rt *rt)
 	{
 		div[i].rt = rt;
 		div[i].i = i;
-		pthread_create(&thread[i], NULL, (void*)rt_run, &div[i]);
+		pthread_create(&thread[i], NULL, (void*)rt_runner, &div[i]);
 	}
 	while (--i >= 0)
 		pthread_join(thread[i], NULL);
 }
 
+
+void	progress_fill(t_rt *rt)
+{
+	int i;
+	int j;
+
+	(rt->scene->select == rt->scene->aa) ? (rt->scene->progress = 12) : 0;
+	i = -1;
+	while (++i < ((double)IMG_WIDTH / (double)12) * (double)(rt->scene->progress))
+	{
+		j = -1;
+		while (++j < 8)
+			rt_mlx_putpixel(rt, i, IMG_HEIGHT - 8 + j, 0xFF0000);
+	}
+}
+
+int		progress_bar(t_rt *rt)
+{
+	ft_bzero(rt->data, IMG_WIDTH * IMG_HEIGHT * 4);
+	if (rt->scene->progress == 1)
+		rt_start(rt, rt_run_12);
+	else if (rt->scene->progress == 2)
+		rt_start(rt, rt_run_25);
+	else if (rt->scene->progress == 3)
+		rt_start(rt, rt_run_50);
+	else if (rt->scene->progress >= 4 && rt->scene->progress <= 12 && rt->scene->select <= rt->scene->aa + 1)
+	{
+		rt_start(rt, rt_run);
+		rt->scene->select++;
+	}
+	if (rt->scene->progress <= 12 && rt->scene->select <= rt->scene->aa + 1)
+	{
+		progress_fill(rt);
+		rt->scene->progress++;
+		mlx_put_image_to_window(rt->mlx, rt->win, rt->img, 40, 180);
+	}
+	return 0;
+}
+
+// void		rt_auto_draw(t_rt *rt)
+// {
+// 	ft_bzero(rt->data, IMG_WIDTH * IMG_HEIGHT * 4);
+// 	if (rt->scene->progress == 1)
+// 		rt_start(rt, rt_run_25);
+// 	else if (rt->scene->progress == 2)
+// 		rt_start(rt, rt_run_50);
+// 	else
+// 		rt_start(rt, rt_run);
+// }
+
+
+
 int			rt_draw(t_rt *rt)
 {
 	ft_bzero(rt->data, IMG_WIDTH * IMG_HEIGHT * 4);
-	
-	int a = rt->scene->anti_aliasing;
-	int b = 1;
-	// while (b <= a )
-	// {	
-	// rt->scene->anti_aliasing = b;
-	rt_start(rt);
-	mlx_put_image_to_window(rt->mlx, rt->win, rt->img, 40 +10, 180);
-	// 	b++;
-	// }
+	rt_start(rt, rt_run_12);
+	mlx_put_image_to_window(rt->mlx, rt->win, rt->img, 40, 180);
 	return (EXIT_SUCCESS);
 }

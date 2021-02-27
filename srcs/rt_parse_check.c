@@ -37,9 +37,9 @@ void     rt_check_obj_name(t_object *obj, t_rt *rt)
 	else if (!ft_strcmp(str, "RECTANGLE"))
 		obj->hit = rt_hit_care;
 	else if (!ft_strcmp(str, "L_CYLINDER"))
-		obj->hit = rt_hit_l_cylinder;
+		obj->hit = rt_hit_lcylinder;
 	else if (!ft_strcmp(str, "L_CONE"))
-		obj->hit = rt_hit_l_cone;
+		obj->hit = rt_hit_lcone;
 	else if (!ft_strcmp(str, "GLASSE"))
 		obj->hit = rt_hit_glasse;
 	else if (!ft_strcmp(str, "CUBE_TROUE"))
@@ -69,7 +69,7 @@ void			rt_set_coef(t_object *o, t_rt *rt)
 		o->mat = (t_material){vec3(0.25), vec3(0.4), vec3(0.774), 76.70, 0.0, 0.0};
 	else if (!ft_strcmp(o->material, "gold"))
 		o->mat = (t_material){vec(0.24, 0.199, 0.074), vec(0.75, 0.606, 0.226),\
-			vec(0.628, 0.555, 0.3660), 51.2, 0.8, 0.0};
+			vec(0.628, 0.555, 0.3660), 51.2, 0.55, 0.0};
 		else if (!ft_strcmp(o->material, "mirror"))
 		o->mat = (t_material){vec3(1.0), vec3(1.0), vec3(1), 100, 1.0, 0.0};
 	else if (!ft_strcmp(o->material, "diamond"))
@@ -81,7 +81,7 @@ void			rt_set_coef(t_object *o, t_rt *rt)
 	else if (!ft_strcmp(o->material, "water"))
 		o->mat = (t_material){vec3(0.5), vec3(0.1), vec3(0.05), 20, 0.0, 1.33};
 	else if (!ft_strcmp(o->material, "al"))
-		o->mat = (t_material){vec3(0.92), vec3(0.999), vec3(0.8), 25, 0.30, 0.0};
+		o->mat = (t_material){vec3(0.92), vec3(0.999), vec3(0.8), 25, 0.150, 0.0};
 	else
 		o->mat = (t_material){vec3(0.7), vec3(0.8),\
 			vec3(0.30), 50 ,0.0 ,0.0};
@@ -97,9 +97,11 @@ void			rt_set_coef(t_object *o, t_rt *rt)
 		o->refl = o->mat.kr;
 }
 
-void	rt_rot_dir(t_vec *r, t_vec d)
+t_vec	rt_rot_dir(t_vec *r, t_vec d)
 {
 	/* check rt_parse_utils !!!!!!! */
+
+	// return(rotation(d, r));
 	*r = d;
 }
 
@@ -116,11 +118,14 @@ void    rt_check_obj(t_object *o, t_rt *rt)
 	/*
 	   radius for cone ((angle ]0 -180]))!!!!!!!!!
 	   */
+	  o->radius = o->size; /////// ---- !!!!
 	if (o->dir.x == 0 && o->dir.y == 0 && o->dir.z == 0)
 		rt_exit(rt, "obj: direction vector is non-zero!", EXIT_FAILURE);
-	if (o->size <= 0.0 && ft_strcmp(o->name, "plan") != 0)
-		rt_exit(rt, "obj: radius should be positive", EXIT_FAILURE);
-	o->angle *= M_PI / 180 / 2;
+	if (o->size <= 0.0 || o->radius <= 0.0)
+		rt_exit(rt, "obj: radius/size should be positive", EXIT_FAILURE);
+	if (o->angle <= 0.0)
+		rt_exit(rt, "obj: angle should be in ]0-180[", EXIT_FAILURE);
+	o->angle = degtorad(o->angle) / 2; // ONLY FOR CONES !!!!
 	if (o->txt && o->noi.is_noise == 1)
 		rt_exit(rt, "obj: either texture either noise", EXIT_FAILURE);
 	rt_rot_dir(&o->rot, o->dir);
@@ -133,8 +138,11 @@ void    rt_check_obj(t_object *o, t_rt *rt)
 void	rt_check_lights(t_light *l, t_rt *rt)
 {
 	/*
-	   minit dir/radius/angle for other light types !!!!
+	   init dir/radius/angle for other light types !!!!
 	   */
+
+	  // check color (0 0 0) && intensity < 0
+
 	// if (l->dir.x == 0 && l->dir.y == 0 && l->dir.z == 0)
 	// 	rt_exit(rt, "light: direction vector is non-zero!", EXIT_FAILURE);
 	if ((l->intensity = ft_clamping(l->intensity)) == 0.0)

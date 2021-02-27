@@ -26,11 +26,6 @@ int				rt_hit_glasse(t_object *obj, t_ray *r,  t_hit *rec)
 	return (check_hit);
 }
 
-static void   init_comp(t_object *obj, t_object **comp)
-{
-
-}
-
 static void     add_cylinder_compos(t_object *obj, t_object **comp)
 {
   
@@ -42,7 +37,7 @@ static void     add_cylinder_compos(t_object *obj, t_object **comp)
      (*comp)->width =  obj->width;
       (*comp)->size = obj->size ;
      (*comp)->pos = obj->pos;
-     (*comp)->hit = rt_hit_l_cylinder;
+     (*comp)->hit = rt_hit_lcylinder;
      (*comp)->vec1 = obj->vec1;
      (*comp)->vec2 = obj->vec2;
      (*comp)->compos = NULL;   
@@ -59,7 +54,7 @@ static void     add_pcone_compos(t_object *obj, t_object **comp)
     (*comp)->width = obj->width;
     (*comp)->angle = obj->angle;
     (*comp)->pos = obj->pos; //vec_pro_k(obj->pos, obj->height);
-    (*comp)->hit = rt_hit_l_cone;
+    (*comp)->hit = rt_hit_lcone;
     (*comp)->vec1 = obj->vec1;
     (*comp)->vec2 = obj->vec2;
     (*comp)->compos = NULL;   
@@ -77,7 +72,7 @@ static void     add_gcone_compos(t_object *obj, t_object **comp)
     (*comp)->size = 5.0;
     (*comp)->angle = obj->angle * 3.0;
     (*comp)->pos = obj->pos; //vec_pro_k(obj->pos, -1.0 * obj->height);
-    (*comp)->hit = rt_hit_l_cone;
+    (*comp)->hit = rt_hit_lcone;
     (*comp)->vec1 = obj->vec1;
     (*comp)->vec2 = obj->vec2;
     (*comp)->compos = NULL;   
@@ -86,7 +81,7 @@ static void     add_gcone_compos(t_object *obj, t_object **comp)
 
 void        get_glasse_compos(t_object *obj)
 {
-    // add_cylinder_compos(obj, &(obj->compos));
+    add_cylinder_compos(obj, &(obj->compos));
     add_pcone_compos(obj, &(obj->compos));
     add_gcone_compos(obj, &(obj->compos->compos));
     obj->compos->compos->compos = NULL;

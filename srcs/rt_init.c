@@ -60,8 +60,6 @@ t_noise			rt_init_noise(void)
 	n.type = 0;
 	n.col1 = vec(1.0, 1.0, 1.0);
 	n.col2 = vec(0.0, 0.0, 0.0);
-	n.scale1 = 2.0;
-	n.scale2 = 2.0;
 	return (n);
 }
 
@@ -89,6 +87,7 @@ t_object		*rt_init_object(void)
 	obj->col = vec(1.0, 0.7, 0.3);
 	obj->txt = NULL;
 	obj->noi = rt_init_noise();
+	obj->scale = 1.5;
 	obj->is_sliced = 0;
 	obj->sl_pnt = vec(0.0, 0.0, 0.0);
 	obj->sl_vec = vec(0.0, -1.0, 0.0);;
@@ -105,8 +104,11 @@ t_scene		*rt_init_scene(void)
 
 	if (!(scene = (struct s_scene*)malloc(sizeof(struct s_scene))))
 		rt_perror();
-	scene->anti_aliasing = 1;
-	scene->ambient = 0.1;
+	scene->progress = 1;
+	scene->select = 0;
+	scene->max_anti_a = 9;
+	scene->aa = 1;
+	scene->ambient = 0.15;
 	scene->object = NULL;
 	scene->light = NULL;
 	return (scene);

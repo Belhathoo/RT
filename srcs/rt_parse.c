@@ -68,10 +68,8 @@ void  rt_add_object(t_tag *tag, t_rt *rt)
 		
 		else if (!ft_strcmp(tag->attr->name, "noise")  && (obj->noi.is_noise = 1))
 			obj->noi.type = rt_add_noise(tag->attr->value, rt);
-		else if (!ft_strcmp(tag->attr->name, "n_scale"))
-			obj->noi.scale1 = rt_ctod(tag->attr->value, rt);
-		else if (!ft_strcmp(tag->attr->name, "n_scale1"))
-			obj->noi.scale2 = rt_ctod(tag->attr->value, rt);
+		else if (!ft_strcmp(tag->attr->name, "scale"))
+			obj->scale = rt_ctod(tag->attr->value, rt);
 		else if (!ft_strcmp(tag->attr->name, "n_color"))
 			obj->noi.col1 = rt_ctovec(tag->attr->value, rt);
 		else if (!ft_strcmp(tag->attr->name, "n_color1"))
@@ -126,14 +124,14 @@ void  rt_add_option(t_tag *tag, t_rt *rt)
 {
 	while(tag->attr)
 	{
-		if (!ft_strcmp(tag->attr->name, "anti-aliasing"))
-			rt->scene->anti_aliasing = rt_ctod(tag->attr->value, rt); //atoi
+		if (!ft_strcmp(tag->attr->name, "aa"))
+			rt->scene->aa = rt_ctod(tag->attr->value, rt); //atoi
 //		if (!ft_strcmp(tag->attr->name, "filtre"))
 //			rt->filter = fnct for filters;		
 		tag->attr = tag->attr->next;
 	}
-	if (rt->scene->anti_aliasing <= 0 )
-		rt_exit(rt, "anti-aliasing should be a positive int", EXIT_FAILURE);	
+	if (rt->scene->aa <= 0 )
+		rt_exit(rt, "aa should be a positive int", EXIT_FAILURE);	
 }
 
 void  xml_to_rt(t_xml *x, t_rt *rt)

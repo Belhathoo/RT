@@ -25,15 +25,16 @@ int				rt_shading(t_thread *th, t_hit record, t_light *l, t_vec lo, t_vec *col)
 	sr.origin = vec_add(th->rec.p, vec_pro_k(sr.dir, 0.001));
 
 	o = record.curr_obj;
+
 		if (rt_hit(th->rt->scene, &sr, &rec, vec_length(lo)))
-		{
-			// if(!ft_strcmp(rec.curr_obj->name, "sphere"))
-			// 	printf("--%s--\n", th->rec.curr_obj->name);
-			// 	return(0);
-			return (1);
-		}
+				return (1);
+		// {
+		// 	// if(!ft_strcmp(rec.curr_obj->name, "sphere"))
+		// 	// 	printf("--%s--\n", th->rec.curr_obj->name);
+		// 	// 	return(0);
+		// 	// if (o->refr == 0)
+		// }
 	// {
-		// if (o->refr == 0)
 		// if (o != rec.curr_obj)
 		// 	return (1);
 		// else
@@ -75,7 +76,7 @@ void			rt_ambient(double amb, t_light *l, t_hit rec, t_vec *col)
 
 	ia = amb;
 	ia *= (!l) ? 1 : l->intensity ;
-	*col = vec_pro_k(o->col, ia);
+	*col = vec_pro_k(rec.col, ia);
 	if (l)
 		*col = vec_prod(*col, vec_prod(o->mat.ka, l->col));
 }

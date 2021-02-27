@@ -7,7 +7,7 @@
 	fov="60"
 	/>
 
-<Option anti-aliasing="01.0"/>
+<Option aa="01.0"/>
 
 
 

@@ -6,7 +6,7 @@
   fov="60"
   />
 
-<Option anti-aliasing="1.0"/>
+<Option aa="1.0"/>
 
 <Object name="torus" radius="2.5" r="0.75" position="-5 2.0 -1.0" direction="0 0 -1" 
  color="1 1 1.0"/>

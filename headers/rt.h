@@ -3,10 +3,8 @@
 #ifndef RT_H
 # define RT_H
 
-//# include <SDL.h>
 
 # include <rt_struct.h>
-# include <rt_define.h>
 
 #include<stdio.h> /// // 
 
@@ -14,7 +12,7 @@
 
 /* Tmp Parse  */
 
-void			rt_rot_dir(t_vec *d, t_vec r);
+t_vec			rt_rot_dir(t_vec *d, t_vec r);
 t_vec			rt_ctovec(char *str, t_rt *rt);
 double			rt_ctod(char *str, t_rt *rt);
 t_texture   	*rt_ctotxt(char *str, t_rt *rt);
@@ -37,9 +35,19 @@ t_ray			rt_ray(t_vec a, t_vec b);
 t_ray			rt_get_ray(t_camera *p, double u, double v);
 t_vec 			rt_raytracer(t_thread *t, t_hit rec, t_ray *r, int d);
 t_vec 			rt_anti_aliasing(t_thread *t, int col, int row);
+// void			rt_start(t_rt *rt);
+// int				rt_draw(t_rt *rt);
+
+
+t_vec	    	anti_aa(t_thread *t, double col, double row, int select);
+int     		progress_bar(t_rt *rt);
+
+void			rt_start(t_rt *rt, void* (*rt_runner)(t_thread *t));//changed for pbar
 void			*rt_run(t_thread *t);
-void			rt_start(t_rt *rt);
-int				rt_draw(t_rt *rt);
+void			*rt_run_50(t_thread *t);
+void			*rt_run_25(t_thread *t);
+void			*rt_run_12(t_thread *t);
+
 
 /*
  * Lighting
@@ -64,9 +72,9 @@ int				rt_hit(t_scene *scene, t_ray *r, t_hit *record, double closest);
 
 int				rt_hit_sphere(t_object *obj, t_ray *ray, t_hit *record);
 int				rt_hit_cylinder(t_object *obj, t_ray *ray, t_hit *record);
-int				rt_hit_l_cylinder(t_object *o, t_ray *r, t_hit *rec);
+int				rt_hit_lcylinder(t_object *o, t_ray *r, t_hit *rec);
 int				rt_hit_cone(t_object *obj, t_ray *ray, t_hit *record);
-int				rt_hit_l_cone(t_object *o, t_ray *r, t_hit *rec);
+int				rt_hit_lcone(t_object *o, t_ray *r, t_hit *rec);
 int				rt_hit_plan(t_object *obj, t_ray *ray, t_hit *record);
 int				rt_hit_care(t_object *o, t_ray *ray, t_hit *rec);
 
@@ -77,6 +85,10 @@ int     		rt_hit_cube(t_object *oo, t_ray *r, t_hit *record);
 int				rt_hit_glasse(t_object *o, t_ray *r,  t_hit *rec);
 int             rt_hit_cube_troue(t_object *obj, t_ray *ray, t_hit *record);
 
+void	        cylinder_uv(t_object *o, t_hit *rec);
+void            cone_uv(t_object *o, t_hit *rec);
+t_vec		    normale_cylinder(t_object *o, t_ray *r, t_hit *rec);
+t_vec           normale_cone(t_object *o, t_ray *r, t_hit *rec);
 // int				rt_slicing(t_object *o, t_ray *r, t_hit *rec);
 
 /*
@@ -103,9 +115,11 @@ t_object		*x_un(t_object *compos, t_object *obj);
 t_object		*x_deux(t_object *compos, t_object *obj);
 t_object		*x_trois(t_object *compos, t_object *obj);
 t_object		*x_quatre(t_object *compos, t_object *obj);
-
+t_vec			rotation(t_vec dir, t_vec rot);
 void		ft_float_swap(double *a, double *b);
 
+double	    	degtorad(double angle);
+double  		degtorad(double angle);
 void			rt_get_repere(t_object *ob);
 
 /*
@@ -119,7 +133,7 @@ t_vec  			rt_torus_noise(t_hit *rec);
 
 int     		rt_add_noise(char *val, t_rt *rt);
 t_vec			rt_noise_damier(t_hit *rec);
-t_vec			rt_noise(t_object *o, t_hit rec);
+t_vec			rt_noise(t_object *o, t_hit *rec);
 t_vec		    rt_rand1dto3d(double value);
 t_vec		    rt_rand3dto3d(t_vec value);
 t_vec            vec_floor(t_vec v);

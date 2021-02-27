@@ -7,12 +7,11 @@
   fov="60"
   />
 
-<Option anti-aliasing="2"/>
+<Option aa="2"/>
 
 
-<Object name="cone" radius="60"  direction="1 1 0"/>
+<Object name="cone" radius="60" rotation="0 0 0" direction=" 0 1 0"/>
 
-<Object
-<Light position="0 0 20.0"/>
+<Light position="0 05 20.0" intensity="1.0"/>
 
 

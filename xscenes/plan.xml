@@ -7,7 +7,7 @@
   fov="60"
   />
 
-<Option anti-aliasing="2"/>
+<Option aa="2"/>
 
 <Object name="plan" position="0.0 -03 -0.0" direction="0 01.0 0" 
 color="01 1.0 1.0" material="ko" />
