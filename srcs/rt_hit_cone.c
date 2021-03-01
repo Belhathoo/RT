@@ -40,24 +40,30 @@ int			rt_cone_params(t_object *o, t_ray *r, t_hit *rec)
 		return (0);
 	rec->t0 = (-rec->coef[1] - sqrt(rec->delta)) / (2 * rec->coef[0]);
 	rec->t1 = (-rec->coef[1] + sqrt(rec->delta)) / (2 * rec->coef[0]);
-	min_sol = (rec->t0 > EPS && rec->t0 < rec->t1) ?
-		rec->t0 : rec->t1;
-	if (min_sol < rec->closest && min_sol > MIN)
-	{
-		rec->t = min_sol;
-		return (1);
-	}
-	return (0);
+	(rec->t0 > rec->t1) ? ft_float_swap(&rec->t0, &rec->t1) : 0;
+	return (1);
 }
 
 int			rt_hit_cone(t_object *o, t_ray *r, t_hit *rec)
 {
 	if (rt_cone_params(o, r, rec))
 	{
-		rec->p = vec_ray(r, rec->t);
-		rec->n = normale_cone(o, r, rec);
-		cone_uv(o, rec);
-		return(1);
+		/*if (o->is_sliced == 1 && rt_slicing(o, r, rec) == 0)
+			return (0);*/
+		if (negative(rec) == 0)
+			return (0);
+		if (rec->t < rec->closest && rec->t > EPS)
+		{
+			rec->p = vec_ray(r, rec->t);
+			if (rec->t == o->sl_sl)
+				rec->n = vec_pro_k(o->sl_vec , -1);
+			else if (rec->t == rec->negative[1])
+				rec->n = rec->negative_normal;
+			else
+				rec->n = normale_cone(o, r, rec);
+			cone_uv(o, rec);
+			return (1);
+		}
 	}
 	return(0);
 }

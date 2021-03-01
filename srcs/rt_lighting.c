@@ -40,18 +40,20 @@ t_vec		rt_specular(t_hit rec, t_light *l, t_vec lo, double f_att)
 	return (spec);
 }
 
-t_vec		rt_lighting(t_thread *th, t_hit rec, t_light *l)
+t_vec		rt_lighting(t_thread *th, t_light *l)
 {
 	t_vec		l_vec;
 	double f_att = 0;
 	t_vec	color;
+	t_hit rec;
 
+	rec = th->rec;
 	color = vec3(0.0);
 	rt_ambient(th->rt->scene->ambient, l, rec, &color);
 	while (l)
 	{
 		l_vec = vec_sub(l->pos, rec.p);
-		if (rt_shading(th, rec, l, l_vec, &color) == 0)
+		if (rt_shading(th, rt_ray(vec_add(rec.p, vec_pro_k(l_vec, 0.01)), l_vec), l, &color) == 0)
 		{
 			f_att = ft_clamping(1 / ((vec_length(l_vec)\
 					+ vec_length(rec.ray->dir)) * 0.02));
@@ -60,6 +62,5 @@ t_vec		rt_lighting(t_thread *th, t_hit rec, t_light *l)
 		}
 		l = l->next;
 	}
-	th->rec.col =  color;
 	return (color);
 }

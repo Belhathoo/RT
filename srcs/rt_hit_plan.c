@@ -52,6 +52,8 @@ int     rt_hit_plan(t_object *o, t_ray *r, t_hit *rec)
 	if (t >= rec->closest || t <= MIN)
 		return (0);
 	rec->t = t;
+	if (rec->negative[0] <= rec->t && rec->t <= rec->negative[1])
+		return (0);
 	rec->p = vec_ray(r, rec->t);
 	rec->n = vec_dot(r->dir, o->rot) > 0 ? vec_pro_k(o->rot, -1) : o->rot;
 	plane_uv(rec, o);

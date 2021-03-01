@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_events.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: belhatho <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: msoulaim <msoulaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 10:55:11 by belhatho          #+#    #+#             */
-/*   Updated: 2021/02/27 11:55:15 by belhatho         ###   ########.fr       */
+/*   Updated: 2021/02/28 17:00:45 by msoulaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,9 @@ t_vec	ft_rot_vec(t_vec a, t_vec b, double t)
 
 void      rt_redraw(t_rt *rt)
 {
-	mlx_destroy_image(rt->mlx, rt->img);
-	rt->img = mlx_new_image(rt->mlx, IMG_WIDTH, IMG_HEIGHT + 8);
-	rt_start(rt, rt_run_25);
-	mlx_put_image_to_window(rt->mlx, rt->win, rt->img, 40, 180);   
+	rt->scene->progress = 1;
+	rt->scene->select = 0;
+	//progress_bar(rt);
 }
 
 int				rt_keys(int key, t_rt *rt)
@@ -79,7 +78,7 @@ int				rt_keys(int key, t_rt *rt)
 
 	if (key == K_ESC)
 		rt_close(rt);
-	if (rt->scene->sl_obj != NULL)
+	if (rt->scene->sl_obj != NULL && rt->scene->key == 1)
 	{
 		o = rt->scene->sl_obj;
 		if (key == K_NP_PLU) //&& o->pos.z < rt->scene->cam.lookfrom.z)
@@ -95,6 +94,16 @@ int				rt_keys(int key, t_rt *rt)
 		{rt->scene->sl_obj->pos.x -= 1;rt_redraw(rt);}
 		if (key == K_RGHT )//&& o->pos.x < rt->scene->cam.lookfrom.x)
 		{rt->scene->sl_obj->pos.x += 1;rt_redraw(rt);}
+	}
+	if (key == K_NP_PLU || key == K_NP_MIN || key == K_UP || key == K_DWN || key == K_LFT || key == K_RGHT)
+	{
+		rt->scene->key2 = 1;
+	}
+	if (key == K_A)
+	{
+		rt->scene->sl_obj = NULL;
+		rt->scene->key = (rt->scene->key + 1) % 2;
+		rt->scene->key2 = 1;
 	}
 	return (0);
 }

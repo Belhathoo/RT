@@ -41,6 +41,8 @@ SRCS = rt.c\
 		rt_distances.c\
 		rt_rotation.c\
 		rt_cube_compos.c\
+		rt_negatives.c\
+		rt_slicing.c\
 
 
 SRC = $(add prefix srcs/, $(SRCS))

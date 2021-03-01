@@ -47,6 +47,7 @@ int     rt_lcylinder_params(t_object *obj, t_ray *ray, t_hit *rec)
 // 			return (1);
 //     }
 // }
+
 int     rt_hit_lcylinder(t_object *obj, t_ray *ray, t_hit *rec)
 {
 	//limited cylinder

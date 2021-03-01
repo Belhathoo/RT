@@ -11,7 +11,7 @@
 
 <Object name="plan" position="0.0 -03 -0.0" direction="0 01.0 0" 
 color="01 1.0 1.0" material="ko" />
-<Object name="sphere" color="0 0 0"  noise="damier"/>
+<Object name="sphere" color="0. 0 0"  noise="damier"/>
 
 
 <Light position="-15.0 15 15.01" intensity="1" color="1 0 0"/>

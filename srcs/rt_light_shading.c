@@ -6,60 +6,39 @@
 /*   By: belhatho <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 15:54:57 by belhatho          #+#    #+#             */
-/*   Updated: 2021/02/18 15:55:03 by belhatho         ###   ########.fr       */
+/*   Updated: 2021/03/01 17:31:22 by belhatho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rt.h>
 
-int				rt_shading(t_thread *th, t_hit record, t_light *l, t_vec lo, t_vec *col)
+int				rt_shading(t_thread *th, t_ray sh_r, t_light *l, t_vec *col)
 {
 	t_hit	    rec;
 	t_object	*o;
-	t_vec	out_n;
-	float	ior;
-	t_ray	sr;
+	t_vec		color;
+	t_vec		l_vec;
+
+	l_vec = sh_r.dir;
+	sh_r.dir = vec_unit(sh_r.dir);
+	// sh_r.origin = vec_add(pnt, vec_pro_k(sh_r.dir, 0.001));
 
 
-	sr.dir = vec_unit(lo);
-	sr.origin = vec_add(th->rec.p, vec_pro_k(sr.dir, 0.001));
-
-	o = record.curr_obj;
-
-		if (rt_hit(th->rt->scene, &sr, &rec, vec_length(lo)))
+	if (rt_hit(th->rt->scene, &sh_r, &rec, vec_length(l_vec)))
+	{
+		o = rec.curr_obj;
+		if (o->refr == 0)
+			return (1);
+		else
+		{
+			sh_r = rt_refraction(rec, sh_r, o);
+			if(rt_shading(th, sh_r, l, col))
 				return (1);
-		// {
-		// 	// if(!ft_strcmp(rec.curr_obj->name, "sphere"))
-		// 	// 	printf("--%s--\n", th->rec.curr_obj->name);
-		// 	// 	return(0);
-		// 	// if (o->refr == 0)
-		// }
-	// {
-		// if (o != rec.curr_obj)
-		// 	return (1);
-		// else
-		// {
-		// 	rt_refraction(th, &sr, rec.curr_obj, MAX_DEPTH);
-		// 	if (th->rec.curr_obj == rec.curr_obj)
-		// 	{				if (vec_dot(rec.ray->dir, vec_unit(vec_sub(rec.p, l->pos))) >= 0)
-		// 		{
-		// 			*col = vec_pro_k(vec3(1.0), vec_dot(rec.ray->dir,\
-		// 						vec_unit(vec_sub(rec.p, l->pos))));
-		// 			return(0);
-		// 		}
-		// 	}				// {
-		// 	// 	*col = vec_add(*col, vec_pro_k(l->col,\
-		// 	// 	ffmax(0.0, vec_dot(rec.ray->dir, rec.n))));
-		// 	// 	return(1);
-		// 	// }
-		// 	else
-		// 		return (0);
-		// }
-		// // 	else
-		// // 		*col = vec_add(*col, vec_pro_k(*col, ffmax(0.0, vec_dot(sr.dir, lo))));
-		// // 		return (1);
-		// //
-	// }
+			else
+				*col =vec_add(*col, vec_pro_k(*col, 0.5));
+				// return (1);
+		}
+	}
 	return (0);
 }
 
@@ -75,8 +54,7 @@ void			rt_ambient(double amb, t_light *l, t_hit rec, t_vec *col)
 	o = rec.curr_obj;
 
 	ia = amb;
-	ia *= (!l) ? 1 : l->intensity ;
 	*col = vec_pro_k(rec.col, ia);
 	if (l)
-		*col = vec_prod(*col, vec_prod(o->mat.ka, l->col));
+		*col = vec_prod(*col, o->mat.ka);
 }

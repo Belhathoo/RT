@@ -2,16 +2,29 @@
 
 
 <Camera
-  lookfrom="0 0.0 25.0"
+  lookfrom="0 8.0 -15.0"
   lookat="0 0 0"
   fov="60"
   />
 
-<Option aa="2"/>
+<Option aa="8"/>
 
 
-<Object name="cone" radius="60" rotation="0 0 0" direction=" 0 1 0"/>
+<Object name="plan" position="0.0 1 0.0" direction="0 01.0 0" color="0.2 0.3 1.0" material="glass" />
+<Object name="plan" position="0.0 0 -0.0" direction="0 01.0 0" color="0.1 0.1 0.1" material="water" />
+<Object name="plan" position="0.0 -1 -0.0" direction="0 01.0 0" color="0.1 0.3 0.5" material="cu" />
+<Object name="plan" position="0.0 -2 -0.0" direction="0 01.0 0" color="0.8 0.3 0.8" material="chrome" />
+<Object name="plan" position="0.0 -3 -0.0" direction="0 01.0 0" color="0.2 0.0 1.0" material="mirror" />
+<Object name="plan" position="0.0 -4 -0.0" direction="0 01.0 0" color="0.2 0.2 1.0" material="diamond" />
+<Object name="plan" position="0.0 -5 -0.0" direction="0 01.0 0" color="0.4 0.3 1.0" material="ice" />
+<Object name="plan" position="0.0 -6 -0.0" direction="0 01.0 0" color="0.3 0.3 0.0" material="gold" />
+<Object name="plan" position="0.0 -7 -0.0" direction="0 01.0 0" color="0.3 0.3 1.0" material="bl_plastic" />
+<Object name="plan" position="0.0 -8 -0.0" direction="0 01.0 0" color="0.1 0.3 0.3" material="al" />
+<Object name="plan" position="0.0 -9 -0.0" direction="0 01.0 0" color="0.2 0.3 1.0" material="ko" />
 
-<Light position="0 05 20.0" intensity="1.0"/>
+<Light position="0 7 3" intensity="3.0"/>
+<Light position="5 0 0" intensity="1.0"/>
+<Light position="0 -5 0" intensity="1.0"/>
+<Light position="0 -9 0" intensity="1.0"/>
 
 

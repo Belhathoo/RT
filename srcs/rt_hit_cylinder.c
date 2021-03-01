@@ -38,22 +38,34 @@ int     rt_cylinder_params(t_object *obj, t_ray *ray, t_hit *rec)
   {
 		rec->t0 = (-rec->b - sqrt(rec->delta)) / (2 * rec->a);
 		rec->t1 = (-rec->b + sqrt(rec->delta)) / (2 * rec->a);
-		rec->t = rec->t0 < rec->t1 ? rec->t0 : rec->t1;
-		if (rec->t > EPS && rec->t < rec->closest)
-			return (1);
+		(rec->t0 > rec->t1) ? ft_float_swap(&rec->t0, &rec->t1) : 0;
+		return (1);
  }
 	return (0);
 }
 
-int		rt_hit_cylinder(t_object *obj, t_ray *ray, t_hit *rec)
+int		rt_hit_cylinder(t_object *obj, t_ray *ray, t_hit *record)
 {
 
-    if (rt_cylinder_params(obj, ray, rec))
+    if (rt_cylinder_params(obj, ray, record))
 	{
-		rec->p = vec_ray(ray, rec->t);
-		rec->n = normale_cylinder(obj, ray, rec);
-		   cylinder_uv(obj, rec);
+
+		if (obj->is_sliced == 1 && rt_slicing(obj, ray, record) == 0)
+			return (0);
+		if (negative(record) == 0)
+			return (0);
+    	if (record->t < record->closest && record->t >= MIN)
+   		{
+			record->p = vec_ray(ray, record->t);
+			if (record->t == obj->sl_sl)
+				record->n = vec_pro_k(obj->sl_vec , -1);
+			else if (record->t == record->negative[1])
+				record->n = record->negative_normal;
+			else
+				record->n = normale_cylinder(obj, ray, record);
+			cylinder_uv(obj, record);
 			return (1);
+		}
 	}
 	return (0);
 }

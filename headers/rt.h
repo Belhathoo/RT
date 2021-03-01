@@ -33,7 +33,7 @@ int				ft_fr(char **str);
  */
 t_ray			rt_ray(t_vec a, t_vec b);
 t_ray			rt_get_ray(t_camera *p, double u, double v);
-t_vec 			rt_raytracer(t_thread *t, t_hit rec, t_ray *r, int d);
+t_vec 			rt_raytracer(t_thread *t, t_ray r, int d);
 t_vec 			rt_anti_aliasing(t_thread *t, int col, int row);
 // void			rt_start(t_rt *rt);
 int				rt_draw(t_rt *rt);
@@ -54,13 +54,13 @@ void			*rt_run_12(t_thread *t);
 */
 
 void			rt_ambient(double amb, t_light *l, t_hit rec, t_vec *col);
-int				rt_shading(t_thread *th, t_hit r, t_light *l, t_vec lo, t_vec *c);
-t_vec				rt_lighting(t_thread *th, t_hit r, t_light *t);
+int				rt_shading(t_thread *th, t_ray sh_r, t_light *l, t_vec *c);
+t_vec			rt_lighting(t_thread *th, t_light *t);
 
-t_vec			rt_reflect(t_vec v, t_vec n);
-int       rt_refract(t_vec i, t_vec n, float ior, t_vec *rf);
-t_vec		rt_reflection(t_thread *th, t_ray *r, t_object *o, int dpth);
-t_vec		rt_refraction(t_thread *th, t_ray *r, t_object *o, int depth);
+t_vec       rt_reflect(t_vec v, t_vec n);
+int         rt_refract(t_vec i, t_vec n, float ior, t_vec *rf);
+t_ray		rt_reflection(t_hit rec, t_ray r, t_object *o);
+t_ray		rt_refraction(t_hit rec, t_ray r, t_object *o);
 
 
 float           rt_fresnel_ref(float ior, float n1, t_vec n, t_vec d);
@@ -171,4 +171,17 @@ void			rt_perror(void);
 void			rt_exit(t_rt *rt, char *msg, int err);
 int				rt_close(t_rt *rt);
 
+/*
+ * Negatives
+ */
+int		negative(t_hit *record);
+int			rt_negative_sphere(t_object *sphere, t_ray *r, t_hit *rec);
+int			rt_negative_cylinder(t_object *o, t_ray *r, t_hit *rec);
+int			rt_negative_cone(t_object *o, t_ray *r, t_hit *rec);
+
+
+/*
+ * Slicing
+*/
+int			rt_slicing(t_object *o, t_ray *r, t_hit *rec);
 #endif

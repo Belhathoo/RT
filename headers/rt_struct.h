@@ -84,6 +84,10 @@ typedef struct	s_o
 	float		refl;
 	float		refr;
 	
+	//slice solution
+	double sl_sl;
+
+
 	struct s_o	*compos;
 	struct s_o	*next;
 }				t_object;
@@ -126,6 +130,12 @@ typedef struct	s_hit
 	double		coef[4];
 	double      mob[7];
 	int			inside;
+
+	double		negative[2];//negative object
+	t_vec		negative_normal;//negative object normal
+
+	//slicing
+	double		tx;
 }				t_hit;
 
 
@@ -159,8 +169,12 @@ typedef struct	s_scene
 	int			progress;//progress bar
 	int			select;
 	int			key;
+	int			key2;
 	t_vec		data1[9][IMG_WIDTH*IMG_HEIGHT];//IMG_WIDTH*IMG_HEIGHT
 
+	//negative obj
+	t_object	n_obj;
+	int			n_exist;
 }				t_scene;
 
 typedef struct	s_rt
