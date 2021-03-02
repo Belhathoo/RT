@@ -3,7 +3,7 @@
 
 <Camera
 
-	lookfrom="0 010.0 19.0"
+	lookfrom="0 015.0 19.0"
 	lookat="0 0 0"
 	fov="60"
 	/>
@@ -13,17 +13,17 @@
 
 
 <Object name="plan" color="1 1 1"
- scale="1.5" direction="0 0.0 01.0"
+ scale="1.5" material="mirror"
  position="0 -3.0 -8.0" />
 
-<Object name="cube" color="1 0 0" 
-size="1" direction="0 01 1">
 
-<Object name="sphere" refr="01.3" radius="4.0">
+<Object name="sphere" refr="02.3" color="1 1 1" radius="4.0">
+
+<Object name="cube" color="1 0 0" size="0.4">
 
 <Object name="sphere" material="gold" position="8 0 0" radius="4.0">
  
 <Object name="sphere" position="-8 0 0" color="0 0 1" material="ic1e" 
  radius="4.0">
 
-<Light position=" -0.0 -5.0 60.0 "/>
+<Light position=" -0.0 15.0 60.0 "/>

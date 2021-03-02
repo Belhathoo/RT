@@ -1,7 +1,7 @@
 <!DOCTYPE xml>
 
 <Camera
-  lookfrom="0.0 10.0 15.50"
+  lookfrom="0.0 0.0 10.50"
   lookat="0 0 0"
   fov="60"
   />
@@ -15,13 +15,13 @@ noise="damier"  n_color="1 1 0" />
 material="a0l" texture="xpm/brick.xpm" position="0 -6.0 10"/>
 
 <Object name="plan" position="0 -4.5 0" 
-material="water" refr="1.1" color="1 1 1" scale="1.5" noise="voronoi2" />
+material="water" refr="1.1" color="0 0 1" scale="1.5" noise="voronoi2" />
 
 <Object name="sphere" position="8.0 0.0 -5.0" direction="1.0 0 1"
 material="al" texture="xpm/sun.xpm"/>
 
 <Object name="sphere" position="0.0 -1.0 0.0"  
- color="1.0 1.0 1.0" material="ice"/>
+ color="1.0 1.0 1.0" material="ice" refr="1.1"/>
 
 <Object name="cube" position="0.0 -1.0 0.0" color="1 0 0"  size="1" />
 
@@ -30,6 +30,6 @@ material="al" texture="xpm/sun.xpm"/>
 <Object name="sphere" material="diamond" scale="1.0" noise="voronoi1"
 position="-6.0 00.0 -6.0" n_color="1 0 0"  />
 
-<Light position="0.0 10 -10" />
+<Light position="0.0 10 10" />
 <Light position="10.0 10 10" />
 <Light position="-10.0 10 10" />

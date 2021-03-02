@@ -52,7 +52,8 @@ t_vec		rt_lighting(t_thread *th, t_light *l)
 	rt_ambient(th->rt->scene->ambient, l, rec, &color);
 	while (l)
 	{
-		l_vec = vec_sub(l->pos, rec.p);
+		l_vec = vec_sub(l->pos, rec.p); // depends on type of light
+		
 		if (rt_shading(th, rt_ray(vec_add(rec.p, vec_pro_k(l_vec, 0.01)), l_vec), l, &color) == 0)
 		{
 			f_att = ft_clamping(1 / ((vec_length(l_vec)\
