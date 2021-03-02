@@ -100,6 +100,6 @@ t_vec   rt_voronoi(t_vec p, t_object *o)
    if (o->noi.type == VORONOI1)
 	  return (voronoi.fcolor);
   else
-	return (vec(voronoi.fcolor.y, voronoi.fcolor.y, \
-			voronoi.fcolor.y));
+	return (vec_prod(o->col, vec(voronoi.fcolor.y, voronoi.fcolor.y, \
+			voronoi.fcolor.y)));
 }

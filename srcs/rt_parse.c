@@ -77,10 +77,16 @@ void  rt_add_object(t_tag *tag, t_rt *rt)
 
 		else if (!ft_strcmp(tag->attr->name, "material"))
 			obj->material = ft_strdup(tag->attr->value);
+		else if (!ft_strcmp(tag->attr->name, "refl"))
+			obj->refl = rt_ctod(tag->attr->value, rt);
+		else if (!ft_strcmp(tag->attr->name, "refr"))
+			obj->refr = rt_ctod(tag->attr->value, rt);
+
 		else if (!ft_strcmp(tag->attr->name, "slice_vec") && (obj->is_sliced = 1))
 			obj->sl_vec = rt_ctovec(tag->attr->value, rt);
 		else if (!ft_strcmp(tag->attr->name, "slice_pnt") && (obj->is_sliced = 1))
 			obj->sl_pnt = rt_ctovec(tag->attr->value, rt);
+
 		else
 			rt_exit(rt, ft_strjoin(tag->name, ": Unknown attribut"), EXIT_FAILURE);
 		tag->attr = tag->attr->next;
@@ -134,6 +140,43 @@ void  rt_add_option(t_tag *tag, t_rt *rt)
 		rt_exit(rt, "aa should be a positive int", EXIT_FAILURE);	
 }
 
+
+void  rt_add_neg_object(t_tag *tag, t_rt *rt)
+{
+	/*
+		add different attributes Direction and Rotation !! redo rots functions!!
+	*/
+	
+	t_object	obj;
+
+	if (rt->scene->is_neg != 0)
+		rt_exit(rt, "Only one negative object allowed.", EXIT_FAILURE);
+
+	obj = rt_init_neg_object();
+	while (tag->attr)
+	{
+		if (!ft_strcmp(tag->attr->name, "name"))
+		{
+			obj.name = ft_strdup(tag->attr->value);
+			rt_check_neg_obj_name(&obj, rt);
+		}
+		else if (!ft_strcmp(tag->attr->name, "position"))
+			obj.pos = rt_ctovec(tag->attr->value, rt);
+		else if (!ft_strcmp(tag->attr->name, "direction"))
+			obj.dir = vec_unit(rt_ctovec(tag->attr->value, rt));
+		else if (!ft_strcmp(tag->attr->name, "rotation"))
+			obj.rot = rt_ctovec(tag->attr->value, rt);
+		else if (!ft_strcmp(tag->attr->name, "radius"))
+			obj.size = rt_ctod(tag->attr->value, rt);//
+		else if (!ft_strcmp(tag->attr->name, "angle"))
+			obj.angle = rt_ctod(tag->attr->value, rt);
+		tag->attr = tag->attr->next;
+	}
+	rt_check_neg_obj(&obj, rt);
+	rt->scene->is_neg = 1;
+	rt->scene->n_obj = obj;
+}
+
 void  xml_to_rt(t_xml *x, t_rt *rt)
 {
 	/*
@@ -148,6 +191,8 @@ void  xml_to_rt(t_xml *x, t_rt *rt)
 			rt_add_camera(x->tags, rt);
 		else if (!ft_strcmp(x->tags->name, "Object"))
 			rt_add_object(x->tags, rt);
+		else if (!ft_strcmp(x->tags->name, "N_Object"))
+			rt_add_neg_object(x->tags, rt);
 		else if (!ft_strcmp(x->tags->name, "Light"))
 			rt_add_light(x->tags, rt);
 		else if (!ft_strcmp(x->tags->name, "Option"))

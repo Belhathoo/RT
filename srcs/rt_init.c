@@ -34,6 +34,27 @@ t_texture		*rt_init_txt(t_rt *rt)
 	return (txt);
 }
 
+
+t_object		rt_init_neg_object(void)
+{
+	t_object obj;
+
+	/*
+	   recheck perror!! */
+	obj.name = NULL;
+	obj.pos = vec(0.0, 0.0, 0.0);
+	obj.size = 2.0;
+	obj.angle = 30.0;
+	obj.dir = vec(0.0, 1.0, 0.0);
+	obj.rot = vec(0.0, 0.0, 0.0);
+	obj.txt = NULL;
+	obj.is_sliced = 0;
+	obj.next = NULL;
+	obj.compos = NULL;
+	return (obj);
+}
+
+
 t_light			*rt_init_light(void)
 {
 	t_light	*light;
@@ -112,7 +133,9 @@ t_scene		*rt_init_scene(void)
 	scene->object = NULL;
 	scene->light = NULL;
 	scene->sl_obj = NULL;
+	scene->is_neg = 0;
 	scene->key = 0;
+	scene->key2 = 0;
 	return (scene);
 }
 

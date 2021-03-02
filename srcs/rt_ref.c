@@ -31,8 +31,8 @@ int       rt_refract(t_vec i, t_vec n, float ior, t_vec *rf)
 	delta = 1.0 - ior * ior * (1 - dot * dot);
 	if (delta > 0)
 	{
-		*rf = vec_unit(vec_sub(vec_pro_k(vec_sub(ui, vec_pro_k(n, dot)), ior),\
-				vec_pro_k(n, sqrt(delta))));
+		*rf = vec_sub(vec_pro_k(vec_sub(ui, vec_pro_k(n, dot)), ior),\
+				vec_pro_k(n, sqrt(delta)));
 		ret = 1; 
 	}
 	return (ret);
@@ -49,7 +49,6 @@ t_ray		rt_reflection(t_hit rec, t_ray r, t_object *o)
 
 t_ray		rt_refraction(t_hit rec, t_ray r, t_object *o)
 {
-	/*o  unused replace with rt,, as refracted ray !!*/
 	t_ray	rt;
 	t_vec	out_n;
 	t_vec 	refl;

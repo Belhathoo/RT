@@ -16,30 +16,34 @@ int				rt_shading(t_thread *th, t_ray sh_r, t_light *l, t_vec *col)
 {
 	t_hit	    rec;
 	t_object	*o;
-	t_vec		color;
+	int			shade;
 	t_vec		l_vec;
+	t_ray		sc_r;
 
+	shade =  0;
+	rec.curr_obj = NULL;
 	l_vec = sh_r.dir;
 	sh_r.dir = vec_unit(sh_r.dir);
 	// sh_r.origin = vec_add(pnt, vec_pro_k(sh_r.dir, 0.001));
 
-
-	if (rt_hit(th->rt->scene, &sh_r, &rec, vec_length(l_vec)))
-	{
+/*
+ Max && length lvec !!!!! tribich vs dell refre
+*/
+	if (rt_hit(th->rt->scene, &sh_r, &rec, MAX) && (shade = 1))
 		o = rec.curr_obj;
-		if (o->refr == 0)
-			return (1);
-		else
+	if (shade && o->refr != 0.0)
+	{
+		sc_r = rt_refraction(rec, sh_r, o);
+		double dot = vec_dot(sc_r.dir, sh_r.dir);
+		if ((dot > 0.0))
 		{
-			sh_r = rt_refraction(rec, sh_r, o);
-			if(rt_shading(th, sh_r, l, col))
-				return (1);
-			else
-				*col =vec_add(*col, vec_pro_k(*col, 0.5));
-				// return (1);
+			*col = vec_pro_k(*col, 0.7 * ((o->refr > 1) ? (1 / o->refr) : o->refr));
+			return(rt_shading(th, sc_r, l, col));
+			// return (1);
 		}
+		// else
 	}
-	return (0);
+	return (shade);
 }
 
 void			rt_ambient(double amb, t_light *l, t_hit rec, t_vec *col)

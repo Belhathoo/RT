@@ -174,7 +174,7 @@ typedef struct	s_scene
 
 	//negative obj
 	t_object	n_obj;
-	int			n_exist;
+	int			is_neg;
 }				t_scene;
 
 typedef struct	s_rt

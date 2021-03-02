@@ -1,5 +1,3 @@
-
-
 # include <libxml.h>
 
 void    xml_check_tag(char  *t_name, t_xml *x)
@@ -16,7 +14,8 @@ void    xml_check_tag(char  *t_name, t_xml *x)
         xml_exit(x, ft_strdup("Only One Camera Allowed !"), 1);
 
     if (!(!ft_strncmp(str, "Camera", 6) || !ft_strncmp(str, "Object", 6)\
-            || !ft_strncmp(str, "Light", 5) || !ft_strncmp(str, "Option", 6)))
+            || !ft_strncmp(str, "N_Object", 8) || !ft_strncmp(str, "Light", 5)\
+            || !ft_strncmp(str, "Option", 6)))
         xml_exit(x, ft_strdup("Tag Unknown!"), 1); // check repeated tags !
     
     /*
@@ -44,6 +43,7 @@ int     xml_check_attr(char *t_name, char *a_name, t_xml *x)
             || !ft_strcmp(a_name, "material") || !ft_strcmp(a_name, "size")\
             || !ft_strcmp(a_name, "height")|| !ft_strcmp(a_name, "width")\
             || !ft_strcmp(a_name, "angle") || !ft_strcmp(a_name, "scale")\
+            || !ft_strcmp(a_name, "refr") || !ft_strcmp(a_name, "refl")\
             || !ft_strcmp(a_name, "n_color") || !ft_strcmp(a_name, "n_color1"))
             return (1);
     }
@@ -64,6 +64,13 @@ int     xml_check_attr(char *t_name, char *a_name, t_xml *x)
             || !ft_strcmp(a_name, "angle") || !ft_strcmp(a_name, "radius")\
             || !ft_strcmp(a_name, "intensity") || !ft_strcmp(a_name, "color")\
             || !ft_strcmp(a_name, "direction"))
+            return (1);
+    }
+    else if (!ft_strcmp(t_name, "N_Object"))
+    {
+        if (!ft_strcmp(a_name, "name") || !ft_strcmp(a_name, "position")\
+            || !ft_strcmp(a_name, "direction") ||!ft_strcmp(a_name, "angle")\
+            || !ft_strcmp(a_name, "rotation") || !ft_strcmp(a_name, "radius"))
             return (1);
     }
     return (0);

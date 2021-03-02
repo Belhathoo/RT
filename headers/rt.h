@@ -21,6 +21,8 @@ void			rt_parser(t_rt *p, char **av);
 void			rt_check_cam(t_camera c, t_rt *rt);
 void			rt_check_obj(t_object *o, t_rt *rt);
 void			rt_check_obj_name(t_object *obj, t_rt *rt);
+void			rt_check_neg_obj(t_object *o, t_rt *rt);
+void			rt_check_neg_obj_name(t_object *obj, t_rt *rt);
 void			rt_check_lights(t_light *l, t_rt *rt);
 
 void			ft_parser(char *file, t_rt *p);
@@ -159,6 +161,7 @@ int				rt_keys(int key, t_rt *rt);
  */
 t_scene			*rt_init_scene(void);
 t_object		*rt_init_object(void);
+t_object		rt_init_neg_object(void);
 t_light			*rt_init_light(void);
 t_camera		rt_init_camera(t_vec lookfrom, t_vec lookat, double vfov);
 void			rt_init(t_rt *rt);

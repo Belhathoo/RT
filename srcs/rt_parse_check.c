@@ -51,6 +51,26 @@ void     rt_check_obj_name(t_object *obj, t_rt *rt)
 	}
 	ft_strdel(&str);
 }
+void     rt_check_neg_obj_name(t_object *obj, t_rt *rt)
+{
+	char	*str;
+
+	str = ft_strdup(obj->name);
+	str = ft_strupcase(str);
+
+	if (!ft_strcmp(str, "SPHERE"))
+		obj->hit = rt_negative_sphere;
+	else if (!ft_strcmp(str, "CYLINDER"))
+		obj->hit = rt_negative_cylinder;
+	else if (!ft_strcmp(str, "CONE"))
+		obj->hit = rt_negative_cone;
+	else
+	{
+		ft_strdel(&str);
+		rt_exit(rt, ft_strjoin(obj->name, "unknown neg-obj!"), EXIT_FAILURE);
+	}
+	ft_strdel(&str);
+}
 
 void			rt_set_coef(t_object *o, t_rt *rt)
 {
@@ -85,12 +105,6 @@ void			rt_set_coef(t_object *o, t_rt *rt)
 	else
 		o->mat = (t_material){vec3(0.7), vec3(0.8),\
 			vec3(0.30), 50 ,0.0 ,0.0};
-	// if(o->txt)
-	// {
-	// 	o->mat.ka = vec3(1.0);
-	// 	o->mat.shininess = 0;
-	// 	o->mat.ks = vec3(0.0);
-	// }
 	if (o->refr == 0.0)
 		o->refr = o->mat.kt;
 	if (o->refl == 0.0)
@@ -118,13 +132,17 @@ void    rt_check_obj(t_object *o, t_rt *rt)
 	/*
 	   radius for cone ((angle ]0 -180]))!!!!!!!!!
 	   */
-	  o->radius = o->size; /////// ---- !!!!
+	// o->radius = o->size; /////// ---- !!!!
+	if (o->name == NULL)
+		rt_exit(rt, "Object shoud have a name!", EXIT_FAILURE);
 	if (o->dir.x == 0 && o->dir.y == 0 && o->dir.z == 0)
 		rt_exit(rt, "obj: direction vector is non-zero!", EXIT_FAILURE);
-	if (o->size <= 0.0 || o->radius <= 0.0)
+	if (o->size <= 0.0 )//|| o->radius <= 0.0)
 		rt_exit(rt, "obj: radius/size should be positive", EXIT_FAILURE);
 	if (o->angle <= 0.0)
 		rt_exit(rt, "obj: angle should be in ]0-180[", EXIT_FAILURE);
+	if (o->refl < 0 || o->refr <0)
+		rt_exit(rt, "reflecton/refraction coef should be positive", EXIT_FAILURE);
 	o->angle = degtorad(o->angle) / 2; // ONLY FOR CONES !!!!
 	if (o->txt && o->noi.is_noise == 1)
 		rt_exit(rt, "obj: either texture either noise", EXIT_FAILURE);
@@ -133,6 +151,26 @@ void    rt_check_obj(t_object *o, t_rt *rt)
 	rt_comp_obj(o);
 	rt_adjustment(&o->col);
 	rt_set_coef(o, rt);
+}
+
+
+void    rt_check_neg_obj(t_object *o, t_rt *rt)
+{
+
+	/*
+	   angle for cone ((angle ]0 -180]))!!!!!!!!!
+	   */
+	// o->radius = o->size; /////// ---- !!!!
+	if (o->name == NULL)
+		rt_exit(rt, "Neg-Object shoud have a name!", EXIT_FAILURE);
+	if (o->dir.x == 0 && o->dir.y == 0 && o->dir.z == 0)
+		rt_exit(rt, "obj: direction vector is non-zero!", EXIT_FAILURE);
+	if (o->size <= 0.0 )//|| o->radius <= 0.0)
+		rt_exit(rt, "obj: radius/size should be positive", EXIT_FAILURE);
+	if (o->angle <= 0.0 || o->angle > 179.0)
+		rt_exit(rt, "obj: angle should be in ]0-180[", EXIT_FAILURE);
+	o->angle = degtorad(o->angle) / 2; // ONLY FOR CONES !!!!
+	rt_rot_dir(&o->rot, o->dir);
 }
 
 void	rt_check_lights(t_light *l, t_rt *rt)

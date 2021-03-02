@@ -66,7 +66,7 @@ int xml_parse(t_xml *x)
   int i;
   int j;
   
-  x->data = get_full_text(x->fd);
+  x->data = get_full_text(x->fd); /// add maximum tailee !!!!!!!!!!!
   len = ft_strlen(x->data);
   i = 1;
   if ((data = ft_strchr(x->data, '<')) == NULL)
@@ -78,9 +78,9 @@ int xml_parse(t_xml *x)
     j = i;
     while (data[i] && data[i] != '>')
     {
-      while (data[i] == '\t' || data[i] == '\n')
+      if (data[i] == '\t' || data[i] == '\n')
         data[i] = ' ';
-      if (data[i] == '<') // !!!! //
+      else if (data[i] == '<') // !!!! //
         return (-1);
       i++;
     }
