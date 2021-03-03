@@ -96,7 +96,22 @@ void  rt_add_object(t_tag *tag, t_rt *rt)
 	obj->next = tmp;
 }
 
-void  rt_add_light(t_tag *tag, t_rt *rt)
+int		rt_check_light_type(t_rt *rt, char *val)
+{
+	int		type;
+
+	if (!ft_strcmp(val, "point"))
+		return (PT_LIGHT);
+	else if (!ft_strcmp(val, "flashlight"))
+		return (PL_LIGHT);
+	else if (!ft_strcmp(val, "parallel"))
+		return (FL_LIGHT);
+	else
+		rt_exit (rt, "light type unknown", EXIT_FAILURE);
+	return (-1);
+}
+
+void	rt_add_light(t_tag *tag, t_rt *rt)
 {
 	t_light *l;
 	t_light	*tmp;
@@ -105,23 +120,24 @@ void  rt_add_light(t_tag *tag, t_rt *rt)
 	tmp = rt->scene->light;
 	while (tag->attr)
 	{
-		if (!ft_strcmp(tag->attr->name, "type")) // to redo!!
-			l->type = 0; //ft_strdup(tag->attr->value);
-		else if (!ft_strcmp(tag->attr->name, "position"))
+		// if (!ft_strcmp(tag->attr->name, "type"))
+		// 	l->type = rt_check_light_type(rt, tag->attr->value);
+		// else
+		 if (!ft_strcmp(tag->attr->name, "position"))
 			l->pos = rt_ctovec(tag->attr->value, rt);
-		else if (!ft_strcmp(tag->attr->name, "direction"))
-			l->dir = vec_unit(rt_ctovec(tag->attr->value, rt));
+		// else if (!ft_strcmp(tag->attr->name, "direction"))
+		// 	l->dir = vec_unit(rt_ctovec(tag->attr->value, rt));
 		else if (!ft_strcmp(tag->attr->name, "intensity"))
 			l->intensity = rt_ctod(tag->attr->value, rt);
 		else if (!ft_strcmp(tag->attr->name, "color"))
 			l->col = rt_ctovec(tag->attr->value, rt);
-		else if (!ft_strcmp(tag->attr->name, "radius"))
-			l->radius = rt_ctod(tag->attr->value, rt);
 		else if (!ft_strcmp(tag->attr->name, "angle"))
 			l->angle = rt_ctod(tag->attr->value, rt);
+		// else if (!ft_strcmp(tag->attr->name, "radius"))
+		// 	l->radius = rt_ctod(tag->attr->value, rt);
 		tag->attr = tag->attr->next;
 	}
-	rt_check_lights(l, rt);
+	// rt_check_lights(l, rt);
 	rt->scene->light = l;
 	l->next = tmp;
 }
@@ -132,12 +148,15 @@ void  rt_add_option(t_tag *tag, t_rt *rt)
 	{
 		if (!ft_strcmp(tag->attr->name, "aa"))
 			rt->scene->aa = rt_ctod(tag->attr->value, rt); //atoi
-//		if (!ft_strcmp(tag->attr->name, "filtre"))
+		if (!ft_strcmp(tag->attr->name, "amb"))
+			rt->scene->ambient = rt_ctod(tag->attr->value, rt);
+//		if (!ft_strcmp(tag->attr->name, "filter"))
 //			rt->filter = fnct for filters;		
 		tag->attr = tag->attr->next;
 	}
 	if (rt->scene->aa <= 0 )
-		rt_exit(rt, "aa should be a positive int", EXIT_FAILURE);	
+		rt_exit(rt, "aa should be a positive int", EXIT_FAILURE);
+	// rt->scene->ambient = ft_clamping(rt->scene->ambient);
 }
 
 

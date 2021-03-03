@@ -10,8 +10,7 @@ void    rt_check_cam(t_camera c, t_rt *rt)
 		rt_exit(rt, "camera: fov is an angle [4-180]", EXIT_FAILURE);
 }
 
-
-void     rt_check_obj_name(t_object *obj, t_rt *rt)
+void	rt_check_obj_name(t_object *obj, t_rt *rt)
 {
 	char	*str;
 
@@ -117,6 +116,7 @@ t_vec	rt_rot_dir(t_vec *r, t_vec d)
 
 	// return(rotation(d, r));
 	*r = d;
+	return vec3(1.0);
 }
 
 void	rt_comp_obj(t_object *o)
@@ -139,7 +139,7 @@ void    rt_check_obj(t_object *o, t_rt *rt)
 		rt_exit(rt, "obj: direction vector is non-zero!", EXIT_FAILURE);
 	if (o->size <= 0.0 )//|| o->radius <= 0.0)
 		rt_exit(rt, "obj: radius/size should be positive", EXIT_FAILURE);
-	if (o->angle <= 0.0)
+	if (o->angle <= 0.0 || o->angle > 180.0)
 		rt_exit(rt, "obj: angle should be in ]0-180[", EXIT_FAILURE);
 	if (o->refl < 0 || o->refr <0)
 		rt_exit(rt, "reflecton/refraction coef should be positive", EXIT_FAILURE);
@@ -178,15 +178,17 @@ void	rt_check_lights(t_light *l, t_rt *rt)
 	/*
 	   init dir/radius/angle for other light types !!!!
 	   */
-
 	  // check color (0 0 0) && intensity < 0
 
-	// if (l->dir.x == 0 && l->dir.y == 0 && l->dir.z == 0)
-	// 	rt_exit(rt, "light: direction vector is non-zero!", EXIT_FAILURE);
+	if (l->dir.x == 0 && l->dir.y == 0 && l->dir.z == 0)
+		rt_exit(rt, "light: direction vector is non-zero!", EXIT_FAILURE);
 	if ((l->intensity = ft_clamping(l->intensity)) == 0.0)
 		rt_exit(rt, "light: intensity is a positive number ]0-1]", EXIT_FAILURE);
-	// if (l->angle)
-		// check if soft first !! for radius !
+	if (l->angle < 0.0 || l->angle > 180.0)
+		rt_exit(rt, "light: angle should be in ]0-180].", EXIT_FAILURE);
+	if (l->col.x == 0.0 && l->col.y == 0.0 && l->col.z == 0.0)
+		rt_exit(rt, "light: no light have black color", EXIT_FAILURE);
+	// check if soft first !! for radius !
 		// if (l->radius <= 0.0)
 		// 	rt_exit(rt, "light: radius should be positive", EXIT_FAILURE);
 		rt_adjustment(&l->col);

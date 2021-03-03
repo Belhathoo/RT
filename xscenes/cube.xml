@@ -7,13 +7,13 @@
   fov="60"
   />
 
-<Option aa="2"/>
+<Option aa="5"/>
 
-<Object name="plan" position="0 -5 -5.0" direction="00 01 0" 
-color="0 1 1" material="bl_plastc">
-<Object name="cube" color=" 1.0 1.0 1.0" size="2" position="0 0.0 0" 
-direction="0 1 0" refr="2.4" material="diamond" />
+<Object name="cube" position="0 -5 -5.0" direction="00 01 0" 
+color="0 1 1" material="bl_plastic">
 
-<Object name="sphere" radius="1.0" position="0 5 15" color="01 0 0">
+<Object name="cube_troue" color=" 1.0 1.0 1.0" size="2" position="0 0.0 0" 
+direction="0 1 0" refr="02.4" />
+ <Object name="cube" color="0 0 1" size="1.0" >
 
 <Light position="0 025.0 10.0"/>

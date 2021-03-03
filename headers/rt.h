@@ -25,7 +25,6 @@ void			rt_check_neg_obj(t_object *o, t_rt *rt);
 void			rt_check_neg_obj_name(t_object *obj, t_rt *rt);
 void			rt_check_lights(t_light *l, t_rt *rt);
 
-void			ft_parser(char *file, t_rt *p);
 void			ft_get_data(t_rt *p, int fd);
 int				ft_fr(char **str);
 

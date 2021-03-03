@@ -55,7 +55,7 @@ int     xml_check_attr(char *t_name, char *a_name, t_xml *x)
     }
     else if (!ft_strcmp(t_name, "Option"))
     {
-        if (!ft_strcmp(a_name, "aa") || !ft_strcmp(a_name, "filter"))
+        if (!ft_strcmp(a_name, "aa") || !ft_strcmp(a_name, "amb")) //|| !ft_strcmp(a_name, "filter"))
             return (1);
     }
     else if (!ft_strcmp(t_name, "Light"))

@@ -33,7 +33,6 @@ typedef	struct	s_texture
 	float		scale;
 }				t_texture;
 
-
 typedef struct	s_noise
 {
 	int			is_noise;
@@ -41,7 +40,6 @@ typedef struct	s_noise
 	t_vec		col1;
 	t_vec		col2;
 }				t_noise;
-
 
 typedef struct s_m
 {
@@ -85,7 +83,7 @@ typedef struct	s_o
 	float		refr;
 	
 	//slice solution
-	double sl_sl;
+	double		sl_sl;
 
 
 	struct s_o	*compos;

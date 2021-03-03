@@ -18,8 +18,9 @@
 # define MIN 1e-4 
 # define  EPS 1e-9    // dist min
 
-# define S_LIGHT 0 //spot light; usual one
-# define P_LIGHT 1 //parallele light; following one direction
+# define PT_LIGHT 0
+# define FL_LIGHT 1 //spot light; usual one
+# define PL_LIGHT 2 //parallele light; following one direction
 
 
 /*
@@ -32,18 +33,14 @@
 #  include <key_linux.h>
 # endif
 
-
-
 # define DAMIER 0
 # define CIRCLES 1
 # define VORONOI1 2
 # define VORONOI2 3
 # define VORONOI3 4
 
-
 /*
- * Filters
- */
+*   Filters */
 
 # define NONE_FILTER 0
 # define SEPIA 1

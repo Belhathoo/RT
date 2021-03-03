@@ -68,13 +68,14 @@ t_light			*rt_init_light(void)
 
 	// recheck for other initialis// parameters
 	// init depends on the type ! plus default light!!
-
 	if (!(light = (struct s_l*)malloc(sizeof(struct s_l))))
 		rt_perror();
 	// rt_exit(rt, "Cannot allocate\n", EXIT_FAILURE);
-
-	light->pos = vec(-15.0,5.0,15.0);
+	// light->type = PT_LIGHT;
+	// light->angle = 30.0;
+	light->pos = vec(5.0, 5.0, 15.0);
 	light->col = vec(1.0, 1.0, 1.0);
+	// light->dir = vec3(1.0);
 	light->intensity = 0.8;
 	light->next = NULL;
 	return (light);

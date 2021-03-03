@@ -17,7 +17,7 @@
  position="0 -3.0 -8.0" />
 
 
-<Object name="sphere" refr="02.3" color="1 1 1" radius="4.0">
+<Object name="sphere" refr="0.3" color="1 1 1" radius="4.0">
 
 <Object name="cube" color="1 0 0" size="0.4">
 

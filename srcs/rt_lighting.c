@@ -53,8 +53,9 @@ t_vec		rt_lighting(t_thread *th, t_light *l)
 	while (l)
 	{
 		l_vec = vec_sub(l->pos, rec.p); // depends on type of light
-		
-		if (rt_shading(th, rt_ray(vec_add(rec.p, vec_pro_k(l_vec, 0.01)), l_vec), l, &color) == 0)
+		// l_vec = (l->type == PL_LIGHT) ? vec_pro_k(l->dir, -1.0) : vec_sub(l->pos, rec.p);
+		t_ray sh_r = rt_ray(vec_add(rec.p, vec_pro_k(l_vec, 0.01)), vec_unit(l_vec));
+		if (rt_shading(th, sh_r, l, &color) == 0)
 		{
 			f_att = ft_clamping(1 / ((vec_length(l_vec)\
 					+ vec_length(rec.ray->dir)) * 0.02));

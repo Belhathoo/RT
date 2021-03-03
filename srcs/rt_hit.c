@@ -15,23 +15,6 @@ int rt_hit(t_scene *scene, t_ray *r, t_hit *rec, double closest)
 	int			check_hit;
 	t_hit		record;
 
-	//to parse
-	// scene->n_exist = 0;
-	// //example 1 sphere //file==cone.xml
-	// scene->n_obj.pos = vec(0, 0, 0);
-	// scene->n_obj.size = 1;
-	// scene->n_obj.hit = rt_negative_sphere;
-	//ex 2 cylindre
-	// scene->n_obj.pos = vec(0, 0, 0);
-	// scene->n_obj.rot = vec_unit(vec(0, 1, 0));
-	// scene->n_obj.size = 3;
-	// scene->n_obj.hit = rt_negative_cylinder;
-	//ex3 cone
-	// scene->n_obj.pos = vec(0, 0, 0);
-	// scene->n_obj.rot = vec_unit(vec(0, 1, 0));
-	// scene->n_obj.size = tan(3.14/8);
-	// scene->n_obj.hit = rt_negative_cone;
-
 	//negatives clean code
 	if (scene->is_neg == 0)
 		rt_init_negative(&record);
