@@ -4,8 +4,15 @@ t_camera	rt_init_camera(t_vec lookfrom, t_vec lookat, double vfov)
 {
 	t_camera	c;
 	t_vec	vup;
+	t_vec	tmp;
+	
+	tmp = vec_unit(vec_sub(lookat, lookfrom));
+	vup = vec_unit(vec(0.0, 1.0, 0.0));
 
-	vup = vec_unit(vec(0.00001, 1.0001, 0.00001));
+	// if (tmp.x == vup.x && tmp.y == vup.y && tmp.z == vup.z)
+	// 	vup.y += 0.01;// = vec_add_k(vup, 0.0001);
+	if (!(vec_dot(vec_cross(tmp, vup), vec3(1.0))))
+		vup = vec_add_k(vup, 0.01);
 	c.half_h = tan((vfov * M_PI / 180.0) / 2.0);
 	c.half_w = (IMG_WIDTH / IMG_HEIGHT) * c.half_h;
 	c.origin = lookfrom;

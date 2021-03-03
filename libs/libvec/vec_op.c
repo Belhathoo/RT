@@ -23,3 +23,8 @@ t_vec		vec_div_k(t_vec a, double k)
 		return (vec(0, 0, 0));
 	return (vec(a.x / k, a.y / k, a.z / k));
 }
+
+t_vec		vec_add_k(t_vec a, double k)
+{
+	return (vec(a.x + k, a.y + k, a.z + k));
+}
