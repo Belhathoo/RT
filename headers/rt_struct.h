@@ -128,12 +128,13 @@ typedef struct	s_hit
 	double		coef[4];
 	double      mob[7];
 	int			inside;
+	int			is_n;
 
 	double		negative[2];//negative object
 	t_vec		negative_normal;//negative object normal
 
 	//slicing
-	double		tx;
+	int			tx;
 }				t_hit;
 
 

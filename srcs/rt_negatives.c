@@ -6,7 +6,7 @@
 /*   By: msoulaim <msoulaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 17:36:16 by msoulaim          #+#    #+#             */
-/*   Updated: 2021/02/27 18:41:49 by msoulaim         ###   ########.fr       */
+/*   Updated: 2021/03/03 17:46:26 by msoulaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,14 @@
 
 int		negative(t_hit *record)
 {
+	record->is_n = 0;
 	if ((record->t0 <= record->negative[0] || record->t0 >= record->negative[1]))
 		record->t = record->t0;
 	else if (record->negative[0] <= record->t0 && record->t0 <= record->negative[1] && record->negative[1] < record->t1)
+	{
+		record->is_n = 1;
 		record->t = record->negative[1];
+	}
 	else
 		return 0;
 	return (1);

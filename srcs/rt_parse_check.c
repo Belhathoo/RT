@@ -132,6 +132,7 @@ void    rt_check_obj(t_object *o, t_rt *rt)
 	/*
 	   radius for cone ((angle ]0 -180]))!!!!!!!!!
 	   */
+	
 	// o->radius = o->size; /////// ---- !!!!
 	if (o->name == NULL)
 		rt_exit(rt, "Object shoud have a name!", EXIT_FAILURE);
@@ -146,9 +147,19 @@ void    rt_check_obj(t_object *o, t_rt *rt)
 	o->angle = degtorad(o->angle) / 2; // ONLY FOR CONES !!!!
 	if (o->txt && o->noi.is_noise == 1)
 		rt_exit(rt, "obj: either texture either noise", EXIT_FAILURE);
+	if (o->is_sliced == 1)
+	{
+		if (!ft_strcmp(o->name, "sphere") && !in_sphere(o))
+			rt_exit(rt, "obj: slicing pnt is outside of the sphere!", EXIT_FAILURE);
+		if (!ft_strcmp(o->name, "cylinder") && !in_cylindr(o))
+			rt_exit(rt, "obj: slicing pnt is outside of the cylinder!", EXIT_FAILURE);
+	}
+	/*
+		add x y z slicing global || on ax
+	*/
 	rt_rot_dir(&o->rot, o->dir);
 	rt_get_repere(o);
-	rt_comp_obj(o);
+	rt_comp_obj(o); //// events...
 	rt_adjustment(&o->col);
 	rt_set_coef(o, rt);
 }

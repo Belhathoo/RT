@@ -2,18 +2,19 @@
 
 
 <Camera
-  lookfrom="0 05.0 15.0"
+  lookfrom="10.0 02.0 0.0"
   lookat="0 0 0"
   fov="60"
   />
 
-<Option aa="5"/>
+<Option aa="5" amb="0"/>
 
-<Object name="cube" position="0 -5 -5.0" direction="00 01 0" 
+<Object name="plan" position="0 -5 -5.0" direction="00 01 0" 
 color="0 1 1" material="bl_plastic">
 
-<Object name="cube_troue" color=" 1.0 1.0 1.0" size="2" position="0 0.0 0" 
-direction="0 1 0" refr="02.4" />
- <Object name="cube" color="0 0 1" size="1.0" >
+<Object name="cube" color=" 1.0 1.0 1.0" size="2.5" position="0 0.0 0" 
+direction="0 10 0" refr="01.2" />
+ <Object name="l_cylinder" position="1.0 01.50 .0 " color="1.0 1.0 0.5"
+ height="8" refr="0.0" size="0.30" direction="0.5 1 -1" >
 
 <Light position="0 025.0 10.0"/>

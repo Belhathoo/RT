@@ -90,7 +90,6 @@ void	        cylinder_uv(t_object *o, t_hit *rec);
 void            cone_uv(t_object *o, t_hit *rec);
 t_vec		    normale_cylinder(t_object *o, t_ray *r, t_hit *rec);
 t_vec           normale_cone(t_object *o, t_ray *r, t_hit *rec);
-// int				rt_slicing(t_object *o, t_ray *r, t_hit *rec);
 
 /*
  * Utils
@@ -180,10 +179,14 @@ int		negative(t_hit *record);
 int			rt_negative_sphere(t_object *sphere, t_ray *r, t_hit *rec);
 int			rt_negative_cylinder(t_object *o, t_ray *r, t_hit *rec);
 int			rt_negative_cone(t_object *o, t_ray *r, t_hit *rec);
+void	rt_init_negative(t_hit *rec);
 
 
 /*
  * Slicing
 */
 int			rt_slicing(t_object *o, t_ray *r, t_hit *rec);
+int		    in_cylindr(t_object *o);
+int		    in_sphere(t_object *o);
+
 #endif

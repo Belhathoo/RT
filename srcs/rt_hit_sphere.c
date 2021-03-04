@@ -6,7 +6,7 @@ void		sphere_uv(t_object *o, t_hit *rec)
 	double	phi;
 	double	theta;
 	t_vec	p;
-    
+
  	 p = vec_pro_k(vec_sub(rec->p, o->pos), 1.0); 
 	 p = vec(vec_dot(p, o->vec1), vec_dot(p, o->vec2), vec_dot(p, o->rot));
 	phi = atan2(p.z, p.x);
@@ -30,6 +30,7 @@ int     rt_sphere_params(t_object *obj, t_ray *ray, t_hit *rec)
 		rec->t0 = (-rec->b - sqrt(rec->delta)) / (2 * rec->a);
 		rec->t1 = (-rec->b + sqrt(rec->delta)) / (2 * rec->a);
 		(rec->t0 < rec->t1) ? 0 : ft_float_swap(&rec->t0, &rec->t1);
+		(rec->t0 <= EPS) ? ft_float_swap(&rec->t0, &rec->t1) : 0;
 		return (1);
 	}
 	return (0);
@@ -46,10 +47,12 @@ int		rt_hit_sphere(t_object *obj, t_ray *ray, t_hit *rec)
 		if (rec->t > EPS && rec->t < rec->closest)
 		{
 			rec->p = vec_ray(ray, rec->t);
-			if (rec->t == obj->sl_sl)
+			if (rec->tx == 1)
 				rec->n = vec_pro_k(obj->sl_vec , -1);
-			else if (rec->t == rec->negative[1])
+			else if (rec->is_n == 1 && rec->t == rec->negative[1])
 				rec->n = rec->negative_normal;
+			else if (rec->t1 <= EPS)
+				rec->n = vec_div_k(vec_sub(rec->p, obj->pos), -obj->size);
 			else
 				rec->n = vec_div_k(vec_sub(rec->p, obj->pos), obj->size);
 			sphere_uv(obj, rec);
