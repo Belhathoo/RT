@@ -18,6 +18,7 @@ int     rt_lcylinder_params(t_object *obj, t_ray *ray, t_hit *rec)
 		rec->t0 = (-rec->b - sqrt(rec->delta)) / (2 * rec->a);
 		rec->t1 = (-rec->b + sqrt(rec->delta)) / (2 * rec->a);
 		(rec->t0 < rec->t1) ? 0 : ft_float_swap(&rec->t0, &rec->t1);
+		(rec->t0 <= EPS) ? ft_float_swap(&rec->t0, &rec->t1) : 0;
 		m = vec_dot(ray->dir, obj->rot) * rec->t0 + vec_dot(rec->or, obj->rot);
 		if (m <= -obj->height/2 || m >= obj->height/2)
 		{
@@ -65,6 +66,7 @@ int     rt_hit_lcylinder(t_object *obj, t_ray *ray, t_hit *rec)
 		rec->t0 = (-rec->b - sqrt(rec->delta)) / (2 * rec->a);
 		rec->t1 = (-rec->b + sqrt(rec->delta)) / (2 * rec->a);
 		(rec->t0 < rec->t1) ? 0 : ft_float_swap(&rec->t0, &rec->t1);
+		(rec->t0 <= EPS) ? ft_float_swap(&rec->t0, &rec->t1) : 0;
 		m = vec_dot(ray->dir, obj->rot) * rec->t0 + vec_dot(rec->or, obj->rot);
 		if (m <= -obj->height/2 || m >= obj->height/2)
 		{

@@ -21,6 +21,7 @@ int			rt_lcone_params(t_object *o, t_ray *r, t_hit *rec)
 	rec->t0 = (-rec->coef[1] - sqrt(rec->delta)) / (2 * rec->coef[0]);
 	rec->t1 = (-rec->coef[1] + sqrt(rec->delta)) / (2 * rec->coef[0]);
 	(rec->t0 < rec->t1) ? 0 : ft_float_swap(&rec->t0, &rec->t1);
+	(rec->t0 <= EPS) ? ft_float_swap(&rec->t0, &rec->t1) : 0;
 	m = vec_dot(r->dir, o->rot) * rec->t0 + vec_dot(rec->or, o->rot);
 	if (m <= o->height || m >= o->width)
 	{
