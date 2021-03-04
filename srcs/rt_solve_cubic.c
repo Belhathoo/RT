@@ -6,7 +6,7 @@ static int	rt_case_1(double s[2], double *q)
 	int			num;
 	double	u;
 
-	if (rt_is_zero(*q))
+	if (is_zero(*q))
 	{
 		s[0] = 0;
 		num = 1;
@@ -63,7 +63,7 @@ int			rt_solve_cubic(double w[4], double s[3])
 	c.q = 1.0 / 2.0 * (2.0 / 27.0 * c.a * c.sq_a - 1.0 / 3.0 * c.a * c.b + c.c);
 	c.cb_p = c.p * c.p * c.p;
 	c.d = c.q * c.q + c.cb_p;
-	if (rt_is_zero(c.d))
+	if (is_zero(c.d))
 		num = rt_case_1(s, &c.q);
 	else if (c.d < 0)
 		num = rt_case_2(s, &c.q, &c.p, &c.cb_p);

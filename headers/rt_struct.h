@@ -26,6 +26,8 @@ typedef struct	s_ray
 typedef	struct	s_texture
 {
 	int			is_txt;
+	int			is_trans;
+	t_vec		color;
 	void		*img;
 	int			*buf;
 	int			width;
@@ -126,8 +128,6 @@ typedef struct	s_hit
 	double		c;//eq 2eme deg
 	double		delta;//eq 2eme deg
 	double		coef[4];
-	double      mob[7];
-	int			inside;
 	int			is_n;
 
 	double		negative[2];//negative object
@@ -197,6 +197,17 @@ typedef struct	s_thread
     t_texture   *t;
 }				t_thread;
 
+typedef	struct	s_mobius
+{
+	double		a;
+	double		b;
+	double		c;
+	double		d;
+	double		e;
+	double		f;
+	double		radius;
+}				t_mobius;
+
 typedef struct	s_voronoi
 {
 	float		valuechange;
@@ -207,6 +218,7 @@ typedef struct	s_voronoi
 	t_vec		fcolor;
 	t_vec		ffcolor;
 	t_vec		fcol;
+	t_vec		ffcol;
 }				t_voronoi;
 
 typedef	struct	s_coef

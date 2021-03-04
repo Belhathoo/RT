@@ -51,6 +51,7 @@ int     rt_hit_parabol(t_object *obj, t_ray *ray, t_hit *record)
 	if (rt_init_params(obj, ray, record))
 	{
 		record->p = vec_ray(ray, record->t);
+		cylinder_uv(obj, record);
 		return(1);
 	}
   return(0);

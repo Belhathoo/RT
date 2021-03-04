@@ -56,6 +56,8 @@ int		rt_hit_sphere(t_object *obj, t_ray *ray, t_hit *rec)
 			else
 				rec->n = vec_div_k(vec_sub(rec->p, obj->pos), obj->size);
 			sphere_uv(obj, rec);
+			if (obj->txt && obj->txt->is_trans && !(tranc_txt(ray, obj, rec))) ////*/*/*/
+			    return(0);
 			return (1);
 		}
 	}

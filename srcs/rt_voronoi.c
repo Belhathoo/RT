@@ -85,9 +85,9 @@ static void   	rt_surf(t_voronoi *v, t_object *o)
 	v->valuechange, o->scale + v->valuechange, \
 	v->noise_v.z);
 	v->fcolor =  rt_lerp(v->cellcolor, vec(1, 1, 1), 0.0);
-	v->ffcolor = rt_lerp(v->cellcolor, vec(0, 0, 0),\
+	v->ffcol = rt_lerp(v->cellcolor, vec(0, 0, 0),\
 	rt_step(v->noise_v.z, o->scale));
-	v->fcol =  rt_lerp(v->cellcolor, vec(1, 1, 1), v->isborder);
+	v->fcol =  rt_lerp(v->cellcolor, vec(0, 0, 0), v->isborder);
 }
 
 t_vec   rt_voronoi(t_vec p, t_object *o)
@@ -99,7 +99,13 @@ t_vec   rt_voronoi(t_vec p, t_object *o)
     rt_surf(&voronoi, o);
    if (o->noi.type == VORONOI1)
 	  return (voronoi.fcolor);
-  else
-	return (vec_prod(o->col, vec(voronoi.fcolor.y, voronoi.fcolor.y, \
+  	else if (o->noi.type == VORONOI2)
+	return (vec(voronoi.fcolor.y, voronoi.fcolor.y, \
+			voronoi.fcolor.y));
+	   	else if (o->noi.type == VORONOI3)
+	 return (vec(voronoi.fcol.x + voronoi.fcol.z, voronoi.fcol.x + voronoi.fcol.z,\
+	  voronoi.fcol.x + voronoi.fcol.z));
+	 else
+	 	return (vec_prod(o->col, vec(voronoi.fcolor.y, voronoi.fcolor.y, \
 			voronoi.fcolor.y)));
 }

@@ -23,8 +23,8 @@ material="ice" n_color="1 0 0" position="0 -5 0" />
 <Object name="sphere" position="-4 00 0" radius="2.0" color="0 0 01"
   material="diamond"/>
 
-<Object name="sphere" radius="2.0" noise="voronoi2"
-  material="ic0e" scale="0.25"/>
+<Object name="sphere" radius="2.0" noise="voronoi4" color="1 0 0"
+  material="ic0e" scale="0.5"/>
 
 
 <Light position=" 10 5 20.0 "/>

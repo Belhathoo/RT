@@ -1,7 +1,7 @@
 
 #include <rt.h>
 
-int				rt_is_zero(double delta)
+int				is_zero(double delta)
 {
 	return ((delta > -1e-9 && delta < 1e-9));
 }
@@ -15,7 +15,7 @@ int				rt_solve_quadric(double w[3], double s[2])
 	p = w[1] / (2.0 * w[2]);
 	q = w[0] / w[2];
 	d = p * p - q;
-	if (rt_is_zero(d))
+	if (is_zero(d))
 	{
 		s[0] = -p;
 		return (1);

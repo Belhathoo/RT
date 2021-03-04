@@ -8,10 +8,10 @@
   />
 
 <Object name="sphere" position="5.0 5.0 -2.0" direction="01 01 0" rotation="0 01 0" 
-translation="0 0 0" radius="2.0" texture="xpm/moon.xpm" material="ko" />
+translation="0 0 0" radius="2.0" r="0.1" texture="xpm/moon.xpm" material="ko" />
 
-<Object name="sphere" position="0.0 0.0 0.0" direction="1 0 0.51" rotation="0 01 0" 
-translation="0 0 0" radius="3.0" texture="xpm/earth1.xpm" material="ko" />
+<Object name="parabol" position="0.0 0.0 0.0" direction="1 0 0.51" rotation="0 01 0" 
+translation="0 0 0"   texture="xpm/earth1.xpm" material="ko" />
 
 <Object name="plan" position="0 -3.5 -5.0" texture="xpm/stars.xpm" color="0 0.14 0.195" material="al" />
 

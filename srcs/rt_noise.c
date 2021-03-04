@@ -52,7 +52,8 @@ t_vec	rt_noise(t_object *o, t_hit *rec)
 		return (rt_noise_damier(rec));
 	else if (type == CIRCLES)
 	    return(rt_noise_circles(o, rec));
-	else if (type == VORONOI1 || type == VORONOI2)
+	else if (type == VORONOI1 || type == VORONOI2 \
+			|| type == VORONOI3 || type == VORONOI4)
 	   return (rt_noise_voronoi(rec, o));
 	else
 		return (ret);

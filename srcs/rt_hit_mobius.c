@@ -1,24 +1,38 @@
 
 #include <rt.h>
 
+
+ t_vec	 normal_mobius (t_vec *hit, t_object * obj)
+{
+	t_vec ret;
+
+	ret. x = - 2 * obj->size * hit-> z + 2 * hit-> x * hit-> y - 4 *
+		hit-> x * hit-> z;
+	ret. y = (obj->size * obj->size ) + hit-> x * hit-> x + 3 * hit-> y
+		* hit-> y - 4 * hit-> y * hit-> z+ hit-> z* hit-> z;
+	ret. z = (- 2 ) * obj->size * hit-> x - 2 * hit-> x * hit-> x
+		- 2 * hit-> y * hit-> y + 2 * hit-> y * hit-> z;
+	return (vec_unit(ret));
+}
+
 static int				rt_init_mobius(t_object *o, t_vec p)
 {
 	t_vec	param;
 	double	v;
 	double	u;
-	double	km;
-
-	km = 3 * o->size / 4;
+	double k;
+    
+    u =  o->height + 5.0;
 	v = atan2(p.y, p.x);
-	u = km;
+
 	if (sin(v / 2) != 0.0)
 		u = p.z / sin(v / 2);
 	else if (cos(v) != 0.0 && cos(v / 2) != 0.0)
 		u = (p.x / cos(v) - o->size) / cos(v / 2);
 	else if (sin(v) != 0.0 && cos(v / 2) != 0.0)
 		u = (p.y / sin(v) - o->size) / cos(v / 2);
-	if (!(u >= -km && u <= km))
-		return (0);
+	if (!(u >= - o->height && u <= o->height))
+	  return (0);
 	param.x = (o->size + u * cos(v / 2)) * cos(v);
 	param.y = (o->size + u * cos(v / 2)) * sin(v);
 	param.z = u * sin(v / 2);
@@ -38,18 +52,19 @@ static int				check_dist_mob(t_ray *ray, t_hit *rec, double c[4], t_object *o)
 
 	h[2] = 0;
 	h[0] = -1;
-	sol_min = rec->closest;
+	rec->t= rec->closest;
 	if ((h[1] = rt_solve_cubic(c, s)))
 	{
 		while (++h[0] < h[1])
 		{
-			if (s[h[0]] < sol_min && s[h[0]] > MIN)
+			if (s[h[0]] < rec->t && s[h[0]] > MIN)
 			{
-				sol_min = s[h[0]];
-				rec->t = sol_min;
-				p = vec_ray(ray, rec->t);;
-				if (rt_init_mobius(o, p))
+			    rec->t = s[h[0]];
+				if (rt_init_mobius(o, vec_ray(ray, rec->t)))
+				{
 					h[2] = 1;
+			
+				}
 			}
 		}
 		return (h[2] == 1);
@@ -59,37 +74,40 @@ static int				check_dist_mob(t_ray *ray, t_hit *rec, double c[4], t_object *o)
 
 static int   rt_init_params(t_ray *ray, t_object *o, t_hit *rec)
 {
-	rec->mob[0] = ray->origin.x;
-	rec->mob[1] = ray->origin.y;
-	rec->mob[2] = ray->origin.z;
-	rec->mob[3] = ray->dir.x;
-	rec->mob[4] = ray->dir.y;
-	rec->mob[5] = ray->dir.z;
-	rec->mob[6] = o->size;
-	rec->coef[0] = rec->mob[1] * rec->mob[1] * rec->mob[1] - 2 * rec->mob[1] * rec->mob[1] * rec->mob[2] + rec->mob[0] * rec->mob[0] * rec->mob[1]
-		+ rec->mob[1] * rec->mob[2] * rec->mob[2] - rec->mob[1] * rec->mob[6] * rec->mob[6] - 2 * rec->mob[0] * rec->mob[0] * rec->mob[2]
-		- 2 * rec->mob[0] * rec->mob[2] * rec->mob[6];
-	rec->coef[1] = 3 * rec->mob[4] * rec->mob[1] * rec->mob[1] - 4 * rec->mob[4] * rec->mob[1] * rec->mob[2] - 2 * rec->mob[5] * rec->mob[1]
-		* rec->mob[1] + 2 * rec->mob[3] * rec->mob[0] * rec->mob[1] + 2 * rec->mob[5] * rec->mob[1] * rec->mob[2] + rec->mob[4]
-		* rec->mob[0] * rec->mob[0] + rec->mob[4] * rec->mob[2] * rec->mob[2] - rec->mob[4] * rec->mob[6] * rec->mob[6]
-		- 4 * rec->mob[3] * rec->mob[0] * rec->mob[2] - 2 * rec->mob[5] * rec->mob[0] * rec->mob[0]
-		- 2 * rec->mob[5] * rec->mob[0] * rec->mob[6] - 2 * rec->mob[3] * rec->mob[2] * rec->mob[6];
-	rec->coef[2] = 3 * rec->mob[4] * rec->mob[4] * rec->mob[1] - 2 * rec->mob[4] * rec->mob[4] * rec->mob[2] + rec->mob[3] * rec->mob[3] *
-rec->mob[1] + rec->mob[5] * rec->mob[5] * rec->mob[1] + 2 * rec->mob[3] * rec->mob[4] * rec->mob[0] + 2 * rec->mob[4] * rec->mob[5] * rec->mob[2] -
-4 * rec->mob[3] * rec->mob[5] * rec->mob[0] - 2 * rec->mob[3] * rec->mob[5] * rec->mob[6] - 2 * rec->mob[3] * rec->mob[3] * rec->mob[2] - 4 *
-rec->mob[4] * rec->mob[5] * rec->mob[1];
-	rec->coef[3] = rec->mob[4] * rec->mob[4] * rec->mob[4] + rec->mob[3] * rec->mob[3] * rec->mob[4] + rec->mob[4] * rec->mob[5] * rec->mob[5]
-		- 2 * rec->mob[3] * rec->mob[3] * rec->mob[5] - 2 * rec->mob[4] * rec->mob[4] * rec->mob[5];
+	t_mobius m;
+
+	m.a = ray->origin.x;
+	m.b = ray->origin.y;
+	m.c = ray->origin.z;
+	m.d = ray->dir.x;
+	m.e = ray->dir.y;
+	m.f = ray->dir.z;
+	m.radius = o->size;
+	rec->coef[0] = m.b * m.b * m.b - 2 * m.b * m.b * m.c + m.a * m.a * m.b
+		+ m.b * m.c * m.c - m.b * m.radius * m.radius - 2 * m.a * m.a * m.c
+		- 2 * m.a * m.c * m.radius;
+	rec->coef[1] = 3 * m.e * m.b * m.b - 4 * m.e * m.b * m.c - 2 * m.f * m.b
+		* m.b + 2 * m.d * m.a * m.b + 2 * m.f * m.b * m.c + m.e
+		* m.a * m.a + m.e * m.c * m.c - m.e * m.radius * m.radius
+		- 4 * m.d * m.a * m.c - 2 * m.f * m.a * m.a
+		- 2 * m.f * m.a * m.radius - 2 * m.d * m.c * m.radius;
+	rec->coef[2] = 3 * m.e * m.e * m.b - 2 * m.e * m.e * m.c + m.d * m.d *
+m.b + m.f * m.f * m.b + 2 * m.d * m.e * m.a + 2 * m.e * m.f * m.c -
+4 * m.d * m.f * m.a - 2 * m.d * m.f * m.radius - 2 * m.d * m.d * m.c - 4 *
+m.e * m.f * m.b;
+	rec->coef[3] = m.e * m.e * m.e + m.d * m.d * m.e + m.e * m.f * m.f
+		- 2 * m.d * m.d * m.f - 2 * m.e * m.e * m.f;
 	return (check_dist_mob(ray, rec, rec->coef, o)); 
 }
 
 
-int     rt_hit_mobius(t_ray *ray, t_object *o, t_hit *rec)
+int     rt_hit_mobius( t_object *o, t_ray *ray, t_hit *rec)
 {
-  
+ 
   if (rt_init_params(ray, o, rec))
   {
     rec->p = vec_ray(ray, rec->t);
+	rec->n = normal_mobius(&rec->p, o);
     return (1);
   }
   return (0);

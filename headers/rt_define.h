@@ -38,6 +38,8 @@
 # define VORONOI1 2
 # define VORONOI2 3
 # define VORONOI3 4
+# define VORONOI4 5
+
 
 /*
 *   Filters */

@@ -36,6 +36,7 @@ t_texture		*rt_init_txt(t_rt *rt)
 
 	if ((!(txt = (struct s_texture*)malloc(sizeof(struct s_texture)))))
 		rt_exit(rt, "Cannot allocate\n", EXIT_FAILURE); //rt_perror
+	txt->is_trans = 0;
 	txt->buf = NULL;
 	txt->img = NULL;
 	return (txt);

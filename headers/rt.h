@@ -64,7 +64,6 @@ t_ray		rt_reflection(t_hit rec, t_ray r, t_object *o);
 t_ray		rt_refraction(t_hit rec, t_ray r, t_object *o);
 
 
-float           rt_fresnel_ref(float ior, float n1, t_vec n, t_vec d);
 /*
  * Hit
 */
@@ -88,6 +87,7 @@ int             rt_hit_cube_troue(t_object *obj, t_ray *ray, t_hit *record);
 
 void	        cylinder_uv(t_object *o, t_hit *rec);
 void            cone_uv(t_object *o, t_hit *rec);
+void	    	sphere_uv(t_object *o, t_hit *rec);
 t_vec		    normale_cylinder(t_object *o, t_ray *r, t_hit *rec);
 t_vec           normale_cone(t_object *o, t_ray *r, t_hit *rec);
 
@@ -105,16 +105,9 @@ int				rt_check_distance(t_object *obj, double c[5], t_hit *rec, t_ray *ray);
 int				rt_solve_quartic(double w[5], double s[4]);
 int				rt_solve_cubic(double w[4], double s[3]);
 int				rt_solve_quadric(double w[3], double s[2]);
-int				rt_is_zero(double delta);
+int				is_zero(double delta);
 void			add_compos(t_object *o, t_vec r, int x, t_object *head);
-void			add_aux_o(t_object *o, t_vec r, int x, t_object *head);
 void    		get_cube_compos(t_object *obj);
-void			rt_check(t_object *compos, t_object *obj, int x);
-t_object		*x_zero(t_object *compos, t_object *obj);
-t_object		*x_un(t_object *compos, t_object *obj);
-t_object		*x_deux(t_object *compos, t_object *obj);
-t_object		*x_trois(t_object *compos, t_object *obj);
-t_object		*x_quatre(t_object *compos, t_object *obj);
 t_vec			rotation(t_vec dir, t_vec rot);
 void		ft_float_swap(double *a, double *b);
 
@@ -127,7 +120,6 @@ void			rt_get_repere(t_object *ob);
 */
 
 t_texture		*rt_init_txt(t_rt *rt);
-int				rt_load_txt(t_rt *rt, t_object *o);
 t_vec			rt_get_color_from_texture(t_object *o, double *u, double *v);
 t_vec  			rt_torus_noise(t_hit *rec);
 
@@ -137,7 +129,6 @@ t_vec			rt_noise(t_object *o, t_hit *rec);
 t_vec		    rt_rand1dto3d(double value);
 t_vec		    rt_rand3dto3d(t_vec value);
 t_vec            vec_floor(t_vec v);
-long double		rand1dto1d(long double value, long double mutator);
 double		    rt_rand3dto1d(t_vec value, t_vec dot_dir);
 double		    rt_rand1dto1d(double value, double mutator);
 float	        rt_smoothstep(float a, float b, float x);
@@ -146,6 +137,7 @@ double	        rt_frac(double value);
 t_vec	        rt_lerp(t_vec a, t_vec b, float f);
 t_vec           rt_voronoi(t_vec p,  t_object *o);
 t_vec           rt_start_voronoi(t_vec p, t_object *o);
+int             tranc_txt(t_ray *ray, t_object *obj, t_hit *rec);
 
 /*
  * Events

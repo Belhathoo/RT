@@ -17,13 +17,13 @@ double *p)
 
 static int	rt_case_norm(t_quartic *q)
 {
-	if (rt_is_zero(q->u))
+	if (is_zero(q->u))
 		q->u = 0;
 	else if (q->u > 0.0f)
 		q->u = sqrt(q->u);
 	else
 		return (0);
-	if (rt_is_zero(q->v))
+	if (is_zero(q->v))
 		q->v = 0.0;
 	else if (q->v > 0.0f)
 		q->v = sqrt(q->v);
@@ -73,7 +73,7 @@ int     rt_solve_quartic(double w[5], double s[4])
 	q.q = 1.0 / 8.0 * q.sq_a * q.a - 1.0 / 2.0 * q.a * q.b + q.c;
 	q.r = -3.0 / 256.0 * q.sq_a * q.sq_a + 1.0 / 16.0 * q.sq_a * q.b -
 		1.0 / 4.0 * q.a * q.c + q.d;
-	if (rt_is_zero(q.r))
+	if (is_zero(q.r))
 		num = rt_case_one(coeffs, s, &q.q, &q.p);
 	else
 		num = rt_case_two(coeffs, s, &q);

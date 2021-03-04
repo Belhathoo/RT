@@ -70,7 +70,14 @@ void	rt_get_repere(t_object *o)
         o->vec1 = vec_unit(vec_cross(o->rot, vec(1.0, 0.0, 0.0)));
 	}
 	else
-	o->vec1 = vec_unit(vec(-(o->rot.y + o->rot.z) / o->rot.x, 1, 1));
+		o->vec1 = vec_unit(vec(-(o->rot.y + o->rot.z) / o->rot.x, 1, 1));
 	o->vec2 = (vec_cross(o->rot ,o->vec1));	
+	
+	// if ((vec_dot(vec_cross(o->rot, vec(0.0,1.0,0.0)), vec3(1.0))))
+	// 	o->vec1 = vec_unit(vec_cross(o->rot, vec(0.0, 01.0, 0.0)));
+	// if (!(vec_dot(vec_cross(o->rot, vec(1.0,0.0,0.0)), vec3(1.0))))
+	// 	o->vec1 = vec_unit(vec_cross(o->rot, vec(1.0, 0.0, 0.0)));
+	// if (!(vec_dot(vec_cross(o->rot, vec(0.0,0.0,01.0)), vec3(1.0))))
+	// 	o->vec1 = vec_unit(vec_cross(o->rot, vec(0.0, 0.0, 01.0)));
 }
 

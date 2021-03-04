@@ -33,5 +33,7 @@ int     rt_hit_cube_troue(t_object *obj, t_ray *ray, t_hit *record)
 	if (rt_cube_params(obj, ray, record))
 	{
 		record->p = vec_ray(ray, record->t);
+		return (1);
 	}
+	return (0);
 }
