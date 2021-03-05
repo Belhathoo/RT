@@ -93,17 +93,14 @@ typedef struct	s_o
 
 typedef	struct	s_l
 {
+	int			type;
 	t_vec		pos;
 	t_vec		dir;
 	t_vec		col;
-	t_vec		diff;
-	t_vec		spec;
-
+	t_vec		l_vec;
 	double		intensity;
-	double		flashlight;
 	double		radius; // for soft shaddows !! not for sure
 	double		angle;
-	int			type;
 	struct s_l	*next;
 }				t_light;
 

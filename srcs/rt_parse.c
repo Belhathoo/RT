@@ -118,10 +118,9 @@ void	rt_add_light(t_tag *tag, t_rt *rt)
 	tmp = rt->scene->light;
 	while (tag->attr)
 	{
-		// if (!ft_strcmp(tag->attr->name, "type"))
-		// 	l->type = rt_check_light_type(rt, tag->attr->value);
-		// else
-		 if (!ft_strcmp(tag->attr->name, "position"))
+		if (!ft_strcmp(tag->attr->name, "type"))
+			l->type = rt_check_light_type(rt, tag->attr->value);
+		else if (!ft_strcmp(tag->attr->name, "position"))
 			l->pos = rt_ctovec(tag->attr->value, rt);
 		// else if (!ft_strcmp(tag->attr->name, "direction"))
 		// 	l->dir = vec_unit(rt_ctovec(tag->attr->value, rt));
@@ -227,6 +226,6 @@ void rt_parser(t_rt *rt, char **argv)
 		xml_exit(x, "-1\n", EXIT_FAILURE);
 	// err. (check redo in main libxml)
 	xml_to_rt(x, rt);
-
+	// printf("%d", rt->scene->light->type);
 	xml_close(x);
 }

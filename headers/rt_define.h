@@ -19,7 +19,7 @@
 # define  EPS 1e-9    // dist min
 
 # define PT_LIGHT 0
-# define FL_LIGHT 1 //spot light; usual one
+# define FL_LIGHT 1 //spot light;
 # define PL_LIGHT 2 //parallele light; following one direction
 
 

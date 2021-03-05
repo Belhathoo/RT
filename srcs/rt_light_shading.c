@@ -17,19 +17,16 @@ int				rt_shading(t_thread *th, t_ray sh_r, t_light *l, t_vec *col)
 	t_hit	    rec;
 	t_object	*o;
 	int			shade;
-	t_vec		l_vec;
+	double		closest;
 	t_ray		sc_r;
-
+	t_vec		l_vec;
+	
 	shade =  0;
-	rec.curr_obj = NULL;
-	l_vec = (vec_sub(l->pos, th->rec.p));
-	sh_r.dir = vec_unit(sh_r.dir);
-	// sh_r.origin = vec_add(pnt, vec_pro_k(sh_r.dir, 0.001));
+	l_vec = vec_sub(l->pos, th->rec.p);
 
-/*
- Max && length lvec !!!!! tribich vs dell refre
-*/
-	if (rt_hit(th->rt->scene, &sh_r, &rec,vec_length(l_vec)) && (shade = 1))
+	closest =  (l->type == PL_LIGHT) ? 10000 : vec_length(l_vec);
+	rec.curr_obj = NULL;
+	if (rt_hit(th->rt->scene, &sh_r, &rec, closest) && (shade = 1))
 		o = rec.curr_obj;
 	if (shade && o->refr != 0.0)
 	{
@@ -39,9 +36,7 @@ int				rt_shading(t_thread *th, t_ray sh_r, t_light *l, t_vec *col)
 		{
 			*col = vec_pro_k(*col, dot * o->refr * 0.9);
 			return(rt_shading(th, sc_r, l, col));
-			// return (1);
 		}
-		// else
 	}
 	return (shade);
 }
@@ -49,7 +44,6 @@ int				rt_shading(t_thread *th, t_ray sh_r, t_light *l, t_vec *col)
 void			rt_ambient(double amb, t_light *l, t_hit rec, t_vec *col)
 {
 	t_object	*o;
-	double		ia;
 
 	o = rec.curr_obj;
 	*col = vec_pro_k(rec.col, amb);

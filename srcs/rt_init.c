@@ -76,7 +76,7 @@ t_light			*rt_init_light(void)
 	light->angle = 30.0;
 	light->pos = vec(5.0, 5.0, 15.0);
 	light->col = vec(1.0, 1.0, 1.0);
-	light->dir = vec3(1.0);
+	light->dir = vec(0.0, 1.0, 0.0);
 	light->intensity = 0.8;
 	light->next = NULL;
 	return (light);
