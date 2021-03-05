@@ -148,7 +148,7 @@ int				rt_keys(int key, t_rt *rt)
 	}
 	if (key == K_A)
 	{
-		// rt->scene->sl_obj = NULL;
+		rt->scene->sl_obj = NULL;
 		rt->scene->key = (rt->scene->key + 1) % 2;
 		rt->scene->key_cam = 0;
 		rt->scene->key2 = 1;

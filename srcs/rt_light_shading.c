@@ -24,7 +24,7 @@ int				rt_shading(t_thread *th, t_ray sh_r, t_light *l, t_vec *col)
 	shade =  0;
 	l_vec = vec_sub(l->pos, th->rec.p);
 
-	closest =  (l->type == PL_LIGHT) ? 10000 : vec_length(l_vec);
+	closest =  (l->type == PL_LIGHT) ? 8000.0 : vec_length(l_vec);
 	rec.curr_obj = NULL;
 	if (rt_hit(th->rt->scene, &sh_r, &rec, closest) && (shade = 1))
 		o = rec.curr_obj;
@@ -32,7 +32,7 @@ int				rt_shading(t_thread *th, t_ray sh_r, t_light *l, t_vec *col)
 	{
 		sc_r = rt_refraction(rec, sh_r, o);
 		double dot = vec_dot(sc_r.dir, vec_unit(l_vec));
-		if ((dot >  0.40))
+		if ((dot >  0.5))
 		{
 			*col = vec_pro_k(*col, dot * o->refr * 0.9);
 			return(rt_shading(th, sc_r, l, col));

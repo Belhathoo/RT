@@ -30,10 +30,10 @@ int main(int argc, char **argv)
 	rt.data = (int*)mlx_get_data_addr(rt.img, &rt.bpp, &rt.size, &rt.endian);
 	// background(&rt);
 
-			rt.scene->sl_obj = rt.scene->object;
+			// rt.scene->sl_obj = rt.scene->object;
 
 	mlx_hook(rt.win, 17, (1L << 17), rt_close, &rt);
-	// mlx_hook(rt.win, 4, (1L << 0), rt_mouse, &rt);
+	mlx_hook(rt.win, 4, (1L << 0), rt_mouse, &rt);
 	mlx_hook(rt.win, 2, (1L << 0), rt_keys, &rt);
 	// rt_start(&rt, rt_run_50);
 	// mlx_put_image_to_window(rt.mlx, rt.win, rt.img, 40, 180);
