@@ -3,7 +3,7 @@
 
 #include<rt.h>
 
-int		rt_add_noise(char *val, t_rt *rt) //parser
+int		 rt_add_noise(char *val, t_rt *rt) //parser
 {
 	if (!ft_strcmp(val, "damier"))
 		return (0);

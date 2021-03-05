@@ -7,7 +7,7 @@ void	cylinder_uv(t_object *o, t_hit *rec)
 	d = vec_pro_k(vec_sub(rec->p, o->pos), 1 / o->scale);
 	d = vec(vec_dot(d, o->vec1), vec_dot(d, o->rot), vec_dot(d, o->vec2));
 	rec->u = (atan2(d.x, d.z) + M_PI / (2.0 * M_PI));
-	rec->v = d.y / o->size;
+	rec->v = d.y / o->radius;
 	rec->u = rt_frac(rec->u);
 	rec->v = rt_frac(rec->v);
 }
@@ -32,7 +32,7 @@ int     rt_cylinder_params(t_object *obj, t_ray *ray, t_hit *rec)
 	rec->b = 2 * (vec_dot(ray->dir, rec->or) - (vec_dot(ray->dir, vec_unit(obj->rot))
 				* vec_dot(rec->or, vec_unit(obj->rot))));
 	rec->c = vec_dot(rec->or, rec->or) - pow(vec_dot(rec->or, vec_unit(obj->rot)), 2)
-		- obj->size * obj->size;
+		- obj->radius * obj->radius;
 	rec->delta = rec->b * rec->b - 4.0 * rec->a * rec->c;
 	if (rec->delta >= 0)
   {

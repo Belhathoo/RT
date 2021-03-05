@@ -71,7 +71,7 @@ void     rt_check_neg_obj_name(t_object *obj, t_rt *rt)
 	ft_strdel(&str);
 }
 
-void			rt_set_coef(t_object *o, t_rt *rt)
+void			rt_set_coef(t_object *o)
 {
 
 	/* check if txt !!!
@@ -81,10 +81,10 @@ void			rt_set_coef(t_object *o, t_rt *rt)
 		o->material = ft_strdup("ko"); // aff > return
 	if (!ft_strcmp(o->material, "bl_plastic"))
 		o->mat = (t_material){vec3(0.0), vec3(0.01), vec3(0.5), 32, 0.0, 0.0};
-	if (!ft_strcmp(o->material, "cu"))
+	else if (!ft_strcmp(o->material, "cu"))
 		o->mat = (t_material){vec(0.33, 0.23, 0.02), vec(0.78, 0.568, 0.113)\
 		, vec(0.99, 0.94, 0.807), 27.897, 0.0, 0.0};
-	if (!ft_strcmp(o->material, "chrome"))
+	else if (!ft_strcmp(o->material, "chrome"))
 		o->mat = (t_material){vec3(0.25), vec3(0.4), vec3(0.774), 76.70, 0.0, 0.0};
 	else if (!ft_strcmp(o->material, "gold"))
 		o->mat = (t_material){vec(0.24, 0.199, 0.074), vec(0.75, 0.606, 0.226),\
@@ -116,6 +116,7 @@ t_vec	rt_rot_dir(t_vec *r, t_vec d)
 
 	// return(rotation(d, r));
 	*r = d;
+	*r = rotation(d, *r);
 	return vec3(1.0);
 }
 
@@ -129,58 +130,54 @@ void	rt_comp_obj(t_object *o)
 void    rt_check_obj(t_object *o, t_rt *rt)
 {
 
-	/*
-	   radius for cone ((angle ]0 -180]))!!!!!!!!!
-	   */
+	// height width
 	
-	// o->radius = o->size; /////// ---- !!!!
 	if (o->name == NULL)
 		rt_exit(rt, "Object shoud have a name!", EXIT_FAILURE);
 	if (o->dir.x == 0 && o->dir.y == 0 && o->dir.z == 0)
 		rt_exit(rt, "obj: direction vector is non-zero!", EXIT_FAILURE);
-	if (o->size <= 0.0 )//|| o->radius <= 0.0)
-		rt_exit(rt, "obj: radius/size should be positive", EXIT_FAILURE);
+	if (o->size <= 0.0 || o->radius <= 0.0 || o->r <= 0)
+		rt_exit(rt, "obj: radius/r/size should be positive", EXIT_FAILURE);
 	if (o->angle <= 0.0 || o->angle > 180.0)
 		rt_exit(rt, "obj: angle should be in ]0-180[", EXIT_FAILURE);
-	if (o->refl < 0 || o->refr <0)
+	if (o->refl < 0.0 || o->refr < 0.0)
 		rt_exit(rt, "reflecton/refraction coef should be positive", EXIT_FAILURE);
-	o->angle = degtorad(o->angle) / 2; // ONLY FOR CONES !!!!
-	if (o->txt && o->noi.is_noise == 1)
+	o->angle = degtorad(o->angle) / 2;
+	
+	if (o->txt.is_txt == 1 && o->noi.is_noise == 1)
 		rt_exit(rt, "obj: either texture either noise", EXIT_FAILURE);
-	if (o->is_sliced == 1)
+	if (o->is_sliced == 1) //events
 	{
 		if (!ft_strcmp(o->name, "sphere") && !in_sphere(o))
-			rt_exit(rt, "obj: slicing pnt is outside of the sphere!", EXIT_FAILURE);
+			rt_exit(rt, "sl-obj: slicing pnt is outside the sphere!", EXIT_FAILURE);
 		if (!ft_strcmp(o->name, "cylinder") && !in_cylindr(o))
-			rt_exit(rt, "obj: slicing pnt is outside of the cylinder!", EXIT_FAILURE);
+			rt_exit(rt, "sl-obj: slicing pnt is outside the cylinder!", EXIT_FAILURE);
 	}
 	/*
 		add x y z slicing global || on ax
 	*/
-	rt_rot_dir(&o->rot, o->dir);
-	rt_get_repere(o);
+
+	ft_clamping(o->refl);
+	// rt_rot_dir(&o->rot, o->dir);
+	o->rot = rotation(o->dir, o->rot);
+	rt_get_repere(o); ///events
 	rt_comp_obj(o); //// events...
 	rt_adjustment(&o->col);
-	rt_set_coef(o, rt);
+	rt_set_coef(o);
 }
 
 
 void    rt_check_neg_obj(t_object *o, t_rt *rt)
 {
-
-	/*
-	   angle for cone ((angle ]0 -180]))!!!!!!!!!
-	   */
-	// o->radius = o->size; /////// ---- !!!!
 	if (o->name == NULL)
 		rt_exit(rt, "Neg-Object shoud have a name!", EXIT_FAILURE);
 	if (o->dir.x == 0 && o->dir.y == 0 && o->dir.z == 0)
 		rt_exit(rt, "obj: direction vector is non-zero!", EXIT_FAILURE);
-	if (o->size <= 0.0 )//|| o->radius <= 0.0)
+	if (o->size <= 0.0 || o->radius <= 0.0)
 		rt_exit(rt, "obj: radius/size should be positive", EXIT_FAILURE);
 	if (o->angle <= 0.0 || o->angle > 179.0)
 		rt_exit(rt, "obj: angle should be in ]0-180[", EXIT_FAILURE);
-	o->angle = degtorad(o->angle) / 2; // ONLY FOR CONES !!!!
+	o->angle = degtorad(o->angle) / 2;
 	rt_rot_dir(&o->rot, o->dir);
 }
 

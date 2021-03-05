@@ -57,24 +57,23 @@ typedef struct	s_o
 {
 	char		*name;
 	char		*material;
-	float		size;//radius or angle
+	float		size;
 	float		radius;
 	float		angle;
 	float		r;
 	float		dist;
 	float		width;
 	float		height;
-	t_vec		pos;//position
+	t_vec		pos;
 	t_vec		dir;
 	t_vec		rot;//rotation
-	t_vec		col;//color
+	t_vec		col;
 	t_vec		vec1;
 	t_vec		vec2;
 	t_vec		sl_vec;
 	t_vec		sl_pnt;
-	// t_vec 		p; //
 
-	t_texture	*txt;
+	t_texture	txt;
 	t_noise		noi;
 	float		scale;
 	int			(*hit)();
@@ -113,25 +112,25 @@ typedef struct	s_hit
 	t_object	*curr_obj;
 	t_ray		*ray;
 	t_vec		col;
-	t_vec		p; // p(t) = r_origin + t * r_direction
+	t_vec		p;
 	t_vec		n;
 	t_vec		or;
 	t_vec		tmp;
 	double		closest;
-	double		t0;//sol1 2eme deg
-	double		t1;//sol2 2eme deg
-	double		t;//plus petit sol
-	double		u;//texture
-	double		v;//texture
-	double		a;//eq 2eme deg
-	double		b;//eq 2eme deg
-	double		c;//eq 2eme deg
-	double		delta;//eq 2eme deg
+	double		t0;
+	double		t1;
+	double		t;
+	double		u;
+	double		v;
+	double		a;
+	double		b;
+	double		c;
+	double		delta;
 	double		coef[4];
-	int			is_n;
 
-	double		negative[2];//negative object
-	t_vec		negative_normal;//negative object normal
+	int			is_n;
+	double		negative[2];
+	t_vec		negative_normal;
 
 	//slicing
 	int			tx;
@@ -165,9 +164,10 @@ typedef struct	s_scene
 	int			aa;
 
 	int			max_anti_a;
-	int			progress;//progress bar
+	int			progress;
 	int			select;
 	int			key;
+	int			key_cam;
 	int			key2;
 	t_vec		data1[9][IMG_WIDTH*IMG_HEIGHT];//IMG_WIDTH*IMG_HEIGHT
 
@@ -260,7 +260,7 @@ typedef struct	s_cubic
 
 
 typedef struct  s_cell
-{ //// wherre is it !!
+{
 	t_vec	base;
 	t_vec	cell;
 	t_vec	cellcol;

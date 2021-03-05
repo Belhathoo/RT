@@ -88,7 +88,7 @@ MLX = -lm -I $(MLX_DIR) -L $(MLX_DIR) -lmlx -lXext -lX11
 endif
 
 
-CFLAGS = #-Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra# -Werror
 LIBFT_DIR = libs/libft
 XML_DIR = libs/libxml
 VEC_DIR = libs/libvec
@@ -110,7 +110,7 @@ $(NAME): $(OBJS_DIR) $(OBJ)
 $(OBJS_DIR):
 	@mkdir -p $@
 
-COMPILE_OBJECT = gcc -I headers/SDL2 -I headers $(CFLAGS) $(INCS) -o $@ -c $< && echo "$(OK_STRING)" || echo "$(KO_STRING)"
+COMPILE_OBJECT = gcc -I headers $(CFLAGS) $(INCS) -o $@ -c $< && echo "$(OK_STRING)" || echo "$(KO_STRING)"
 
 objs/%.o: srcs/%.c headers/rt.h headers/rt_define.h headers/rt_struct.h
 	@echo "$(CLEAR_LINE)$(_BLUE_COL)[$(NAME)]$(_CYAN_COL) Compiling [$(_END_COL)$(_YELLOW_COL)$<$(_END_COL)$(_CYAN_COL)] ==> [$(_YELLOW_COL)$@$(_END_COL)$(_CYAN_COL)] $(_END_COL)`$(COMPILE_OBJECT)`$(BEGIN_LINE)"

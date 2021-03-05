@@ -15,7 +15,7 @@
 t_vec			rt_rot_dir(t_vec *d, t_vec r);
 t_vec			rt_ctovec(char *str, t_rt *rt);
 double			rt_ctod(char *str, t_rt *rt);
-t_texture   	*rt_ctotxt(char *str, t_rt *rt);
+t_texture   	rt_ctotxt(char *str, t_rt *rt);
 
 void			rt_parser(t_rt *p, char **av);
 void			rt_check_cam(t_camera c, t_rt *rt);
@@ -36,9 +36,7 @@ t_ray			rt_ray(t_vec a, t_vec b);
 t_ray			rt_get_ray(t_camera *p, double u, double v);
 t_vec 			rt_raytracer(t_thread *t, t_ray r, int d);
 t_vec 			rt_anti_aliasing(t_thread *t, int col, int row);
-// void			rt_start(t_rt *rt);
-int				rt_draw(t_rt *rt);
-
+// int				rt_draw(t_rt *rt);
 
 t_vec	    	anti_aa(t_thread *t, double col, double row, int select);
 int     		progress_bar(t_rt *rt);
@@ -114,12 +112,15 @@ void		ft_float_swap(double *a, double *b);
 double	    	degtorad(double angle);
 double  		degtorad(double angle);
 void			rt_get_repere(t_object *ob);
+t_vec           rt_rotZ(t_vec vec, double angle);
+t_vec           rt_rotY(t_vec vec, double angle);
+t_vec           rt_rotX(t_vec vec, double angle);
 
 /*
 * Textures && Noises
 */
 
-t_texture		*rt_init_txt(t_rt *rt);
+t_texture		rt_init_txt(void);
 t_vec			rt_get_color_from_texture(t_object *o, double *u, double *v);
 t_vec  			rt_torus_noise(t_hit *rec);
 

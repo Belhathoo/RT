@@ -2,14 +2,14 @@
 
 
 <Camera
-  lookfrom="30.0 0.0 0.0"
+  lookfrom="0.0 0.0 30.0"
   lookat="0 0 0"
   fov="60"
   />
 
 <Option aa="2"/>
 
-<Object name="rectangle" direction=" 10 0 0" color="1 1 1" material="a0l" 
+<Object name="rectangle" direction="0 0 10" rotation="0 0 0" color="1 1 1" material="a0l" 
 position="0 0 0">
 
 

@@ -5,14 +5,22 @@ void    rt_free_objects(t_object *object)
 {
 	t_object	*obj;
 	t_object	*tmp;
+	t_object	*tmp1;
+	t_object	*o;
 
 	obj = object;
 	while (obj != NULL)
 	{
+		o = obj->compos;
+		while (o)
+		{
+			tmp1 = o->compos;
+			free(o);
+			o = tmp1;				
+		}
 		tmp = obj->next;
 		free(obj->name);
-    	free(obj->material);
-    	free(obj->txt);
+		free(obj->material);
 		free(obj);
 		obj = tmp;
 	}
@@ -35,33 +43,34 @@ void    rt_free_lights(t_light *light)
 void		rt_perror(void)
 {
 	perror("error: ");
-  //exit with rt_exit
+	//exit with rt_exit
 	exit(EXIT_FAILURE);
 }
 
-void    rt_exit(t_rt *rt, char *msg, int err)
+void    rt_exit(t_rt *rt, char *m,  int err)
 {
-  /*  certain cases xml free !
-  */
-  if (err == EXIT_FAILURE)
-  {
-    ft_putstr("error: ");
-    ft_putendl(msg);
-    // if (msg)
-    //   free(msg);
-    rt_free_lights(rt->scene->light);
-    rt_free_objects(rt->scene->object);
-    free(rt->scene);
-    rt = NULL; //unused error fixing
-    exit(err);
-  }
-  exit(err);
+	/*  certain cases xml free !
+	*/
+	if (err == EXIT_FAILURE)
+	{
+		ft_putstr("error: ");
+		ft_putstr(m);
+		// ft_putendl(m1);
+		// if (msg)
+		//   free(msg);
+		rt = NULL; //unused error fixing
+		exit(err);
+	}
+		rt_free_lights(rt->scene->light);
+		rt_free_objects(rt->scene->object);
+		free(rt->scene);
+	exit(err);
 }
 
 int			rt_close(t_rt *rt)
 {
 	mlx_destroy_image(rt->mlx, rt->img);
 	mlx_destroy_window(rt->mlx, rt->win);
-  rt_exit(rt, ft_strdup("HAPPY CODING"), EXIT_SUCCESS);
+	rt_exit(rt, ft_strdup("HAPPY CODING"), EXIT_SUCCESS);
 	return (EXIT_SUCCESS);
 }

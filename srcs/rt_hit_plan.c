@@ -28,11 +28,11 @@ int      cutt_plane(t_hit *rec, t_object *o)
 
 void			plane_uv(t_hit *rec, t_object *o)
 {
-  if (o->txt)
+  if (o->txt.is_txt == 1)
   {
-	  o->txt->scale = 0.1;
-	  rec->u = rt_frac(vec_dot(vec_pro_k(vec_sub(rec->p, o->pos), o->txt->scale), o->vec2));
-	  rec->v = rt_frac(vec_dot(vec_pro_k(vec_sub(rec->p, o->pos), o->txt->scale), o->vec1));
+	  o->txt.scale = 0.1;
+	  rec->u = rt_frac(vec_dot(vec_pro_k(vec_sub(rec->p, o->pos), o->txt.scale), o->vec2));
+	  rec->v = rt_frac(vec_dot(vec_pro_k(vec_sub(rec->p, o->pos), o->txt.scale), o->vec1));
 	  return;
   }
   else 
@@ -71,7 +71,7 @@ int         rt_hit_care(t_object *o, t_ray *ray, t_hit *rec)
 		rec->p = vec_ray(ray, rec->t);
 		if (cutt_plane(rec, o) == 0)
 			return (0);
-		rec->n = vec_dot(ray->dir, o->rot) > 0? vec_pro_k(o->rot, -1) : o->rot;
+		rec->n = vec_dot(ray->dir, o->rot) > 0 ? vec_pro_k(o->rot, -1) : o->rot;
 		plane_uv(rec, o);
 		return (1);
 	}

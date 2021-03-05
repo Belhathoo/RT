@@ -11,7 +11,7 @@ int     rt_lcylinder_params(t_object *obj, t_ray *ray, t_hit *rec)
 	rec->b = 2 * (vec_dot(ray->dir, rec->or) - (vec_dot(ray->dir, vec_unit(obj->rot))
 				* vec_dot(rec->or, vec_unit(obj->rot))));
 	rec->c = vec_dot(rec->or, rec->or) - pow(vec_dot(rec->or, vec_unit(obj->rot)), 2)
-		- obj->size * obj->size;
+		- obj->radius * obj->radius;
 	rec->delta = rec->b * rec->b - 4.0 * rec->a * rec->c;
 	if (rec->delta >= 0)
 	{
@@ -59,7 +59,7 @@ int     rt_hit_lcylinder(t_object *obj, t_ray *ray, t_hit *rec)
 	rec->b = 2 * (vec_dot(ray->dir, rec->or) - (vec_dot(ray->dir, vec_unit(obj->rot))
 				* vec_dot(rec->or, vec_unit(obj->rot))));
 	rec->c = vec_dot(rec->or, rec->or) - pow(vec_dot(rec->or, vec_unit(obj->rot)), 2)
-		- obj->size * obj->size;
+		- obj->radius * obj->radius;
 	rec->delta = rec->b * rec->b - 4.0 * rec->a * rec->c;
 	if (rec->delta >= 0)
 	{

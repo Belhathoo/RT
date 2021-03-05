@@ -30,23 +30,23 @@ double   rt_ctod(char *str, t_rt *rt)
 }
 
 
-t_texture   *rt_ctotxt(char *str, t_rt *rt)
+t_texture   rt_ctotxt(char *str, t_rt *rt)
 {
 	char        **each;
-	t_texture   *txt;
-	int bpp, size, endian;
+	t_texture   txt;
+	// int bpp, size, endian;
 
 	each = ft_strsplit(str, ' ');
 	if (!each || ft_twodimlen(each) != 1)
 		rt_exit(rt, "must be One value for texture data.\n", EXIT_FAILURE);
-	txt = rt_init_txt(rt);
-	txt->img = mlx_xpm_file_to_image(rt->mlx, each[0], &txt->width, &txt->height);
-	if (!txt->img)
+	txt = rt_init_txt();
+	txt.img = mlx_xpm_file_to_image(rt->mlx, each[0], &txt.width, &txt.height);
+	if (!txt.img)
 	{
 		ft_free_twodim(&each);
 		rt_exit(rt, "Texture: file unsupported", EXIT_FAILURE);
 	}
-	txt->buf = (int *)mlx_get_data_addr(txt->img, &bpp,  &size, &endian);	
+	txt.buf = (int *)mlx_get_data_addr(txt.img, &rt->bpp,  &rt->size, &rt->endian);	
 	ft_free_twodim(&each);
 	return (txt);
 }

@@ -52,7 +52,7 @@ void  rt_add_object(t_tag *tag, t_rt *rt)
 		else if (!ft_strcmp(tag->attr->name, "color"))
 			obj->col = rt_ctovec(tag->attr->value, rt);
 		else if (!ft_strcmp(tag->attr->name, "radius"))
-			obj->size = rt_ctod(tag->attr->value, rt);
+			obj->radius = rt_ctod(tag->attr->value, rt);
 		else if (!ft_strcmp(tag->attr->name, "size"))
 			obj->size = rt_ctod(tag->attr->value, rt);
 		else if (!ft_strcmp(tag->attr->name, "angle"))
@@ -98,11 +98,9 @@ void  rt_add_object(t_tag *tag, t_rt *rt)
 
 int		rt_check_light_type(t_rt *rt, char *val)
 {
-	int		type;
-
 	if (!ft_strcmp(val, "point"))
 		return (PT_LIGHT);
-	else if (!ft_strcmp(val, "flashlight"))
+	else if (!ft_strcmp(val, "spot"))
 		return (PL_LIGHT);
 	else if (!ft_strcmp(val, "parallel"))
 		return (FL_LIGHT);

@@ -1,0 +1,22 @@
+<!DOCTYPE xml>
+
+<Camera
+  lookfrom="0.0 .0 40.0"
+  lookat="0 0 0"
+  fov="60"
+  />
+
+<Option aa="2.0"/>
+
+<Object name="plan" position="0 -15.0 0" color="0 1 1" >
+
+<Object name="sphere" color="0 0 1" />
+
+<Object name="cylinder" position="-9.0 0.0 0.0" />
+
+<Object name="cone" position="09 0 0" angle="30" rotation="0 0 0" color="1 1 0">
+
+
+<Light position="0 5.0 10" />
+
+

@@ -50,15 +50,9 @@ void			rt_ambient(double amb, t_light *l, t_hit rec, t_vec *col)
 {
 	t_object	*o;
 	double		ia;
-	t_vec		c;
-	/*
-	   recheck !!
-	   */
-	c = vec(0.0, 0.0, 0.0);
-	o = rec.curr_obj;
 
-	ia = amb;
-	*col = vec_pro_k(rec.col, ia);
+	o = rec.curr_obj;
+	*col = vec_pro_k(rec.col, amb);
 	if (l)
 		*col = vec_prod(*col, o->mat.ka);
 }

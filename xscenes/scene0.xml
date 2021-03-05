@@ -6,32 +6,31 @@
   fov="60"
   />
 
-<Option aa="4.0" amb="0.1"/>
+<Option aa="4.0" amb="0.1001"/>
 
-<N_Object name="sphere" radius="7.0" position="0 0 -15">
 <Object name="plan" position="0 -4.5 0" 
-material="water" refr="1.1" color="0 0 1" scale="1.5" noise="voronoi2" />
+material="water" refr="1.1" color="10 10 10" scale="1.5" noise="voronoi1" />
 <Object name="plan" scale="15" direction="0 1 0"  
 material="a0l" texture="xpm/brick.xpm" position="0 -6.0 10"/>
 
-<Object name="sphere" position="8.0 0.0 -5.0" direction="1.0 0 1"
-material="a0l" texture="xpm/sun.xpm"/>
+<Object name="sphere" position=".0 10.0 -15.0" direction="1.0 0 1"
+material="a0l" radius="4.0" refr="4.0" texture="xpm/moon.xpm"/>
 
 
 
 <Object name="sphere" material="diamond" scale="1.0" noise="voronoi1"
-position="-6.0 00.0 -6.0" n_color="1 0 0"  />
-<Object name="l_cylinder" position="-7.0 0.0 -10.0" height="10" direction="0 1 0" 
-noise="damier" size="6.5" n_color="1 1 0" />
+position="10.0 0.0 -10.0" color="0 0 1.0"/>
+<Object name="l_cylinder" position="10.0 0.0 -30.0" height="10" direction="0 1 0" 
+noise="damier" radius="8.0" n_color="1 1 0" />
 
-<Object name="sphere" position="-12.0 0 -3.0"  color="0 0 1.0" material="gold" />
+<Object name="sphere" position="-8.0 1.0 -6.0"  color="0 0 1.0" material="mirror" />
 
 
 <Object name="sphere" position="0.0 -1.0 0.0"  
- color="1.0 1.0 1.0" material="ice" refr="0.240"/>
+ color="1.0 1.0 1.0" material="ice" refr="01.240"/>
 <Object name="cube" position="0.0 -1.0 0.0" color="1 0 0"
 refr="0.0" size="1" />
 
 
 
-<Light position="0.0 10 10" />
+<Light position="0.0 10 12" color="1 1 1.0"/>

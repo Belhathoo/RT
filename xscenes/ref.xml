@@ -17,13 +17,13 @@
  position="0 -3.0 -8.0" />
 
 
-<Object name="sphere" refr="0.3" color="1 1 1" radius="4.0">
+<Object name="sphere" refr="01.3" color="1 1 1" radius="4.0">
 
-<Object name="cube" color="1 0 0" size="0.4">
+<Object name="cube" color="1 0 0" size="4" scale="0.02" texture="xpm/earth1.xpm">
 
 <Object name="sphere" material="gold" position="8 0 0" radius="4.0">
  
-<Object name="sphere" position="-8 0 0" color="0 0 1" material="ic1e" 
+<Object name="sphere" position="-8 0 0" color="0 0 1" material="ice" 
  radius="4.0">
 
 <Light position=" -0.0 15.0 60.0 "/>

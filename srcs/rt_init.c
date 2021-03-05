@@ -30,15 +30,14 @@ t_camera	rt_init_camera(t_vec lookfrom, t_vec lookat, double vfov)
 	return (c);
 }
 
-t_texture		*rt_init_txt(t_rt *rt)
+t_texture		rt_init_txt(void)
 {
-	t_texture	*txt;
+	t_texture	txt;
 
-	if ((!(txt = (struct s_texture*)malloc(sizeof(struct s_texture)))))
-		rt_exit(rt, "Cannot allocate\n", EXIT_FAILURE); //rt_perror
-	txt->is_trans = 0;
-	txt->buf = NULL;
-	txt->img = NULL;
+	txt.is_txt = 1;
+	txt.is_trans = 0;
+	txt.buf = NULL;
+	txt.img = NULL;
 	return (txt);
 }
 
@@ -55,8 +54,9 @@ t_object		rt_init_neg_object(void)
 	obj.angle = 30.0;
 	obj.dir = vec(0.0, 1.0, 0.0);
 	obj.rot = vec(0.0, 0.0, 0.0);
-	obj.txt = NULL;
 	obj.is_sliced = 0;
+	obj.txt.is_txt = 0;
+	obj.noi.is_noise = 0;
 	obj.next = NULL;
 	obj.compos = NULL;
 	return (obj);
@@ -72,11 +72,11 @@ t_light			*rt_init_light(void)
 	if (!(light = (struct s_l*)malloc(sizeof(struct s_l))))
 		rt_perror();
 	// rt_exit(rt, "Cannot allocate\n", EXIT_FAILURE);
-	// light->type = PT_LIGHT;
-	// light->angle = 30.0;
+	light->type = PT_LIGHT;
+	light->angle = 30.0;
 	light->pos = vec(5.0, 5.0, 15.0);
 	light->col = vec(1.0, 1.0, 1.0);
-	// light->dir = vec3(1.0);
+	light->dir = vec3(1.0);
 	light->intensity = 0.8;
 	light->next = NULL;
 	return (light);
@@ -106,6 +106,7 @@ t_object		*rt_init_object(void)
 	obj->material = NULL; // make default material!!
 	obj->pos = vec(0.0, 0.0, 0.0);
 	obj->size = 3.0;
+	obj->radius = 3.0;
 	obj->angle = 35;
 	obj->r = 1.0;
 	obj->dist = 4.0;
@@ -115,7 +116,7 @@ t_object		*rt_init_object(void)
 	obj->dir = vec(0.0, 1.0, 0.0);
 	obj->rot = vec(0.0, 0.0, 0.0);
 	obj->col = vec(1.0, 0.7, 0.3);
-	obj->txt = NULL;
+	obj->txt.is_txt = 0;
 	obj->noi = rt_init_noise();
 	obj->scale = 1.5;
 	obj->is_sliced = 0;
@@ -143,7 +144,7 @@ t_scene		*rt_init_scene(void)
 	scene->light = NULL;
 	scene->sl_obj = NULL;
 	scene->is_neg = 0;
-	scene->key = 0;
+	scene->key = 1;
 	scene->key2 = 0;
 	return (scene);
 }

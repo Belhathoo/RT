@@ -2,7 +2,7 @@
 
 #include <rt.h>
 
-static t_vec	rt_rotZ(t_vec vec, double angle)
+t_vec	rt_rotZ(t_vec vec, double angle)
 {
 	t_vec	newv;
 
@@ -12,17 +12,17 @@ static t_vec	rt_rotZ(t_vec vec, double angle)
 	return (newv);
 }
 
-static t_vec	rt_rotX(t_vec vec, double angle)
+t_vec	rt_rotX(t_vec vec, double angle)
 {
 	t_vec	newv;
 
 	newv.y = cos(degtorad(angle)) * vec.y - sin(degtorad(angle)) * vec.z;
-	newv.z = cos(degtorad(angle)) * vec.z - sin(degtorad(angle)) * vec.y;
+	newv.z = cos(degtorad(angle)) * vec.z + sin(degtorad(angle)) * vec.y;
 	newv.x = vec.x;
 	return (newv);
 }
 
-static t_vec	rt_rotY(t_vec vec, double angle)
+t_vec	rt_rotY(t_vec vec, double angle)
 {
 	t_vec	newv;
 

@@ -24,7 +24,7 @@ t_vec rt_raytracer(t_thread *th, t_ray r, int depth)
 	if (rt_hit(th->rt->scene, &r, &rec, MAX))
 	{
 		o = rec.curr_obj;	
-		if (o->txt)
+		if (o->txt.is_txt == 1)
 			rec.col = rt_get_color_from_texture(o, &rec.u, &rec.v);
 		else if (o->noi.is_noise == 1)
 			rec.col =  rt_noise(o, &rec);
@@ -46,10 +46,7 @@ t_vec rt_raytracer(t_thread *th, t_ray r, int depth)
 
 t_vec rt_anti_aliasing(t_thread *t, int col, int row)
 {
-	t_ray	r;
 	t_vec	color;
-	int		ss[2];
-	int		anti_a;
 
 	color = vec(0, 0, 0);
 	color = anti_aa(t, (double)col, (double)row, t->rt->scene->select); //
@@ -110,16 +107,17 @@ void	progress_fill(t_rt *rt)
 			rt_mlx_putpixel(rt, i, IMG_HEIGHT - 4 + j, 0xFF0000);
 	}
 }
-
 int		progress_bar(t_rt *rt)
 {
-	if (rt->scene->key == 1 || rt->scene->key2 == 1)
+
+	if ((rt->scene->key == 1 || rt->scene->key2 == 1) && (rt->scene->progress <= 12 && rt->scene->select <= rt->scene->aa + 1))
 	{
-		mlx_destroy_image(rt->mlx, rt->img);
-		rt->img = mlx_new_image(rt->mlx, IMG_WIDTH, IMG_HEIGHT + 8);
+		// mlx_destroy_image(rt->mlx, rt->img);
+		// rt->img = mlx_new_image(rt->mlx, IMG_WIDTH, IMG_HEIGHT + 8);
+		// ft_putstr("--ss\n");
 		ft_bzero(rt->data, IMG_WIDTH * IMG_HEIGHT * 4);
 	}
-	if (rt->scene->key == 0)
+	if (rt->scene->key == 1)
 	{
 		if (rt->scene->progress == 1)
 			rt_start(rt, rt_run_12);
@@ -137,15 +135,16 @@ int		progress_bar(t_rt *rt)
 			progress_fill(rt);
 			rt->scene->progress++;
 			mlx_put_image_to_window(rt->mlx, rt->win, rt->img, 40, 180);
+			// ft_putstr("ss");
 		}
 	}
-	else if (rt->scene->key2 == 1)
+	if (rt->scene->key == 0 && rt->scene->key2 == 1)
 	{
 		rt_start(rt, rt_run_25);
 		rt->scene->progress = 0;
 		rt->scene->key2 = 0;
 		mlx_put_image_to_window(rt->mlx, rt->win, rt->img, 40, 180);
-		//ft_putstr("pp");
+		// ft_putstr("pp");
 	}
 	return 0;
 }
