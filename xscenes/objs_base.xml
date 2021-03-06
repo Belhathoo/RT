@@ -1,21 +1,20 @@
 <!DOCTYPE xml>
 
 <Camera
-  lookfrom="0.0 .0 40.0"
+  lookfrom="0.0 0 20.0"
   lookat="0 0 0"
   fov="60"
   />
 
-<Option aa="2.0"/>
+<Option aa="2.0" amb="0.2"/>
 
-<Object name="plan" position="0 -15.0 0" color="0 1 1" >
+<Object name="cylinder" height="8.5" 
+noise="damier" n_color1="0 0 1" />
 
-<Object name="sphere" color="0 0 1" />
+<Object name="plan" position="0 -0.0000000001 15" radius="4" height="8.5" >
 
-<Object name="cylinder" position="-9.0 0.0 0.0" />
 
-<Object name="cone" position="09 0 0" angle="30" rotation="0 0 0" color="1 1 0">
 
-<Light type="parallel" direction="0 1.0 0" />
+<Light position="0 10 010" direction="0 -1.0 0" />
 
 

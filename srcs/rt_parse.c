@@ -101,9 +101,9 @@ int		rt_check_light_type(t_rt *rt, char *val)
 	if (!ft_strcmp(val, "point"))
 		return (PT_LIGHT);
 	else if (!ft_strcmp(val, "spot"))
-		return (PL_LIGHT);
+		return (SP_LIGHT);
 	else if (!ft_strcmp(val, "parallel"))
-		return (FL_LIGHT);
+		return (PL_LIGHT);
 	else
 		rt_exit (rt, "light type unknown", EXIT_FAILURE);
 	return (-1);
@@ -122,8 +122,8 @@ void	rt_add_light(t_tag *tag, t_rt *rt)
 			l->type = rt_check_light_type(rt, tag->attr->value);
 		else if (!ft_strcmp(tag->attr->name, "position"))
 			l->pos = rt_ctovec(tag->attr->value, rt);
-		// else if (!ft_strcmp(tag->attr->name, "direction"))
-		// 	l->dir = vec_unit(rt_ctovec(tag->attr->value, rt));
+		else if (!ft_strcmp(tag->attr->name, "direction"))
+			l->dir = vec_unit(rt_ctovec(tag->attr->value, rt));
 		else if (!ft_strcmp(tag->attr->name, "intensity"))
 			l->intensity = rt_ctod(tag->attr->value, rt);
 		else if (!ft_strcmp(tag->attr->name, "color"))
@@ -227,5 +227,6 @@ void rt_parser(t_rt *rt, char **argv)
 	// err. (check redo in main libxml)
 	xml_to_rt(x, rt);
 	// printf("%d", rt->scene->light->type);
+	rt->name_sc = argv[1];
 	xml_close(x);
 }

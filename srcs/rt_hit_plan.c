@@ -49,11 +49,12 @@ int     rt_hit_plan(t_object *o, t_ray *r, t_hit *rec)
 
 	t = ((vec_dot(o->rot, o->pos) - vec_dot(o->rot, r->origin))
 			/ vec_dot(o->rot, r->dir));
-	if (t >= rec->closest || t <= MIN)
+	if ( t > rec->closest || t <= EPS)
 		return (0);
 	rec->t = t;
 	if (rec->negative[0] <= rec->t && rec->t <= rec->negative[1])
 		return (0);
+	// printf("|%.f|\t", t);
 	rec->p = vec_ray(r, rec->t);
 	rec->n = vec_dot(r->dir, o->rot) > 0 ? vec_pro_k(o->rot, -1) : o->rot;
 	plane_uv(rec, o);
@@ -66,7 +67,7 @@ int         rt_hit_care(t_object *o, t_ray *ray, t_hit *rec)
 
 	rec->t = ((vec_dot(o->rot, o->pos) - vec_dot(o->rot, ray->origin))
 			/ vec_dot(o->rot, ray->dir));
-	if (rec->t >= 1e-4 && rec->t < rec->closest)
+	if (rec->t >= MIN && rec->t < rec->closest)
 	{
 		rec->p = vec_ray(ray, rec->t);
 		if (cutt_plane(rec, o) == 0)

@@ -25,8 +25,6 @@ t_vec		normale_cylinder(t_object *o, t_ray *r, t_hit *rec)
 
 int     rt_cylinder_params(t_object *obj, t_ray *ray, t_hit *rec)
 {
-	double  min_sol;
-
     rec->or = vec_sub(ray->origin, obj->pos);
 	rec->a = vec_dot(ray->dir, ray->dir) - pow(vec_dot(ray->dir, vec_unit(obj->rot)), 2);
 	rec->b = 2 * (vec_dot(ray->dir, rec->or) - (vec_dot(ray->dir, vec_unit(obj->rot))

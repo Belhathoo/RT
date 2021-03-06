@@ -16,10 +16,10 @@
 # define MAX_DEPTH 50
 # define MAX  1e+9 // distance max de propagation
 # define MIN 1e-4 
-# define  EPS 1e-9    // dist min
+# define EPS 1e-9    // dist min
 
 # define PT_LIGHT 0
-# define FL_LIGHT 1 //spot light;
+# define SP_LIGHT 1 //spot light;
 # define PL_LIGHT 2 //parallele light; following one direction
 
 

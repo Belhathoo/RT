@@ -181,6 +181,7 @@ typedef struct	s_rt
 	void		*img;
 	int			*data;
 	int			bpp;
+	char		*name_sc;
 	int			size;
 	int			endian;
 	int 		filter;

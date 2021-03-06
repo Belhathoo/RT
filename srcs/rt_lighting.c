@@ -51,16 +51,20 @@ t_vec		rt_lighting(t_thread *th, t_light *l)
 	rt_ambient(th->rt->scene->ambient, l, th->rec, &color);
 	while (l)
 	{
-		l_vec = (l->type == PL_LIGHT) ? vec_pro_k(l->dir, -1.0) : vec_sub(l->pos, th->rec.p);
-		sh_r.dir = l_vec;
-		sh_r.origin = vec_add(th->rec.p, vec_pro_k(sh_r.dir, 0.01));
+		if (l->type == PL_LIGHT) 
+			l_vec = vec_pro_k(l->dir, -1.0);
+		else
+			l_vec = vec_sub(l->pos, th->rec.p);
+		
+		sh_r.origin = vec_add(th->rec.p, vec_pro_k(l_vec, 0.0001));
+		sh_r.dir = vec_unit(l_vec);
 		if (rt_shading(th, sh_r, l, &color) == 0)
 		{
-			f_att = (l->type == PL_LIGHT) ? ft_clamping(1 / ((vec_length(l_vec)\
-					+ vec_length(th->rec.ray->dir)) * 0.02)) : 1.0;
+			f_att = (l->type == PL_LIGHT) ? 1.0 : ft_clamping(1 / ((vec_length(l_vec)\
+					+ vec_length(th->rec.ray->dir)) * 0.02));
 			color = vec_add(color, vec_add(rt_specular(th->rec, l, l_vec, f_att),\
 						rt_diffuse(th->rec, l, l_vec, f_att)));
-			// color = vec_prod(color,vec3(0.8));
+			color = vec_prod(color,vec3(0.8));
 		}
 		l = l->next;
 	}
