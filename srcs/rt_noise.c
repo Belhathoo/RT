@@ -12,8 +12,8 @@ t_vec		rt_noise_damier(t_hit *rec)
 	if (ft_strcmp(rec->curr_obj->name, "sphere") == 0)
 	    rec->curr_obj->scale = 1.0;
 
-	pro1 = floor(rec->u * 14);
-	pro2 = floor(rec->v * 14);
+	pro1 = floor(rec->u * rec->curr_obj->scale);
+	pro2 = floor(rec->v * rec->curr_obj->scale);
 	if (fabs(fmod(pro1, 2)) == fabs(fmod(pro2, 2)))
 	     return (rec->curr_obj->noi.col1);
 	return (rec->curr_obj->noi.col2);	

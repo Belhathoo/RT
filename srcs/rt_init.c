@@ -110,7 +110,7 @@ t_object		*rt_init_object(void)
 	obj->angle = 35;
 	obj->r = 1.0;
 	obj->dist = 4.0;
-	obj->width = 4.0;
+	obj->width = 5.0;
 	obj->height = 2.50;
 	obj->angle = 30.0;
 	obj->dir = vec(0.0, 1.0, 0.0);

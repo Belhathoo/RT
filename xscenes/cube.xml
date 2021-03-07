@@ -13,7 +13,7 @@
  height="8" refl="1.0"  material="bl1_plastic" size="12" direction="0 10 0" >
 
 <Object name="mobius" height="1" position="0.0 -02.0 0.0" direction="0 1.0  0.75" 
- radius="4.0" refr="1.4" color="5 0 0"  />
+ radius="4.0" refr="0.0" color="1 10 10"  />
 
 <Light position="0 05.0 8.0"/>
 <Light position="0 10.0 18.0"/>

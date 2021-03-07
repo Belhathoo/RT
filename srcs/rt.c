@@ -31,13 +31,13 @@ int main(int argc, char **argv)
 	// background(&rt);
 
 			// rt.scene->sl_obj = rt.scene->object;
-	create_buttons(3, &rt);
-
+			// rt.bt = (t_button *)malloc(sizeof(t_button *) * 2);
+	create_buttons(2, &rt);
+	// rt.s_light = *rt.scene->light;
 	mlx_hook(rt.win, 17, (1L << 17), rt_close, &rt);
 	mlx_hook(rt.win, 4, (1L << 0), rt_mouse, &rt);
 	mlx_hook(rt.win, 2, (1L << 0), rt_keys, &rt);
-	// rt_start(&rt, rt_run_50);
-	// mlx_put_image_to_window(rt.mlx, rt.win, rt.img, 40, 180);
+
 
 	mlx_loop_hook(rt.mlx, &progress_bar, &rt);
 	mlx_loop(rt.mlx);

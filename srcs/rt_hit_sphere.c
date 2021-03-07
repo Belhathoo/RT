@@ -6,8 +6,9 @@ void		sphere_uv(t_object *o, t_hit *rec)
 	double	phi;
 	double	theta;
 	t_vec	p;
-
- 	 p = vec_pro_k(vec_sub(rec->p, o->pos), 1.0); 
+     p = vec_sub(rec->p, o->pos);
+	 if (o->txt.is_txt)
+ 	 p = vec_div_k(p, o->scale); 
 	 p = vec(vec_dot(p, o->vec1), vec_dot(p, o->vec2), vec_dot(p, o->rot));
 	phi = atan2(p.z, p.x);
 	theta = asin(p.y / o->radius);

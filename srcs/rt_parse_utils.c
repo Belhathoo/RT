@@ -41,6 +41,7 @@ t_texture   rt_ctotxt(char *str, t_rt *rt)
 		rt_exit(rt, "must be One value for texture data.\n", EXIT_FAILURE);
 	txt = rt_init_txt();
 	txt.img = mlx_xpm_file_to_image(rt->mlx, each[0], &txt.width, &txt.height);
+	// printf("w %.2d || h %.2d\n ", txt.width, txt.height);
 	if (!txt.img)
 	{
 		ft_free_twodim(&each);

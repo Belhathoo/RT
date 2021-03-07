@@ -8,10 +8,8 @@
 
 <Option aa="2.0" amb="0.2"/>
 
-<Object name="cylinder" height="8.5" 
-noise="damier" n_color1="0 0 1" />
 
-<Object name="plan" position="0 -0.1 15" radius="4" height="8.5" >
+<Object name="plan" position="0 -0.1 00" noise="damier" scale="2" radius="4" height="8.5" >
 
 
 

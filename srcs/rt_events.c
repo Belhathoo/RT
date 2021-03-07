@@ -45,7 +45,7 @@ void      rt_redraw(t_rt *rt)
 	}
 	else if (rt->scene->sl_obj)
 	{
-		rt_get_repere(rt->scene->sl_obj);
+		// rt_get_repere(rt->scene->sl_obj);
 		if (rt->scene->sl_obj->compos)
 			get_cube_compos(rt->scene->sl_obj);
 	}
@@ -54,15 +54,18 @@ int				rt_mouse(int button, int x, int y, t_rt *rt)
 {
 
 	int btn;
-		
+	
+	if (button == 2)
+		rt->scene->sl_obj = NULL;
 	if (button == 1 && COND_SELECT(x, y))
+	{
+		ft_select_obj(rt, x - FRAME, (int)IMG_HEIGHT - (y - MENU_BAR));
+		if (rt->scene->sl_obj != NULL)
 		{
-			ft_select_obj(rt, x - FRAME, (int)IMG_HEIGHT - (y - MENU_BAR));
-			if (rt->scene->sl_obj != NULL)
-			{
-				printf("- selected_object: %s -\n", rt->scene->sl_obj->name);
-			}
+			ft_putstr("- selected_object: ");
+			ft_putendl(rt->scene->sl_obj->name);
 		}
+	}
 	btn = get_selected_button(x, y, rt);
 	if (btn != -1)
 	{
@@ -80,16 +83,18 @@ int				rt_mouse(int button, int x, int y, t_rt *rt)
 			swap_button_by_id(SAVE_BTN , rt);
 			image_create(rt);
 		}
-		if (btn == SAVE_BTN)
-		{
-			swap_button_by_id(L_BTN , rt);
-			image_create(rt);
-		}
+		// if (btn == L_BTN)
+		// {
+		// 	swap_button_by_id(L_BTN , rt);
+		// 	if (rt->scene->light)
+		// 		rt->scene->light = NULL;
+		// 	else
+		// 		rt->scene->light = &rt->s_light;
+		// 	rt_redraw(rt);
+		// }
 
 
 	}
-	// if (button == 2)
-	// 	rt->scene->sl_obj = NULL;
 	return (0);
 }
 
@@ -131,11 +136,17 @@ int				rt_keys(int key, t_rt *rt)
 			// 	rt->scene->sl_obj = rt->scene->sl_obj->next;
 			// }
 			if (key == K_X)
-			{rt->scene->sl_obj->rot = rt_rotX(rt->scene->sl_obj->rot, 5);rt_redraw(rt);}
+			{rt->scene->sl_obj->rot = rt_rotX(rt->scene->sl_obj->rot, 5);
+			rt->scene->sl_obj->vec2 = rt_rotX(rt->scene->sl_obj->vec2, 5);rt->scene->sl_obj->vec1 = rt_rotX(rt->scene->sl_obj->vec1, 5);
+			rt_redraw(rt);}
 			if (key == K_Y)
-			{rt->scene->sl_obj->rot = rt_rotY(rt->scene->sl_obj->rot, 5);rt_redraw(rt);}
+			{rt->scene->sl_obj->rot = rt_rotY(rt->scene->sl_obj->rot, 5);
+			rt->scene->sl_obj->vec2 = rt_rotY(rt->scene->sl_obj->vec2, 5);rt->scene->sl_obj->vec1 = rt_rotY(rt->scene->sl_obj->vec1, 5);
+			rt_redraw(rt);}
 			if (key == K_Z)
-			{rt->scene->sl_obj->rot = rt_rotZ(rt->scene->sl_obj->rot, 5);rt_redraw(rt);}
+			{rt->scene->sl_obj->rot = rt_rotZ(rt->scene->sl_obj->rot, 5);
+			rt->scene->sl_obj->vec2 = rt_rotZ(rt->scene->sl_obj->vec2, 5);rt->scene->sl_obj->vec1 = rt_rotZ(rt->scene->sl_obj->vec1, 5);
+			rt_redraw(rt);}
 			if (key == K_NP_PLU)
 			{rt->scene->sl_obj->pos.z += 1;rt_redraw(rt);}
 			if (key == K_NP_MIN)

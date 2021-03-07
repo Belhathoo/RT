@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rt_hit_plan.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: belhatho <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/07 19:05:46 by belhatho          #+#    #+#             */
+/*   Updated: 2021/03/07 19:05:48 by belhatho         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <rt.h>
 
@@ -10,37 +21,30 @@ int      cutt_plane(t_hit *rec, t_object *o)
 
 	pnt = vec_sub(rec->p, o->pos);
 
-	if (o->name && !ft_strcmp(o->name, "rectangle"))
-	{
-		if ((fabs(vec_dot(pnt, o->vec1)) > o->width 
-					|| fabs(vec_dot(pnt, o->vec2)) > o->height))
-			return (0);
-	}
-	else
-	{
-		if ((fabs(vec_dot(pnt, o->vec1)) > o->size
-					|| fabs(vec_dot(pnt, o->vec2)) > o->size))
-			return (0);
-	}
-    return (1);
+	if ((fabs(vec_dot(pnt, o->vec1)) > o->width 
+				|| fabs(vec_dot(pnt, vec_cross(o->rot,o->vec1))) > o->height))
+		return (0);
+	// else if ((fabs(vec_dot(pnt, o->vec2)) > o->width 
+	// 			|| fabs(vec_dot(pnt, o->rot)) > o->height))
+	// 	return (0);
+
+	return (1);
 }
 
 
 void			plane_uv(t_hit *rec, t_object *o)
 {
-  if (o->txt.is_txt == 1)
-  {
-	  o->txt.scale = 0.1;
-	  rec->u = rt_frac(vec_dot(vec_pro_k(vec_sub(rec->p, o->pos), o->txt.scale), o->vec2));
-	  rec->v = rt_frac(vec_dot(vec_pro_k(vec_sub(rec->p, o->pos), o->txt.scale), o->vec1));
-	  return;
-  }
-  else 
-  {
-	 rec->u = rt_frac(vec_dot(vec_div_k(vec_sub(rec->p, o->pos), o->scale), o->vec2));
-	 rec->v = rt_frac(vec_dot(vec_div_k(vec_sub(rec->p, o->pos), o->scale), o->vec1));
-	 return;
-  }
+	if (o->txt.is_txt)
+	{
+		rec->u = rt_frac(vec_dot(vec_pro_k(vec_sub(rec->p, o->pos), o->scale), o->vec1));
+		rec->v = rt_frac(vec_dot(vec_pro_k(vec_sub(rec->p, o->pos), o->scale),vec_cross(o->rot,o->vec1)));
+	}
+	else 
+	{
+		rec->u = rt_frac(vec_dot(vec_sub(rec->p, o->pos), o->vec2));
+		rec->v = rt_frac(vec_dot(vec_sub(rec->p, o->pos), o->vec1));
+
+	}
 }
 
 int     rt_hit_plan(t_object *o, t_ray *r, t_hit *rec)
@@ -54,7 +58,6 @@ int     rt_hit_plan(t_object *o, t_ray *r, t_hit *rec)
 	rec->t = t;
 	if (rec->negative[0] <= rec->t && rec->t <= rec->negative[1])
 		return (0);
-	// printf("|%.f|\t", t);
 	rec->p = vec_ray(r, rec->t);
 	rec->n = vec_dot(r->dir, o->rot) > 0 ? vec_pro_k(o->rot, -1) : o->rot;
 	plane_uv(rec, o);

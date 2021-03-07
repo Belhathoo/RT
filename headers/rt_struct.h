@@ -92,6 +92,7 @@ typedef struct	s_image
 	short		bpp;
 	int			rest_info[6];
 }				t_image;
+
 typedef struct	s_o
 {
 	char		*name;
@@ -168,7 +169,6 @@ typedef struct	s_hit
 	double		negative[2];
 	t_vec		negative_normal;
 
-	//slicing
 	int			tx;
 }				t_hit;
 
@@ -207,7 +207,6 @@ typedef struct	s_scene
 	int			key2;
 	t_vec		data1[9][IMG_WIDTH*IMG_HEIGHT];//IMG_WIDTH*IMG_HEIGHT
 
-	//negative obj
 	t_object	n_obj;
 	int			is_neg;
 }				t_scene;
@@ -227,6 +226,7 @@ typedef struct	s_rt
 
 	int			save_order;
 	t_button	**bt;
+	t_light		s_light;
 	int			size_bt;
 
 }				t_rt;
