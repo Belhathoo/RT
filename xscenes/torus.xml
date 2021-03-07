@@ -9,7 +9,7 @@
 
 <Option aa="2"/>
 
-<Object name="torus" position="0.0 0.0 0.0" direction="0 01.0 1.0"
+<Object name="torus" position="0.0 0.0 0.0" direction="0 01.0 0.0"
 rotation="0 01 0" translation="0 0 0" radius="8.0" r="2.5"
  noise="damier" color="1.0 0.7 0.3" material="ko" />
 

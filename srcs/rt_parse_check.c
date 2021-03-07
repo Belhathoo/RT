@@ -43,10 +43,12 @@ void	rt_check_obj_name(t_object *obj, t_rt *rt)
 		obj->hit = rt_hit_glasse;
 	else if (!ft_strcmp(str, "CUBE_TROUE"))
 		obj->hit = rt_hit_cube_troue;
+		else if (!ft_strcmp(str, "MOBIUS"))
+		obj->hit = rt_hit_mobius;
 	else
 	{
 		ft_strdel(&str);
-		rt_exit(rt, ft_strjoin(obj->name, "unknown obj!"), EXIT_FAILURE);
+		rt_exit(rt, ft_strjoin(obj->name, " unknown obj!/n"), EXIT_FAILURE);
 	}
 	ft_strdel(&str);
 }

@@ -36,7 +36,6 @@ t_ray			rt_ray(t_vec a, t_vec b);
 t_ray			rt_get_ray(t_camera *p, double u, double v);
 t_vec 			rt_raytracer(t_thread *t, t_ray r, int d);
 t_vec 			rt_anti_aliasing(t_thread *t, int col, int row);
-// int				rt_draw(t_rt *rt);
 
 t_vec	    	anti_aa(t_thread *t, double col, double row, int select);
 int     		progress_bar(t_rt *rt);
@@ -82,6 +81,7 @@ int     		rt_hit_cube(t_object *oo, t_ray *r, t_hit *record);
 
 int				rt_hit_glasse(t_object *o, t_ray *r,  t_hit *rec);
 int             rt_hit_cube_troue(t_object *obj, t_ray *ray, t_hit *record);
+int     rt_hit_mobius( t_object *o, t_ray *ray, t_hit *rec);
 
 void	        cylinder_uv(t_object *o, t_hit *rec);
 void            cone_uv(t_object *o, t_hit *rec);
@@ -146,6 +146,11 @@ int             tranc_txt(t_ray *ray, t_object *obj, t_hit *rec);
 
 int				rt_mouse(int button, int x, int y, t_rt *rt);
 int				rt_keys(int key, t_rt *rt);
+void	        create_buttons(int	size, t_rt *rt);
+void	swap_button_by_id(int	id, t_rt *rt);
+void	image_create(t_rt *rt);
+int		get_selected_button(int x, int y, t_rt *rt);
+
 
 /*
  * Init

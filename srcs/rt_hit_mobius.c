@@ -20,7 +20,6 @@ static int				rt_init_mobius(t_object *o, t_vec p)
 	t_vec	param;
 	double	v;
 	double	u;
-	double k;
     
     u =  o->height + 5.0;
 	v = atan2(p.y, p.x);
@@ -47,8 +46,6 @@ static int				check_dist_mob(t_ray *ray, t_hit *rec, double c[4], t_object *o)
 {
 	double      s[3];
 	int			h[3];
-	double	    sol_min;
-	t_vec	p;
 
 	h[2] = 0;
 	h[0] = -1;

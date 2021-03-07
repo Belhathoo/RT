@@ -7,10 +7,12 @@ SRCS = rt.c\
 		rt_parse.c\
 		rt_parse_utils.c\
 		rt_parse_check.c\
+		rt_events.c\
+		rt_buttons.c\
+		rt_bmp_extractor.c\
 		rt_draw.c\
 		rt_draw_utils.c\
 		rt_hit.c\
-		rt_events.c\
 		rt_lighting.c\
 		rt_light_shading.c\
 		rt_ref.c\
@@ -43,6 +45,7 @@ SRCS = rt.c\
 		rt_cube_compos.c\
 		rt_negatives.c\
 		rt_slicing.c\
+		
 
 
 SRC = $(add prefix srcs/, $(SRCS))
@@ -88,7 +91,7 @@ MLX = -lm -I $(MLX_DIR) -L $(MLX_DIR) -lmlx -lXext -lX11
 endif
 
 
-CFLAGS = -Wall -Wextra# -Werror
+CFLAGS = #-Wall -Wextra -Werror
 LIBFT_DIR = libs/libft
 XML_DIR = libs/libxml
 VEC_DIR = libs/libvec

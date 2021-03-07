@@ -31,6 +31,7 @@ int main(int argc, char **argv)
 	// background(&rt);
 
 			// rt.scene->sl_obj = rt.scene->object;
+	// create_buttons(2, &rt);
 
 	mlx_hook(rt.win, 17, (1L << 17), rt_close, &rt);
 	mlx_hook(rt.win, 4, (1L << 0), rt_mouse, &rt);

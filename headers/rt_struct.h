@@ -53,6 +53,45 @@ typedef struct s_m
 	float		kt;
 }				t_material;
 
+
+typedef struct	s_button
+{
+	char		*name;
+	void		*win;
+	void		*mlx;
+	void		*img;
+	int			*img_data;
+	int			bpp;
+	int			size;
+	int			endian;
+	void		*deflt;
+	int			*deflt_data;
+	void        *data_data;
+	int			*data;
+	void		*select;
+	int			state;
+	int			h;
+	int			w;
+	int			x;
+	int			y;
+	t_vec		pos;
+}				t_button;
+
+typedef struct	s_image
+{
+	//header
+	char		signature[2];
+	int			file_size;
+	int			reserved;
+	int			data_offset;
+	//info_header
+	int			size_header;
+	int			width;
+	int			height;
+	short		planes;
+	short		bpp;
+	int			rest_info[6];
+}				t_image;
 typedef struct	s_o
 {
 	char		*name;
@@ -185,7 +224,14 @@ typedef struct	s_rt
 	int			size;
 	int			endian;
 	int 		filter;
+
+	int			save_order;
+	t_button	**bt;
+	int			size_bt;
+
 }				t_rt;
+
+
 
 typedef struct	s_thread
 {

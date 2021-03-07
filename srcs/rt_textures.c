@@ -26,13 +26,13 @@ int    tranc_txt(t_ray *ray, t_object *obj, t_hit *rec)
    vect = rt_get_color_from_texture(obj, &rec->u, &rec->v);
    obj->txt.color = vec(0, 0, 1);
    c =  obj->txt.color;
-	if (vect.x < vect.z && vect.y < vect.z)
+	if (!(vect.x < vect.z && vect.y < vect.z))
 	{
 		rec->p = vec_ray(ray, rec->t1);
 		rec->n = vec_div_k(vec_sub(rec->p, obj->pos), -obj->size);
 		sphere_uv(obj, rec);
 		vect = rt_get_color_from_texture(obj, &rec->u, &rec->v);
-		if (vect.x < vect.z && vect.y < vect.z)
+		if (!(vect.x < vect.z && vect.y < vect.z))
 			 return 0;
 		return (1);
 	}

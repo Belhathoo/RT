@@ -140,7 +140,7 @@ int		progress_bar(t_rt *rt)
 	}
 	if (rt->scene->key == 0 && rt->scene->key2 == 1)
 	{
-		rt_start(rt, rt_run_25);
+		rt_start(rt, rt_run_12);
 		rt->scene->progress = 0;
 		rt->scene->key2 = 0;
 		mlx_put_image_to_window(rt->mlx, rt->win, rt->img, 40, 180);
