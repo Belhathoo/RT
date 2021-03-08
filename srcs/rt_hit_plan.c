@@ -44,7 +44,7 @@ void			plane_uv(t_hit *rec, t_object *o)
 		rec->u = rt_frac(vec_dot(vec_pro_k(vec_sub(rec->p, o->pos), o->scale), o->vec1));
 		rec->v = rt_frac(vec_dot(vec_pro_k(vec_sub(rec->p, o->pos), o->scale),vec_cross(o->rot,o->vec1)));
 	}
-	else 
+	else if (o->noi.is_noise)
 	{
 		rec->u = rt_frac(vec_dot(vec_div_k(vec_sub(rec->p, o->pos), 10.0),vec_cross(o->rot,o->vec1)));
 		rec->v = rt_frac(vec_dot(vec_div_k(vec_sub(rec->p, o->pos), 10.0), o->vec1));

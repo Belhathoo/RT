@@ -52,6 +52,7 @@ t_object		rt_init_neg_object(void)
 	obj.pos = vec(0.0, 0.0, 0.0);
 	obj.size = 2.0;
 	obj.angle = 30.0;
+	obj.radius = 2.0;
 	obj.dir = vec(0.0, 1.0, 0.0);
 	obj.rot = vec(0.0, 0.0, 0.0);
 	obj.is_sliced = 0;
@@ -117,6 +118,7 @@ t_object		*rt_init_object(void)
 	obj->rot = vec(0.0, 0.0, 0.0);
 	obj->col = vec(1.0, 0.7, 0.3);
 	obj->txt.is_txt = 0;
+	obj->txt.is_trans = 0;
 	obj->noi = rt_init_noise();
 	obj->scale = 1.5;
 	obj->is_sliced = 0;

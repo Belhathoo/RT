@@ -46,7 +46,7 @@ void      rt_redraw(t_rt *rt)
 	}
 	else if (rt->scene->sl_obj)
 	{
-		// rt_get_repere(rt->scene->sl_obj);
+		rt_get_repere(rt->scene->sl_obj);
 		if (rt->scene->sl_obj->compos)
 			get_cube_compos(rt->scene->sl_obj);
 	}
@@ -237,7 +237,7 @@ int				rt_keys(int key, t_rt *rt)
 		{
 			swap_button_by_id(A_BTN , rt);
 			(rt->scene->key_cam == 1) ? swap_button_by_id(CAM_BTN, rt) : 0;
-			// rt->scene->sl_obj = NULL;
+			rt->scene->sl_obj = NULL;
 			rt->scene->key = (rt->scene->key + 1) % 2;
 			rt->scene->key_cam = 0;
 			rt->scene->key2 = 1;

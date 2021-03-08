@@ -14,11 +14,10 @@ void  torus_uv(t_hit *rec, t_object *o)
 	phi = atan2(p.z, p.x);
 	tmp = p.x * p.x + p.z * p.z;
 	theta = atan2(p.y, (sqrt(tmp))) - o->radius;
-	rec->u = 0.5 + phi / 2 * M_PI;
-	rec->v = 0.5 + theta / 2 * M_PI;
-	rec->u = rec->u - floor(rec->u);
-    rec->v = rec->v - floor(rec->v);
-	return;
+	rec->u= 0.5 + phi / 2 * M_PI;
+	rec->v= 0.5 + theta / 2 * M_PI;
+	rec->u= rec->u - floor(rec->u);
+    rec->v= rec->v - floor(rec->v);
 }
 
 t_vec		rt_torus_normal(t_ray *ray, t_hit *rec, t_object *obj)

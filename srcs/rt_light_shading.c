@@ -6,7 +6,7 @@
 /*   By: belhatho <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 15:54:57 by belhatho          #+#    #+#             */
-/*   Updated: 2021/03/01 17:31:22 by belhatho         ###   ########.fr       */
+/*   Updated: 2021/03/08 15:53:51 by belhatho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,25 @@ int				rt_shading(t_thread *th, t_ray sh_r, t_light *l, t_vec *col)
 	double		closest;
 	t_ray		sc_r;
 	t_vec		l_vec;
-	
+
 	shade =  0;
 	l_vec = vec_sub(l->pos, th->rec.p);
-	sh_r.dir = vec_unit(sh_r.dir);
+	// sh_r.dir = vec_unit(sh_r.dir);
 	closest = /* (l->type == PL_LIGHT) ? 8000.0 : */vec_length(l_vec);
 	rec.curr_obj = NULL;
 	if (rt_hit(th->rt->scene, &sh_r, &rec, closest) && (shade = 1))
 		o = rec.curr_obj;
-	if (o->txt.is_trans == 0 && shade && o->refr != 0.0)
+	if (shade && o->refr != 0.0)
 	{
-		sc_r = rt_refraction(rec, sh_r, o);
-		double dot = vec_dot(vec_unit(sc_r.dir), vec_unit(l_vec));
-		if ((dot > 0.40))
+		// if (!o->txt.is_txt || !o->txt.is_trans)
 		{
-			*col = vec_pro_k(*col, dot * o->refr * 0.9);
-			return(rt_shading(th, sc_r, l, col));
+			sc_r = rt_refraction(rec, sh_r, o);
+			double dot = vec_dot(vec_unit(sc_r.dir), vec_unit(l_vec));
+			if ((dot > 0.40))
+			{
+				*col = vec_pro_k(*col, dot * o->refr * 0.9);
+				return(rt_shading(th, sc_r, l, col));
+			}
 		}
 	}
 	return (shade);

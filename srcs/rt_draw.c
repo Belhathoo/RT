@@ -32,6 +32,7 @@ t_vec rt_raytracer(t_thread *th, t_ray r, int depth)
 			rec.col = o->col;
 		th->rec = rec;
 		color = rt_lighting(th, th->rt->scene->light);
+		// th->rec.col = color;
 		if (depth > 1)
 		{
 			color = vec_add(color, (o->refl) ?  vec_pro_k(rt_raytracer(th,\

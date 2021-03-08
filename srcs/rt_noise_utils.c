@@ -22,6 +22,8 @@ t_vec  rt_torus_noise(t_hit *rec)
 	int i;
 	int j;
     int oddity;
+	t_object *o;
+	o= rec->curr_obj;
 
 	i = (int)(10 * rec->u);
 	j = (int)(10 * rec->v);
@@ -29,7 +31,7 @@ t_vec  rt_torus_noise(t_hit *rec)
 		oddity = 1;
 	else
 		oddity = 0;
-	if ((((10 * rec->u - i) < 0.2) && oddity) || ((10 * rec->v - j) < 0.2))
+	if ((((10 * rec->v- i) < 0.2) && oddity) || ((10 * rec->v- j) < 0.2))
 	  return (vec(0, 0, 0));
 	else 
 	  return (vec(1, 1, 1));

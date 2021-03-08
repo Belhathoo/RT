@@ -8,10 +8,10 @@ void    cone_uv(t_object *o, t_hit *rec)
 	 if (o->txt.is_txt)
  	 d = vec_div_k(d, o->scale);
 	d = vec(vec_dot(d, o->vec1), vec_dot(d, o->rot), vec_dot(d, o->vec2));
-	rec->u = (atan2(d.x, d.z) + M_PI / (2.0 * M_PI));
-	rec->v = d.y;
-	rec->u = rec->u - floor(rec->u);
-	rec->v = rec->v - floor(rec->v);
+	rec->u= (atan2(d.x, d.z) + M_PI / (2.0 * M_PI));
+	rec->v= d.y;
+	rec->u= rec->u - floor(rec->u);
+	rec->v= rec->v- floor(rec->v);
 }
 
 t_vec  normale_cone(t_object *o, t_ray *r, t_hit *rec)

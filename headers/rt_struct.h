@@ -108,8 +108,11 @@ typedef struct	s_o
 	t_vec		dir;
 	t_vec		rot;//rotation
 	t_vec		col;
+	// double		u;
+	// double		v;
 	t_vec		vec1;
 	t_vec		vec2;
+
 	t_vec		sl_vec;
 	t_vec		sl_pnt;
 
