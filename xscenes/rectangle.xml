@@ -2,16 +2,15 @@
 
 
 <Camera
-  lookfrom="0.0 0.0 10.0"
+  lookfrom="0.0 0.0 30.0"
   lookat="0 0 0"
   fov="60"
   />
 
 <Option aa="2"/>
 
-<Object name="rectangle" direction=" 0  0 1" scale="0.101"
-texture="xpm/earth1.xpm" rotation="0 0 10" color="1 1 1" material="a0l" 
+<Object name="rectangle" direction="0 0 10" rotation="0 0 0" color="1 1 1" material="a0l" 
 position="0 0 0">
 
 
-<Light position="20 15 10"/>
+<Light position="2 5 -10"/>

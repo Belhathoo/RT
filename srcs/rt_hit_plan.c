@@ -20,13 +20,18 @@ int      cutt_plane(t_hit *rec, t_object *o)
 	t_vec   pnt;
 
 	pnt = vec_sub(rec->p, o->pos);
-
-	if ((fabs(vec_dot(pnt, o->vec1)) > o->width 
+	if (o->name && !ft_strcmp(o->name, "rectangle"))
+ {
+    	if ((fabs(vec_dot(pnt, o->vec1)) > o->width 
 				|| fabs(vec_dot(pnt, vec_cross(o->rot,o->vec1))) > o->height))
 		return (0);
-	// else if ((fabs(vec_dot(pnt, o->vec2)) > o->width 
-	// 			|| fabs(vec_dot(pnt, o->rot)) > o->height))
-	// 	return (0);
+ }
+	 else
+	 {
+	  if ((fabs(vec_dot(pnt, o->vec1)) > o->size
+				|| fabs(vec_dot(pnt, o->vec2)) > o->size))
+		return (0);
+	 }
 
 	return (1);
 }
@@ -41,8 +46,8 @@ void			plane_uv(t_hit *rec, t_object *o)
 	}
 	else 
 	{
-		rec->u = rt_frac(vec_dot(vec_sub(rec->p, o->pos), o->vec2));
-		rec->v = rt_frac(vec_dot(vec_sub(rec->p, o->pos), o->vec1));
+		rec->u = rt_frac(vec_dot(vec_div_k(vec_sub(rec->p, o->pos), 10.0),vec_cross(o->rot,o->vec1)));
+		rec->v = rt_frac(vec_dot(vec_div_k(vec_sub(rec->p, o->pos), 10.0), o->vec1));
 
 	}
 }

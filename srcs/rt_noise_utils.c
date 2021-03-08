@@ -1,7 +1,5 @@
 
-#include<rt.h>
-
-#include<rt.h>
+#include <rt.h>
 
 int		 rt_add_noise(char *val, t_rt *rt) //parser
 {
@@ -15,8 +13,6 @@ int		 rt_add_noise(char *val, t_rt *rt) //parser
 	   	return (3);
 	else if (!ft_strcmp(val, "voronoi3"))
 	   	return (4);
-	else if (!ft_strcmp(val, "voronoi4"))
-	   	return (5);
 	rt_exit(rt, "noise: Unknown type!", EXIT_FAILURE);
 	return (-1);
 }

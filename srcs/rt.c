@@ -30,12 +30,11 @@ int main(int argc, char **argv)
 	rt.data = (int*)mlx_get_data_addr(rt.img, &rt.bpp, &rt.size, &rt.endian);
 	// background(&rt);
 
-			// rt.scene->sl_obj = rt.scene->object;
-			// rt.bt = (t_button *)malloc(sizeof(t_button *) * 2);
-	create_buttons(2, &rt);
+			rt.scene->sl_obj = rt.scene->object;
+	create_buttons(4, &rt);
 	// rt.s_light = *rt.scene->light;
 	mlx_hook(rt.win, 17, (1L << 17), rt_close, &rt);
-	mlx_hook(rt.win, 4, (1L << 0), rt_mouse, &rt);
+	// mlx_hook(rt.win, 4, (1L << 0), rt_mouse, &rt);
 	mlx_hook(rt.win, 2, (1L << 0), rt_keys, &rt);
 
 

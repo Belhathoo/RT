@@ -2,7 +2,7 @@
 
 
 <Camera
-  lookfrom="5.0 5.0 15.0"
+  lookfrom="0.0 10.0 15.0"
   lookat="0 0 0"
   fov="60"
   />
@@ -12,10 +12,12 @@
 <Object name="sphere" position="5.0 5.0 -2.0" direction="0 01 0" rotation="0 01 0" 
 translation="0 0 0" radius="2.0" r="0.1" scale="01." texture="xpm/moon.xpm" material="ko" />
 
-<Object name="sphere" position="0.0 0.0 0.0" direction="1 0 0.51" rotation="0 01 0" 
-translation="0 0 0"  scale="1" texture="xpm/earth1.xpm" material="ko" />
+<Object name="sphere" position="0.0 0.0 0.0" color="1 1 1" direction="1 0 0.51" rotation="0 01 0" 
+translation="0 0 0"  scale="1" radius="5"  refr="1.0" material="ko" />
 
-<Object name="plan" scale="5" position="0 -3.5 -5.0" direction="0 0 1" texture="xpm/stars.xpm" color="0 0.14 0.195" material="al" />
+<Object name="sphere" position="-0.0 0.0 0.0" direction="1 0 0.51" rotation="0 01 0" 
+translation="0 0 0" radius="2" scale="1" texture="xpm/earth1.xpm" refr="1.0" material="ko" />
 
 
-<Light position="20.0 25.0 50.0"  intensity="1" />
+
+<Light position="20.0 25.0 50.0" color="0 0 0" intensity="0.51" />

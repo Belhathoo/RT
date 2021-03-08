@@ -56,8 +56,7 @@ void	image_remap(int *img, t_image *image, int file)
 		col = 0;
 		while (col < (int)image->width)
 		{
-			color = img[(IMG_HEIGHT - row) *
-				IMG_WIDTH + col];
+			color = img[(IMG_HEIGHT - row) *IMG_WIDTH + col];
 			buf[row * image->width * 3 + col * 3 + 0] = color;
 			buf[row * image->width * 3 + col * 3 + 1] = color >> 8;
 			buf[row * image->width * 3 + col * 3 + 2] = color >> 16;

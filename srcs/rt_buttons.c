@@ -54,6 +54,10 @@ t_button	*save_button(t_rt *rt)
 	ret->deflt = mlx_xpm_file_to_image(rt->mlx ,"buttons/save.xpm", &ret->w, &ret->h);
 	ret->img = mlx_xpm_file_to_image(rt->mlx ,"buttons/save_no.xpm", &ret->w, &ret->h);
 	ret->data_data = mlx_xpm_file_to_image(rt->mlx ,"buttons/save_no.xpm", &ret->w, &ret->h);
+	if (!ret->img || !ret->deflt || !ret->data_data)
+	{
+		rt_exit(rt, "buttons : img unfound", EXIT_FAILURE);
+	}
 	ret->deflt_data = (int*)mlx_get_data_addr(ret->deflt, &ret->bpp, &ret->size, &ret->endian);
 	ret->img_data = (int*)mlx_get_data_addr(ret->img, &ret->bpp, &ret->size, &ret->endian);
 	ret->data = (int*)mlx_get_data_addr(ret->img, &ret->bpp, &ret->size, &ret->endian);
@@ -78,6 +82,40 @@ t_button	*mvmnt_button(t_rt *rt)
 	return (ret);
 }
 
+t_button	*cam_button(t_rt *rt)
+{
+	t_button *ret;
+
+	ret = (t_button *)malloc(sizeof(t_button));
+	ret->name = ft_strdup("cam_button");
+	ret->pos = vec(200, 10, 0);
+	ret->deflt = mlx_xpm_file_to_image(rt->mlx ,"buttons/no_cam_btn.xpm", &ret->w, &ret->h);
+	ret->img = mlx_xpm_file_to_image(rt->mlx ,"buttons/cam_btn.xpm", &ret->w, &ret->h);
+	ret->data_data = mlx_xpm_file_to_image(rt->mlx ,"buttons/cam_btn.xpm", &ret->w, &ret->h);
+	ret->deflt_data = (int*)mlx_get_data_addr(ret->deflt, &ret->bpp, &ret->size, &ret->endian);
+	ret->img_data = (int*)mlx_get_data_addr(ret->img, &ret->bpp, &ret->size, &ret->endian);
+	ret->data = (int*)mlx_get_data_addr(ret->img, &ret->bpp, &ret->size, &ret->endian);
+	mlx_put_image_to_window(rt->mlx, rt->win, ret->deflt, (int)ret->pos.x, (int)ret->pos.y);
+	return (ret);
+}
+
+t_button	*damier_button(t_rt *rt)
+{
+	t_button *ret;
+
+	ret = (t_button *)malloc(sizeof(t_button));
+	ret->name = ft_strdup("cam_button");
+	ret->pos = vec(500, 10, 0);
+	ret->deflt = mlx_xpm_file_to_image(rt->mlx ,"buttons/damier.xpm", &ret->w, &ret->h);
+	ret->img = mlx_xpm_file_to_image(rt->mlx ,"buttons/damier.xpm", &ret->w, &ret->h);
+	// ret->data_data = mlx_xpm_file_to_image(rt->mlx ,"buttons/damier.xpm", &ret->w, &ret->h);
+	ret->deflt_data = (int*)mlx_get_data_addr(ret->deflt, &ret->bpp, &ret->size, &ret->endian);
+	ret->img_data = (int*)mlx_get_data_addr(ret->img, &ret->bpp, &ret->size, &ret->endian);
+	ret->data = (int*)mlx_get_data_addr(ret->img, &ret->bpp, &ret->size, &ret->endian);
+	mlx_put_image_to_window(rt->mlx, rt->win, ret->deflt, (int)ret->pos.x, (int)ret->pos.y);
+	return (ret);
+}
+
 void	create_buttons(int	size, t_rt *rt)
 {
 	t_button **b;
@@ -85,6 +123,8 @@ void	create_buttons(int	size, t_rt *rt)
 	b = (t_button **)malloc(size * sizeof(t_button *));
 	b[0] = save_button(rt);
 	b[1] = mvmnt_button(rt);
+	b[2] = cam_button(rt);
+	b[3] = damier_button(rt);
 	rt->bt = b;
 	rt->size_bt = size;
 }

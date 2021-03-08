@@ -32,6 +32,7 @@ void		ft_select_obj(t_rt *rt, int col, int row)
 
 #define SAVE_BTN 0
 #define A_BTN 1
+#define CAM_BTN 2
 # define L_BTN 3
 
 void      rt_redraw(t_rt *rt)
@@ -98,6 +99,38 @@ int				rt_mouse(int button, int x, int y, t_rt *rt)
 	return (0);
 }
 
+void		square_fill(t_rt *data, int color, t_vec pos, t_vec size)
+{
+	int		i;
+	int		j;
+
+	i = (int)pos.x - 1;
+	while (++i < (int)size.x)
+	{
+		j = pos.y - 1;
+		while (++j < size.y)
+			mlx_pixel_put(data->mlx, data->win, i, j, color);
+	}
+}
+
+void		square_str(t_rt *data, char *str, t_vec pos, t_vec size)
+{
+	t_vec	t;
+
+	//t.x = pos.x + (pos.x + size.x) / 2 - (ft_strlen(str) * 12) / 2;
+	//t.y = (size.y - pos.y) / 3 + pos.y - 3;
+	t.x = pos.x + 10;
+	t.y = pos.y + 10;
+	mlx_string_put(data->mlx, data->win, t.x, t.y, 0xFFFFFF, str);
+}
+
+void		ctrl_name(t_rt *data)
+{
+	square_fill(data, 0xF9AA33, (t_vec){700, 10}, (t_vec){900, 50});
+	ft_putendl(data->scene->sl_obj->name);
+	//mlx_string_put(data->mlx, data->win, 750, 20, 0xFFFFFF, data->scene->sl_obj->name);
+	square_str(data, data->scene->sl_obj->name , (t_vec){700, 10}, (t_vec){900, 50});
+}
 
 int				rt_keys(int key, t_rt *rt)
 {
@@ -105,10 +138,18 @@ int				rt_keys(int key, t_rt *rt)
 	//rt selt obj in main.c !!!! for linux events
 	if (key == K_ESC)
 		rt_close(rt);
+	if (key  == K_S)
+		{
+			swap_button_by_id(SAVE_BTN , rt);
+			image_create(rt);
+		}
 	if (rt->scene->key == 0)
 	{
 		if (key == K_C)
+		{
 			rt->scene->key_cam = (rt->scene->key_cam + 1) % 2;
+			swap_button_by_id(CAM_BTN, rt);
+		}
 	}
 	if (rt->scene->key == 0)
 	{
@@ -129,12 +170,12 @@ int				rt_keys(int key, t_rt *rt)
 		}
 		else if (rt->scene->sl_obj != NULL)
 		{
-			// if (key == K_N && rt->scene->sl_obj)
-			// {
-
-			// 	ft_putendl(rt->scene->sl_obj->next->name);
-			// 	rt->scene->sl_obj = rt->scene->sl_obj->next;
-			// }
+			if (key == K_N && rt->scene->sl_obj)
+			{
+				ctrl_name(rt);
+				ft_putendl(rt->scene->sl_obj->next->name);
+				rt->scene->sl_obj = rt->scene->sl_obj->next;
+			}
 			if (key == K_X)
 			{rt->scene->sl_obj->rot = rt_rotX(rt->scene->sl_obj->rot, 5);
 			rt->scene->sl_obj->vec2 = rt_rotX(rt->scene->sl_obj->vec2, 5);rt->scene->sl_obj->vec1 = rt_rotX(rt->scene->sl_obj->vec1, 5);
@@ -164,10 +205,44 @@ int				rt_keys(int key, t_rt *rt)
 	if (rt->scene->key == 0 && (rt->scene->sl_obj != NULL || rt->scene->key_cam == 1) && 
 			(key == K_N  || key == K_NP_PLU || key == K_NP_MIN\
 			 || key == K_UP|| key == K_DWN || key == K_LFT || key == K_RGHT \
-			 || key == K_X || key == K_Y || key == K_Z))
+			 || key == K_X || key == K_Y || key == K_Z || (key == K_U)))//x,y,z only for obj no cam!!!
 	{
 		rt->scene->key2 = 1;
 	}
+	if (rt->scene->key == 0 && rt->scene->sl_obj != NULL && rt->scene->key_cam == 0)
+	{
+		if (key == K_U && rt->scene->sl_obj->txt.is_txt == 0)
+		{
+			if (rt->scene->sl_obj->noi.is_noise == 0)
+			{
+				rt->scene->sl_obj->noi.is_noise = 1;
+				rt->scene->sl_obj->noi.type = 0;
+				rt->scene->sl_obj->scale = 12;
+				rt_redraw(rt);
+			}
+			else if (rt->scene->sl_obj->noi.type != 0)
+			{
+				rt->scene->sl_obj->scale = 14;
+				rt->scene->sl_obj->noi.type = 0;
+				rt_redraw(rt);
+			}
+			// else
+			// {
+			// 	rt->scene->sl_obj->noi.is_noise = 0;
+			// 	rt_redraw(rt);
+			// }
+		}
+	}
+	if (key == K_A)
+		{
+			swap_button_by_id(A_BTN , rt);
+			(rt->scene->key_cam == 1) ? swap_button_by_id(CAM_BTN, rt) : 0;
+			// rt->scene->sl_obj = NULL;
+			rt->scene->key = (rt->scene->key + 1) % 2;
+			rt->scene->key_cam = 0;
+			rt->scene->key2 = 1;
+			rt_redraw(rt);
+		}
 
 	return (0);
 }

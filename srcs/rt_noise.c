@@ -9,11 +9,9 @@ t_vec		rt_noise_damier(t_hit *rec)
 	
 	if (ft_strcmp(rec->curr_obj->name, "torus") == 0)
 		return (rt_torus_noise(rec));
-	if (ft_strcmp(rec->curr_obj->name, "sphere") == 0)
-	    rec->curr_obj->scale = 1.0;
 
 	pro1 = floor(rec->u * rec->curr_obj->scale);
-	pro2 = floor(rec->v * rec->curr_obj->scale);
+	pro2 = floor(rec->v *  rec->curr_obj->scale);
 	if (fabs(fmod(pro1, 2)) == fabs(fmod(pro2, 2)))
 	     return (rec->curr_obj->noi.col1);
 	return (rec->curr_obj->noi.col2);	
@@ -53,7 +51,7 @@ t_vec	rt_noise(t_object *o, t_hit *rec)
 	else if (type == CIRCLES)
 	    return(rt_noise_circles(o, rec));
 	else if (type == VORONOI1 || type == VORONOI2 \
-			|| type == VORONOI3 || type == VORONOI4)
+			|| type == VORONOI3)
 	   return (rt_noise_voronoi(rec, o));
 	else
 		return (ret);

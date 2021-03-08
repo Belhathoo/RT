@@ -1,7 +1,7 @@
 <!DOCTYPE xml>
 
 <Camera
-  lookfrom="0.0 0 20.0"
+  lookfrom="0.0 5 20.0"
   lookat="0 0 0"
   fov="60"
   />
@@ -9,7 +9,7 @@
 <Option aa="2.0" amb="0.2"/>
 
 
-<Object name="plan" position="0 -0.1 00" noise="damier" scale="2" radius="4" height="8.5" >
+<Object name="plan" position="0 0 00" noise="damier" scale="0.400" radius="4" height="8.5" >
 
 
 
