@@ -13,7 +13,7 @@
 # include <rt.h>
 
 
-void      rt_redraw(t_rt *rt)
+void      rt_reset(t_rt *rt)
 {
 	RS->progress = 1;
 	RS->select = 0;
@@ -24,7 +24,7 @@ void      rt_redraw(t_rt *rt)
 	}
 	else if (RS->sl_obj)
 	{
-		// rt_get_repere(RS->sl_obj); vec1/2 already in rot !!
+		rt_get_repere(RS->sl_obj);// vec1/2 already in rot !!
 		if (RS->sl_obj->compos)
 			get_cube_compos(RS->sl_obj);
 	}
@@ -87,7 +87,7 @@ int				rt_keys(int key, t_rt *rt)
 	if (RS->key_mvt == 1)
 	{
 		if (RS->key_cam == 1)
-			(rt_move(key, &RS->cam.lookfrom)) ? rt_redraw(rt) : 0;
+			(rt_move(key, &RS->cam.lookfrom)) ? rt_reset(rt) : 0;
 		else if (RS->sl_obj != NULL)
 		{
 			(key == K_D ) ? dame_btn(rt) : 0; //--
@@ -95,12 +95,13 @@ int				rt_keys(int key, t_rt *rt)
 			(key == K_G ) ? v1_btn(rt) : 0; //--
 			(key == K_H ) ? v2_btn(rt) : 0; //--
 			(key == K_J ) ? v3_btn(rt) : 0; //--
-			(key == K_N && RS->sl_obj) ? RS->sl_obj = RS->sl_obj->next : 0; //=wsl!
+			if (key == K_N)
+				RS->sl_obj = (RS->sl_obj) ? RS->sl_obj->next : RS->object;//=wsl!
 				
 			if (rt_move(key, &RS->sl_obj->pos))
-				rt_redraw(rt);
+				rt_reset(rt);
 			if (rt_rot_event(key, RS->sl_obj))
-				rt_redraw(rt);
+				rt_reset(rt);
 		}
 	}
 	return (0);

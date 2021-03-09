@@ -17,7 +17,7 @@ t_tag *xml_new_tag()
 
   tag = (t_tag*)malloc(sizeof(t_tag));
   tag->name = NULL;
-  tag->attr = NULL;
+  TA = NULL;
   tag->next = NULL;
   return (tag);
 }

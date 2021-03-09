@@ -5,6 +5,8 @@
 # include <fcntl.h>
 # include <stdio.h>//delete me and add 2>/dev/null in makefile
 
+# define TA tag->attr
+
 typedef struct	s_attr
 {
 	char			*name;

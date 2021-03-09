@@ -36,7 +36,7 @@ int rt_hit(t_scene *scene, t_ray *r, t_hit *rec, double closest)
 			rec->t1 = record.t1;
 			rec->tx = record.tx;
 			rec->closest = rec->t;
-			RRC = o;
+			RCR = o;
 			rec->ray = r;
 			rec->is_n = record.is_n;
 			rec->negative[0] = record.negative[0];
@@ -48,7 +48,7 @@ int rt_hit(t_scene *scene, t_ray *r, t_hit *rec, double closest)
 			rec->v = record.v;
 
 			rec->closest = rec->t;
-			RRC = o;
+			RCR = o;
 			rec->ray = r;
 			
 			// record.ray = r;

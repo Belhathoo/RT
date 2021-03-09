@@ -41,7 +41,7 @@ int main(int argc, char **argv)
 	rt.s_light = rt.scene->light;
 			rt.scene->sl_obj = rt.scene->object;
 	mlx_hook(rt.win, 17, (1L << 17), rt_close, &rt);
-	// mlx_hook(rt.win, 4, (1L << 0), rt_mouse, &rt);
+	mlx_hook(rt.win, 4, (1L << 0), rt_mouse, &rt);
 	mlx_hook(rt.win, 2, (1L << 0), rt_keys, &rt);
 
 

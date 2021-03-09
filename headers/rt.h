@@ -150,7 +150,7 @@ int				rt_keys(int key, t_rt *rt);
 int             rt_move(int key, t_vec *vec);
 int             rt_rot_event(int key, t_object *o);
 
-void      rt_redraw(t_rt *rt);
+void      rt_reset(t_rt *rt);
 
 void        save_btn(t_rt *rt);
 void        mvt_btn(t_rt *rt);

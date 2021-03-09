@@ -1,7 +1,8 @@
 <!DOCTYPE xml>
 
 <Camera
-  lookfrom="0.0 5 20.0"
+
+  lookfrom="0.0 15 25.0"
   lookat="0 0 0"
   fov="60"
   />
@@ -9,9 +10,13 @@
 <Option aa="2.0" amb="0.2"/>
 
 
-<Object name="plan" position="0 0 00" noise="damier" scale="0.400" radius="4" height="8.5" >
+<Object name="plan" position="0 -30 00" noise="damier" refl="1.0" scale="0.400" radius="4" height="8.5" >
 
+<Object name="mobius" refr="1.8" >
 
+<Object name="sphere" position="-9 0 0" slice_pnt="-9 1 0">
+
+<N_Object name="sphere" position="0 -30 -90" radius="10">
 
 <Light position="0 10 030" direction="0 -1.0 0" />
 

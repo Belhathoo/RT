@@ -43,7 +43,7 @@ void	rt_check_obj_name(t_object *obj, t_rt *rt)
 		obj->hit = rt_hit_glasse;
 	else if (!ft_strcmp(str, "CUBE_TROUE"))
 		obj->hit = rt_hit_cube_troue;
-		else if (!ft_strcmp(str, "MOBIUS"))
+	else if (!ft_strcmp(str, "MOBIUS"))
 		obj->hit = rt_hit_mobius;
 	else
 	{
@@ -79,33 +79,35 @@ void			rt_set_coef(t_object *o)
 	/* check if txt !!!
 	   specific coef for textures (NO SPECULAR)
 	   */
-	if (!o->material)
-		o->material = ft_strdup("ko"); // aff > return
-	if (!ft_strcmp(o->material, "bl_plastic"))
-		o->mat = (t_material){vec3(0.0), vec3(0.01), vec3(0.5), 32, 0.0, 0.0};
-	else if (!ft_strcmp(o->material, "cu"))
-		o->mat = (t_material){vec(0.33, 0.23, 0.02), vec(0.78, 0.568, 0.113)\
-		, vec(0.99, 0.94, 0.807), 27.897, 0.0, 0.0};
-	else if (!ft_strcmp(o->material, "chrome"))
-		o->mat = (t_material){vec3(0.25), vec3(0.4), vec3(0.774), 76.70, 0.0, 0.0};
-	else if (!ft_strcmp(o->material, "gold"))
-		o->mat = (t_material){vec(0.24, 0.199, 0.074), vec(0.75, 0.606, 0.226),\
-			vec(0.628, 0.555, 0.3660), 51.2, 0.55, 0.0};
+	if (o->material)
+	{
+		if (!ft_strcmp(o->material, "bl_plastic"))
+			o->mat = (t_material){vec3(0.0), vec3(0.01), vec3(0.5), 32, 0.0, 0.0};
+		else if (!ft_strcmp(o->material, "cu"))
+			o->mat = (t_material){vec(0.33, 0.23, 0.02), vec(0.78, 0.568, 0.113)\
+				, vec(0.99, 0.94, 0.807), 27.897, 0.0, 0.0};
+		else if (!ft_strcmp(o->material, "chrome"))
+			o->mat = (t_material){vec3(0.25), vec3(0.4), vec3(0.774), 76.70, 0.0, 0.0};
+		else if (!ft_strcmp(o->material, "gold"))
+			o->mat = (t_material){vec(0.24, 0.199, 0.074), vec(0.75, 0.606, 0.226),\
+				vec(0.628, 0.555, 0.3660), 51.2, 0.55, 0.0};
 		else if (!ft_strcmp(o->material, "mirror"))
-		o->mat = (t_material){vec3(1.0), vec3(1.0), vec3(1), 100, 1.0, 0.0};
-	else if (!ft_strcmp(o->material, "diamond"))
-		o->mat = (t_material){vec3(0.8), vec3(0.4), vec3(0.2), 146.80, 0.0, 2.41};
-	else if (!ft_strcmp(o->material, "ice"))
-		o->mat = (t_material){vec3(0.8), vec3(0.2), vec3(0.2), 10, 0.0, 1.001};
-	else if (!ft_strcmp(o->material, "glass"))
-		o->mat = (t_material){vec3(0.25), vec3(0.2), vec3(0.5), 70, 0.0, 1.50};
-	else if (!ft_strcmp(o->material, "water"))
-		o->mat = (t_material){vec3(0.5), vec3(0.1), vec3(0.05), 20, 0.0, 1.33};
-	else if (!ft_strcmp(o->material, "al"))
-		o->mat = (t_material){vec3(0.92), vec3(0.999), vec3(0.8), 25, 0.150, 0.0};
+			o->mat = (t_material){vec3(1.0), vec3(1.0), vec3(1), 100, 1.0, 0.0};
+		else if (!ft_strcmp(o->material, "diamond"))
+			o->mat = (t_material){vec3(0.8), vec3(0.4), vec3(0.2), 146.80, 0.0, 2.41};
+		else if (!ft_strcmp(o->material, "ice"))
+			o->mat = (t_material){vec3(0.8), vec3(0.2), vec3(0.2), 10, 0.0, 1.001};
+		else if (!ft_strcmp(o->material, "glass"))
+			o->mat = (t_material){vec3(0.25), vec3(0.2), vec3(0.5), 70, 0.0, 1.50};
+		else if (!ft_strcmp(o->material, "water"))
+			o->mat = (t_material){vec3(0.5), vec3(0.1), vec3(0.05), 20, 0.0, 1.33};
+		else if (!ft_strcmp(o->material, "al"))
+			o->mat = (t_material){vec3(0.92), vec3(0.999), vec3(0.8), 25, 0.150, 0.0};
+		else
+			o->mat = (t_material){vec3(0.7), vec3(0.8), vec3(0.30), 50 ,0.0 ,0.0};
+	}
 	else
-		o->mat = (t_material){vec3(0.7), vec3(0.8),\
-			vec3(0.30), 50 ,0.0 ,0.0};
+		o->mat = (t_material){vec3(0.7), vec3(0.8), vec3(0.30), 50 ,0.0 ,0.0};
 	if (o->refr == 0.0)
 		o->refr = o->mat.kt;
 	if (o->refl == 0.0)
@@ -133,7 +135,7 @@ void    rt_check_obj(t_object *o, t_rt *rt)
 {
 
 	// height width
-	
+
 	if (o->name == NULL)
 		rt_exit(rt, "Object shoud have a name!", EXIT_FAILURE);
 	if (o->dir.x == 0 && o->dir.y == 0 && o->dir.z == 0)
@@ -145,7 +147,7 @@ void    rt_check_obj(t_object *o, t_rt *rt)
 	if (o->refl < 0.0 || o->refr < 0.0)
 		rt_exit(rt, "reflecton/refraction coef should be positive", EXIT_FAILURE);
 	o->angle = degtorad(o->angle) / 2;
-	
+
 	if (o->txt.is_txt == 1 && o->noi.is_noise == 1)
 		rt_exit(rt, "obj: either texture either noise", EXIT_FAILURE);
 	if (o->is_sliced == 1) //events
@@ -156,11 +158,10 @@ void    rt_check_obj(t_object *o, t_rt *rt)
 			rt_exit(rt, "sl-obj: slicing pnt is outside the cylinder!", EXIT_FAILURE);
 	}
 	/*
-		add x y z slicing global || on ax
-	*/
+	   add x y z slicing global || on ax
+	   */
 
 	ft_clamping(o->refl);
-	// rt_rot_dir(&o->rot, o->dir);
 	o->rot = rotation(o->dir, o->rot);
 	rt_get_repere(o); ///events
 	rt_comp_obj(o); //// events...
@@ -188,7 +189,7 @@ void	rt_check_lights(t_light *l, t_rt *rt)
 	/*
 	   init dir/radius/angle for other light types !!!!
 	   */
-	  // check color (0 0 0) && intensity < 0
+	// check color (0 0 0) && intensity < 0
 
 	if (l->dir.x == 0 && l->dir.y == 0 && l->dir.z == 0)
 		rt_exit(rt, "light: direction vector is non-zero!", EXIT_FAILURE);
@@ -199,7 +200,7 @@ void	rt_check_lights(t_light *l, t_rt *rt)
 	if (l->col.x == 0.0 && l->col.y == 0.0 && l->col.z == 0.0)
 		rt_exit(rt, "light: no light have black color", EXIT_FAILURE);
 	// check if soft first !! for radius !
-		// if (l->radius <= 0.0)
-		// 	rt_exit(rt, "light: radius should be positive", EXIT_FAILURE);
-		rt_adjustment(&l->col);
+	// if (l->radius <= 0.0)
+	// 	rt_exit(rt, "light: radius should be positive", EXIT_FAILURE);
+	rt_adjustment(&l->col);
 }

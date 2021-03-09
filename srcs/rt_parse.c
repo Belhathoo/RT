@@ -9,15 +9,15 @@ void  rt_add_camera(t_tag *tag, t_rt *rt)
 	cam.lookfrom = vec(10.0, 10.0 ,20.0);
 	cam.lookat = vec(0.0, 0.0, 0.0);
 	cam.fov = 60;
-	while (tag->attr)
+	while (TA)
 	{
-		if (!ft_strcmp(tag->attr->name, "lookat"))
-			cam.lookat = rt_ctovec(tag->attr->value, rt);
-		else if (!ft_strcmp(tag->attr->name, "lookfrom"))
-			cam.lookfrom = rt_ctovec(tag->attr->value, rt);
-		else if (!ft_strcmp(tag->attr->name, "fov"))
-			cam.fov = rt_ctod(tag->attr->value, rt);
-		tag->attr = tag->attr->next;
+		if (!ft_strcmp(TA->name, "lookat"))
+			cam.lookat = rt_ctovec(TA->value, rt);
+		else if (!ft_strcmp(TA->name, "lookfrom"))
+			cam.lookfrom = rt_ctovec(TA->value, rt);
+		else if (!ft_strcmp(TA->name, "fov"))
+			cam.fov = rt_ctod(TA->value, rt);
+		TA = TA->next;
 	}
 	rt_check_cam(cam, rt);
 	RS->cam = rt_init_camera(cam.lookfrom, cam.lookat, cam.fov);
@@ -34,62 +34,61 @@ void  rt_add_object(t_tag *tag, t_rt *rt)
 
 	obj = rt_init_object();
 	tmp = RS->object;
-	while (tag->attr)
+	while (TA)
 	{
-		if (!ft_strcmp(tag->attr->name, "name"))
+		if (!ft_strcmp(TA->name, "name"))
 		{
-			obj->name = ft_strdup(tag->attr->value);
+			obj->name = ft_strdup(TA->value);
 			rt_check_obj_name(obj, rt);
 		}
-		else if (!ft_strcmp(tag->attr->name, "position"))
-			obj->pos = rt_ctovec(tag->attr->value, rt);
-		else if (!ft_strcmp(tag->attr->name, "direction"))
-			obj->dir = vec_unit(rt_ctovec(tag->attr->value, rt));
-		else if (!ft_strcmp(tag->attr->name, "translation"))
-			obj->pos = vec_add(obj->pos, rt_ctovec(tag->attr->value, rt));
-		else if (!ft_strcmp(tag->attr->name, "rotation"))
-			obj->rot = rt_ctovec(tag->attr->value, rt);
-		else if (!ft_strcmp(tag->attr->name, "color"))
-			obj->col = rt_ctovec(tag->attr->value, rt);
-		else if (!ft_strcmp(tag->attr->name, "radius"))
-			obj->radius = rt_ctod(tag->attr->value, rt);
-		else if (!ft_strcmp(tag->attr->name, "size"))
-			obj->size = rt_ctod(tag->attr->value, rt);
-		else if (!ft_strcmp(tag->attr->name, "angle"))
-			obj->angle = rt_ctod(tag->attr->value, rt);
-		else if (!ft_strcmp(tag->attr->name, "height"))
-			obj->height = rt_ctod(tag->attr->value, rt);
-		else if (!ft_strcmp(tag->attr->name, "width"))
-			obj->width = rt_ctod(tag->attr->value, rt);
-		else if (!ft_strcmp(tag->attr->name, "r"))
-			obj->r = rt_ctod(tag->attr->value, rt);    
-		else if (!ft_strcmp(tag->attr->name, "texture"))
-			obj->txt = rt_ctotxt(tag->attr->value, rt);
-		
-		else if (!ft_strcmp(tag->attr->name, "noise")  && (obj->noi.is_noise = 1))
-			obj->noi.type = rt_add_noise(tag->attr->value, rt);
-		else if (!ft_strcmp(tag->attr->name, "scale"))
-			obj->scale = rt_ctod(tag->attr->value, rt);
-		else if (!ft_strcmp(tag->attr->name, "n_color"))
-			obj->noi.col1 = rt_ctovec(tag->attr->value, rt);
-		else if (!ft_strcmp(tag->attr->name, "n_color1"))
-			obj->noi.col2 = rt_ctovec(tag->attr->value, rt);
+		else if (!ft_strcmp(TA->name, "position"))
+			obj->pos = rt_ctovec(TA->value, rt);
+		else if (!ft_strcmp(TA->name, "direction"))
+			obj->dir = vec_unit(rt_ctovec(TA->value, rt));
+		else if (!ft_strcmp(TA->name, "translation"))
+			obj->pos = vec_add(obj->pos, rt_ctovec(TA->value, rt));
+		else if (!ft_strcmp(TA->name, "rotation"))
+			obj->rot = rt_ctovec(TA->value, rt);
+		else if (!ft_strcmp(TA->name, "color"))
+			obj->col = rt_ctovec(TA->value, rt);
+		else if (!ft_strcmp(TA->name, "radius"))
+			obj->radius = rt_ctod(TA->value, rt);
+		else if (!ft_strcmp(TA->name, "size"))
+			obj->size = rt_ctod(TA->value, rt);
+		else if (!ft_strcmp(TA->name, "angle"))
+			obj->angle = rt_ctod(TA->value, rt);
+		else if (!ft_strcmp(TA->name, "height"))
+			obj->height = rt_ctod(TA->value, rt);
+		else if (!ft_strcmp(TA->name, "width"))
+			obj->width = rt_ctod(TA->value, rt);
+		else if (!ft_strcmp(TA->name, "r"))
+			obj->r = rt_ctod(TA->value, rt);    
+		else if (!ft_strcmp(TA->name, "texture"))
+			obj->txt = rt_ctotxt(TA->value, rt);		
+		else if (!ft_strcmp(TA->name, "noise")  && (obj->noi.is_noise = 1))
+			obj->noi.type = rt_add_noise(TA->value, rt);
+		else if (!ft_strcmp(TA->name, "scale"))
+			obj->scale = rt_ctod(TA->value, rt);
+		else if (!ft_strcmp(TA->name, "n_color"))
+			obj->noi.col1 = rt_ctovec(TA->value, rt);
+		else if (!ft_strcmp(TA->name, "n_color1"))
+			obj->noi.col2 = rt_ctovec(TA->value, rt);
 
-		else if (!ft_strcmp(tag->attr->name, "material"))
-			obj->material = ft_strdup(tag->attr->value);
-		else if (!ft_strcmp(tag->attr->name, "refl"))
-			obj->refl = rt_ctod(tag->attr->value, rt);
-		else if (!ft_strcmp(tag->attr->name, "refr"))
-			obj->refr = rt_ctod(tag->attr->value, rt);
+		else if (!ft_strcmp(TA->name, "material"))
+			obj->material = ft_strdup(TA->value);
+		else if (!ft_strcmp(TA->name, "refl"))
+			obj->refl = rt_ctod(TA->value, rt);
+		else if (!ft_strcmp(TA->name, "refr"))
+			obj->refr = rt_ctod(TA->value, rt);
 
-		else if (!ft_strcmp(tag->attr->name, "slice_vec") && (obj->is_sliced = 1))
-			obj->sl_vec = rt_ctovec(tag->attr->value, rt);
-		else if (!ft_strcmp(tag->attr->name, "slice_pnt") && (obj->is_sliced = 1))
-			obj->sl_pnt = rt_ctovec(tag->attr->value, rt);
+		else if (!ft_strcmp(TA->name, "slice_vec") && (obj->is_sliced = 1))
+			obj->sl_vec = rt_ctovec(TA->value, rt);
+		else if (!ft_strcmp(TA->name, "slice_pnt") && (obj->is_sliced = 1))
+			obj->sl_pnt = rt_ctovec(TA->value, rt);
 
 		else
 			rt_exit(rt, ft_strjoin(tag->name, ": Unknown attribut"), EXIT_FAILURE);
-		tag->attr = tag->attr->next;
+		TA = TA->next;
 	}
 	rt_check_obj(obj, rt);
 	RS->object = obj;
@@ -116,23 +115,23 @@ void	rt_add_light(t_tag *tag, t_rt *rt)
 
 	l = rt_init_light();
 	tmp = RS->light;
-	while (tag->attr)
+	while (TA)
 	{
-		if (!ft_strcmp(tag->attr->name, "type"))
-			l->type = rt_check_light_type(rt, tag->attr->value);
-		else if (!ft_strcmp(tag->attr->name, "position"))
-			l->pos = rt_ctovec(tag->attr->value, rt);
-		else if (!ft_strcmp(tag->attr->name, "direction"))
-			l->dir = vec_unit(rt_ctovec(tag->attr->value, rt));
-		else if (!ft_strcmp(tag->attr->name, "intensity"))
-			l->intensity = rt_ctod(tag->attr->value, rt);
-		else if (!ft_strcmp(tag->attr->name, "color"))
-			l->col = rt_ctovec(tag->attr->value, rt);
-		else if (!ft_strcmp(tag->attr->name, "angle"))
-			l->angle = rt_ctod(tag->attr->value, rt);
-		// else if (!ft_strcmp(tag->attr->name, "radius"))
-		// 	l->radius = rt_ctod(tag->attr->value, rt);
-		tag->attr = tag->attr->next;
+		if (!ft_strcmp(TA->name, "type"))
+			l->type = rt_check_light_type(rt, TA->value);
+		else if (!ft_strcmp(TA->name, "position"))
+			l->pos = rt_ctovec(TA->value, rt);
+		else if (!ft_strcmp(TA->name, "direction"))
+			l->dir = vec_unit(rt_ctovec(TA->value, rt));
+		else if (!ft_strcmp(TA->name, "intensity"))
+			l->intensity = rt_ctod(TA->value, rt);
+		else if (!ft_strcmp(TA->name, "color"))
+			l->col = rt_ctovec(TA->value, rt);
+		else if (!ft_strcmp(TA->name, "angle"))
+			l->angle = rt_ctod(TA->value, rt);
+		// else if (!ft_strcmp(TA->name, "radius"))
+		// 	l->radius = rt_ctod(TA->value, rt);
+		TA = TA->next;
 	}
 	// rt_check_lights(l, rt);
 	RS->light = l;
@@ -141,15 +140,15 @@ void	rt_add_light(t_tag *tag, t_rt *rt)
 
 void  rt_add_option(t_tag *tag, t_rt *rt)
 {
-	while(tag->attr)
+	while(TA)
 	{
-		if (!ft_strcmp(tag->attr->name, "aa"))
-			RS->aa = rt_ctod(tag->attr->value, rt); //atoi
-		if (!ft_strcmp(tag->attr->name, "amb"))
-			RS->ambient = rt_ctod(tag->attr->value, rt);
-//		if (!ft_strcmp(tag->attr->name, "filter"))
+		if (!ft_strcmp(TA->name, "aa"))
+			RS->aa = rt_ctod(TA->value, rt); //atoi
+		if (!ft_strcmp(TA->name, "amb"))
+			RS->ambient = rt_ctod(TA->value, rt);
+//		if (!ft_strcmp(TA->name, "filter"))
 //			rt->filter = fnct for filters;		
-		tag->attr = tag->attr->next;
+		TA = TA->next;
 	}
 	if (RS->aa <= 0 )
 		rt_exit(rt, "aa should be a positive int", EXIT_FAILURE);
@@ -169,24 +168,24 @@ void  rt_add_neg_object(t_tag *tag, t_rt *rt)
 		rt_exit(rt, "Only one negative object allowed.", EXIT_FAILURE);
 
 	obj = rt_init_neg_object();
-	while (tag->attr)
+	while (TA)
 	{
-		if (!ft_strcmp(tag->attr->name, "name"))
+		if (!ft_strcmp(TA->name, "name"))
 		{
-			obj.name = ft_strdup(tag->attr->value);
+			obj.name = ft_strdup(TA->value);
 			rt_check_neg_obj_name(&obj, rt);
 		}
-		else if (!ft_strcmp(tag->attr->name, "position"))
-			obj.pos = rt_ctovec(tag->attr->value, rt);
-		else if (!ft_strcmp(tag->attr->name, "direction"))
-			obj.dir = vec_unit(rt_ctovec(tag->attr->value, rt));
-		else if (!ft_strcmp(tag->attr->name, "rotation"))
-			obj.rot = rt_ctovec(tag->attr->value, rt);
-		else if (!ft_strcmp(tag->attr->name, "radius"))
-			obj.size = rt_ctod(tag->attr->value, rt);//
-		else if (!ft_strcmp(tag->attr->name, "angle"))
-			obj.angle = rt_ctod(tag->attr->value, rt);
-		tag->attr = tag->attr->next;
+		else if (!ft_strcmp(TA->name, "position"))
+			obj.pos = rt_ctovec(TA->value, rt);
+		else if (!ft_strcmp(TA->name, "direction"))
+			obj.dir = vec_unit(rt_ctovec(TA->value, rt));
+		else if (!ft_strcmp(TA->name, "rotation"))
+			obj.rot = rt_ctovec(TA->value, rt);
+		else if (!ft_strcmp(TA->name, "radius"))
+			obj.size = rt_ctod(TA->value, rt);//
+		else if (!ft_strcmp(TA->name, "angle"))
+			obj.angle = rt_ctod(TA->value, rt);
+		TA = TA->next;
 	}
 	rt_check_neg_obj(&obj, rt);
 	RS->is_neg = 1;

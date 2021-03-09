@@ -29,7 +29,7 @@
 # define PL_LIGHT 2 //parallele light; following one direction
 
 # define RS rt->scene
-# define RRC rec->curr_obj
+# define RCR rec->curr_obj
 
 /*
  * MLX KEYS

@@ -29,8 +29,8 @@ void        save_btn(t_rt *rt)
 
 void        cam_btn(t_rt *rt)
 {
-    			RS->key_cam = (RS->key_cam + 1) % 2;
-			swap_button_by_id(CAM_BTN, rt);
+	RS->key_cam = (RS->key_cam + 1) % 2;
+	swap_button_by_id(CAM_BTN, rt);
 }
 
 void            mvt_btn(t_rt *rt)
@@ -40,9 +40,9 @@ void            mvt_btn(t_rt *rt)
 	RS->key_mvt = (RS->key_mvt + 1) % 2;
 	if (!RS->key_mvt && RS->key_cam == 1)
 		swap_button_by_id(CAM_BTN, rt);
-    RS->key_cam = 0;
-    RS->key = 1;
-	rt_redraw(rt);
+	RS->key_cam = 0;
+	RS->key = 1;
+	rt_reset(rt);
 }
 
 void        light_btn(t_rt *rt)
@@ -54,7 +54,7 @@ void        light_btn(t_rt *rt)
 	else
 		return ;
 	swap_button_by_id(LGHT_BTN , rt);
-	rt_redraw(rt);
+	rt_reset(rt);
 }
 
 void        dame_btn(t_rt *rt)
@@ -74,7 +74,7 @@ void        dame_btn(t_rt *rt)
 			RS->sl_obj->scale = 14;
 			RS->sl_obj->noi.type = DAMIER;
 		}
-		rt_redraw(rt); //--
+		rt_reset(rt); //--
 	}
 }
 
@@ -96,7 +96,7 @@ void        circ_btn(t_rt *rt)
 			RS->sl_obj->scale = 10;
 			RS->sl_obj->noi.type = CIRCLES;
 		}
-		rt_redraw(rt); //--
+		rt_reset(rt); //--
 	}
 }
 
@@ -117,7 +117,7 @@ void        v1_btn(t_rt *rt)
 			RS->sl_obj->scale = 4;
 			RS->sl_obj->noi.type = VORONOI1;
 		}
-		rt_redraw(rt); //--
+		rt_reset(rt); //--
 	}
 }
 
@@ -138,7 +138,7 @@ void        v2_btn(t_rt *rt)
 			RS->sl_obj->scale = 2.0;
 			RS->sl_obj->noi.type = VORONOI2;
 		}
-		rt_redraw(rt); //--
+		rt_reset(rt); //--
 	}
 }
 
@@ -160,7 +160,7 @@ void        v3_btn(t_rt *rt)
 			RS->sl_obj->scale = 0.1;
 			RS->sl_obj->noi.type = VORONOI3;
 		}
-		rt_redraw(rt); //--
+		rt_reset(rt); //--
 	}
 }
 
@@ -186,10 +186,21 @@ int				rt_mouse(int button, int x, int y, t_rt *rt)
 	{
 		if (btn == SAVE_BTN)
 			save_btn(rt);
-		else if (btn == MVT_BTN)
+		if (btn == MVT_BTN)
 			mvt_btn(rt);
-		else if (btn == LGHT_BTN)
-			light_btn(rt);
+		if (RS->key_mvt)
+		{
+			(btn == LGHT_BTN) ? light_btn(rt) : 0;
+			(btn == CAM_BTN) ? cam_btn(rt) : 0;
+			if (RS->sl_obj != NULL)
+			{
+				(btn == DAME_BTN ) ? dame_btn(rt) : 0;
+				(btn == CIRC_BTN ) ? circ_btn(rt) : 0;
+				(btn == V1_BTN) ? v1_btn(rt) : 0;
+				(btn == V2_BTN) ? v2_btn(rt) : 0;
+				(btn == V3_BTN) ? v3_btn(rt) : 0;
+			}
+		}
+		return (0);
 	}
-	return (0);
 }
