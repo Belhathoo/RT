@@ -12,6 +12,7 @@ SRCS = rt.c\
 		rt_events_mouse.c\
 		rt_buttons.c\
 		rt_buttons_noi.c\
+		rt_btns_create.c\
 		rt_bmp_extractor.c\
 		rt_draw.c\
 		rt_draw_utils.c\

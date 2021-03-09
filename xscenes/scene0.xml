@@ -27,7 +27,7 @@ noise="voronoi1" radius="2.0" scale="0.4" n_color="1 1 0" />
 
 
 <Object name="sphere" position="0.0 -1.0 0.0"  scale="1.0"
- color="1.0 1.0 1.0" material="i1ce" texture="xpm/earth1.xpm" refr="0.50" />
+ color="1.0 1.0 1.0" material="i1ce" texture="xpm/earth1.xpm" refr="01.50" />
 <Object name="cube" position="0.0 -1.0 0.0" color="1 0 0"
 refr="0.0" size="1" />
 

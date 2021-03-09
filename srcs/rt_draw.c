@@ -115,7 +115,7 @@ int		progress_bar(t_rt *rt)
 	{
 		// mlx_destroy_image(rt->mlx, rt->img);
 		// rt->img = mlx_new_image(rt->mlx, IMG_WIDTH, IMG_HEIGHT + 8);
-		ft_putstr("--00\n");
+		// ft_putstr("--00\n");
 		ft_bzero(rt->data, IMG_WIDTH * IMG_HEIGHT * 4);
 	}
 	if (RS->key_mvt == 0)
@@ -137,7 +137,7 @@ int		progress_bar(t_rt *rt)
 			progress_fill(rt);
 			RS->progress++;
 			mlx_put_image_to_window(rt->mlx, rt->win, rt->img, FRAME_LFT, FRAME_UP);
-			ft_putendl("aa");
+			// ft_putendl("aa");
 		}
 	}
 	if (RS->key_mvt == 1 && RS->key == 1)
@@ -145,7 +145,6 @@ int		progress_bar(t_rt *rt)
 		rt_start(rt, rt_run_12);
 		RS->progress = 0;
 		RS->key = 0;
-		ft_putendl("12\%");
 		mlx_put_image_to_window(rt->mlx, rt->win, rt->img, FRAME_LFT, FRAME_UP);
 	}
 	return 0;

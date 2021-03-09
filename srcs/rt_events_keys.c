@@ -28,7 +28,7 @@ int    rt_move(int key, t_vec *vec)
 		vec->x += 1;   
 	else
 		return (0);
-	ft_putendl("rt_move--here!");
+	// ft_putendl("rt_move--here!");
 	return(1);
 }
 
@@ -72,6 +72,6 @@ int     rt_rot_event(int key, t_object *o)
     }
     else
         return(0);
-   	ft_putendl("rt_rot--here!");
+   	// ft_putendl("rt_rot--here!");
     return (1);
 }

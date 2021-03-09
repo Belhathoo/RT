@@ -4,9 +4,6 @@
 
 # define FRAME 40
 # define MENU_BAR 180
-# define COND_SLCT1(x) (x > FRAME && x < IMG_WIDTH + FRAME)
-# define COND_SLCT2(y) (y > MENU_BAR && y < IMG_HEIGHT + MENU_BAR)
-# define COND_SELECT(x, y) (COND_SLCT1(x) && COND_SLCT2(y))
 
 void		rt_select_obj(t_rt *rt, int col, int row)
 {
@@ -21,149 +18,9 @@ void		rt_select_obj(t_rt *rt, int col, int row)
 		RS->sl_obj = NULL;
 }
 
-void        save_btn(t_rt *rt)
-{
-	// swap_button_by_id(SAVE_BTN , rt);
-	image_create(rt);  
-}
-
-void        cam_btn(t_rt *rt)
-{
-	RS->key_cam = (RS->key_cam + 1) % 2;
-	swap_button_by_id(CAM_BTN, rt);
-}
-
-void            mvt_btn(t_rt *rt)
-{
-	swap_button_by_id(MVT_BTN , rt);
-	// RS->sl_obj = NULL; // rmve for mac
-	RS->key_mvt = (RS->key_mvt + 1) % 2;
-	if (!RS->key_mvt && RS->key_cam == 1)
-		swap_button_by_id(CAM_BTN, rt);
-	RS->key_cam = 0;
-	RS->key = 1;
-	rt_reset(rt);
-}
-
-void        light_btn(t_rt *rt)
-{
-	if (RS->light)
-		RS->light = NULL;
-	else if (rt->s_light)
-		RS->light = rt->s_light;
-	else
-		return ;
-	swap_button_by_id(LGHT_BTN , rt);
-	rt_reset(rt);
-}
-
-void        dame_btn(t_rt *rt)
-{
-	if (RS->sl_obj->txt.is_txt == 0)
-	{
-		if (RS->sl_obj->noi.is_noise == 0)
-		{
-			RS->sl_obj->noi.is_noise = 1;
-			RS->sl_obj->noi.type = DAMIER;
-			RS->sl_obj->scale = 14;
-		}
-		else if (RS->sl_obj->noi.type == DAMIER)
-			RS->sl_obj->noi.is_noise = 0; // scale!
-		else
-		{
-			RS->sl_obj->scale = 14;
-			RS->sl_obj->noi.type = DAMIER;
-		}
-		rt_reset(rt); //--
-	}
-}
-
-
-void        circ_btn(t_rt *rt)
-{
-	if (RS->sl_obj->txt.is_txt == 0)
-	{
-		if (RS->sl_obj->noi.is_noise == 0)
-		{
-			RS->sl_obj->noi.is_noise = 1;
-			RS->sl_obj->noi.type = CIRCLES;
-			RS->sl_obj->scale = 10;
-		}
-		else if (RS->sl_obj->noi.type == CIRCLES)
-			RS->sl_obj->noi.is_noise = 0; // scale!
-		else
-		{
-			RS->sl_obj->scale = 10;
-			RS->sl_obj->noi.type = CIRCLES;
-		}
-		rt_reset(rt); //--
-	}
-}
-
-void        v1_btn(t_rt *rt)
-{
-	if (RS->sl_obj->txt.is_txt == 0)
-	{
-		if (RS->sl_obj->noi.is_noise == 0)
-		{
-			RS->sl_obj->noi.is_noise = 1;
-			RS->sl_obj->noi.type = VORONOI1;
-			RS->sl_obj->scale = 4;
-		}
-		else if (RS->sl_obj->noi.type == VORONOI1)
-			RS->sl_obj->noi.is_noise = 0; // scale!
-		else
-		{
-			RS->sl_obj->scale = 4;
-			RS->sl_obj->noi.type = VORONOI1;
-		}
-		rt_reset(rt); //--
-	}
-}
-
-void        v2_btn(t_rt *rt)
-{
-	if (RS->sl_obj->txt.is_txt == 0)
-	{
-		if (RS->sl_obj->noi.is_noise == 0)
-		{
-			RS->sl_obj->noi.is_noise = 1;
-			RS->sl_obj->noi.type = VORONOI2;
-			RS->sl_obj->scale = 2.0;
-		}
-		else if (RS->sl_obj->noi.type == VORONOI2)
-			RS->sl_obj->noi.is_noise = 0; // scale!
-		else
-		{
-			RS->sl_obj->scale = 2.0;
-			RS->sl_obj->noi.type = VORONOI2;
-		}
-		rt_reset(rt); //--
-	}
-}
-
-
-void        v3_btn(t_rt *rt)
-{
-	if (RS->sl_obj->txt.is_txt == 0)
-	{
-		if (RS->sl_obj->noi.is_noise == 0)
-		{
-			RS->sl_obj->noi.is_noise = 1;
-			RS->sl_obj->noi.type = VORONOI3;
-			RS->sl_obj->scale = 0.1;
-		}
-		else if (RS->sl_obj->noi.type == VORONOI3)
-			RS->sl_obj->noi.is_noise = 0; // scale!
-		else
-		{
-			RS->sl_obj->scale = 0.1;
-			RS->sl_obj->noi.type = VORONOI3;
-		}
-		rt_reset(rt); //--
-	}
-}
-
+# define COND_SLCT1(x) (x > FRAME && x < IMG_WIDTH + FRAME)
+# define COND_SLCT2(y) (y > MENU_BAR && y < IMG_HEIGHT + MENU_BAR)
+# define COND_SELECT(x, y) (COND_SLCT1(x) && COND_SLCT2(y))
 
 int				rt_mouse(int button, int x, int y, t_rt *rt)
 {
@@ -172,12 +29,14 @@ int				rt_mouse(int button, int x, int y, t_rt *rt)
 
 	if (button == 2)
 		RS->sl_obj = NULL;
-	if (button == 1 && COND_SELECT(x, y))
+	if (button == 1 &&
+		((x > FRAME_LFT && x < IMG_WIDTH + FRAME_RGHT) \
+		&& y > FRAME_UP && y < IMG_HEIGHT + FRAME_DWN))
 	{
-		rt_select_obj(rt, x - FRAME, (int)IMG_HEIGHT - (y - MENU_BAR));
+		rt_select_obj(rt, x - FRAME_LFT, (int)IMG_HEIGHT - (y - FRAME_UP));
 		if (RS->sl_obj != NULL)
 		{
-			ft_putstr("- selected_object: ");
+			ft_putstr(" - selected_object:");
 			ft_putendl(RS->sl_obj->name);
 		}
 	}
@@ -188,11 +47,12 @@ int				rt_mouse(int button, int x, int y, t_rt *rt)
 			save_btn(rt);
 		if (btn == MVT_BTN)
 			mvt_btn(rt);
-		if (RS->key_mvt)
+		if (RS->key_mvt == 1)
 		{
 			(btn == LGHT_BTN) ? light_btn(rt) : 0;
-			(btn == CAM_BTN) ? cam_btn(rt) : 0;
-			if (RS->sl_obj != NULL)
+			if (btn == CAM_BTN)
+				cam_btn(rt);
+			else if (RS->sl_obj != NULL)
 			{
 				(btn == DAME_BTN ) ? dame_btn(rt) : 0;
 				(btn == CIRC_BTN ) ? circ_btn(rt) : 0;
