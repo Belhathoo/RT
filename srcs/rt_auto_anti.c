@@ -35,7 +35,7 @@ t_vec			infinite_pixels(t_thread *t, t_vec cr, int select, t_vec cl)
 	color = cl;
 	while (++i < select)
 	{
-		tmp = my_mlx_getpixel(t->rt->scene->data1[i], cr.x , IMG_HEIGHT - cr.y);
+		tmp = my_mlx_getpixel(t->RS->data1[i], cr.x , IMG_HEIGHT - cr.y);
 		color = vec_add(color, tmp);
 	}
 	return (color);
@@ -148,10 +148,10 @@ t_vec		anti_aa(t_thread *t, double col, double row, int select)
 	t_vec color;
 	t_vec	colo = (t_vec){0, 0, 0};
 	t_ray r;
-	double anti_a = sqrt(t->rt->scene->max_anti_a);
-	r = rt_get_ray(&t->rt->scene->cam, (double)((col + ((tab[select].x + 0.5)/ anti_a)) / IMG_WIDTH), (double)((row + ((tab[select].y + 0.5) / anti_a)) / IMG_HEIGHT));
+	double anti_a = sqrt(t->RS->max_anti_a);
+	r = rt_get_ray(&t->RS->cam, (double)((col + ((tab[select].x + 0.5)/ anti_a)) / IMG_WIDTH), (double)((row + ((tab[select].y + 0.5) / anti_a)) / IMG_HEIGHT));
 	color = rt_raytracer(t, r, MAX_DEPTH);
 	colo = infinite_pixels(t, (t_vec){col, row , 0}, select, color);
-	my_mlx_putpixel(t->rt->scene->data1[select], col, IMG_HEIGHT - row, color);
+	my_mlx_putpixel(t->RS->data1[select], col, IMG_HEIGHT - row, color);
 	return(colo);
 }

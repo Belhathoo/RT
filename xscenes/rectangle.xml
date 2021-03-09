@@ -9,8 +9,9 @@
 
 <Option aa="2"/>
 
-<Object name="rectangle" direction="0 0 10" rotation="0 0 0" color="1 1 1" material="a0l" 
+<Object name="rectangle" direction="0 0 10" rotation="0 0 0" color="0 1 1"
+ material="bl_plasc" 
 position="0 0 0">
 
 
-<Light position="2 5 -10"/>
+<Light position="0 0 10"/>

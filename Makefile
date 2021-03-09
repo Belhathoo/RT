@@ -8,7 +8,10 @@ SRCS = rt.c\
 		rt_parse_utils.c\
 		rt_parse_check.c\
 		rt_events.c\
+		rt_events_keys.c\
+		rt_events_mouse.c\
 		rt_buttons.c\
+		rt_buttons_noi.c\
 		rt_bmp_extractor.c\
 		rt_draw.c\
 		rt_draw_utils.c\

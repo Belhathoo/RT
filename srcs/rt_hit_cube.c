@@ -17,14 +17,18 @@ int				rt_hit_cube(t_object *obj, t_ray *r,  t_hit *rec)
 		if (o->hit(o, r, &record))
 		{
 			check_hit = 1;
+			record.closest = record.t;
+	
 			rec->t = record.t;
 			rec->p = record.p;
 			rec->n = record.n;
 			rec->u = record.u;
 			rec->v = record.v;
 			rec->closest = rec->t;
-			rec->curr_obj = o;
+			RRC = o;
 			rec->ray = r;
+			// record.ray = r;
+			// *rec = record;
 		}
 		o = o->compos;	
 	}

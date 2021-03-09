@@ -23,7 +23,7 @@ t_vec  rt_torus_noise(t_hit *rec)
 	int j;
     int oddity;
 	t_object *o;
-	o= rec->curr_obj;
+	o= RRC;
 
 	i = (int)(10 * rec->u);
 	j = (int)(10 * rec->v);

@@ -146,10 +146,35 @@ int             tranc_txt(t_ray *ray, t_object *obj, t_hit *rec);
 
 int				rt_mouse(int button, int x, int y, t_rt *rt);
 int				rt_keys(int key, t_rt *rt);
+
+int             rt_move(int key, t_vec *vec);
+int             rt_rot_event(int key, t_object *o);
+
+void      rt_redraw(t_rt *rt);
+
+void        save_btn(t_rt *rt);
+void        mvt_btn(t_rt *rt);
+void        cam_btn(t_rt *rt);
+void        light_btn(t_rt *rt);
+void        dame_btn(t_rt *rt);
+void        circ_btn(t_rt *rt);
+void        v1_btn(t_rt *rt);
+void        v2_btn(t_rt *rt);
+void        v3_btn(t_rt *rt);
+
+
 void	        create_buttons(int	size, t_rt *rt);
-void	swap_button_by_id(int	id, t_rt *rt);
+void        	swap_button_by_id(int	id, t_rt *rt);
 void	image_create(t_rt *rt);
 int		get_selected_button(int x, int y, t_rt *rt);
+
+
+t_button	*damier_button(t_rt *rt);
+t_button	*circles_button(t_rt *rt);
+t_button	*voronoi1_button(t_rt *rt);
+t_button	*voronoi2_button(t_rt *rt);
+t_button	*voronoi3_button(t_rt *rt);
+
 
 
 /*

@@ -6,7 +6,7 @@
   fov="60"
   />
 
-<Option aa="9.0" amb="0.3"/>
+<Option aa="9.0" amb="0.13"/>
 
 <Object name="plan" position="0 -4.5 0" direction="0 0 -1" position="0 0 -20"
 material="water" refr="1.0" color="10 10 10" scale="1.5" noise="voronoi2" />
@@ -27,10 +27,10 @@ noise="damier" radius="8.0" scale="4" n_color="1 1 0" />
 
 
 <Object name="sphere" position="0.0 -1.0 0.0"  scale="1.0"
- color="1.0 1.0 1.0" material="ice" texture="xpm/earth1.xpm" refr="01.240" />
+ color="1.0 1.0 1.0" material="i1ce" texture="xpm/earth1.xpm" refr="0" />
 <Object name="cube" position="0.0 -1.0 0.0" color="1 0 0"
 refr="0.0" size="1" />
 
 
 
-<Light position="0.0 10 10" color="1 1 1.0"/>
+<Light position="0.0 10 -10" color="1 1 1.0"/>

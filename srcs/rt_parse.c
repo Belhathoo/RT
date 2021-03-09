@@ -20,7 +20,7 @@ void  rt_add_camera(t_tag *tag, t_rt *rt)
 		tag->attr = tag->attr->next;
 	}
 	rt_check_cam(cam, rt);
-	rt->scene->cam = rt_init_camera(cam.lookfrom, cam.lookat, cam.fov);
+	RS->cam = rt_init_camera(cam.lookfrom, cam.lookat, cam.fov);
 }
 
 void  rt_add_object(t_tag *tag, t_rt *rt)
@@ -33,7 +33,7 @@ void  rt_add_object(t_tag *tag, t_rt *rt)
 	t_object	*tmp;
 
 	obj = rt_init_object();
-	tmp = rt->scene->object;
+	tmp = RS->object;
 	while (tag->attr)
 	{
 		if (!ft_strcmp(tag->attr->name, "name"))
@@ -92,7 +92,7 @@ void  rt_add_object(t_tag *tag, t_rt *rt)
 		tag->attr = tag->attr->next;
 	}
 	rt_check_obj(obj, rt);
-	rt->scene->object = obj;
+	RS->object = obj;
 	obj->next = tmp;
 }
 
@@ -115,7 +115,7 @@ void	rt_add_light(t_tag *tag, t_rt *rt)
 	t_light	*tmp;
 
 	l = rt_init_light();
-	tmp = rt->scene->light;
+	tmp = RS->light;
 	while (tag->attr)
 	{
 		if (!ft_strcmp(tag->attr->name, "type"))
@@ -135,7 +135,7 @@ void	rt_add_light(t_tag *tag, t_rt *rt)
 		tag->attr = tag->attr->next;
 	}
 	// rt_check_lights(l, rt);
-	rt->scene->light = l;
+	RS->light = l;
 	l->next = tmp;
 }
 
@@ -144,16 +144,16 @@ void  rt_add_option(t_tag *tag, t_rt *rt)
 	while(tag->attr)
 	{
 		if (!ft_strcmp(tag->attr->name, "aa"))
-			rt->scene->aa = rt_ctod(tag->attr->value, rt); //atoi
+			RS->aa = rt_ctod(tag->attr->value, rt); //atoi
 		if (!ft_strcmp(tag->attr->name, "amb"))
-			rt->scene->ambient = rt_ctod(tag->attr->value, rt);
+			RS->ambient = rt_ctod(tag->attr->value, rt);
 //		if (!ft_strcmp(tag->attr->name, "filter"))
 //			rt->filter = fnct for filters;		
 		tag->attr = tag->attr->next;
 	}
-	if (rt->scene->aa <= 0 )
+	if (RS->aa <= 0 )
 		rt_exit(rt, "aa should be a positive int", EXIT_FAILURE);
-	// rt->scene->ambient = ft_clamping(rt->scene->ambient);
+	// RS->ambient = ft_clamping(RS->ambient);
 }
 
 
@@ -165,7 +165,7 @@ void  rt_add_neg_object(t_tag *tag, t_rt *rt)
 	
 	t_object	obj;
 
-	if (rt->scene->is_neg != 0)
+	if (RS->is_neg != 0)
 		rt_exit(rt, "Only one negative object allowed.", EXIT_FAILURE);
 
 	obj = rt_init_neg_object();
@@ -189,8 +189,8 @@ void  rt_add_neg_object(t_tag *tag, t_rt *rt)
 		tag->attr = tag->attr->next;
 	}
 	rt_check_neg_obj(&obj, rt);
-	rt->scene->is_neg = 1;
-	rt->scene->n_obj = obj;
+	RS->is_neg = 1;
+	RS->n_obj = obj;
 }
 
 void  xml_to_rt(t_xml *x, t_rt *rt)
@@ -226,7 +226,7 @@ void rt_parser(t_rt *rt, char **argv)
 		xml_exit(x, "-1\n", EXIT_FAILURE);
 	// err. (check redo in main libxml)
 	xml_to_rt(x, rt);
-	// printf("%d", rt->scene->light->type);
+	// printf("%d", RS->light->type);
 	rt->name_sc = argv[1];
 	xml_close(x);
 }

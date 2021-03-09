@@ -108,8 +108,6 @@ typedef struct	s_o
 	t_vec		dir;
 	t_vec		rot;//rotation
 	t_vec		col;
-	// double		u;
-	// double		v;
 	t_vec		vec1;
 	t_vec		vec2;
 
@@ -126,7 +124,6 @@ typedef struct	s_o
 	float		refl;
 	float		refr;
 	
-	//slice solution
 	double		sl_sl;
 
 
@@ -205,9 +202,9 @@ typedef struct	s_scene
 	int			max_anti_a;
 	int			progress;
 	int			select;
-	int			key;
+	int			key_mvt;
 	int			key_cam;
-	int			key2;
+	int			key;
 	t_vec		data1[9][IMG_WIDTH*IMG_HEIGHT];//IMG_WIDTH*IMG_HEIGHT
 
 	t_object	n_obj;
@@ -229,9 +226,10 @@ typedef struct	s_rt
 
 	int			save_order;
 	t_button	**bt;
-	t_light		s_light;
 	int			size_bt;
-
+	t_vec		btns_up;
+	t_vec		btns_noi;
+	t_light		*s_light;
 }				t_rt;
 
 

@@ -61,8 +61,8 @@ void    rt_exit(t_rt *rt, char *m,  int err)
 		rt = NULL; //unused error fixing
 		exit(err);
 	}
-		rt_free_lights(rt->scene->light);
-		rt_free_objects(rt->scene->object);
+		rt_free_lights(RS->light);
+		rt_free_objects(RS->object);
 		free(rt->bt);
 		free(rt->scene);
 	exit(err);

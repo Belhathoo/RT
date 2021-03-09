@@ -146,8 +146,9 @@ t_scene		*rt_init_scene(void)
 	scene->light = NULL;
 	scene->sl_obj = NULL;
 	scene->is_neg = 0;
-	scene->key = 1;
-	scene->key2 = 0;
+	scene->key_cam = 0;
+	scene->key_mvt = 0;
+	scene->key = 0;
 	return (scene);
 }
 

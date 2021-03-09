@@ -48,7 +48,7 @@ t_vec		rt_lighting(t_thread *th, t_light *l)
 
 	t_vec	l_vec;
 	color = vec3(0.0);
-	rt_ambient(th->rt->scene->ambient, l, th->rec, &color);
+	rt_ambient(th->RS->ambient, l, th->rec, &color);
 	while (l)
 	{
 		// if (l->type == PL_LIGHT) 
