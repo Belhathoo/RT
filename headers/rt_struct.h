@@ -32,7 +32,8 @@ typedef	struct	s_texture
 	int			*buf;
 	int			width;
 	int			height;
-	float		scale;
+	double		scale;
+	double		mv;
 }				t_texture;
 
 typedef struct	s_noise
@@ -196,15 +197,18 @@ typedef struct	s_scene
 	t_light		*light;
 	t_object	*object;
 	t_object	*sl_obj;
-	float		ambient;
+	
 	int			aa;
+	double		ambient;
+	double		stereo;
+	
+	int			key_mvt;
+	int			key_cam;
+	int			key;
 
 	int			max_anti_a;
 	int			progress;
 	int			select;
-	int			key_mvt;
-	int			key_cam;
-	int			key;
 	t_vec		data1[9][IMG_WIDTH*IMG_HEIGHT];//IMG_WIDTH*IMG_HEIGHT
 
 	t_object	n_obj;

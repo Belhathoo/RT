@@ -1,4 +1,15 @@
 /* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rt.c                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: belhatho <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/10 18:34:40 by belhatho          #+#    #+#             */
+/*   Updated: 2021/03/10 18:34:45 by belhatho         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <rt.h>
 
 void background(t_rt *rt)
@@ -26,12 +37,12 @@ int main(int argc, char **argv)
 
 
 	rt_init(&rt);
-	rt.scene = rt_init_scene();
+	rt.scene = rt_init_scene(&rt);
 	rt.mlx = mlx_init();
 	if (argc == 2)
 		rt_parser(&rt, argv);
 	else
-		rt_exit(&rt, ft_strdup("usage: ./rt scene_file"), EXIT_FAILURE);
+		rt_exit(&rt, 0, ft_strdup("usage: ./rt scene_file"), EXIT_FAILURE);
 	rt.win = mlx_new_window(rt.mlx, WIN_WIDTH, WIN_HEIGHT, "RT");
 	rt.img = mlx_new_image(rt.mlx, IMG_WIDTH, IMG_HEIGHT);
 	rt.data = (int*)mlx_get_data_addr(rt.img, &rt.bpp, &rt.size, &rt.endian);

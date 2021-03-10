@@ -32,7 +32,7 @@ void  rt_add_object(t_tag *tag, t_rt *rt)
 	t_object	*obj;
 	t_object	*tmp;
 
-	obj = rt_init_object();
+	obj = rt_init_object(rt);
 	tmp = RS->object;
 	while (TA)
 	{
@@ -77,7 +77,7 @@ void  rt_add_object(t_tag *tag, t_rt *rt)
 		else if (!ft_strcmp(TA->name, "material"))
 			obj->material = ft_strdup(TA->value);
 		else if (!ft_strcmp(TA->name, "refl"))
-			obj->refl = rt_ctod(TA->value, rt);
+			obj->refl = ft_clamping(rt_ctod(TA->value, rt));
 		else if (!ft_strcmp(TA->name, "refr"))
 			obj->refr = rt_ctod(TA->value, rt);
 
@@ -87,7 +87,7 @@ void  rt_add_object(t_tag *tag, t_rt *rt)
 			obj->sl_pnt = rt_ctovec(TA->value, rt);
 
 		else
-			rt_exit(rt, ft_strjoin(tag->name, ": Unknown attribut"), EXIT_FAILURE);
+			rt_exit(rt, tag->name, ": Unknown attribut", EXIT_FAILURE);
 		TA = TA->next;
 	}
 	rt_check_obj(obj, rt);
@@ -104,7 +104,7 @@ int		rt_check_light_type(t_rt *rt, char *val)
 	else if (!ft_strcmp(val, "parallel"))
 		return (PL_LIGHT);
 	else
-		rt_exit (rt, "light type unknown", EXIT_FAILURE);
+		rt_exit(rt, "", "light type unknown", EXIT_FAILURE);
 	return (-1);
 }
 
@@ -113,7 +113,7 @@ void	rt_add_light(t_tag *tag, t_rt *rt)
 	t_light *l;
 	t_light	*tmp;
 
-	l = rt_init_light();
+	l = rt_init_light(rt);
 	tmp = RS->light;
 	while (TA)
 	{
@@ -143,30 +143,30 @@ void  rt_add_option(t_tag *tag, t_rt *rt)
 	while(TA)
 	{
 		if (!ft_strcmp(TA->name, "aa"))
-			RS->aa = rt_ctod(TA->value, rt); //atoi
-		if (!ft_strcmp(TA->name, "amb"))
+			RS->aa = (int)rt_ctod(TA->value, rt); //atoi
+		else if (!ft_strcmp(TA->name, "amb"))
 			RS->ambient = rt_ctod(TA->value, rt);
-//		if (!ft_strcmp(TA->name, "filter"))
-//			rt->filter = fnct for filters;		
+		else if (!ft_strcmp(TA->name, "stereo"))
+			RS->stereo = rt_ctod(TA->value, rt);
+		else if (!ft_strcmp(TA->name, "filter"))
+			rt->filter = NONE_FILTER; //fnct for filters;		
 		TA = TA->next;
 	}
-	if (RS->aa <= 0 )
-		rt_exit(rt, "aa should be a positive int", EXIT_FAILURE);
-	// RS->ambient = ft_clamping(RS->ambient);
+	/* filter fnct */
+	if (RS->aa <= 0 || RS->aa > 9)
+		rt_exit(rt, "Option: aa", "should be positive & <= 9", EXIT_FAILURE);
+	if (RS->stereo < 0 || RS->stereo > 10)
+		rt_exit(rt, "Option: Stereo", "should be positive & <= 10", EXIT_FAILURE);
+	RS->ambient = ft_clamping(RS->ambient);
 }
 
 
 void  rt_add_neg_object(t_tag *tag, t_rt *rt)
 {
-	/*
-		add different attributes Direction and Rotation !! redo rots functions!!
-	*/
-	
 	t_object	obj;
 
 	if (RS->is_neg != 0)
-		rt_exit(rt, "Only one negative object allowed.", EXIT_FAILURE);
-
+		rt_exit(rt, "", "Only one negative object allowed.", EXIT_FAILURE);
 	obj = rt_init_neg_object();
 	while (TA)
 	{

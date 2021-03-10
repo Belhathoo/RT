@@ -27,7 +27,7 @@ t_object rt_sl_plan(t_object *o, t_vec ax)
 
 int		in_sphere(t_object *o)
 {
-	if (vec_length(vec_sub(o->sl_pnt, o->pos)) >= o->size)
+	if (vec_length(vec_sub(o->sl_pnt, o->pos)) >= o->radius)
 		return (0);
 	return (1);
 }
@@ -35,6 +35,7 @@ int		in_sphere(t_object *o)
 int		in_cylindr(t_object *o)
 {
 	//// recheck !!
+
 	t_vec a;
 	t_vec b;
 	double c;
@@ -42,13 +43,15 @@ int		in_cylindr(t_object *o)
 	a = vec_sub(o->pos, o->sl_pnt);
 	b = vec_cross(a, o->rot);
 	c = vec_length(b) / vec_length(o->rot);
-	if (c >= o->size)
+	if (c >= o->radius)
 		return (0);
 	return (1);
 }
 
 int			rt_slicing(t_object *o, t_ray *r, t_hit *rec)
 {
+
+	//// jessie !!!!!!
 	t_vec     ax;
 	t_vec     my;
   	t_object  plan;

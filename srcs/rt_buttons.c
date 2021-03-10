@@ -45,7 +45,7 @@ void        light_btn(t_rt *rt)
 		RS->light = rt->s_light;
 	else
 		return ;
-	// swap_button_by_id(LGHT_BTN , rt);
+	swap_button_by_id(LGHT_BTN , rt);
 	rt_reset(rt);
 }
 

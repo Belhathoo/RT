@@ -20,15 +20,13 @@ void      rt_reset(t_rt *rt)
 	if(RS->key_cam == 1)
 	{
 		RS->cam = rt_init_camera(RS->cam.lookfrom,
-				RS->cam.lookat, RS->cam.fov);
-	// RS->key = 1;
-	
+				RS->cam.lookat, RS->cam.fov);	
 	}
 	else if (RS->sl_obj)
 	{
-		rt_get_repere(RS->sl_obj);// vec1/2 already in rot !!
+		// rt_get_repere(RS->sl_obj);// vec1/2 already in rot !!
 		if (RS->sl_obj->compos)
-			get_cube_compos(RS->sl_obj);
+			get_cube_compos(RS->sl_obj, rt);
 	}
 	RS->key = 1;
 }

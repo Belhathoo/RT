@@ -59,18 +59,6 @@ void	swap_void(void *dflt, void *img, size_t n)
 	img = p;
 }
 
-void	unselect_btn_id(int	id, t_rt *rt)
-{
-	ft_memcpy(rt->bt[id]->data, rt->bt[id]->img_data, sizeof(int) * rt->bt[id]->w * rt->bt[id]->h);
-	mlx_put_image_to_window(rt->mlx, rt->win, rt->bt[id]->data_data, (int)rt->bt[id]->pos.x, (int)rt->bt[id]->pos.y);	
-}
-
-void	select_btn_id(int	id, t_rt *rt)
-{
-	ft_memcpy(rt->bt[id]->data, rt->bt[id]->deflt_data, sizeof(int) * rt->bt[id]->w * rt->bt[id]->h);
-	mlx_put_image_to_window(rt->mlx, rt->win, rt->bt[id]->data_data, (int)rt->bt[id]->pos.x, (int)rt->bt[id]->pos.y);	
-}
-
 void	swap_button_by_id(int	id, t_rt *rt)
 {
 	// swap_void(rt->bt[id]->deflt_data, rt->bt[id]->img_data,
@@ -94,7 +82,7 @@ t_button	*save_button(t_rt *rt)
 	ret->data_data = mlx_xpm_file_to_image(rt->mlx ,"buttons/save0.xpm", &ret->w, &ret->h);
 	if (!ret->img || !ret->deflt || !ret->data_data)
 	{
-		rt_exit(rt, "buttons : img unfound", EXIT_FAILURE);
+		rt_exit(rt, 0, "buttons : img unfound", EXIT_FAILURE);
 	}
 	ret->deflt_data = (int*)mlx_get_data_addr(ret->deflt, &ret->bpp, &ret->size, &ret->endian);
 	ret->img_data = (int*)mlx_get_data_addr(ret->img, &ret->bpp, &ret->size, &ret->endian);

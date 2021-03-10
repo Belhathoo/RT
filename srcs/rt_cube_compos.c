@@ -17,10 +17,10 @@ void	rt_init_compos(t_object *obj, t_object *comp)
 	comp->compos = NULL;
 }
 
-static void		get_cube_compos1(t_object *obj, t_object **comp, int side)
+static void		get_cube_compos1(t_object *obj, t_object **comp, int side, t_rt *rt)
 {
 	if (!(*comp = (struct s_o *)malloc(sizeof(struct s_o))))
-		rt_perror();
+		rt_exit(rt, "Cannote allocate", "", EXIT_FAILURE);
 	rt_init_compos(obj, *comp);
 	(*comp)->vec1 = obj->vec1;
 	(*comp)->vec2 = obj->vec2;
@@ -40,10 +40,10 @@ static void		get_cube_compos1(t_object *obj, t_object **comp, int side)
 }
 
 
-static void	get_cube_compos2(t_object *obj, t_object **comp, int side)
+static void	get_cube_compos2(t_object *obj, t_object **comp, int side, t_rt *rt)
 {
 	if (!(*comp = (struct s_o *)malloc(sizeof(struct s_o))))
-		rt_perror();
+		rt_exit(rt, "Cannote allocate", "", EXIT_FAILURE);
 	rt_init_compos(obj, *comp);
 	(*comp)->vec1 = obj->rot;
 	(*comp)->vec2 = obj->vec1;
@@ -62,10 +62,10 @@ static void	get_cube_compos2(t_object *obj, t_object **comp, int side)
 	(*comp)->next = NULL;
 }
 
-static void		get_cube_compos3(t_object *obj, t_object **comp, int side)
+static void		get_cube_compos3(t_object *obj, t_object **comp, int side, t_rt *rt)
 {
 	if (!( *comp  = (struct s_o *)malloc(sizeof(struct s_o))))
-		rt_perror();
+		rt_exit(rt, "Cannote allocate", "", EXIT_FAILURE);
 	rt_init_compos(obj, *comp);
 	(*comp)->vec1 = obj->vec2;
 	(*comp)->vec2 = obj->rot;
@@ -84,14 +84,14 @@ static void		get_cube_compos3(t_object *obj, t_object **comp, int side)
 	(*comp)->next = NULL;
 }
 
-void		get_cube_compos(t_object *obj)
+void		get_cube_compos(t_object *obj, t_rt *rt)
 {
 	obj->dist = obj->size;
-	get_cube_compos1(obj, &(obj->compos), 1);
-	get_cube_compos1(obj, &(obj->compos->compos), 2);
-	get_cube_compos2(obj, &(obj->compos->compos->compos), 3);
-	get_cube_compos2(obj, &(obj->compos->compos->compos->compos), 4);
-	get_cube_compos3(obj, &(obj->compos->compos->compos->compos->compos), 5);
-	get_cube_compos3(obj, &(obj->compos->compos->compos->compos->compos->compos), 6);
+	get_cube_compos1(obj, &(obj->compos), 1, rt);
+	get_cube_compos1(obj, &(obj->compos->compos), 2, rt);
+	get_cube_compos2(obj, &(obj->compos->compos->compos), 3, rt);
+	get_cube_compos2(obj, &(obj->compos->compos->compos->compos), 4, rt);
+	get_cube_compos3(obj, &(obj->compos->compos->compos->compos->compos), 5, rt);
+	get_cube_compos3(obj, &(obj->compos->compos->compos->compos->compos->compos), 6, rt);
 	obj->compos->compos->compos->compos->compos->compos->compos = NULL;
 }

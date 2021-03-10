@@ -5,19 +5,18 @@
 lookfrom="-5.0 5.0 15"
   />
 
-<Object name="l_cylinder" height="3.0" position="8.0 0.0 0.0" direction="0 1.0  0.75" 
+<Object name="l_cylinder" height="4.0" position="8.0 0.0 0.0" direction="0 1.0  0.75" 
 translation="0 2 0" radius="2.0" color="0.5 0 0"  />
 
 
-<Object name="l_cone" height="3.0" width="4.5" 
-position="-6.0 2.0 0.0" direction="1.0 -1.0 10" 
+<Object name="l_cone" height="-2.0" width="4.5" 
+position="-6.0 2.0 0.0"
 angle="60" color="0.5 2 1"  />
 
 
-<Object name="cube" size="3" height="2.50" width="3.0" position="-0.0 2.0 02.0" 
+<Object name="rectangle" size="3" height="2.50" width="3.0" position="-0.0 2.0 02.0" 
 direction="0 01.0 0.0" angle="60" color="0.0 0.5 0.9"
 material="ice"/>
 
 
 <Light position="0 10 5.0" intensity="1.0" />
-<Light position="10 10 2" intensity="1.0" />

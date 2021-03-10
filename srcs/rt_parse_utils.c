@@ -8,7 +8,7 @@ t_vec   rt_ctovec(char *str, t_rt *rt)
 
 	each = ft_strsplit(str, ' ');
 	if (ft_twodimlen(each) != 3)
-		rt_exit(rt, "must be three values for Vectors data.\n", EXIT_FAILURE);
+		rt_exit(rt, "", "must be three values for Vectors data.\n", EXIT_FAILURE);
 	ret.x = ft_atod(each[0]);
 	ret.y = ft_atod(each[1]);
 	ret.z = ft_atod(each[2]);
@@ -23,7 +23,7 @@ double   rt_ctod(char *str, t_rt *rt)
 
 	each = ft_strsplit(str, ' ');
 	if (!each || ft_twodimlen(each) != 1)
-		rt_exit(rt, "must be One value for such data.\n", EXIT_FAILURE);
+		rt_exit(rt, "", "must be One value for such data.\n", EXIT_FAILURE);
 	ret= ft_atod(each[0]);
 	ft_free_twodim(&each);
 	return (ret);
@@ -34,18 +34,19 @@ t_texture   rt_ctotxt(char *str, t_rt *rt)
 {
 	char        **each;
 	t_texture   txt;
-	// int bpp, size, endian;
 
 	each = ft_strsplit(str, ' ');
 	if (!each || ft_twodimlen(each) != 1)
-		rt_exit(rt, "must be One value for texture data.\n", EXIT_FAILURE);
+	{
+		ft_free_twodim(&each);
+		rt_exit(rt, "", "must be One value for texture data.\n", EXIT_FAILURE);
+	}
 	txt = rt_init_txt();
 	txt.img = mlx_xpm_file_to_image(rt->mlx, each[0], &txt.width, &txt.height);
-	// printf("w %.2d || h %.2d\n ", txt.width, txt.height);
 	if (!txt.img)
 	{
 		ft_free_twodim(&each);
-		rt_exit(rt, "Texture: file unsupported", EXIT_FAILURE);
+		rt_exit(rt, "Texture: ", " file unsupported", EXIT_FAILURE);
 	}
 	txt.buf = (int *)mlx_get_data_addr(txt.img, &rt->bpp,  &rt->size, &rt->endian);	
 	ft_free_twodim(&each);

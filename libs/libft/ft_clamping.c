@@ -16,7 +16,8 @@ double		ft_clamping(double value)
 {
 	if (value < 0.0)
 		return (0.0);
-	if (value > 1.0)
+	else if (value > 1.0)
 		return (1.0);
-	return (value);
+	else
+		return (value);
 }

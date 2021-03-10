@@ -105,7 +105,7 @@ int				rt_solve_cubic(double w[4], double s[3]);
 int				rt_solve_quadric(double w[3], double s[2]);
 int				is_zero(double delta);
 void			add_compos(t_object *o, t_vec r, int x, t_object *head);
-void    		get_cube_compos(t_object *obj);
+void    		get_cube_compos(t_object *obj, t_rt *rt);
 t_vec			rotation(t_vec dir, t_vec rot);
 void		ft_float_swap(double *a, double *b);
 
@@ -180,29 +180,28 @@ t_button	*voronoi3_button(t_rt *rt);
 /*
  * Init
  */
-t_scene			*rt_init_scene(void);
-t_object		*rt_init_object(void);
-t_object		rt_init_neg_object(void);
-t_light			*rt_init_light(void);
-t_camera		rt_init_camera(t_vec lookfrom, t_vec lookat, double vfov);
 void			rt_init(t_rt *rt);
+t_scene			*rt_init_scene(t_rt *rt);
+t_object		*rt_init_object(t_rt *rt);
+t_object		rt_init_neg_object(void);
+t_light			*rt_init_light(t_rt *rt);
+t_camera		rt_init_camera(t_vec lookfrom, t_vec lookat, double vfov);
 
 /*
  * Close
  */
 
-void			rt_perror(void);
-void			rt_exit(t_rt *rt, char *msg, int err);
+void			rt_exit(t_rt *rt, char *m1, char *msg, int err);
 int				rt_close(t_rt *rt);
 
 /*
  * Negatives
  */
-int		negative(t_hit *record);
+int		    negative(t_hit *record);
 int			rt_negative_sphere(t_object *sphere, t_ray *r, t_hit *rec);
 int			rt_negative_cylinder(t_object *o, t_ray *r, t_hit *rec);
 int			rt_negative_cone(t_object *o, t_ray *r, t_hit *rec);
-void	rt_init_negative(t_hit *rec);
+void    	rt_init_negative(t_hit *rec);
 
 
 /*

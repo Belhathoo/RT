@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rt_init.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: belhatho <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/10 17:51:04 by belhatho          #+#    #+#             */
+/*   Updated: 2021/03/10 17:51:05 by belhatho         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 # include <rt.h>
 
 t_camera	rt_init_camera(t_vec lookfrom, t_vec lookat, double vfov)
@@ -9,8 +21,6 @@ t_camera	rt_init_camera(t_vec lookfrom, t_vec lookat, double vfov)
 	tmp = vec_unit(vec_sub(lookat, lookfrom));
 	vup = vec_unit(vec(0.0, 1.0, 0.0));
 
-	// if (tmp.x == vup.x && tmp.y == vup.y && tmp.z == vup.z)
-	// 	vup.y += 0.01;// = vec_add_k(vup, 0.0001);
 	if (!(vec_dot(vec_cross(tmp, vup), vec3(1.0))))
 		vup = vec_add_k(vup, 0.01);
 	c.half_h = tan((vfov * M_PI / 180.0) / 2.0);
@@ -41,16 +51,12 @@ t_texture		rt_init_txt(void)
 	return (txt);
 }
 
-
 t_object		rt_init_neg_object(void)
 {
 	t_object obj;
 
-	/*
-	   recheck perror!! */
 	obj.name = NULL;
 	obj.pos = vec(0.0, 0.0, 0.0);
-	obj.size = 2.0;
 	obj.angle = 30.0;
 	obj.radius = 2.0;
 	obj.dir = vec(0.0, 1.0, 0.0);
@@ -64,15 +70,14 @@ t_object		rt_init_neg_object(void)
 }
 
 
-t_light			*rt_init_light(void)
+t_light			*rt_init_light(t_rt *rt)
 {
 	t_light	*light;
 
 	// recheck for other initialis// parameters
-	// init depends on the type ! plus default light!!
+
 	if (!(light = (struct s_l*)malloc(sizeof(struct s_l))))
-		rt_perror();
-	// rt_exit(rt, "Cannot allocate\n", EXIT_FAILURE);
+		rt_exit(rt, "Cannot allocate\n", "", EXIT_FAILURE);
 	light->type = PT_LIGHT;
 	light->angle = 30.0;
 	light->pos = vec(5.0, 5.0, 15.0);
@@ -94,14 +99,12 @@ t_noise			rt_init_noise(void)
 	return (n);
 }
 
-t_object		*rt_init_object(void)
+t_object		*rt_init_object(t_rt *rt)
 {
 	t_object *obj;
 
-	/*
-	   recheck perror!! */
 	if (!(obj = (struct s_o*)malloc(sizeof(struct s_o))))
-		rt_perror();
+		rt_exit(rt,"Cannot allocate!", "", EXIT_FAILURE);
 
 	obj->name = NULL;
 	obj->material = NULL; // make default material!!
@@ -131,12 +134,12 @@ t_object		*rt_init_object(void)
 	return (obj);
 }
 
-t_scene		*rt_init_scene(void)
+t_scene		*rt_init_scene(t_rt *rt)
 {
 	t_scene *scene;
 
 	if (!(scene = (struct s_scene*)malloc(sizeof(struct s_scene))))
-		rt_perror();
+		rt_exit(rt,"Cannot allocate!", 0, EXIT_FAILURE);
 	scene->progress = 1;
 	scene->select = 0;
 	scene->max_anti_a = 9;
