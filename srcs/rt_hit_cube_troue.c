@@ -24,7 +24,7 @@ int     rt_cube_params(t_object *obj, t_ray *ray, t_hit *record)
 	c[0] = (x.x * x.x * x.x * x.x) + (x.y * x.y * x.y * x.y) +
 	(x.z * x.z * x.z * x.z) - 5 * ((x.x * x.x) + (x.y * x.y) + (x.z * x.z)) +
 	11.8;
-    return(rt_check_distance(obj, c, record, ray));
+    return(rt_check_distance(c, record));
 }
 
 

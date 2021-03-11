@@ -4,9 +4,10 @@
 void    cone_uv(t_object *o, t_hit *rec)
 {
 	t_vec d;
-  d = vec_sub(rec->p, o->pos);
-	 if (o->txt.is_txt)
- 	 d = vec_div_k(d, o->scale);
+
+  	d = vec_sub(rec->p, o->pos);
+	if (o->txt.is_txt)
+ 		d = vec_div_k(d, o->scale);
 	d = vec(vec_dot(d, o->vec1), vec_dot(d, o->rot), vec_dot(d, o->vec2));
 	rec->u= (atan2(d.x, d.z) + M_PI / (2.0 * M_PI));
 	rec->v= d.y;
@@ -27,8 +28,6 @@ t_vec  normale_cone(t_object *o, t_ray *r, t_hit *rec)
 
 int			rt_cone_params(t_object *o, t_ray *r, t_hit *rec)
 {
-	double min_sol;
-
 	rec->or = vec_sub(r->origin, o->pos);
 	rec->coef[0] = vec_dot(r->dir, r->dir) - ((1 + pow(tan(o->angle), 2))
 			* pow(vec_dot(r->dir, o->rot), 2));

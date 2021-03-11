@@ -36,39 +36,39 @@ int     rt_rot_event(int key, t_object *o)
 {
 	if (key == K_X)
 	{
-		o->rot = rt_rotX(o->rot, 2.5);
-		o->vec2 = rt_rotX(o->vec2, 2.5);
-		o->vec1 = rt_rotX(o->vec1, 2.5);
+		o->rot = rt_rotx(o->rot, 2.5);
+		o->vec2 = rt_rotx(o->vec2, 2.5);
+		o->vec1 = rt_rotx(o->vec1, 2.5);
 	}
     else if (key == K_W)
 	{
-		o->rot = rt_rotX(o->rot, -2.5);
-		o->vec2 = rt_rotX(o->vec2, -2.5);
-		o->vec1 = rt_rotX(o->vec1, -2.5);
+		o->rot = rt_rotx(o->rot, -2.5);
+		o->vec2 = rt_rotx(o->vec2, -2.5);
+		o->vec1 = rt_rotx(o->vec1, -2.5);
 	}
 	else if (key == K_Y)
 	{
-		o->rot = rt_rotY(o->rot, 2.5);
-		o->vec2 = rt_rotY(o->vec2, 2.5);
-		o->vec1 = rt_rotY(o->vec1, 2.5);
+		o->rot = rt_roty(o->rot, 2.5);
+		o->vec2 = rt_roty(o->vec2, 2.5);
+		o->vec1 = rt_roty(o->vec1, 2.5);
 	}
     else if (key == K_T)
 	{
-		o->rot = rt_rotY(o->rot, -2.5);
-		o->vec2 = rt_rotY(o->vec2, -2.5);
-		o->vec1 = rt_rotY(o->vec1, -2.5);
+		o->rot = rt_roty(o->rot, -2.5);
+		o->vec2 = rt_roty(o->vec2, -2.5);
+		o->vec1 = rt_roty(o->vec1, -2.5);
 	}
 	else if (key == K_Z)
 	{
-		o->rot = rt_rotZ(o->rot, 2.5);
-		o->vec2 = rt_rotZ(o->vec2, 2.5);
-		o->vec1 = rt_rotZ(o->vec1, 2.5);
+		o->rot = rt_rotz(o->rot, 2.5);
+		o->vec2 = rt_rotz(o->vec2, 2.5);
+		o->vec1 = rt_rotz(o->vec1, 2.5);
     }
     else if (key == K_E)
 	{
-		o->rot = rt_rotZ(o->rot, -2.5);
-		o->vec2 = rt_rotZ(o->vec2, -2.5);
-		o->vec1 = rt_rotZ(o->vec1, -2.5);
+		o->rot = rt_rotz(o->rot, -2.5);
+		o->vec2 = rt_rotz(o->vec2, -2.5);
+		o->vec1 = rt_rotz(o->vec1, -2.5);
     }
     else
         return(0);

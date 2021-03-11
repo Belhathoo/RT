@@ -4,7 +4,6 @@
 int				rt_hit_cube(t_object *obj, t_ray *r,  t_hit *rec)
 {
 	t_object	*o;
-	double		closest;
 	int			check_hit;
 	t_hit		record;
 

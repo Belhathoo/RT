@@ -38,7 +38,7 @@ int       rt_refract(t_vec i, t_vec n, float ior, t_vec *rf)
 	return (ret);
 }
 
-t_ray		rt_reflection(t_hit rec, t_ray r, t_object *o)
+t_ray		rt_reflection(t_hit rec, t_ray r)
 {
 	t_ray	rf;
 

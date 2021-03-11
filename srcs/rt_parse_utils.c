@@ -78,7 +78,7 @@ void			rt_comp_obj(t_object *o, t_rt *rt)
 
 void			rt_get_repere(t_object *o)
 {
-	t_vec vup;
+	// t_vec vup;
 
 	// vup = vec(0.0, 1.0, 0.0);
 	// if (is_yequal(vup, o->rot) == 1)

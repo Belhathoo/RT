@@ -54,8 +54,6 @@ void			rt_uv_cam(t_vec w, t_vec *u, t_vec *v)
 t_camera		rt_init_camera(t_vec lookfrom, t_vec lookat, double vfov)
 {
 	t_camera	c;
-	t_vec		vup;
-
 	// printf("%.2f %.2f %.2f\n", lookfrom.x,lookfrom.y ,lookfrom.z);
 
 	c.w = vec_unit(vec_sub(lookat, lookfrom));

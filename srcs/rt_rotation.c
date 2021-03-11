@@ -1,8 +1,18 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rt_rotation.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: belhatho <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/11 19:11:10 by belhatho          #+#    #+#             */
+/*   Updated: 2021/03/11 19:11:18 by belhatho         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <rt.h>
 
-t_vec	rt_rotZ(t_vec vec, double angle)
+t_vec		rt_rotz(t_vec vec, double angle)
 {
 	t_vec	newv;
 
@@ -12,7 +22,7 @@ t_vec	rt_rotZ(t_vec vec, double angle)
 	return (newv);
 }
 
-t_vec	rt_rotX(t_vec vec, double angle)
+t_vec		rt_rotx(t_vec vec, double angle)
 {
 	t_vec	newv;
 
@@ -22,7 +32,7 @@ t_vec	rt_rotX(t_vec vec, double angle)
 	return (newv);
 }
 
-t_vec	rt_rotY(t_vec vec, double angle)
+t_vec		rt_roty(t_vec vec, double angle)
 {
 	t_vec	newv;
 
@@ -32,7 +42,8 @@ t_vec	rt_rotY(t_vec vec, double angle)
 	return (newv);
 }
 
-t_vec			rotation(t_vec dir, t_vec rot)
+t_vec		rotation(t_vec dir, t_vec rot)
 {
-	return (rt_rotY(rt_rotZ(rt_rotX(dir, rot.x), rot.z), rot.y));
+	return (rt_rotz(rt_roty(rt_rotx(dir, rot.x), rot.z), rot.y));
 }
+

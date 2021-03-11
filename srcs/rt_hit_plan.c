@@ -12,11 +12,8 @@
 
 #include <rt.h>
 
-
 int      cutt_plane(t_hit *rec, t_object *o)
 {
-	double largeur;
-	double longeur;
 	t_vec   pnt;
 
 	pnt = vec_sub(rec->p, o->pos);
@@ -35,7 +32,6 @@ int      cutt_plane(t_hit *rec, t_object *o)
 
 	return (1);
 }
-
 
 void			plane_uv(t_hit *rec, t_object *o)
 {

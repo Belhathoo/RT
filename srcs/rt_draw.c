@@ -16,7 +16,7 @@ t_vec		rt_raytracer(t_thread *th, t_ray r, int depth)
 {
 	t_vec		color;
 	t_object	*o;
-	t_hit rec;
+	t_hit		rec;
 
 	rec.curr_obj = NULL;
 	rec.col = vec3(0.0);
@@ -35,7 +35,7 @@ t_vec		rt_raytracer(t_thread *th, t_ray r, int depth)
 		if (depth > 1)
 		{
 			color = vec_add(color, (o->refl) ? vec_pro_k(rt_raytracer(th,\
-			rt_reflection(th->rec, r, o), depth - 1), o->refl) : vec3(0.0));
+			rt_reflection(th->rec, r), depth - 1), o->refl) : vec3(0.0));
 			color = vec_add(color, (o->refr) ? (rt_raytracer(th,\
 			rt_refraction(th->rec, r, o), depth - 1)) : vec3(0.0));
 		}

@@ -1,11 +1,11 @@
 
 #include <rt.h>
 
-int				rt_check_distance(t_object *obj, double c[5], t_hit *rec, t_ray *ray)
+int				rt_check_distance(double c[5], t_hit *rec)
 {
-	double	s[4];
-	int		i;
-	int		num;
+	double		s[4];
+	int			i;
+	int			num;
 	double		min_sol;
     
 	min_sol = rec->closest;

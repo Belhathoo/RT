@@ -36,7 +36,6 @@ void		*rt_run(t_thread *t)
 void			*rt_run_50(t_thread *t)
 {
 	t_vec		c;
-	t_ray		r;
 	int			color;
 	int			col;
 	int			row;
@@ -60,7 +59,6 @@ void			*rt_run_50(t_thread *t)
 void			*rt_run_25(t_thread *t)
 {
 	t_vec		c;
-	t_ray		r;
 	int			color;
 	int			col;
 	int			row;
@@ -87,7 +85,6 @@ void			*rt_run_25(t_thread *t)
 void			*rt_run_12(t_thread *t)
 {
 	t_vec		c;
-	t_ray		r;
 	int			color;
 	int			col;
 	int			row;
