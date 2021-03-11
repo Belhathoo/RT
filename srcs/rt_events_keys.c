@@ -6,11 +6,11 @@
 /*   By: belhatho <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 11:29:47 by belhatho          #+#    #+#             */
-/*   Updated: 2021/02/27 11:29:59 by belhatho         ###   ########.fr       */
+/*   Updated: 2021/03/11 16:13:52 by belhatho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <rt.h>
+#include <rt.h>
 
 int    rt_move(int key, t_vec *vec)
 {

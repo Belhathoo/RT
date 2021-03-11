@@ -67,10 +67,15 @@ t_vec			anti_aa(t_thread *t, double col, double row, int select)
 	init_tab(tab);
 	anti_a = sqrt(t->RS->max_anti_a);
 	colo = vec3(0.0);
-	r = rt_get_ray(&t->RS->cam,\
-		(double)((col + ((tab[select].x + 0.5) / anti_a)) / IMG_WIDTH),\
-		(double)((row + ((tab[select].y + 0.5) / anti_a)) / IMG_HEIGHT));
-	color = rt_raytracer(t, r, MAX_DEPTH);
+	if (t->rt->scene->stereo)
+		color = rt_stereoscopy(t, col, row, select);
+	else
+	{
+		r = rt_get_ray(&t->RS->cam,\
+			(double)((col + ((tab[select].x + 0.5) / anti_a)) / IMG_WIDTH),\
+			(double)((row + ((tab[select].y + 0.5) / anti_a)) / IMG_HEIGHT));
+		color = rt_raytracer(t, r, MAX_DEPTH);
+	}
 	colo = infinite_pixels(t, (t_vec){col, row, 0}, select, color);
 	my_mlx_putpixel(t->RS->data1[select], col, IMG_HEIGHT - row, color);
 	return (colo);

@@ -3,7 +3,9 @@ NAME = rt
 
 SRCS = rt.c\
 		rt_init.c\
+		rt_camera.c\
 		rt_auto_anti.c\
+		rt_anti_aliasing.c\
 		rt_run.c\
 		rt_parse.c\
 		rt_parse_add.c\

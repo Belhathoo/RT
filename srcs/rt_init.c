@@ -78,8 +78,7 @@ t_object		*rt_init_object(t_rt *rt)
 	t_object *obj;
 
 	if (!(obj = (struct s_o*)malloc(sizeof(struct s_o))))
-		rt_exit(rt,"Cannot allocate!", "", EXIT_FAILURE);
-
+		rt_exit(rt, "", "Cannot allocate!", EXIT_FAILURE);
 	obj->name = NULL;
 	obj->material = NULL; // make default material!!
 	obj->pos = vec(0.0, 0.0, 0.0);
@@ -100,7 +99,7 @@ t_object		*rt_init_object(t_rt *rt)
 	obj->scale = 1.5;
 	obj->is_sliced = 0;
 	obj->sl_pnt = vec(0.0, 0.0, 0.0);
-	obj->sl_vec = vec(0.0, -1.0, 0.0);;
+	obj->sl_vec = vec(0.0, -1.0, 0.0);
 	obj->refl = 0.0;
 	obj->refr = 0.0;
 	obj->next = NULL;
@@ -113,12 +112,13 @@ t_scene		*rt_init_scene(t_rt *rt)
 	t_scene *scene;
 
 	if (!(scene = (struct s_scene*)malloc(sizeof(struct s_scene))))
-		rt_exit(rt,"Cannot allocate!", 0, EXIT_FAILURE);
+		rt_exit(rt, "", "Cannot allocate!", EXIT_FAILURE);
 	scene->progress = 1;
 	scene->select = 0;
 	scene->max_anti_a = 9;
 	scene->aa = 1;
 	scene->ambient = 0.15;
+	scene->stereo = 0.0;
 	scene->object = NULL;
 	scene->light = NULL;
 	scene->sl_obj = NULL;

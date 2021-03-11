@@ -6,7 +6,7 @@
   fov="60"
   />
 
-<Option aa="9.0" amb="0.13"/>
+<Option aa="9.0" amb="0.13" stereo="0.0" />
 
 <Object name="plan" direction="0 0 1" position="0 0 -90"
 material="water" refl="1.0" color="10 10 10" scale="1.5" noise="voronoi2" />

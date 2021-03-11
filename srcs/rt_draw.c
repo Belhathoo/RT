@@ -63,14 +63,14 @@ void		rt_start(t_rt *rt, void* (*rt_runner)(t_thread *t))
 
 int		progress_bar(t_rt *rt)
 {
-	if ((RS->key_mvt == 0 || RS->key == 1)\
-		&& (RS->progress <= 12 && RS->select <= RS->aa + 1))
-	{
-		// mlx_destroy_image(rt->mlx, rt->img);
-		// rt->img = mlx_new_image(rt->mlx, IMG_WIDTH, IMG_HEIGHT + 8);
-		// ft_putstr("--00\n");
-		ft_bzero(rt->data, IMG_WIDTH * IMG_HEIGHT * 4);
-	}
+	// if ((RS->key_mvt == 0 || RS->key == 1)\
+	// 	&& (RS->progress <= 12 && RS->select <= RS->aa + 1))
+	// {
+	// 	// mlx_destroy_image(rt->mlx, rt->img);
+	// 	// rt->img = mlx_new_image(rt->mlx, IMG_WIDTH, IMG_HEIGHT + 8);
+	// 	// ft_bzero(rt->data, IMG_WIDTH * IMG_HEIGHT * 4);
+	// 	// ft_putstr("--00\n");
+	// }
 	if (RS->key_mvt == 0)
 	{
 		RS->key_cam = 0;

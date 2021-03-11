@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rt_struct.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: belhatho <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/11 14:29:15 by belhatho          #+#    #+#             */
+/*   Updated: 2021/03/11 14:29:18 by belhatho         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef RT_STRUCT_H
 # define RT_STRUCT_H
@@ -44,7 +55,7 @@ typedef struct	s_noise
 	t_vec		col2;
 }				t_noise;
 
-typedef struct s_m
+typedef struct	s_m
 {
 	t_vec		ka;
 	t_vec		kd;
@@ -53,7 +64,6 @@ typedef struct s_m
 	float		kr;
 	float		kt;
 }				t_material;
-
 
 typedef struct	s_button
 {
@@ -67,7 +77,7 @@ typedef struct	s_button
 	int			endian;
 	void		*deflt;
 	int			*deflt_data;
-	void        *data_data;
+	void		*data_data;
 	int			*data;
 	void		*select;
 	int			state;
@@ -91,7 +101,7 @@ typedef struct	s_o
 	float		height;
 	t_vec		pos;
 	t_vec		dir;
-	t_vec		rot;//rotation
+	t_vec		rot;
 	t_vec		col;
 	t_vec		vec1;
 	t_vec		vec2;
@@ -108,9 +118,8 @@ typedef struct	s_o
 	struct s_m	mat;
 	float		refl;
 	float		refr;
-	
-	double		sl_sl;
 
+	double		sl_sl;
 
 	struct s_o	*compos;
 	struct s_o	*next;
@@ -157,8 +166,6 @@ typedef struct	s_hit
 	int			tx;
 }				t_hit;
 
-
-
 typedef struct	s_camera
 {
 	t_vec		origin;
@@ -181,11 +188,13 @@ typedef struct	s_scene
 	t_light		*light;
 	t_object	*object;
 	t_object	*sl_obj;
-	
+
 	int			aa;
 	double		ambient;
+
+	t_camera	camm[2];
 	double		stereo;
-	
+
 	int			key_mvt;
 	int			key_cam;
 	int			key;
@@ -193,7 +202,7 @@ typedef struct	s_scene
 	int			max_anti_a;
 	int			progress;
 	int			select;
-	t_vec		data1[9][IMG_WIDTH*IMG_HEIGHT];//IMG_WIDTH*IMG_HEIGHT
+	t_vec		data1[9][IMG_WIDTH * IMG_HEIGHT];
 
 	t_object	n_obj;
 	int			is_neg;
@@ -220,14 +229,12 @@ typedef struct	s_rt
 	t_light		*s_light;
 }				t_rt;
 
-
-
 typedef struct	s_thread
 {
 	int			i;
 	t_rt		*rt;
 	t_hit		rec;
-    t_texture   *t;
+	t_texture	*t;
 }				t_thread;
 
 typedef	struct	s_mobius
@@ -245,7 +252,7 @@ typedef struct	s_voronoi
 {
 	float		valuechange;
 	float		isborder;
-	t_vec	    cellcolor;
+	t_vec		cellcolor;
 	t_vec		p;
 	t_vec		noise_v;
 	t_vec		fcolor;
@@ -305,22 +312,20 @@ typedef struct	s_cubic
 	double		cb_p;
 }				t_cubic;
 
-
-typedef struct  s_cell
+typedef struct	s_cell
 {
-	t_vec	base;
-	t_vec	cell;
-	t_vec	cellcol;
-	t_vec	tocell;
-	t_vec   closest;
-	t_vec	closetcell;
-	t_vec	toclosest;
-	t_vec	diff;
-	t_vec	tocenter;
-	t_vec	celldifference;
-	double	mindistocell;
-	double  minedgedistance;
-	double	edgedistance;
-	
+	t_vec		base;
+	t_vec		cell;
+	t_vec		cellcol;
+	t_vec		tocell;
+	t_vec		closest;
+	t_vec		closetcell;
+	t_vec		toclosest;
+	t_vec		diff;
+	t_vec		tocenter;
+	t_vec		celldifference;
+	double		mindistocell;
+	double		minedgedistance;
+	double		edgedistance;
 }				t_cell;
 #endif

@@ -1,4 +1,14 @@
 /* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rt.h                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: belhatho <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/11 14:29:25 by belhatho          #+#    #+#             */
+/*   Updated: 2021/03/11 15:50:32 by belhatho         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef RT_H
 # define RT_H
@@ -27,10 +37,10 @@ void			rt_check_obj_name(t_object *obj, t_rt *rt);
 void			rt_check_neg_obj(t_object *o, t_rt *rt);
 void			rt_check_neg_obj_name(t_object *obj, t_rt *rt);
 void			rt_check_lights(t_light *l, t_rt *rt);
-
-void			ft_get_data(t_rt *p, int fd);
+void			rt_set_coef(t_object *o);
+void			rt_comp_obj(t_object *o, t_rt *rt);
+void			ft_get_data(t_rt *p, int fd); ///// ADD MAX !!
 int				ft_fr(char **str);
-
 
 /*
  * Raytracer
@@ -41,30 +51,33 @@ t_vec           rt_raytracer(t_thread *t, t_ray r, int d);
 t_vec           rt_anti_aliasing(t_thread *t, int col, int row);
 
 t_vec	    	anti_aa(t_thread *t, double col, double row, int select);
-int             progress_bar(t_rt *rt);
+int				progress_bar(t_rt *rt);
+t_vec			rt_stereoscopy(t_thread *t, double col, double row, int select);
 
-void			rt_start(t_rt *rt, void* (*rt_runner)(t_thread *t));//changed for pbar
+void			rt_start(t_rt *rt, void *(*rt_runner)(t_thread *t));
 void			*rt_run(t_thread *t);
 void			*rt_run_50(t_thread *t);
 void			*rt_run_25(t_thread *t);
 void			*rt_run_12(t_thread *t);
 
+t_vec			rt_stereoscopy(t_thread *t, double col, double row, int select);
+
 /*
  * Lighting
-*/
+ */
 
 void			rt_ambient(double amb, t_light *l, t_hit rec, t_vec *col);
-int				rt_shading(t_thread *th, t_ray sh_r, t_light *l, t_vec *c);
+int				rt_shading(t_thread *th, t_ray sh_r, t_light *l, t_vec *c, int dpt);
 t_vec			rt_lighting(t_thread *th, t_light *t);
 
-t_vec       rt_reflect(t_vec v, t_vec n);
-int         rt_refract(t_vec i, t_vec n, float ior, t_vec *rf);
-t_ray		rt_reflection(t_hit rec, t_ray r, t_object *o);
-t_ray		rt_refraction(t_hit rec, t_ray r, t_object *o);
+t_vec			rt_reflect(t_vec v, t_vec n);
+int				rt_refract(t_vec i, t_vec n, float ior, t_vec *rf);
+t_ray			rt_reflection(t_hit rec, t_ray r, t_object *o);
+t_ray			rt_refraction(t_hit rec, t_ray r, t_object *o);
 
 /*
  * Hit
-*/
+ */
 int				rt_hit(t_scene *scene, t_ray *r, t_hit *record, double closest);
 
 int				rt_hit_sphere(t_object *obj, t_ray *ray, t_hit *record);
@@ -90,7 +103,7 @@ t_vec           normale_cone(t_object *o, t_ray *r, t_hit *rec);
 
 /*
  * Utils
-*/
+ */
 
 double          ffmax(double a, double b);
 t_vec			vec_ray(t_ray *r, double t);
@@ -114,12 +127,14 @@ void			rt_get_repere(t_object *ob);
 t_vec           rt_rotZ(t_vec vec, double angle);
 t_vec           rt_rotY(t_vec vec, double angle);
 t_vec           rt_rotX(t_vec vec, double angle);
+int		is_yequal(t_vec a, t_vec b);
 
 void			my_mlx_putpixel(t_vec *data, int x, int y, t_vec color);
 t_vec			my_mlx_getpixel(t_vec *data, int x, int y);
+
 /*
-* Textures && Noises
-*/
+ * Textures && Noises
+ */
 
 t_texture		rt_init_txt(void);
 t_vec			rt_get_color_from_texture(t_object *o, double *u, double *v);
@@ -163,20 +178,16 @@ void        v1_btn(t_rt *rt);
 void        v2_btn(t_rt *rt);
 void        v3_btn(t_rt *rt);
 
-
 void	        create_buttons(int	size, t_rt *rt);
 void        	swap_button_by_id(int	id, t_rt *rt);
 void	image_create(t_rt *rt);
 int		get_selected_button(int x, int y, t_rt *rt);
-
 
 t_button	*damier_button(t_rt *rt);
 t_button	*circles_button(t_rt *rt);
 t_button	*voronoi1_button(t_rt *rt);
 t_button	*voronoi2_button(t_rt *rt);
 t_button	*voronoi3_button(t_rt *rt);
-
-
 
 /*
  * Init
@@ -187,6 +198,7 @@ t_object		*rt_init_object(t_rt *rt);
 t_object		rt_init_neg_object(void);
 t_light			*rt_init_light(t_rt *rt);
 t_camera		rt_init_camera(t_vec lookfrom, t_vec lookat, double vfov);
+void			init_tab(t_vec *tab);
 
 /*
  * Close
@@ -207,7 +219,7 @@ void    	rt_init_negative(t_hit *rec);
 
 /*
  * Slicing
-*/
+ */
 int			rt_slicing(t_object *o, t_ray *r, t_hit *rec);
 int		    in_cylindr(t_object *o);
 int		    in_sphere(t_object *o);

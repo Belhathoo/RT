@@ -1,9 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rt_events_mouse.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: belhatho <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/11 16:13:57 by belhatho          #+#    #+#             */
+/*   Updated: 2021/03/11 16:14:19 by belhatho         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-
-# include <rt.h>
-
-# define FRAME 40
-# define MENU_BAR 180
+#include <rt.h>
 
 void		rt_select_obj(t_rt *rt, int col, int row)
 {
@@ -18,10 +25,6 @@ void		rt_select_obj(t_rt *rt, int col, int row)
 		RS->sl_obj = NULL;
 }
 
-# define COND_SLCT1(x) (x > FRAME && x < IMG_WIDTH + FRAME)
-# define COND_SLCT2(y) (y > MENU_BAR && y < IMG_HEIGHT + MENU_BAR)
-# define COND_SELECT(x, y) (COND_SLCT1(x) && COND_SLCT2(y))
-
 int				rt_mouse(int button, int x, int y, t_rt *rt)
 {
 
@@ -30,8 +33,8 @@ int				rt_mouse(int button, int x, int y, t_rt *rt)
 	if (button == 2)
 		RS->sl_obj = NULL;
 	if (button == 1 &&
-		((x > FRAME_LFT && x < IMG_WIDTH + FRAME_RGHT) \
-		&& y > FRAME_UP && y < IMG_HEIGHT + FRAME_DWN))
+			((x > FRAME_LFT && x < IMG_WIDTH + FRAME_RGHT) \
+			 && y > FRAME_UP && y < IMG_HEIGHT + FRAME_DWN))
 	{
 		rt_select_obj(rt, x - FRAME_LFT, (int)IMG_HEIGHT - (y - FRAME_UP));
 		if (RS->sl_obj != NULL)
