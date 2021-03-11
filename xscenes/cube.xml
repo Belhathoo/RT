@@ -13,7 +13,7 @@
 material="ic0e" radius="5.0"  scale="2224" color="1 0. 0."  />
 
 <Object name="cube" position="0 0 0" color="0.0 0.0 01" 
- n_color="1 1 0" material="bl1_plastic" refr="0.0" size="12"
+ n_color="1 1 0" material="bl1_plastic" refr="0.0" size="5"
  direction="0 10 0" >
 
 

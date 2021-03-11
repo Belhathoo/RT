@@ -12,33 +12,7 @@
 
 # include <rt.h>
 
-t_camera	rt_init_camera(t_vec lookfrom, t_vec lookat, double vfov)
-{
-	t_camera	c;
-	t_vec	vup;
-	t_vec	tmp;
-	
-	tmp = vec_unit(vec_sub(lookat, lookfrom));
-	vup = vec_unit(vec(0.0, 1.0, 0.0));
 
-	if (!(vec_dot(vec_cross(tmp, vup), vec3(1.0))))
-		vup = vec(0,0,1.0);//vec_add_k(vup, 0.1);
-	c.half_h = tan((vfov * M_PI / 180.0) / 2.0);
-	c.half_w = (IMG_WIDTH / IMG_HEIGHT) * c.half_h;
-	c.origin = lookfrom;
-	c.w = vec_unit(vec_sub(lookat, lookfrom));
-	c.u = vec_unit(vec_cross(c.w, vup));
-	c.v = vec_cross(c.u, c.w);
-	c.lower_left_corner = vec_sub(c.origin, vec_add(vec_pro_k(c.v, c.half_h),
-				vec_pro_k(c.u, c.half_w)));
-	c.lower_left_corner = vec_add(c.lower_left_corner, c.w);
-	c.horizontal = vec_pro_k(c.u, 2.0 * c.half_w);
-	c.vertical = vec_pro_k(c.v, 2.0 * c.half_h);
-	c.fov = vfov;
-	c.lookat = lookat;
-	c.lookfrom = lookfrom;
-	return (c);
-}
 
 t_texture		rt_init_txt(void)
 {

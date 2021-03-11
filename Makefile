@@ -4,11 +4,14 @@ NAME = rt
 SRCS = rt.c\
 		rt_init.c\
 		rt_auto_anti.c\
+		rt_run.c\
 		rt_parse.c\
 		rt_parse_add.c\
 		rt_parse_obj.c\
+		rt_parse_light.c\
 		rt_parse_utils.c\
 		rt_parse_check.c\
+		rt_parse_check1.c\
 		rt_events.c\
 		rt_events_keys.c\
 		rt_events_mouse.c\

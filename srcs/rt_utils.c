@@ -1,5 +1,18 @@
 # include <rt.h>
 
+void			my_mlx_putpixel(t_vec *data, int x, int y, t_vec color)
+{
+	if (x >= 0 && x < IMG_WIDTH && y >= 0 && y < IMG_HEIGHT)
+		data[y * (int)IMG_WIDTH + x] = color;
+}
+
+t_vec			my_mlx_getpixel(t_vec *data, int x, int y)
+{
+	if (x >= 0 && x < IMG_WIDTH && y >= 0 && y < IMG_HEIGHT)
+		return (data[y * (int)IMG_WIDTH + x]);
+	return ((t_vec){0, 0, 0});
+}
+
 double      ffmax(double a, double b)
 {
 	return(a > b ? a : b);

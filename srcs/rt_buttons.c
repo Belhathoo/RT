@@ -38,7 +38,6 @@ void            mvt_btn(t_rt *rt)
 
 void        light_btn(t_rt *rt)
 {
-	ft_putstr("LOLO");
 	if (RS->light)
 		RS->light = NULL;
 	else if (rt->s_light)

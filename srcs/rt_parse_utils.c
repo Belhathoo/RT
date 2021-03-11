@@ -59,6 +59,12 @@ t_texture   rt_ctotxt(char *str, t_rt *rt)
 	return (txt);
 }
 
+void	rt_comp_obj(t_object *o, t_rt *rt)
+{
+	if (ft_strcmp(o->name, "cube") == 0)
+		get_cube_compos(o, rt);
+}
+
 void	rt_get_repere(t_object *o)
 {
 	// if (o->rot.x == 0.0 && o->rot.y == 0.0)

@@ -3,14 +3,11 @@
 #ifndef RT_H
 # define RT_H
 
-
 # include <rt_struct.h>
 
 #include<stdio.h> /// // 
 
-
-
-/* Tmp Parse  */
+/* Parse  */
 
 t_vec			rt_rot_dir(t_vec *d, t_vec r);
 t_vec			rt_ctovec(char *str, t_rt *rt);
@@ -21,6 +18,7 @@ void			rt_parser(t_rt *p, char **av);
 void            rt_add_object(t_tag *t, t_rt *rt);
 void            rt_add_neg_object(t_tag *t, t_rt *rt);
 void            rt_add_option(t_tag *tag, t_rt *rt);
+void	        rt_add_light(t_tag *tag, t_rt *rt);
 
 
 void			rt_check_cam(t_camera c, t_rt *rt);
@@ -33,24 +31,23 @@ void			rt_check_lights(t_light *l, t_rt *rt);
 void			ft_get_data(t_rt *p, int fd);
 int				ft_fr(char **str);
 
-/*************/
+
 /*
  * Raytracer
  */
 t_ray			rt_ray(t_vec a, t_vec b);
 t_ray			rt_get_ray(t_camera *p, double u, double v);
-t_vec 			rt_raytracer(t_thread *t, t_ray r, int d);
-t_vec 			rt_anti_aliasing(t_thread *t, int col, int row);
+t_vec           rt_raytracer(t_thread *t, t_ray r, int d);
+t_vec           rt_anti_aliasing(t_thread *t, int col, int row);
 
 t_vec	    	anti_aa(t_thread *t, double col, double row, int select);
-int     		progress_bar(t_rt *rt);
+int             progress_bar(t_rt *rt);
 
 void			rt_start(t_rt *rt, void* (*rt_runner)(t_thread *t));//changed for pbar
 void			*rt_run(t_thread *t);
 void			*rt_run_50(t_thread *t);
 void			*rt_run_25(t_thread *t);
 void			*rt_run_12(t_thread *t);
-
 
 /*
  * Lighting
@@ -65,11 +62,9 @@ int         rt_refract(t_vec i, t_vec n, float ior, t_vec *rf);
 t_ray		rt_reflection(t_hit rec, t_ray r, t_object *o);
 t_ray		rt_refraction(t_hit rec, t_ray r, t_object *o);
 
-
 /*
  * Hit
 */
-
 int				rt_hit(t_scene *scene, t_ray *r, t_hit *record, double closest);
 
 int				rt_hit_sphere(t_object *obj, t_ray *ray, t_hit *record);
@@ -86,8 +81,7 @@ int     		rt_hit_cube(t_object *oo, t_ray *r, t_hit *record);
 
 int				rt_hit_glasse(t_object *o, t_ray *r,  t_hit *rec);
 int             rt_hit_cube_troue(t_object *obj, t_ray *ray, t_hit *record);
-int     rt_hit_mobius( t_object *o, t_ray *ray, t_hit *rec);
-
+int             rt_hit_mobius( t_object *o, t_ray *ray, t_hit *rec);
 void	        cylinder_uv(t_object *o, t_hit *rec);
 void            cone_uv(t_object *o, t_hit *rec);
 void	    	sphere_uv(t_object *o, t_hit *rec);
@@ -121,6 +115,8 @@ t_vec           rt_rotZ(t_vec vec, double angle);
 t_vec           rt_rotY(t_vec vec, double angle);
 t_vec           rt_rotX(t_vec vec, double angle);
 
+void			my_mlx_putpixel(t_vec *data, int x, int y, t_vec color);
+t_vec			my_mlx_getpixel(t_vec *data, int x, int y);
 /*
 * Textures && Noises
 */

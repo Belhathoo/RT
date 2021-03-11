@@ -63,4 +63,5 @@ int				rt_mouse(int button, int x, int y, t_rt *rt)
 		}
 		return (0);
 	}
+	return (0);
 }
