@@ -22,7 +22,7 @@ t_camera	rt_init_camera(t_vec lookfrom, t_vec lookat, double vfov)
 	vup = vec_unit(vec(0.0, 1.0, 0.0));
 
 	if (!(vec_dot(vec_cross(tmp, vup), vec3(1.0))))
-		vup = vec_add_k(vup, 0.01);
+		vup = vec(0,0,1.0);//vec_add_k(vup, 0.1);
 	c.half_h = tan((vfov * M_PI / 180.0) / 2.0);
 	c.half_w = (IMG_WIDTH / IMG_HEIGHT) * c.half_h;
 	c.origin = lookfrom;

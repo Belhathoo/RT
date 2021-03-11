@@ -1,23 +1,20 @@
 <!DOCTYPE xml>
 
-<Camera
+<Camera lookfrom="0.0 10 30.0" />
 
-  lookfrom="0.0 15 25.0"
-  lookat="0 0 0"
-  fov="60"
-  />
-
-<Option aa="2.0" amb="0.2"/>
+<Option aa="6.0" amb="0.40"/>
 
 
-<Object name="plan" position="0 -30 00" noise="damier" refl="1.0" scale="0.400" radius="4" height="8.5" >
+<Object name="plan" position="0 -5 0" color="1 1 1" >
 
-<Object name="mobius" refr="1.8" >
+<Object name="mobius" position="0 0 0" radius="3.0" color="0 1 1" refr="1.0">
 
-<Object name="sphere" position="-9 0 0" slice_pnt="-9 1 0">
+<Object name="l_cone" position="-20 10 -20" height="-10.0" width="0" angle="60">
+<Object name="torus" position="0 05.0 -20" radius="5" r="2" direction="0 1 0">
+<Object name="cube" position="-20 0.0 0" size="5" refr="1.8">
 
-<N_Object name="sphere" position="0 -30 -90" radius="10">
+<Object name="sphere" position="20 0 0" color="1 0 0">
 
-<Light position="0 10 030" direction="0 -1.0 0" />
+<Light position="0 100 80" direction="0 -1.0 0" />
 
 

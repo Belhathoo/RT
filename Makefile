@@ -5,6 +5,8 @@ SRCS = rt.c\
 		rt_init.c\
 		rt_auto_anti.c\
 		rt_parse.c\
+		rt_parse_add.c\
+		rt_parse_obj.c\
 		rt_parse_utils.c\
 		rt_parse_check.c\
 		rt_events.c\

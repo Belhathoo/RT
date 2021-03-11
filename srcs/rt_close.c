@@ -50,13 +50,12 @@ void    rt_exit(t_rt *rt, char *m, char *m1, int err)
 	{
 		ft_putstr("error: ");
 		// rt = NULL; //unused error fixing
-		// exit(err);
 	}
-	ft_putstr(m);
-	// ft_putendl(m1);
+	(m) ? ft_putstr(m) : 0;
+	(m1) ? ft_putendl(m1) : 0;
 	rt_free_lights(RS->light);
 	rt_free_objects(RS->object);
-	free(rt->bt);
+	// free(rt->bt);
 	free(rt->scene);
 	exit(err);
 }

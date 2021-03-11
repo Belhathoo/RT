@@ -2,6 +2,7 @@
     "files.associations": {
         "rt.h": "c",
         "rt_struct.h": "c",
-        "rt_define.h": "c"
+        "rt_define.h": "c",
+        "mlx.h": "c"
     }
 }

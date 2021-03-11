@@ -49,7 +49,7 @@ void			rt_ambient(double amb, t_light *l, t_hit rec, t_vec *col)
 	t_object	*o;
 
 	o = rec.curr_obj;
-	*col = vec_pro_k(rec.col, amb);
+	*col = vec_add(*col, vec_pro_k(rec.col, amb));
 	if (l)
-		*col = vec_prod(*col, o->mat.ka);
+		*col = vec_add(*col,vec_prod(*col, o->mat.ka));
 }

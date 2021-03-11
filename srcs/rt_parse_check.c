@@ -68,17 +68,14 @@ void     rt_check_neg_obj_name(t_object *obj, t_rt *rt)
 	else
 	{
 		ft_strdel(&str);
-		rt_exit(rt, obj->name,"unknown neg-obj!", EXIT_FAILURE);
+		rt_exit(rt, obj->name, "unknown neg-obj!", EXIT_FAILURE);
 	}
 	ft_strdel(&str);
 }
 
 void			rt_set_coef(t_object *o)
 {
-
-	/* check if txt !!!
-	   specific coef for textures (NO SPECULAR)
-	   */
+// add shiny, 
 	if (o->material)
 	{
 		if (!ft_strcmp(o->material, "bl_plastic"))
@@ -104,20 +101,10 @@ void			rt_set_coef(t_object *o)
 		else if (!ft_strcmp(o->material, "al"))
 			o->mat = (t_material){vec3(0.92), vec3(0.999), vec3(0.8), 25, 0.150, 0.0};
 		else
-			o->mat = (t_material){vec3(0.7), vec3(0.8), vec3(0.30), 50 ,0.0 ,0.0};
+			o->mat = (t_material){vec3(0.7), vec3(0.8), vec3(0.80), 50 ,0.0 ,0.0};
 	}
 	else
-		o->mat = (t_material){vec3(0.7), vec3(0.8), vec3(0.30), 50 ,0.0 ,0.0};
-}
-
-t_vec	rt_rot_dir(t_vec *r, t_vec d)
-{
-	/* check rt_parse_utils !!!!!!! */
-
-	// return(rotation(d, r));
-	*r = d;
-	*r = rotation(d, *r);
-	return vec3(1.0);
+		o->mat = (t_material){vec3(0.70), vec3(0.80), vec3(0.30), 80.0 ,0.0 ,0.0};
 }
 
 void	rt_comp_obj(t_object *o, t_rt *rt)
@@ -128,35 +115,35 @@ void	rt_comp_obj(t_object *o, t_rt *rt)
 
 void    rt_check_obj(t_object *o, t_rt *rt)
 {
-
-	// height width
-
 	if (o->name == NULL)
 		rt_exit(rt, "", "Object shoud have a name!", EXIT_FAILURE);
 	if (o->dir.x == 0 && o->dir.y == 0 && o->dir.z == 0)
-		rt_exit(rt, "", "obj: direction vector is non-zero!", EXIT_FAILURE);
+		rt_exit(rt, o->name, ": direction vector is non-zero!", EXIT_FAILURE);
 	if (o->size <= 0.0 || o->radius <= 0.0 || o->r <= 0)
-		rt_exit(rt, "", "obj: radius/r/size should be positive", EXIT_FAILURE);
+		rt_exit(rt, o->name, ": radius/r/size should be positive", EXIT_FAILURE);
 	if (o->angle <= 0.0 || o->angle > 180.0)
-		rt_exit(rt, "", "obj: angle should be in ]0-180[", EXIT_FAILURE);
+		rt_exit(rt, o->name, ": angle should be in ]0-180[", EXIT_FAILURE);
 	if (o->txt.is_txt == 1 && o->noi.is_noise == 1)
-		rt_exit(rt, "", "obj: either texture either noise", EXIT_FAILURE);
-	if (o->refr != 0.0 && (o->refr < 01.000 || o->refr > 10.0))
-		rt_exit(rt, "", "refraction coef should be >= 1.0.", EXIT_FAILURE);
+		rt_exit(rt, o->name, ": either texture either noise", EXIT_FAILURE);
+	if (o->refr != 0.0 && (o->refr < 01.00 || o->refr > 10.0))
+		rt_exit(rt, o->name, ": refraction coef should be >= 1.0.", EXIT_FAILURE);
 	if (o->is_sliced == 1) //events
 	{
 		if (!ft_strcmp(o->name, "sphere") && !in_sphere(o))
-			rt_exit(rt, "", "sl-obj: slicing pnt is outside the sphere!", EXIT_FAILURE);
+			rt_exit(rt, " ", "slicing pnt is outside the sphere!", EXIT_FAILURE);
 		if (!ft_strcmp(o->name, "cylinder") && !in_cylindr(o))
-			rt_exit(rt, "", "sl-obj: slicing pnt is outside the cylinder!", EXIT_FAILURE);
+			rt_exit(rt, " ", "slicing pnt is outside the cylinder!", EXIT_FAILURE);
+		o->sl_vec = rotation(o->sl_vec, o->rot); //recheck with jessie
 	}
 
 	if (!ft_strcmp(o->name, "l_cone") && o->height >= o->width)
-			rt_exit(rt, "", "l_cone: height should be < width. (init: w:5 h:2.5) ", EXIT_FAILURE);
+			rt_exit(rt, o->name, ": height should be < width. (init: w:5 h:2.5) ", EXIT_FAILURE);
 	if ((!ft_strcmp(o->name, "l_cylinder") || !ft_strcmp(o->name, "mobius")) && o->height <= 0.0)
-			rt_exit(rt, "", "l_obj: height should be strictly positive. ", EXIT_FAILURE);
+			rt_exit(rt, o->name, ": height should be strictly positive. ", EXIT_FAILURE);
 	if (!ft_strcmp(o->name, "rectangle") && (o->height <= 0.0 || o->width <= 0.0))
-		rt_exit(rt, "", "rectangle: height & width should be strictly positive. ", EXIT_FAILURE);
+		rt_exit(rt, o->name, ": height & width should be strictly positive. ", EXIT_FAILURE);
+	if (o->scale <= 0.0)
+		rt_exit(rt, o->name, "scale should be strictly positive", EXIT_FAILURE);
 	/*
 	   add x y z slicing global || on ax
 	   */
@@ -166,6 +153,11 @@ void    rt_check_obj(t_object *o, t_rt *rt)
 	rt_get_repere(o); ///events nop
 	rt_comp_obj(o, rt); //// events...
 	rt_adjustment(&o->col);
+	if (o->noi.is_noise)
+	{
+		rt_adjustment(&o->noi.col1);
+		rt_adjustment(&o->noi.col2);
+	}
 	
 	rt_set_coef(o);
 	if (o->refr == 0.0)
@@ -186,7 +178,7 @@ void    rt_check_neg_obj(t_object *o, t_rt *rt)
 	if (o->angle <= 0.0 || o->angle > 179.0)
 		rt_exit(rt, "", "obj: angle should be in ]0-180[", EXIT_FAILURE);
 	o->angle = degtorad(o->angle) / 2;
-	rt_rot_dir(&o->rot, o->dir);
+	o->rot = rotation(o->dir, o->rot);
 }
 
 void	rt_check_lights(t_light *l, t_rt *rt)

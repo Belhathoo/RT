@@ -1,0 +1,58 @@
+<!DOCTYPE xml>
+
+<Camera
+
+  lookfrom="0.0 15 40.0"
+  lookat="0 0 0"
+  fov="60"
+  />
+
+<Option aa="5" amb="0.40"/>
+
+
+<Object name="plan" size="40" position="0 -3 0" color="0.8 0.8 0.8" >
+
+<Object name="sphere" position="15.0 10 -50" radius="10" color="1 1 1" material="al" >
+<Object name="sphere" position="-15.0 10 -50" radius="10" color="1 1 1" material="glass" >
+
+
+<Object name="sphere" position="0 0.0 0" material="al" radius="3.0" color="1 1 1">
+<Object name="sphere" position="2 0 15" refr="1.4" color="1 1 1">
+
+<Object name="sphere" position="-20 0 -10" color="1 0 0">
+<Object name="sphere" position="-15 0 -0" color="0.5 0.2 0.8">
+<Object name="sphere" position="-10 0 15" color="1 1 00">
+
+
+<Object name="sphere" position="20 0 -10" color="1 0 0">
+<Object name="sphere" position="15 0 -0" color="0.5 0.2 0.8">
+<Object name="sphere" position="10 0 15" color="1 1 00">
+
+<Object name="sphere" position="10 0 -30" color="1 0 0">
+<Object name="sphere" position="15 0 -20" color="0.5 0.2 0.8">
+<Object name="sphere" position="20 0 -15" color="1 1 00">
+
+<Object name="sphere" position="-10 0 -50" color="1 0 0">
+<Object name="sphere" position="-5 0 -60" color="0.5 0.2 0.8">
+<Object name="sphere" position="0 0 -70" color="1 1 00">
+
+
+<Object name="sphere" position="-80 0 -70" color="1 0 0">
+<Object name="sphere" position="-50 0 -50" color="0.5 0.2 0.8">
+<Object name="sphere" position="-70 0 -40" color="1 1 00">
+
+
+<Object name="sphere" position="-20 0 -30" color="0 0 0">
+<Object name="sphere" position="-45 0 -20" color="0.5 0.8 1">
+<Object name="sphere" position="-30 0 -15" color="0 1 00">
+
+
+<Object name="sphere" position="-10 0 30" color="1 0 0">
+<Object name="sphere" position="-15 0 20" color="0.5 0.2 0.8">
+<Object name="sphere" position="-20 0 15" color="1 1 00">
+
+
+
+<Light position="100 100 100" intensity="0.5" direction="0 -1.0 0" />
+
+

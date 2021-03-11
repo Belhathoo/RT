@@ -64,8 +64,8 @@ int				rt_keys(int key, t_rt *rt)
 			if (rt_rot_event(key, RS->sl_obj))
 				rt_reset(rt);
 		}
-		// 	if (key == K_N)
-		// 		RS->sl_obj = (RS->sl_obj) ? RS->sl_obj->next : RS->object;//=wsl!
+			if (key == K_N)
+				RS->sl_obj = (RS->sl_obj) ? RS->sl_obj->next : RS->object;//=wsl!
 
 	}
 	return (0);

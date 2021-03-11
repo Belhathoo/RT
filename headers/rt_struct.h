@@ -78,22 +78,6 @@ typedef struct	s_button
 	t_vec		pos;
 }				t_button;
 
-typedef struct	s_image
-{
-	//header
-	char		signature[2];
-	int			file_size;
-	int			reserved;
-	int			data_offset;
-	//info_header
-	int			size_header;
-	int			width;
-	int			height;
-	short		planes;
-	short		bpp;
-	int			rest_info[6];
-}				t_image;
-
 typedef struct	s_o
 {
 	char		*name;
@@ -269,6 +253,20 @@ typedef struct	s_voronoi
 	t_vec		fcol;
 	t_vec		ffcol;
 }				t_voronoi;
+
+typedef struct	s_image
+{
+	char		signature[2];
+	int			file_size;
+	int			reserved;
+	int			data_offset;
+	int			size_header;
+	int			width;
+	int			height;
+	short		planes;
+	short		bpp;
+	int			rest_info[6];
+}				t_image;
 
 typedef	struct	s_coef
 {

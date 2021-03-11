@@ -1,12 +1,11 @@
 
 # include <rt.h>
 
-
 void  rt_add_camera(t_tag *tag, t_rt *rt)
 {
 	t_camera  cam;
 
-	cam.lookfrom = vec(10.0, 10.0 ,20.0);
+	cam.lookfrom = vec(0.0, 10.0 ,20.0);
 	cam.lookat = vec(0.0, 0.0, 0.0);
 	cam.fov = 60;
 	while (TA)
@@ -21,78 +20,6 @@ void  rt_add_camera(t_tag *tag, t_rt *rt)
 	}
 	rt_check_cam(cam, rt);
 	RS->cam = rt_init_camera(cam.lookfrom, cam.lookat, cam.fov);
-}
-
-void  rt_add_object(t_tag *tag, t_rt *rt)
-{
-	/*
-		add different attributes Direction and Rotation !! redo rots functions!!
-	*/
-	
-	t_object	*obj;
-	t_object	*tmp;
-
-	obj = rt_init_object(rt);
-	tmp = RS->object;
-	while (TA)
-	{
-		if (!ft_strcmp(TA->name, "name"))
-		{
-			obj->name = ft_strdup(TA->value);
-			rt_check_obj_name(obj, rt);
-		}
-		else if (!ft_strcmp(TA->name, "position"))
-			obj->pos = rt_ctovec(TA->value, rt);
-		else if (!ft_strcmp(TA->name, "direction"))
-			obj->dir = vec_unit(rt_ctovec(TA->value, rt));
-		else if (!ft_strcmp(TA->name, "translation"))
-			obj->pos = vec_add(obj->pos, rt_ctovec(TA->value, rt));
-		else if (!ft_strcmp(TA->name, "rotation"))
-			obj->rot = rt_ctovec(TA->value, rt);
-		else if (!ft_strcmp(TA->name, "color"))
-			obj->col = rt_ctovec(TA->value, rt);
-		else if (!ft_strcmp(TA->name, "radius"))
-			obj->radius = rt_ctod(TA->value, rt);
-		else if (!ft_strcmp(TA->name, "size"))
-			obj->size = rt_ctod(TA->value, rt);
-		else if (!ft_strcmp(TA->name, "angle"))
-			obj->angle = rt_ctod(TA->value, rt);
-		else if (!ft_strcmp(TA->name, "height"))
-			obj->height = rt_ctod(TA->value, rt);
-		else if (!ft_strcmp(TA->name, "width"))
-			obj->width = rt_ctod(TA->value, rt);
-		else if (!ft_strcmp(TA->name, "r"))
-			obj->r = rt_ctod(TA->value, rt);    
-		else if (!ft_strcmp(TA->name, "texture"))
-			obj->txt = rt_ctotxt(TA->value, rt);		
-		else if (!ft_strcmp(TA->name, "noise")  && (obj->noi.is_noise = 1))
-			obj->noi.type = rt_add_noise(TA->value, rt);
-		else if (!ft_strcmp(TA->name, "scale"))
-			obj->scale = rt_ctod(TA->value, rt);
-		else if (!ft_strcmp(TA->name, "n_color"))
-			obj->noi.col1 = rt_ctovec(TA->value, rt);
-		else if (!ft_strcmp(TA->name, "n_color1"))
-			obj->noi.col2 = rt_ctovec(TA->value, rt);
-
-		else if (!ft_strcmp(TA->name, "material"))
-			obj->material = ft_strdup(TA->value);
-		else if (!ft_strcmp(TA->name, "refl"))
-			obj->refl = ft_clamping(rt_ctod(TA->value, rt));
-		else if (!ft_strcmp(TA->name, "refr"))
-			obj->refr = rt_ctod(TA->value, rt);
-
-		else if (!ft_strcmp(TA->name, "slice_vec") && (obj->is_sliced = 1))
-			obj->sl_vec = rt_ctovec(TA->value, rt);
-		else if (!ft_strcmp(TA->name, "slice_pnt") && (obj->is_sliced = 1))
-			obj->sl_pnt = rt_ctovec(TA->value, rt);
-
-		else
-			rt_exit(rt, tag->name, ": Unknown attribut", EXIT_FAILURE);
-		TA = TA->next;
-	}
-	rt_check_obj(obj, rt);
-	RS->object = obj;
-	obj->next = tmp;
 }
 
 int		rt_check_light_type(t_rt *rt, char *val)
@@ -138,68 +65,15 @@ void	rt_add_light(t_tag *tag, t_rt *rt)
 	l->next = tmp;
 }
 
-void  rt_add_option(t_tag *tag, t_rt *rt)
-{
-	while(TA)
-	{
-		if (!ft_strcmp(TA->name, "aa"))
-			RS->aa = (int)rt_ctod(TA->value, rt); //atoi
-		else if (!ft_strcmp(TA->name, "amb"))
-			RS->ambient = rt_ctod(TA->value, rt);
-		else if (!ft_strcmp(TA->name, "stereo"))
-			RS->stereo = rt_ctod(TA->value, rt);
-		else if (!ft_strcmp(TA->name, "filter"))
-			rt->filter = NONE_FILTER; //fnct for filters;		
-		TA = TA->next;
-	}
-	/* filter fnct */
-	if (RS->aa <= 0 || RS->aa > 9)
-		rt_exit(rt, "Option: aa", "should be positive & <= 9", EXIT_FAILURE);
-	if (RS->stereo < 0 || RS->stereo > 10)
-		rt_exit(rt, "Option: Stereo", "should be positive & <= 10", EXIT_FAILURE);
-	RS->ambient = ft_clamping(RS->ambient);
-}
 
 
-void  rt_add_neg_object(t_tag *tag, t_rt *rt)
-{
-	t_object	obj;
-
-	if (RS->is_neg != 0)
-		rt_exit(rt, "", "Only one negative object allowed.", EXIT_FAILURE);
-	obj = rt_init_neg_object();
-	while (TA)
-	{
-		if (!ft_strcmp(TA->name, "name"))
-		{
-			obj.name = ft_strdup(TA->value);
-			rt_check_neg_obj_name(&obj, rt);
-		}
-		else if (!ft_strcmp(TA->name, "position"))
-			obj.pos = rt_ctovec(TA->value, rt);
-		else if (!ft_strcmp(TA->name, "direction"))
-			obj.dir = vec_unit(rt_ctovec(TA->value, rt));
-		else if (!ft_strcmp(TA->name, "rotation"))
-			obj.rot = rt_ctovec(TA->value, rt);
-		else if (!ft_strcmp(TA->name, "radius"))
-			obj.size = rt_ctod(TA->value, rt);//
-		else if (!ft_strcmp(TA->name, "angle"))
-			obj.angle = rt_ctod(TA->value, rt);
-		TA = TA->next;
-	}
-	rt_check_neg_obj(&obj, rt);
-	RS->is_neg = 1;
-	RS->n_obj = obj;
-}
 
 void  xml_to_rt(t_xml *x, t_rt *rt)
 {
-	/*
-	   function that looks for s pecific tag
-	   */
-	if (x->cam_nbr != 1)
-		xml_exit(x, "One Camera !!", EXIT_FAILURE);   /*	obj_nbr == 0 >> with UI can add objects*/
 
+	if (x->cam_nbr != 1)
+		xml_exit(x, "One Camera !!", EXIT_FAILURE);
+	/*obj_nbr == 0 >> with UI can add objects*/
 	while(x->tags)
 	{
 		if (!ft_strcmp(x->tags->name, "Camera"))
