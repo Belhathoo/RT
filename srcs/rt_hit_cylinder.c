@@ -3,13 +3,18 @@
 void	cylinder_uv(t_object *o, t_hit *rec)
 {
 	t_vec d;
+	double mv;
     
+	o->txt.mv1 = 0.0;
+	o->txt.mv2 =  0.0;
 	d = vec_sub(rec->p, o->pos);
+	d = vec_add(d, vec_pro_k(o->rot, o->txt.mv1)); //
+	d = ft_rot_vec(d, o->rot, o->txt.mv2); //
 	 if (o->txt.is_txt)
  	 d = vec_div_k(d, o->scale);
 	d = vec(vec_dot(d, o->vec1), vec_dot(d, o->rot), vec_dot(d, o->vec2));
 	rec->u= (atan2(d.x, d.z) + M_PI / (2.0 * M_PI));
-	rec->v= d.y / o->radius;
+	rec->v= d.y / o->radius ;
 	rec->u= rt_frac(rec->u);
 	rec->v= rt_frac(rec->v);
 }
@@ -66,6 +71,8 @@ int		rt_hit_cylinder(t_object *obj, t_ray *ray, t_hit *record)
 			else
 				record->n = normale_cylinder(obj, ray, record);
 			cylinder_uv(obj, record);
+			if (obj->txt.is_txt && obj->txt.is_trans && !(trans_texture(ray, obj, record)))
+	     	  return(0);
 			return (1);
 		}
 	}

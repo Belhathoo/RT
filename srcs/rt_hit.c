@@ -9,7 +9,7 @@ void	rt_init_negative(t_hit *rec)
 	rec->negative_normal = (t_vec){0, 0, 0};
 }
 
-int rt_hit(t_scene *scene, t_ray *r, t_hit *rec, double closest)
+int		rt_hit(t_scene *scene, t_ray *r, t_hit *rec, double closest)
 {
 	t_object	*o;
 	int			check_hit;
@@ -30,14 +30,14 @@ int rt_hit(t_scene *scene, t_ray *r, t_hit *rec, double closest)
 		{
 			check_hit = 1;
 			record.closest = record.t;
-		
+			rec->closest = rec->t;
+			rec->curr_obj = o;
+			rec->ray = r;
+
 			rec->t = record.t;
 			rec->t0 = record.t0;
 			rec->t1 = record.t1;
 			rec->tx = record.tx;
-			rec->closest = rec->t;
-			RCR = o;
-			rec->ray = r;
 			rec->is_n = record.is_n;
 			rec->negative[0] = record.negative[0];
 			rec->negative[1] = record.negative[1];
@@ -46,11 +46,6 @@ int rt_hit(t_scene *scene, t_ray *r, t_hit *rec, double closest)
 			rec->n = record.n;
 			rec->u = record.u;
 			rec->v = record.v;
-
-			rec->closest = rec->t;
-			RCR = o;
-			rec->ray = r;
-			
 			// record.ray = r;
 			// record.curr_obj = o;
 			// *rec = record;

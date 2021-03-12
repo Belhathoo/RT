@@ -19,7 +19,6 @@ int		is_yequal(t_vec a, t_vec b)
 	if (fabs((float)a.y + (float)b.y) < (float)0.1)
 		return (-1);
 	return (0);
-
 }
 
 void			rt_uv_cam(t_vec w, t_vec *u, t_vec *v)

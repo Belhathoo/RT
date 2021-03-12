@@ -1,80 +1,99 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_parse_check1.c                                  :+:      :+:    :+:   */
+/*   rt_parse_check.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: belhatho <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/11 11:20:35 by belhatho          #+#    #+#             */
-/*   Updated: 2021/03/11 12:06:56 by belhatho         ###   ########.fr       */
+/*   Created: 2021/03/11 11:30:21 by belhatho          #+#    #+#             */
+/*   Updated: 2021/03/11 11:30:26 by belhatho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rt.h>
 
-void		rt_check_o_annex(t_object *o, t_rt *rt)
+void		rt_check_cam(t_camera c, t_rt *rt)
 {
-	if (o->is_sliced == 1)//events
-	{
-		if (!ft_strcmp(o->name, "sphere") && !in_sphere(o))
-			rt_exit(rt, " ", "slicing pnt is outside the sphere!"\
-			, EXIT_FAILURE);
-		if (!ft_strcmp(o->name, "cylinder") && !in_cylindr(o))
-			rt_exit(rt, " ", "slicing pnt is outside the cylinder!"\
-			, EXIT_FAILURE);
-		o->sl_vec = rotation(o->sl_vec, o->rot); //recheck with jessie
-	}
-	if (!ft_strcmp(o->name, "l_cone") && o->height >= o->width)
-		rt_exit(rt, o->name, ": height should be < width. (init: w:5 h:2.5) "\
-		, EXIT_FAILURE);
-	if ((!ft_strcmp(o->name, "l_cylinder") || !ft_strcmp(o->name, "mobius"))\
-		&& o->height <= 0.0)
-		rt_exit(rt, o->name, ": height should be strictly positive. "\
-		, EXIT_FAILURE);
-	if (!ft_strcmp(o->name, "rectangle")\
-		&& (o->height <= 0.0 || o->width <= 0.0))
-		rt_exit(rt, o->name, ": height & width should be strictly positive. "\
-		, EXIT_FAILURE);
+	if (c.lookat.x == c.lookfrom.x && c.lookat.y == c.lookfrom.y\
+			&& c.lookat.z == c.lookfrom.z)
+		rt_exit(rt, "", "camera: lookat & lookfrom should be different!"\
+				, EXIT_FAILURE);
+	if (c.fov < 4.0 || c.fov > 180)
+		rt_exit(rt, "", "camera: fov is an angle [4-180]", EXIT_FAILURE);
 }
 
-void		rt_all_clamp(t_object *o)
+int			rt_check_basic_obj(t_object *obj, char *str)
 {
-	rt_adjustment(&o->col);
-	if (o->noi.is_noise)
-	{
-		rt_adjustment(&o->noi.col1);
-		rt_adjustment(&o->noi.col2);
-	}
-	rt_set_coef(o);
-	if (o->refr == 0.0)
-		o->refr = o->mat.kt;
-	if (o->refl == 0.0)
-		o->refl = o->mat.kr;
+	if (!ft_strcmp(str, "SPHERE"))
+		obj->hit = rt_hit_sphere;
+	else if (!ft_strcmp(str, "CYLINDER"))
+		obj->hit = rt_hit_cylinder;
+	else if (!ft_strcmp(str, "PLAN"))
+		obj->hit = rt_hit_plan;
+	else if (!ft_strcmp(str, "CONE"))
+		obj->hit = rt_hit_cone;
+	else
+		return (0);
+	return (1);
 }
 
-void		rt_check_obj(t_object *o, t_rt *rt)
+int			rt_check_objs(t_object *obj, char *str)
 {
-//   add x y z slicing global || on ax
-	if (o->name == NULL)
+	if (!ft_strcmp(str, "CUBE"))
+		obj->hit = rt_hit_cube;
+	else if (!ft_strcmp(str, "PARABOL"))
+		obj->hit = rt_hit_parabol;
+	else if (!ft_strcmp(str, "RECTANGLE"))
+		obj->hit = rt_hit_care;
+	else if (!ft_strcmp(str, "L_CYLINDER"))
+		obj->hit = rt_hit_lcylinder;
+	else if (!ft_strcmp(str, "L_CONE"))
+		obj->hit = rt_hit_lcone;
+	else if (!ft_strcmp(str, "GLASSE"))
+		obj->hit = rt_hit_glasse;
+	else if (!ft_strcmp(str, "CUBE_TROUE"))
+		obj->hit = rt_hit_cube_troue;
+	else
+		return (0);
+	return (1);
+}
+
+void		rt_check_obj_name(t_object *obj, t_rt *rt)
+{
+	char	*str;
+
+	if (obj->name == NULL)
 		rt_exit(rt, "Object", " shoud have a name!", EXIT_FAILURE);
+	str = ft_strdup(obj->name);
+	str = ft_strupcase(str);
+	if (!rt_check_basic_obj(obj, str))
+	{
+		if (!rt_check_objs(obj, str))
+		{
+			if (!ft_strcmp(str, "TORUS"))
+				obj->hit = rt_hit_torus;
+			else if (!ft_strcmp(str, "MOBIUS"))
+				obj->hit = rt_hit_mobius;
+			else
+			{
+				ft_strdel(&str);
+				rt_exit(rt, obj->name, ": unknown obj!", EXIT_FAILURE);
+			}
+		}
+	}
+	ft_strdel(&str);
+}
+
+void		rt_check_neg_obj(t_object *o, t_rt *rt)
+{
+	if (o->name == NULL)
+		rt_exit(rt, "", "Neg-Object shoud have a name!", EXIT_FAILURE);
 	if (o->dir.x == 0 && o->dir.y == 0 && o->dir.z == 0)
-		rt_exit(rt, o->name, ": direction vector is non-zero!", EXIT_FAILURE);
-	if (o->size <= 0.0 || o->radius <= 0.0 || o->r <= 0)
-		rt_exit(rt, o->name, ": radius/r/size should be positive"\
-		, EXIT_FAILURE);
-	if (o->angle <= 0.0 || o->angle > 180.0)
-		rt_exit(rt, o->name, ": angle should be in ]0-180[", EXIT_FAILURE);
-	if (o->txt.is_txt == 1 && o->noi.is_noise == 1)
-		rt_exit(rt, o->name, ": either texture either noise", EXIT_FAILURE);
-	if (o->refr != 0.0 && (o->refr < 01.00 || o->refr > 10.0))
-		rt_exit(rt, o->name, ": refraction coef should be >= 1.0."\
-		, EXIT_FAILURE);
-	if (o->scale <= 0.0)
-		rt_exit(rt, o->name, "scale should be strictly positive", EXIT_FAILURE);
-	rt_check_o_annex(o, rt);
+		rt_exit(rt, "", "obj: direction vector is non-zero!", EXIT_FAILURE);
+	if (o->radius <= 0.0)
+		rt_exit(rt, "", "obj: radius should be positive", EXIT_FAILURE);
+	if (o->angle <= 0.0 || o->angle > 179.0)
+		rt_exit(rt, "", "obj: angle should be in ]0-180[", EXIT_FAILURE);
 	o->angle = degtorad(o->angle) / 2;
 	o->rot = rotation(o->dir, o->rot);
-	rt_get_repere(o); ///events nop
-	rt_comp_obj(o, rt); //// events...
-	rt_all_clamp(o);
 }

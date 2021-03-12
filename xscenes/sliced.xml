@@ -6,13 +6,13 @@
   fov="60"
   />
 
-<Object name="cylinder"  direction="0.0 1.0  0" 
-translation="0 2.0 0" color="0.5 0.5 0.9" material="ko" 
-slice_pnt="-0 -0.0 0" radius="2.0"/>
+<Object name="cylinder" texture="xpm/earth.xpm" direction="0.0 1.0 0" 
+translation="0 2.0 0" color="0.5 0.5 0.9" material="ko" slice_pnt="0 0 0"
+ radius="2.0"/>
 
 
-<Object name="sphere" slice_pnt="-2.0 -1.0 -0.90" direction="0 0 1"
- position="-0.0 0 -0.0" material="g0old"
+<Object name="sphere" rotation="5 50 50" slice_pnt="-2.0 -1.0 -0.90" direction="0 10 0"
+ position="-0.0 0 -0.0" material="g0old" 
 radius="3" />
 
  

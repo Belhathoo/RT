@@ -12,6 +12,8 @@
 
 #include <rt.h>
 
+
+
 int    rt_move(int key, t_vec *vec)
 {
 	if (key == K_NP_PLU)
@@ -39,36 +41,49 @@ int     rt_rot_event(int key, t_object *o)
 		o->rot = rt_rotx(o->rot, 2.5);
 		o->vec2 = rt_rotx(o->vec2, 2.5);
 		o->vec1 = rt_rotx(o->vec1, 2.5);
+		o->sl_vec = rt_rotx(o->sl_vec, 2.5);
+		o->sl_pnt = rt_rot_pnt(o, rt_rotx, 2.5);
+
 	}
     else if (key == K_W)
 	{
 		o->rot = rt_rotx(o->rot, -2.5);
 		o->vec2 = rt_rotx(o->vec2, -2.5);
 		o->vec1 = rt_rotx(o->vec1, -2.5);
+		o->sl_vec = rt_rotx(o->sl_vec, -2.5);
+		o->sl_pnt = rt_rot_pnt(o, rt_rotx, -2.5);
 	}
 	else if (key == K_Y)
 	{
 		o->rot = rt_roty(o->rot, 2.5);
 		o->vec2 = rt_roty(o->vec2, 2.5);
 		o->vec1 = rt_roty(o->vec1, 2.5);
+		o->sl_vec = rt_roty(o->sl_vec, 2.5);
+		o->sl_pnt = rt_rot_pnt(o, rt_roty, 2.5);
 	}
     else if (key == K_T)
 	{
 		o->rot = rt_roty(o->rot, -2.5);
 		o->vec2 = rt_roty(o->vec2, -2.5);
 		o->vec1 = rt_roty(o->vec1, -2.5);
+		o->sl_vec = rt_roty(o->sl_vec, -2.5);
+		o->sl_pnt = rt_rot_pnt(o, rt_roty, -2.5);
 	}
 	else if (key == K_Z)
 	{
 		o->rot = rt_rotz(o->rot, 2.5);
 		o->vec2 = rt_rotz(o->vec2, 2.5);
 		o->vec1 = rt_rotz(o->vec1, 2.5);
-    }
+		o->sl_vec = rt_rotz(o->sl_vec, 2.5);
+		o->sl_pnt = rt_rot_pnt(o, rt_rotz, 2.5);
+	}
     else if (key == K_E)
 	{
 		o->rot = rt_rotz(o->rot, -2.5);
 		o->vec2 = rt_rotz(o->vec2, -2.5);
 		o->vec1 = rt_rotz(o->vec1, -2.5);
+		o->sl_vec = rt_rotz(o->sl_vec, -2.5);
+		o->sl_pnt = rt_rot_pnt(o, rt_rotz, -2.5);
     }
     else
         return(0);

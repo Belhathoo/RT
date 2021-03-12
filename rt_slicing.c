@@ -75,6 +75,20 @@ int		in_cylindr(t_object *o)
 	return (1);
 }
 
+typedef  struct s_slice
+{
+	t_object	plan;
+	t_hit		recp;
+	t_vec		p1;
+	t_vec		p0;
+	t_vec		ax;
+	t_vec		my0;
+	t_vec		my1;
+	double		s0;
+	double		s1;
+	int			ret;
+}				t_slice;
+
 int			inside_slicing(t_object *o, t_ray *r, t_hit *rec)
 {
 	t_slice s;
@@ -104,7 +118,7 @@ int		rt_plan_intersect(t_object *o, t_slice s, t_hit *rec, t_ray *r, double t)
 	s.plan = rt_sl_plan(o, s.ax);
 	rt_init_negative(&s.recp);
 	s.ret = rt_hit_plan(&s.plan, r, &s.recp);
-	if (rt_hit_plan(&s.plan, r, &s.recp) == 1 && s.recp.t < t)
+	if ((rt_hit_plan(&s.plan, r, &s.recp) == 1) && (s.recp.t < t))
 	{
 		rec->tx = 1;
 		rec->t0 = s.recp.t;

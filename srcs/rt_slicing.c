@@ -12,6 +12,30 @@
 
 #include <rt.h>
 
+//place after get repere
+void		rt_slice_ax(t_object *o)
+{
+	o->sl_pnt = o->pos;
+	if (o->sl_ax == 1)
+		o->sl_vec = o->rot;
+	else if (o->sl_ax == 2)
+		o->sl_vec = o->vec2;
+	else if (o->sl_ax == 3)
+		o->sl_vec = o->vec1;
+}
+
+int			rt_one_slice(t_object *o, t_ray *r, t_hit *rec)
+{
+	t_slice	s;
+
+	s.p0 = vec_ray(r, rec->t);
+  	s.ax = vec_unit(o->sl_vec);
+  	s.my0 = vec_unit(vec_sub(rec->p, o->pos));
+	if (vec_dot(s.my0, s.ax) < -0.001)
+		return (0);
+	return (1);
+}
+
 t_object rt_sl_plan(t_object *o, t_vec ax)
 {
   t_object plan;
@@ -48,40 +72,62 @@ int		in_cylindr(t_object *o)
 	return (1);
 }
 
+int			inside_slicing(t_object *o, t_ray *r, t_hit *rec)
+{
+	t_slice s;
+
+	s.p0 = vec_ray(r, rec->t0);
+	s.p1 = vec_ray(r, rec->t1);
+	s.ax = vec_unit(o->sl_vec);
+  	s.my0 = vec_unit(vec_sub(s.p0, o->sl_pnt));
+	s.my1 = vec_unit(vec_sub(s.p1, o->sl_pnt));
+	s.s0 = vec_dot(s.my0, s.ax);
+	s.s1 = vec_dot(s.my1, s.ax);
+	if (s.s0 <= 0 && s.s1 <= 0)
+		return (0);
+	if (s.s0 > 0 && s.s1 > 0)
+		return (1);
+	if ((s.s0 > 0 && s.s1 <= 0))
+	{
+		rt_plan_intersect(o, s, rec, r, rec->t0);
+		return (1);
+	}
+	return (0);
+}
+
+int		rt_plan_intersect(t_object *o, t_slice s, t_hit *rec, t_ray *r, double t)
+{
+	ft_memcpy(&s.recp, rec, sizeof(t_hit));
+	s.plan = rt_sl_plan(o, s.ax);
+	rt_init_negative(&s.recp);
+	s.ret = rt_hit_plan(&s.plan, r, &s.recp);
+	if ((rt_hit_plan(&s.plan, r, &s.recp) == 1) && (s.recp.t < t))
+	{
+		rec->tx = 1;
+		rec->t0 = s.recp.t;
+		return (1);
+	}
+	else
+		return 0;
+}
+
 int			rt_slicing(t_object *o, t_ray *r, t_hit *rec)
 {
-
-	//// jessie !!!!!!
-	t_vec     ax;
-	t_vec     my;
-  	t_object  plan;
-	t_vec	p;
-	t_hit	recp;
-	int		ret;
+	t_slice	s;
 
 	rec->tx = 0;
-	p = vec_ray(r, rec->t0);
-  	ax = vec_unit(o->sl_vec);
-  	my = vec_unit(vec_sub(p, o->sl_pnt));
-	if (vec_dot(my, ax) <= 0)
+	if (rec->t1 <= EPS)
+		return(inside_slicing(o, r, rec));
+	s.p0 = vec_ray(r, rec->t0);
+  	s.ax = vec_unit(o->sl_vec);
+  	s.my0 = vec_unit(vec_sub(s.p0, o->sl_pnt));
+	if (vec_dot(s.my0, s.ax) <= 0)
 	{
-		p = vec_ray(r, rec->t1);
-		my = vec_unit(vec_sub(p, o->sl_pnt));
-		if (vec_dot(my, ax) <= 0)
+		s.p1 = vec_ray(r, rec->t1);
+		s.my1 = vec_unit(vec_sub(s.p1, o->sl_pnt));
+		if (vec_dot(s.my1, s.ax) <= 0)
 			return (0);
-		ft_memcpy(&recp, rec, sizeof(t_hit));
-		plan = rt_sl_plan(o, ax);
-		rt_init_negative(&recp);
-		ret = rt_hit_plan(&plan, r, &recp);
-		if (ret == 1 && recp.t < rec->t1)
-		{
-			rec->tx = 1;
-			rec->t0 = recp.t;
-			o->sl_sl = recp.t;
-			return (1);
-		}
-		else
-			return 0;
+		return (rt_plan_intersect(o, s, rec, r, rec->t1));
 	}
 	return 1;
 }

@@ -44,10 +44,10 @@ double			rt_ctod(char *str, t_rt *rt)
 	return (ret);
 }
 
-t_texture		rt_ctotxt(char *str, t_rt *rt)
+void		rt_ctotxt(char *str, t_texture *txt, t_rt *rt)
 {
 	char		**each;
-	t_texture	txt;
+	// t_texture	txt;
 
 	each = ft_strsplit(str, ' ');
 	if (!each || ft_twodimlen(each) != 1)
@@ -55,19 +55,21 @@ t_texture		rt_ctotxt(char *str, t_rt *rt)
 		ft_free_twodim(&each);
 		rt_exit(rt, "", "must be One value for texture data.\n", EXIT_FAILURE);
 	}
-	txt.is_txt = 1;
-	txt.buf = NULL;
-	txt.img = NULL;
-	txt.img = mlx_xpm_file_to_image(rt->mlx, each[0], &txt.width, &txt.height);
-	if (!txt.img)
+	txt->is_txt = 1;
+	txt->buf = NULL;
+	txt->img = NULL;
+	txt->mv1 = 0.0;
+	txt->mv2 = 0.0;
+	txt->img = mlx_xpm_file_to_image(rt->mlx, each[0], &txt->width, &txt->height);
+	if (!txt->img)
 	{
 		ft_free_twodim(&each);
 		rt_exit(rt, "Texture: ", " file unsupported", EXIT_FAILURE);
 	}
-	txt.buf = (int *)mlx_get_data_addr(txt.img, &rt->bpp,\
+	txt->buf = (int *)mlx_get_data_addr(txt->img, &rt->bpp,\
 		&rt->size, &rt->endian);
 	ft_free_twodim(&each);
-	return (txt);
+	// return (txt);
 }
 
 void			rt_comp_obj(t_object *o, t_rt *rt)
@@ -78,31 +80,31 @@ void			rt_comp_obj(t_object *o, t_rt *rt)
 
 void			rt_get_repere(t_object *o)
 {
-	// t_vec vup;
+	t_vec vup;
 
-	// vup = vec(0.0, 1.0, 0.0);
-	// if (is_yequal(vup, o->rot) == 1)
-	// {
-	// 	o->vec1 = vec(1.0, 0.0, 0.0);
-	// 	o->vec2 = vec(0.0, 0.0, 1.0);
-	// }
-	// else
-	// {
-	// 	if (is_yequal(vup, o->rot) == -1)
-	// 	{
-	// 		o->vec1 = vec(-1.0, 0.0, 0.0);
-	// 		o->vec2 = vec(0.0, 0.0, 1.0);
-	// 	}
-	// 	else
-	// 	{
-	// 		o->vec1 = vec_cross(vup, o->rot);
-	// 		o->vec2 = vec_cross(o->vec1, o->rot);
-	// 	}
+	vup = vec(0.0, 1.0, 0.0);
+	if (is_yequal(vup, o->rot) == 1)
+	{
+		o->vec1 = vec(1.0, 0.0, 0.0);
+		o->vec2 = vec(0.0, 0.0, 1.0);
+	}
+	else
+	{
+		if (is_yequal(vup, o->rot) == -1)
+		{
+			o->vec1 = vec(-1.0, 0.0, 0.0);
+			o->vec2 = vec(0.0, 0.0, 1.0);
+		}
+		else
+		{
+			o->vec1 = vec_cross(vup, o->rot);
+			o->vec2 = vec_cross(o->vec1, o->rot);
+		}
 
-	// }
+	}
 
-	o->vec1 = vec_unit(vec_cross(o->rot, vec(0.0, 1.0, 0.0)));
-	if (!(vec_dot(vec_cross(o->rot, vec(0.0, 1.0, 0.0)), vec3(1.0))))
-		o->vec1 = vec_unit(vec_cross(o->rot, vec(1.0, 0.0, 0.0)));
+	// o->vec1 = vec_unit(vec_cross(o->rot, vec(0.0, 1.0, 0.0)));
+	// if (!(vec_dot(vec_cross(o->rot, vec(0.0, 1.0, 0.0)), vec3(1.0))))
+	// 	o->vec1 = vec_unit(vec_cross(o->rot, vec(1.0, 0.0, 0.0)));
 	o->vec2 = (vec_cross(o->rot, o->vec1));
 }

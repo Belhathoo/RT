@@ -5,9 +5,11 @@ void    cone_uv(t_object *o, t_hit *rec)
 {
 	t_vec d;
 
-  	d = vec_sub(rec->p, o->pos);
+	d = vec_sub(rec->p, o->pos);
+	d = vec_add(d, vec_pro_k(o->rot, o->txt.mv1)); //
+	d = ft_rot_vec(d, o->rot, o->txt.mv2);
 	if (o->txt.is_txt)
- 		d = vec_div_k(d, o->scale);
+		d = vec_div_k(d, o->scale);
 	d = vec(vec_dot(d, o->vec1), vec_dot(d, o->rot), vec_dot(d, o->vec2));
 	rec->u= (atan2(d.x, d.z) + M_PI / (2.0 * M_PI));
 	rec->v= d.y;
@@ -57,7 +59,7 @@ int			rt_hit_cone(t_object *o, t_ray *r, t_hit *rec)
 		{
 			rec->p = vec_ray(r, rec->t);
 			if (rec->tx == 1)
-				rec->n = vec_pro_k(o->sl_vec , -1);
+				rec->n = vec_pro_k(o->sl_vec, -1);
 			else if (rec->is_n == 1 && rec->t == rec->negative[1])
 				rec->n = rec->negative_normal;
 			else if (rec->t1 <= EPS)
@@ -65,6 +67,8 @@ int			rt_hit_cone(t_object *o, t_ray *r, t_hit *rec)
 			else
 				rec->n = normale_cone(o, r, rec);
 			cone_uv(o, rec);
+			if (o->txt.is_txt && o->txt.is_trans && !(trans_texture(r, o, rec)))
+	     	  return(0);
 			return (1);
 		}
 	}

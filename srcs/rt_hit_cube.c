@@ -24,7 +24,7 @@ int				rt_hit_cube(t_object *obj, t_ray *r,  t_hit *rec)
 			rec->u = record.u;
 			rec->v = record.v;
 			rec->closest = rec->t;
-			RCR = o;
+			rec->curr_obj= o;
 			rec->ray = r;
 			// record.ray = r;
 			// *rec = record;

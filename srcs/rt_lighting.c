@@ -43,29 +43,27 @@ t_vec		rt_specular(t_hit rec, t_light *l, t_vec lo, double f_att)
 t_vec		rt_lighting(t_thread *th, t_light *l)
 {
 	double	f_att;
-	t_vec	color;
+	t_vec	col;
 	t_ray	sh_r;
-
 	t_vec	l_vec;
-	color = vec3(0.0);
-	rt_ambient(th->RS->ambient, l, th->rec, &color);
+
+	col = vec3(0.0);
+	rt_ambient(th->RS->ambient, l, th->rec, &col);
 	while (l)
 	{
-		// if (l->type == PL_LIGHT) 
-		// 	l_vec = vec_pro_k(l->dir, -1.0);
-		// else
-			l_vec = vec_sub(l->pos, th->rec.p);
-		
+		l_vec = (l->type == PL_LIGHT) ?\
+				vec_pro_k(l->dir, -1.0) : vec_sub(l->pos, th->rec.p);
 		sh_r.dir = vec_unit(l_vec);
 		sh_r.origin = vec_add(th->rec.p, vec_pro_k(sh_r.dir, 0.01));
-		if (rt_shading(th, sh_r, l, &color, MAX_DEPTH) == 0)
+		if (rt_shading(th, sh_r, l, &col, MAX_DEPTH) == 0)
 		{
-			f_att = /*(l->type == PL_LIGHT) ? 1.0 : */ft_clamping(1 / ((vec_length(l_vec)\
-					+ vec_length(th->rec.ray->dir)) * 0.02));
-			color = vec_add(color, vec_add(rt_specular(th->rec, l, l_vec, f_att),\
+			f_att = (l->type == PL_LIGHT) ? 1.0\
+				: ft_clamping(1 / ((vec_length(l_vec)\
+							+ vec_length(th->rec.ray->dir)) * 0.02));
+			col = vec_add(col, vec_add(rt_specular(th->rec, l, l_vec, f_att),\
 						rt_diffuse(th->rec, l, l_vec, f_att)));
 		}
 		l = l->next;
 	}
-	return (color);
+	return (col);
 }

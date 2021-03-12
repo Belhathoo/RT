@@ -44,7 +44,8 @@ typedef	struct	s_texture
 	int			width;
 	int			height;
 	double		scale;
-	double		mv;
+	double		mv1;
+	double		mv2;
 }				t_texture;
 
 typedef struct	s_noise
@@ -108,6 +109,7 @@ typedef struct	s_o
 
 	t_vec		sl_vec;
 	t_vec		sl_pnt;
+	int			sl_ax;
 
 	t_texture	txt;
 	t_noise		noi;
@@ -249,6 +251,20 @@ typedef	struct	s_mobius
 	double		f;
 	double		radius;
 }				t_mobius;
+
+typedef  struct s_slice
+{
+	t_object	plan;
+	t_hit		recp;
+	t_vec		p1;
+	t_vec		p0;
+	t_vec		ax;
+	t_vec		my0;
+	t_vec		my1;
+	double		s0;
+	double		s1;
+	int			ret;
+}				t_slice;
 
 typedef struct	s_voronoi
 {

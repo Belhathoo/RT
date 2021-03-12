@@ -19,7 +19,6 @@ t_texture		rt_init_txt(void)
 	t_texture	txt;
 
 	txt.is_txt = 1;
-	txt.is_trans = 0;
 	txt.buf = NULL;
 	txt.img = NULL;
 	return (txt);
@@ -118,6 +117,7 @@ t_object		*rt_init_object(t_rt *rt)
 	obj->is_sliced = 0;
 	obj->sl_pnt = vec(0.0, 0.0, 0.0);
 	obj->sl_vec = vec(0.0, -1.0, 0.0);
+	obj->sl_ax = 0.0;
 	obj->refl = 0.0;
 	obj->refr = 0.0;
 	obj->next = NULL;

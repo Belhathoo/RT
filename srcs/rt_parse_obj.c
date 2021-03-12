@@ -58,9 +58,11 @@ int			rt_add_sizes(t_attr *attr, t_object *obj, t_rt *rt)
 int			rt_add_txt_noi(t_attr *attr, t_object *obj, t_rt *rt)
 {
 	if (!ft_strcmp(attr->name, "texture"))
-		obj->txt = rt_ctotxt(attr->value, rt);
-	else if (!ft_strcmp(attr->name, "txt_mv"))
-		obj->txt.mv = rt_ctod(attr->value, rt);
+		rt_ctotxt(attr->value, &obj->txt, rt);
+	else if (!ft_strcmp(attr->name, "txt_mv1"))
+		obj->txt.mv1 = rt_ctod(attr->value, rt);
+	else if (!ft_strcmp(attr->name, "txt_mv2"))
+		obj->txt.mv2 = rt_ctod(attr->value, rt);
 	else if (!ft_strcmp(attr->name, "txt_trans"))
 		obj->txt.is_trans = rt_trans_txt(rt, obj, attr->value);
 	else if (!ft_strcmp(attr->name, "scale"))
@@ -88,6 +90,8 @@ int			rt_add_mat_sl(t_attr *attr, t_object *obj, t_rt *rt)
 		obj->sl_vec = rt_ctovec(attr->value, rt);
 	else if (!ft_strcmp(attr->name, "slice_pnt") && (obj->is_sliced = 1))
 		obj->sl_pnt = rt_ctovec(attr->value, rt);
+	else if (!ft_strcmp(attr->name, "slice_ax"))
+		obj->sl_ax = rt_ax_parse(attr->value, obj, rt);
 	else
 		return (0);
 	return (1);

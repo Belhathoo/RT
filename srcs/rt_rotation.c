@@ -47,3 +47,16 @@ t_vec		rotation(t_vec dir, t_vec rot)
 	return (rt_rotz(rt_roty(rt_rotx(dir, rot.x), rot.z), rot.y));
 }
 
+t_vec		rt_rot_pnt(t_object *o, t_vec (*rot_ax)(t_vec vec, double angle), double angle)
+{
+	t_vec	tmp;
+	t_vec	rot;
+	double	dist;
+
+	tmp = vec_sub(o->sl_pnt, o->pos);
+	dist = vec_length(tmp);
+	rot = vec_unit(tmp);
+	rot = rot_ax(rot, angle);
+	tmp = vec_add(o->pos, vec_pro_k(rot, dist));
+	return (tmp);
+}

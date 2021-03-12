@@ -68,6 +68,20 @@ void		rt_add_neg_object(t_tag *tag, t_rt *rt)
 	RS->n_obj = obj;
 }
 
+int			rt_ax_parse(char *val, t_object *o, t_rt *rt)
+{
+	if (!ft_strcmp(val, "x") || !ft_strcmp(val, "X"))
+		return (1);
+	else if (!ft_strcmp(val, "y") || !ft_strcmp(val, "Y"))
+		return (2);
+	else if (!ft_strcmp(val, "z") || !ft_strcmp(val, "Z"))
+		return (3);
+	else
+		rt_exit(rt, o->name, ": slice_ax should be X | Y | Z."\
+			, EXIT_FAILURE);
+	return (-1);
+}
+
 void		rt_add_option(t_tag *tag, t_rt *rt)
 {
 	while (TA)

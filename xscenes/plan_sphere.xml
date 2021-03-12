@@ -1,23 +1,20 @@
 <!DOCTYPE xml>
 
 <Camera
-  lookfrom="0.0 15.10 1.0"
+  lookfrom="0.0 15.10 45.0"
   lookat="0 0 0"
   fov="60"
   />
 
 <Option aa="2.0"/>
 
-<Object name="sphere" position="0 -25 0.0" 
-width="10" height="14" direction="0. -1.0 0"
-radius="22"  noise="damier" material="gld"/>
+<Object name="plan" color="0 1 1">
 
-<Object name="sphere" position="0.0 1.0 0.0" 
-radius="4" material="gold" />
+<Object name="sphere" position="-8.0 4.0 0.0" 
+radius="4" material="goxld" refr="1.0"/>
 
+<Object name="sphere" position="8.0 4.0 0.0" radius="4">
 
-
- 
-<Light position="0 5.0 010" />
+<Light type="parallel" direction="0 -1 0" position="0 0.0 010" />
 
 

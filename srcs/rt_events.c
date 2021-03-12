@@ -40,19 +40,20 @@ int			rt_keys(int key, t_rt *rt)
 	if (key == K_S)
 		save_btn(rt);
 	if (RS->key_mvt == 1)
-	{
+	{ //
 		if (key == K_C)
 			cam_btn(rt);
 		else if (key == K_L)
 			light_btn(rt);
-	}
+	}//
 	if (RS->key_mvt == 1)
 	{
 		if (RS->key_cam == 1)
 			(rt_move(key, &RS->cam.lookfrom)) ? rt_reset(rt) : 0;
 		else if (RS->sl_obj != NULL)
 		{
-			if (rt_move(key, &RS->sl_obj->pos))
+			if (rt_move(key, &RS->sl_obj->pos)\
+			&& rt_move(key, &RS->sl_obj->sl_pnt))
 				rt_reset(rt);
 			if (rt_rot_event(key, RS->sl_obj))
 				rt_reset(rt);
