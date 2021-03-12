@@ -9,11 +9,11 @@
 
 <Option aa="9" amb="0.2"/>
 
-<Object name="sphere" position="0.0 -0.0 0.0" direction="0 1.0  0.0" 
-material="ic0e" radius="5.0"  scale="2224" color="1 0. 0."  />
+<Object name="sphere" position="0.0 5.0 0.0" direction="0 1.0  0.0" 
+material="ic0e" radius="1.0" color="1 0. 0."  />
 
 <Object name="cube" position="0 0 0" color="0.0 0.0 01" 
- n_color="1 1 0" material="bl1_plastic" refr="0.0" size="5"
+ n_color="1 1 0" material="bl1_plastic" refl="01.0" size="5"
  direction="0 10 0" >
 
 

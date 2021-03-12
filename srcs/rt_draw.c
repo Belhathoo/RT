@@ -27,7 +27,7 @@ t_vec		rt_raytracer(t_thread *th, t_ray r, int depth)
 		if (o->txt.is_txt == 1)
 			rec.col = rt_get_color_from_texture(o, &rec.u, &rec.v);
 		else if (o->noi.is_noise == 1)
-			rec.col = rt_noise(o, &rec);
+			rec.col = rt_noise(th->rt, o, &rec);
 		else
 			rec.col = o->col;
 		th->rec = rec;

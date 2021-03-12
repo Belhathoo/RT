@@ -144,7 +144,8 @@ t_vec  			rt_torus_noise(t_hit *rec);
 
 int     		rt_add_noise(char *val, t_rt *rt);
 t_vec			rt_noise_damier(t_hit *rec);
-t_vec			rt_noise(t_object *o, t_hit *rec);
+t_vec	        rt_noise(t_rt *rt, t_object *o, t_hit *rec);
+t_vec			perlin(t_rt *rt, t_vec v, t_object *obj);
 t_vec			rt_rand1dto3d(double value);
 t_vec			rt_rand3dto3d(t_vec value);
 t_vec			vec_floor(t_vec v);

@@ -20,6 +20,8 @@ t_vec		rt_stereoscopy(t_thread *t, double col, double row, int select)
 	t_ray	r;
 	double	anti_a;
 
+	// no re calcul for cams
+
 	anti_a = sqrt(t->RS->max_anti_a);
 	init_tab(tab);
 	t->rt->scene->camm[0] = rt_init_camera(vec_add(t->rt->scene->cam.lookfrom\

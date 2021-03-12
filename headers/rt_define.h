@@ -54,6 +54,7 @@
 # define VORONOI1 2
 # define VORONOI2 3
 # define VORONOI3 4
+# define PERLIN 5
 
 // BUTTONS
 

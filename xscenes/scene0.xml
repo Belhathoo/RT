@@ -1,14 +1,14 @@
 <!DOCTYPE xml>
 
 <Camera
-  lookfrom="0.0 05.0 20.50"
+  lookfrom="0.0 6.0 20.0"
   lookat="0 0 0"
   fov="60"
   />
 
-<Option aa="9.0" amb="0.13" stereo="0.0" />
+<Option aa="9.0" amb="0.13" stereo="0.20" />
 
-<Object name="plan" direction="0 0 1" position="0 0 -90"
+<Object name="plan" direction="0 0 1" position="0 0 -40"
 material="water" refl="1.0" color="10 10 10" scale="1.5" noise="voronoi2" />
 <Object name="plan" scale="1.5" direction="0 1 0" scale="0.10" 
 material="a0l" texture="xpm/brick.xpm" position="0 -6.0 10"/>
@@ -17,22 +17,23 @@ material="a0l" texture="xpm/brick.xpm" position="0 -6.0 10"/>
 material="a0l" radius="4.0" refr="4.0" scale="1" texture="xpm/sun.xpm"/>
 
 
-
-<Object name="sphere" material="diamond" scale="1.0" noise="voronoi1"
-position="10.0 0.0 -10.0" color="0 0 1.0"/>
-<Object name="l_cylinder" position="-15.0 0.0 0.0" height="10" direction="0 1 0" 
-noise="voronoi1" radius="2.0" scale="0.4" n_color="1 1 0" />
-
 <Object name="sphere" position="-8.0 1.0 -6.0"  color="0 0 1.0" material="mirror" />
 
+<Object name="sphere" material="diamond" scale="1.0" noise="voronoi1"
+position="10.0 0.0 -3.0" color="0 0 1.0"/>
+<Object name="l_cylinder" position="10.0 0.0 -15.0" height="10" direction="0 1 0" 
+noise="perlin" radius="2.0" scale="10" n_color="1 1 0" />
 
-<Object name="sphere" position="0.0 -1.0 0.0"  scale="1.0" radius="5"
+
+<Object name="rectangle" position="-15 02 0.0" material="gold" color="0.4 0.2 0.29"
+width="7" height="5" direction="10 .0 1.0"  noise="perlin" scale="10" />
+
+<Object name="sphere" position="0.0 -1.0 0.0" scale="1.0" radius="5" 
  color=".0 .0 1.0" refr="1." />
-<Object name="cube" position="0.0 -1.0 0.0" color="1 0 0"
-refr="0.0" size="2" />
+<Object name="cube" position="0.0 -1.0 0.0" color="0.8 0 0"
+refr="0.0" size="2" noise="perlin" scale="15"/>
 
-<Object name="rectangle" position="0 -5 0" material="water" width="15" height="10"
-noise="voronoi2" scale="2.5">
 
 
 <Light position="0.0 15 -15" intensity="0.5" color="1 1 1.0"/>
+<Light position="-20.0 5 0" intensity="0.1" color="1 1 1.0"/>

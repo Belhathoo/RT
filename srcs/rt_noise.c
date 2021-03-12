@@ -39,20 +39,25 @@ t_vec	rt_noise_voronoi(t_hit *rec, t_object *o)
 
 }
 
-t_vec	rt_noise(t_object *o, t_hit *rec)
+t_vec	rt_noise(t_rt *rt, t_object *o, t_hit *rec)
 {
 	t_vec	ret;
-	int  type;
+	int		type;
+	t_vec	p;
 
+	p = vec_sub(o->pos, rec->p);
+	p = vec(vec_dot(p, o->vec1), vec_dot(p, o->vec2), \
+	vec_dot(p, o->rot));
 	type = o->noi.type;
 	ret = o->noi.col1;
 	if (type == DAMIER)
 		return (rt_noise_damier(rec));
 	else if (type == CIRCLES)
-	    return(rt_noise_circles(o, rec));
+		return (rt_noise_circles(o, rec));
 	else if (type == VORONOI1 || type == VORONOI2 \
 			|| type == VORONOI3)
-	   return (rt_noise_voronoi(rec, o));
-	else
-		return (ret);
+		return (rt_noise_voronoi(rec, o));
+	else if (type == PERLIN)
+		return (perlin(rt, p, o));
+	return (ret);
 }

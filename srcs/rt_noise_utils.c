@@ -13,6 +13,8 @@ int		 rt_add_noise(char *val, t_rt *rt) //parser
 	   	return (3);
 	else if (!ft_strcmp(val, "voronoi3"))
 	   	return (4);
+	else if (!ft_strcmp(val, "perlin"))
+	   	return (5);
 	rt_exit(rt, 0, "noise: Unknown type!", EXIT_FAILURE);
 	return (-1);
 }

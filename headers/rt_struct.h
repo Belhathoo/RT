@@ -227,6 +227,8 @@ typedef struct	s_rt
 	t_vec		btns_up;
 	t_vec		btns_noi;
 	t_light		*s_light;
+	t_vec		*ran; /// perlin 
+	int			hash[255]; //perlin
 }				t_rt;
 
 typedef struct	s_thread

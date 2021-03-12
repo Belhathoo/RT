@@ -73,6 +73,24 @@ t_noise			rt_init_noise(void)
 	return (n);
 }
 
+void		init_perlin(t_rt *rt)
+{
+	int i;
+
+	if (!(rt->ran = (t_vec *)malloc(256 * sizeof(t_vec))))
+		rt_exit(rt,"", "ran van",1);
+	i = 0;
+	while (i < 256)
+	{
+		rt->ran[i].x = rand() % 255;
+		rt->ran[i].y = rand() % 255;
+		rt->ran[i].z = rand() % 255;
+		rt->ran[i] = vec_unit(rt->ran[i]);
+		rt->hash[i] = rand() % 255;
+		i++;
+	}
+}
+
 t_object		*rt_init_object(t_rt *rt)
 {
 	t_object *obj;
@@ -131,9 +149,11 @@ t_scene		*rt_init_scene(t_rt *rt)
 
 void		rt_init(t_rt *rt)
 {
+	init_perlin(rt);
 	rt->img = NULL;
 	rt->mlx = NULL;
 	rt->data = NULL;
 	rt->win = NULL;
 	rt->filter = NONE_FILTER;
+
 }
