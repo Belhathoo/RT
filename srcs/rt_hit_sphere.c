@@ -1,7 +1,6 @@
 
 #include <rt.h>
 
-
 t_vec	ft_rot_vec(t_vec a, t_vec b, double t)
 {
 	t_vec	res;

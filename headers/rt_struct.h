@@ -132,8 +132,6 @@ typedef	struct	s_l
 	t_vec		dir;
 	t_vec		col;
 	double		intensity;
-	double		radius; // for soft shaddows !! not for sure
-	double		angle;
 	struct s_l	*next;
 }				t_light;
 
@@ -172,7 +170,7 @@ typedef struct	s_hit
 	int			tx;
 }				t_hit;
 
-typedef struct s_light_shading
+typedef struct	s_light_shading
 {
 	t_vec		l_vec;
 	double		closest;
@@ -180,7 +178,7 @@ typedef struct s_light_shading
 	t_hit		rec;
 }				t_li_sh;
 
-typedef  struct s_slice
+typedef struct	s_slice
 {
 	t_object	plan;
 	t_hit		recp;
@@ -247,7 +245,7 @@ typedef struct	s_rt
 	char		*name_sc;
 	int			size;
 	int			endian;
-	int 		filter;
+	int			filter;
 
 	int			save_order;
 	t_button	**bt;
@@ -255,7 +253,8 @@ typedef struct	s_rt
 	t_vec		btns_up;
 	t_vec		btns_noi;
 	t_light		*s_light;
-	t_vec		*ran; // free 
+	int			is_perlin;
+	t_vec		*ran;// free
 	int			hash[255];
 }				t_rt;
 
@@ -264,7 +263,6 @@ typedef struct	s_thread
 	int			i;
 	t_rt		*rt;
 	t_hit		rec;
-	// t_texture	*t;
 }				t_thread;
 
 #endif

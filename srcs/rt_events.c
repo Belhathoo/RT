@@ -31,16 +31,14 @@ void		rt_reset(t_rt *rt)
 
 int			rt_keys(int key, t_rt *rt)
 {
-	//rt selt obj in main.c !!!! for linux events
-	// (rt->scene->sl_obj) ? ft_putendl(rt->scene->sl_obj->name) : 0;
 	if (key == K_ESC)
 		rt_close(rt);
 	if (key == K_A)
 		mvt_btn(rt);
 	if (key == K_S)
 		save_btn(rt);
-	if (rt->scene->key_mvt == 1)
-	{ //
+	if (rt->scene->key_mvt == 1)//
+	{
 		if (key == K_C)
 			cam_btn(rt);
 		else if (key == K_L)

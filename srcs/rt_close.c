@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rt_close.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: belhatho <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/13 15:17:03 by belhatho          #+#    #+#             */
+/*   Updated: 2021/03/13 15:17:09 by belhatho         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-# include <rt.h>
+#include <rt.h>
 
-void    rt_free_objects(t_object *object)
+void		rt_free_objects(t_object *object)
 {
 	t_object	*obj;
 	t_object	*tmp;
@@ -16,7 +27,7 @@ void    rt_free_objects(t_object *object)
 		{
 			tmp1 = o->compos;
 			free(o);
-			o = tmp1;				
+			o = tmp1;
 		}
 		tmp = obj->next;
 		free(obj->name);
@@ -26,7 +37,7 @@ void    rt_free_objects(t_object *object)
 	}
 }
 
-void    rt_free_lights(t_light *light)
+void		rt_free_lights(t_light *light)
 {
 	t_light		*l;
 	t_light		*tmp;
@@ -40,9 +51,7 @@ void    rt_free_lights(t_light *light)
 	}
 }
 
-
-
-void    rt_exit(t_rt *rt, char *m, char *m1, int err)
+void		rt_exit(t_rt *rt, char *m, char *m1, int err)
 {
 	/*  certain cases xml free !
 	*/

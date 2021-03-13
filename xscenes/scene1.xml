@@ -8,7 +8,7 @@
 
 <Option aa="1.0"/>
 
-<Object name="plan" direction="0 0 1" position="0 0 10" color="0 1 1" refr="0.40.">
+<Object name="plan" direction="0 0 1" position="0 0 10" color="0 1 1" refr="01.40.">
 <Object name="torus" radius="2.5" r="0.75" position="-5 2.0 -1.0" direction="0 0 -1" 
  color="1 1 1.0"/>
 

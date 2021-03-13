@@ -15,7 +15,7 @@ double		rt_rand1dto1d(double value, double mutator)
 {
 	return (rt_frac(sin(value + mutator) * 143758.5453));
 }
- 
+
 t_vec		rt_rand1dto3d(double value)
 {
 	return (vec(

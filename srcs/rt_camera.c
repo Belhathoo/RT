@@ -10,13 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <rt.h>
+#include <rt.h>
 
 int		is_yequal(t_vec a, t_vec b)
 {
-	if ((float)a.y == (float)b.y )// < (float)0.01)
+	if ((float)a.y == (float)b.y)// < (float)0.01)
 		return (1);
-	if ((float)a.y == -(float)b.y) //< (float)0.01)
+	if ((float)a.y == -(float)b.y)//< (float)0.01)
 		return (-1);
 	return (0);
 }
@@ -39,7 +39,6 @@ void			rt_uv_cam(t_vec w, t_vec *u, t_vec *v)
 		ft_putendl("-ll");
 			*u = vec(1.0, 0.0, 0.0);
 			*v = vec(0.0, 0.0, 1.0);
-
 		}
 		else
 		{
@@ -54,11 +53,10 @@ t_camera		rt_init_camera(t_vec lookfrom, t_vec lookat, double vfov)
 {
 	t_camera	c;
 	// printf("%.2f %.2f %.2f\n", lookfrom.x,lookfrom.y ,lookfrom.z);
-
 	c.w = vec_unit(vec_sub(lookat, lookfrom));
 	rt_uv_cam(c.w, &c.u, &c.v);
-	printf("w. %.2f %.2f %.2f\n", c.w.x,c.w.y ,c.w.z);
-	printf("u. %.2f %.2f %.2f\n", c.u.x,c.u.y ,c.u.z);
+	// printf("w. %.2f %.2f %.2f\n", c.w.x,c.w.y ,c.w.z);
+	// printf("u. %.2f %.2f %.2f\n", c.u.x,c.u.y ,c.u.z);
 	// c.u = vec_unit(vec_cross(c.w, vup));
 	// c.v = vec_cross(c.u, c.w);
 	c.half_h = tan((vfov * M_PI / 180.0) / 2.0);
@@ -93,7 +91,6 @@ void			rt_add_camera(t_tag *tag, t_rt *rt)
 		TA = TA->next;
 	}
 		// printf("%.2f %.2f %.2f\n", cam.lookfrom.x,cam.lookfrom.y ,cam.lookfrom.z);
-
 	rt_check_cam(cam, rt);
 	rt->scene->cam = rt_init_camera(cam.lookfrom, cam.lookat, cam.fov);
 }

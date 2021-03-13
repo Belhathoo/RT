@@ -1,25 +1,36 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rt_bmp_decode.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: msoulaim <msoulaim@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/13 16:16:10 by msoulaim          #+#    #+#             */
+/*   Updated: 2021/03/13 16:16:45 by msoulaim         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <rt.h>
 
-void	decode_header(t_bmp *bmp)
+void			decode_header(t_bmp *bmp)
 {
-	unsigned char buffer[40];
-	unsigned char buff[14];
-	int i;
+	unsigned char	buffer[40];
+	unsigned char	buff[14];
+	int				i;
 
 	i = read(bmp->fd, buff, 14);
 	bmp->info_header->signature[0] = buff[0];
 	bmp->info_header->signature[1] = buff[1];
 	i = read(bmp->fd, buffer, 40);
 	(void)i;
-	bmp->info_header->bm_headersize = bytes_to_number(buffer, 4);//
-	bmp->info_header->width = bytes_to_number(buffer + 4, 4);//
-	bmp->info_header->height = bytes_to_number(buffer + 8, 4);//
-	bmp->info_header->bpp = bytes_to_number(buffer + 14, 2);//
-	bmp->padding = bmp->info_header->width % 4;//hna kat7sab l padding rasek katched star kaml kat9assmou 3la 4bytes lli shat lik ra howa l padding
+	bmp->info_header->bm_headersize = bytes_to_number(buffer, 4);
+	bmp->info_header->width = bytes_to_number(buffer + 4, 4);
+	bmp->info_header->height = bytes_to_number(buffer + 8, 4);
+	bmp->info_header->bpp = bytes_to_number(buffer + 14, 2);
+	bmp->padding = bmp->info_header->width % 4;
 }
 
-int		check_header(t_bmp *bmp)
+int				check_header(t_bmp *bmp)
 {
 	if (bmp->info_header->signature[0] != 'B' &&
 			bmp->info_header->signature[1] != 'M')
@@ -31,7 +42,7 @@ int		check_header(t_bmp *bmp)
 	return (1);
 }
 
-static t_bmp	*decode(char *path)
+t_bmp			*decode(char *path)
 {
 	t_bmp *bmp;
 

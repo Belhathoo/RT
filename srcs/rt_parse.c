@@ -42,9 +42,10 @@ void			rt_parser(t_rt *rt, char **argv)
 		xml_exit(x, "-1\n", EXIT_FAILURE);
 	// err. (check redo in main libxml)
 	xml_to_rt(x, rt);
-	// printf("%d", rt->scene->light->type);
-	rt->name_sc = argv[1];
 	xml_close(x);
+	if (rt->is_perlin)
+		init_perlin(rt);
+	rt->name_sc = argv[1];
 }
 
 

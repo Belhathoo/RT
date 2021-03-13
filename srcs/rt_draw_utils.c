@@ -1,5 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rt_draw_utils.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: belhatho <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/13 16:00:52 by belhatho          #+#    #+#             */
+/*   Updated: 2021/03/13 16:00:57 by belhatho         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-# include <rt.h>
+#include <rt.h>
 
 t_ray		rt_ray(t_vec a, t_vec b)
 {
@@ -10,7 +21,7 @@ t_ray		rt_ray(t_vec a, t_vec b)
 	return (r);
 }
 
-t_ray rt_get_ray(t_camera *p, double u, double v)
+t_ray		rt_get_ray(t_camera *p, double u, double v)
 {
 	return (rt_ray(p->origin, vec_unit(vec_sub(vec_add(p->lower_left_corner,
 							vec_add(vec_pro_k(p->horizontal, u),

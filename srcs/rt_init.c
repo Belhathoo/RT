@@ -42,21 +42,17 @@ t_object		rt_init_neg_object(void)
 	return (obj);
 }
 
-
 t_light			*rt_init_light(t_rt *rt)
 {
 	t_light	*light;
 
-	// recheck for other initialis// parameters
-
 	if (!(light = (struct s_l*)malloc(sizeof(struct s_l))))
 		rt_exit(rt, "Cannot allocate\n", "", EXIT_FAILURE);
 	light->type = PT_LIGHT;
-	light->angle = 30.0;
-	light->pos = vec(5.0, 5.0, 15.0);
+	light->pos = vec(0.0, 5.0, 15.0);
 	light->col = vec(1.0, 1.0, 1.0);
 	light->dir = vec(0.0, -1.0, 0.0);
-	light->intensity = 0.8;
+	light->intensity = 0.6;
 	light->next = NULL;
 	return (light);
 }
@@ -77,7 +73,7 @@ void		init_perlin(t_rt *rt)
 	int i;
 
 	if (!(rt->ran = (t_vec *)malloc(256 * sizeof(t_vec))))
-		rt_exit(rt,"", "ran van",1);
+		rt_exit(rt, " perlin: ", "Cannot allacte", EXIT_FAILURE);
 	i = 0;
 	while (i < 256)
 	{
@@ -88,6 +84,23 @@ void		init_perlin(t_rt *rt)
 		rt->hash[i] = rand() % 255;
 		i++;
 	}
+}
+
+void			rt_init_obj_ann(t_object *obj)
+{
+	obj->refl = 0.0;
+	obj->refr = 0.0;
+	obj->txt.is_txt = 0;
+	obj->txt.is_trans = 0;
+	obj->txt.scale = 1.0;
+	obj->txt.mv1 = 0.0;
+	obj->txt.mv2 = 0.0;
+	obj->noi = rt_init_noise();
+	obj->scale = 1.5;
+	obj->is_sliced = 0;
+	obj->sl_pnt = vec(0.0, 0.0, 0.0);
+	obj->sl_vec = vec(0.0, -1.0, 0.0);
+	obj->sl_ax = 0.0;
 }
 
 t_object		*rt_init_object(t_rt *rt)
@@ -110,19 +123,7 @@ t_object		*rt_init_object(t_rt *rt)
 	obj->dir = vec(0.0, 1.0, 0.0);
 	obj->rot = vec(0.0, 0.0, 0.0);
 	obj->col = vec(1.0, 0.7, 0.3);
-	obj->txt.is_txt = 0;
-	obj->txt.is_trans = 0;
-	obj->txt.scale = 1.0;
-	obj->txt.mv1 = 0.0;
-	obj->txt.mv2 = 0.0;
-	obj->noi = rt_init_noise();
-	obj->scale = 1.5;
-	obj->is_sliced = 0;
-	obj->sl_pnt = vec(0.0, 0.0, 0.0);
-	obj->sl_vec = vec(0.0, -1.0, 0.0);
-	obj->sl_ax = 0.0;
-	obj->refl = 0.0;
-	obj->refr = 0.0;
+	rt_init_obj_ann(obj);
 	obj->next = NULL;
 	obj->compos = NULL;
 	return (obj);
@@ -152,12 +153,10 @@ t_scene		*rt_init_scene(t_rt *rt)
 
 void		rt_init(t_rt *rt)
 {
-	// 3azzouz me3guuuuaz to after parse add int perlin rt struct
-	init_perlin(rt); 
+	rt->is_perlin = 0;
 	rt->img = NULL;
 	rt->mlx = NULL;
 	rt->data = NULL;
 	rt->win = NULL;
 	rt->filter = NONE_FILTER;
-
 }

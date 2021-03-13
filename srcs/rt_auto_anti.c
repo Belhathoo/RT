@@ -68,7 +68,7 @@ t_vec			anti_aa(t_thread *t, double col, double row, int select)
 	init_tab(tab);
 	anti_a = sqrt(t->rt->scene->max_anti_a);
 	colo = vec3(0.0);
-	if (t->rt->scene->stereo)
+	if (t->rt->scene->stereo != 0.0)
 		color = rt_stereoscopy(t, col, row, select);
 	else
 	{

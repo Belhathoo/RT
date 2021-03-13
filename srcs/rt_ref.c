@@ -66,6 +66,6 @@ t_ray		rt_refraction(t_hit rec, t_ray r, t_object *o)
 	}
 	if (rt_refract(r.dir, out_n, ior, &rf_r.dir) == 0)
 		rf_r.dir = refl;
-	rf_r.origin = vec_add(rec.p, vec_pro_k(rf_r.dir, 0.001));
+	rf_r.origin = vec_add(rec.p, vec_pro_k(rf_r.dir, 0.0001));
 	return (rf_r);
 }

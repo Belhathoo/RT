@@ -13,10 +13,6 @@
 #ifndef RT_DEFINE_H
 # define RT_DEFINE_H
 
-/*
- * Macros
- */
-
 # define NBTHREAD 4
 # define MAX_DEPTH 50
 
@@ -34,20 +30,13 @@
 # define EPS 1e-9
 
 # define PT_LIGHT 0
-# define SP_LIGHT 1
 # define PL_LIGHT 2
 
-# define RS rt->scene
-# define RCR rec->curr_obj
-
-//  * MLX KEYS
 # if defined(__APPLE__)
 #  include <key_macos.h>
 # else
 #  include <key_linux.h>
 # endif
-
-// *   Noises
 
 # define DAMIER 0
 # define CIRCLES 1
@@ -55,8 +44,6 @@
 # define VORONOI2 3
 # define VORONOI3 4
 # define PERLIN 5
-
-// BUTTONS
 
 # define SAVE_BTN 0
 # define MVT_BTN 1
@@ -68,13 +55,9 @@
 # define V2_BTN 7
 # define V3_BTN 8
 
-// *   Filters
-
 # define NONE_FILTER 0
 # define SEPIA 1
-# define BNW 2 //
 # define NEGATIVE 3
 # define GRAY 4
-# define MOTION_BLUR 5
 
 #endif

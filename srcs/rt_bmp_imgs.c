@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rt_bmp_imgs.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: msoulaim <msoulaim@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/13 16:49:30 by msoulaim          #+#    #+#             */
+/*   Updated: 2021/03/13 16:50:15 by msoulaim         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <rt.h>
 
-static unsigned char	*img_cat(t_bmp *bmp, unsigned char **img_arr)
+unsigned char	*img_cat(t_bmp *bmp, unsigned char **img_arr)
 {
 	unsigned char	*ret;
 	int				len;
@@ -28,7 +39,7 @@ static unsigned char	*img_cat(t_bmp *bmp, unsigned char **img_arr)
 	return (ret);
 }
 
-static unsigned char	*get_ligne(t_bmp *bmp, unsigned char *img)
+unsigned char	*get_ligne(t_bmp *bmp, unsigned char *img)
 {
 	unsigned char	*ret;
 	int				len;
@@ -54,17 +65,17 @@ static unsigned char	*get_ligne(t_bmp *bmp, unsigned char *img)
 	return (ret);
 }
 
-int		init_bmp2(t_bmp *bmp)
+int				init_bmp2(t_bmp *bmp)
 {
 	if (!(bmp->readed = (unsigned char**)malloc(sizeof(unsigned char*) *
 	(bmp->info_header->height + 1))))
 		return (0);
 	if (!(bmp->buffer = malloc((bmp->info_header->width * 3))))
 		return (0);
-	return(1);
+	return (1);
 }
 
-int						get_image(t_bmp *bmp)
+int				get_image(t_bmp *bmp)
 {
 	int		i;
 	int		k;

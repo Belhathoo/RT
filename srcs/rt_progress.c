@@ -1,6 +1,18 @@
-# include <rt.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rt_progress.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: belhatho <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/13 18:59:11 by belhatho          #+#    #+#             */
+/*   Updated: 2021/03/13 18:59:13 by belhatho         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void    rt_progress_run(t_rt *rt)
+#include <rt.h>
+
+void		rt_progress_run(t_rt *rt)
 {
 	rt->scene->key_cam = 0;
 	if (rt->scene->progress == 1)
@@ -17,7 +29,7 @@ void    rt_progress_run(t_rt *rt)
 	}
 }
 
-void	rt_mvt_run(t_rt *rt)
+void		rt_mvt_run(t_rt *rt)
 {
 	if (rt->scene->key_mvt == 1 && rt->scene->key == 1)
 	{

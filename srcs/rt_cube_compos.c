@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rt_cube_compos.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: belhatho <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/13 15:18:10 by belhatho          #+#    #+#             */
+/*   Updated: 2021/03/13 15:18:14 by belhatho         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <rt.h>
 
-void	rt_init_compos(t_object *obj, t_object *comp)
+void			rt_init_compos(t_object *obj, t_object *comp)
 {
 	comp->name = NULL;
 	comp->material = NULL;
@@ -17,7 +28,8 @@ void	rt_init_compos(t_object *obj, t_object *comp)
 	comp->compos = NULL;
 }
 
-static void		get_cube_compos1(t_object *obj, t_object **comp, int side, t_rt *rt)
+static void		get_cube_compos1(t_object *obj, t_object **comp, int side\
+				, t_rt *rt)
 {
 	if (!(*comp = (struct s_o *)malloc(sizeof(struct s_o))))
 		rt_exit(rt, "Cannote allocate", "", EXIT_FAILURE);
@@ -39,8 +51,8 @@ static void		get_cube_compos1(t_object *obj, t_object **comp, int side, t_rt *rt
 	(*comp)->next = NULL;
 }
 
-
-static void	get_cube_compos2(t_object *obj, t_object **comp, int side, t_rt *rt)
+static void		get_cube_compos2(t_object *obj, t_object **comp, int side\
+				, t_rt *rt)
 {
 	if (!(*comp = (struct s_o *)malloc(sizeof(struct s_o))))
 		rt_exit(rt, "Cannote allocate", "", EXIT_FAILURE);
@@ -52,19 +64,21 @@ static void	get_cube_compos2(t_object *obj, t_object **comp, int side, t_rt *rt)
 	{
 		(*comp)->pos = vec_add(obj->pos, vec_pro_k(obj->vec2, 1.0 * obj->dist));
 		(*comp)->rot = vec_pro_k(obj->vec2, 1.0);
-	} 
+	}
 	else if (side == 4)
 	{
-		(*comp)->pos = vec_add(obj->pos, vec_pro_k(obj->vec2, -1.0 * obj->dist));
+		(*comp)->pos = vec_add(obj->pos,\
+			vec_pro_k(obj->vec2, -1.0 * obj->dist));
 		(*comp)->rot = vec_pro_k(obj->vec2, -1.0);
 	}
-	(*comp)->compos = NULL;   
+	(*comp)->compos = NULL;
 	(*comp)->next = NULL;
 }
 
-static void		get_cube_compos3(t_object *obj, t_object **comp, int side, t_rt *rt)
+static void		get_cube_compos3(t_object *obj, t_object **comp, int side\
+					, t_rt *rt)
 {
-	if (!( *comp  = (struct s_o *)malloc(sizeof(struct s_o))))
+	if (!(*comp = (struct s_o *)malloc(sizeof(struct s_o))))
 		rt_exit(rt, "Cannote allocate", "", EXIT_FAILURE);
 	rt_init_compos(obj, *comp);
 	(*comp)->vec1 = obj->vec2;
@@ -77,21 +91,24 @@ static void		get_cube_compos3(t_object *obj, t_object **comp, int side, t_rt *rt
 	}
 	else if (side == 6)
 	{
-		(*comp)->pos = vec_add(obj->pos, vec_pro_k(obj->vec1, -1.0 * obj->dist));
+		(*comp)->pos = vec_add(obj->pos\
+			, vec_pro_k(obj->vec1, -1.0 * obj->dist));
 		(*comp)->rot = vec_pro_k(obj->vec1, -1.0);
 	}
 	(*comp)->compos = NULL;
 	(*comp)->next = NULL;
 }
 
-void		get_cube_compos(t_object *obj, t_rt *rt)
+void			get_cube_compos(t_object *obj, t_rt *rt)
 {
 	obj->dist = obj->size;
 	get_cube_compos1(obj, &(obj->compos), 1, rt);
 	get_cube_compos1(obj, &(obj->compos->compos), 2, rt);
 	get_cube_compos2(obj, &(obj->compos->compos->compos), 3, rt);
 	get_cube_compos2(obj, &(obj->compos->compos->compos->compos), 4, rt);
-	get_cube_compos3(obj, &(obj->compos->compos->compos->compos->compos), 5, rt);
-	get_cube_compos3(obj, &(obj->compos->compos->compos->compos->compos->compos), 6, rt);
+	get_cube_compos3(obj,\
+						&(obj->compos->compos->compos->compos->compos), 5, rt);
+	get_cube_compos3(obj,\
+				&(obj->compos->compos->compos->compos->compos->compos), 6, rt);
 	obj->compos->compos->compos->compos->compos->compos->compos = NULL;
 }

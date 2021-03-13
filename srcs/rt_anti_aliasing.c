@@ -12,6 +12,16 @@
 
 #include <rt.h>
 
+void		rt_init_stereo(t_rt *rt)
+{
+	rt->scene->camm[0] = rt_init_camera(vec_add(rt->scene->cam.lookfrom\
+			, vec_pro_k(rt->scene->cam.horizontal, rt->scene->stereo))\
+			, rt->scene->cam.lookat, rt->scene->cam.fov);
+	rt->scene->camm[1] = rt_init_camera(vec_sub(rt->scene->cam.lookfrom\
+		, vec_pro_k(rt->scene->cam.horizontal, rt->scene->stereo))\
+		, rt->scene->cam.lookat, rt->scene->cam.fov);
+}
+
 t_vec		rt_stereoscopy(t_thread *t, double col, double row, int select)
 {
 	t_vec	b_r_col[2];
@@ -20,16 +30,8 @@ t_vec		rt_stereoscopy(t_thread *t, double col, double row, int select)
 	t_ray	r;
 	double	anti_a;
 
-	// no re calcul for cams
-
 	anti_a = sqrt(t->rt->scene->max_anti_a);
 	init_tab(tab);
-	t->rt->scene->camm[0] = rt_init_camera(vec_add(t->rt->scene->cam.lookfrom\
-			, vec_pro_k(t->rt->scene->cam.horizontal, t->rt->scene->stereo))\
-			, t->rt->scene->cam.lookat, t->rt->scene->cam.fov);
-	t->rt->scene->camm[1] = rt_init_camera(vec_sub(t->rt->scene->cam.lookfrom\
-		, vec_pro_k(t->rt->scene->cam.horizontal, t->rt->scene->stereo))\
-		, t->rt->scene->cam.lookat, t->rt->scene->cam.fov);
 	r = rt_get_ray(&t->rt->scene->camm[0]\
 		, (double)((col + ((tab[select].x + 0.5) / anti_a)) / IMG_WIDTH)\
 		, (double)((row + ((tab[select].y + 0.5) / anti_a)) / IMG_HEIGHT));

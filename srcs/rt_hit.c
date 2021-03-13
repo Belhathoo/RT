@@ -30,22 +30,23 @@ int		rt_hit(t_scene *scene, t_ray *r, t_hit *rec, double closest)
 		{
 			check_hit = 1;
 			record.closest = record.t;
-			rec->closest = rec->t;
+			rec->closest = record.closest;
 			rec->curr_obj = o;
-			rec->ray = r;
-
 			rec->t = record.t;
 			rec->t0 = record.t0;
 			rec->t1 = record.t1;
+			rec->ray = r;
+
+			rec->p = record.p;
+			rec->n = record.n;
+			rec->u = record.u;
+			rec->v = record.v;
+
 			rec->tx = record.tx;
 			rec->is_n = record.is_n;
 			rec->negative[0] = record.negative[0];
 			rec->negative[1] = record.negative[1];
 			rec->negative_normal = record.negative_normal;
-			rec->p = record.p;
-			rec->n = record.n;
-			rec->u = record.u;
-			rec->v = record.v;
 			// record.ray = r;
 			// record.curr_obj = o;
 			// *rec = record;

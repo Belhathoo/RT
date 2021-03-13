@@ -44,10 +44,9 @@ double			rt_ctod(char *str, t_rt *rt)
 	return (ret);
 }
 
-void		rt_ctotxt(char *str, t_texture *txt, t_rt *rt)
+void			rt_ctotxt(char *str, t_texture *txt, t_rt *rt)
 {
 	char		**each;
-	// t_texture	txt;
 
 	each = ft_strsplit(str, ' ');
 	if (!each || ft_twodimlen(each) != 1)
@@ -58,9 +57,8 @@ void		rt_ctotxt(char *str, t_texture *txt, t_rt *rt)
 	txt->is_txt = 1;
 	txt->buf = NULL;
 	txt->img = NULL;
-	// txt->mv1 = 0.0;
-	// txt->mv2 = 0.0;
-	txt->img = mlx_xpm_file_to_image(rt->mlx, each[0], &txt->width, &txt->height);
+	txt->img = mlx_xpm_file_to_image(rt->mlx, each[0]\
+				, &txt->width, &txt->height);
 	txt->buf = (int *)import_bmp(each[0], &txt->width, &txt->height);
 	if (!txt->img && !txt->buf)
 	{
@@ -68,9 +66,9 @@ void		rt_ctotxt(char *str, t_texture *txt, t_rt *rt)
 		rt_exit(rt, "Texture: ", " file unsupported", EXIT_FAILURE);
 	}
 	if (txt->img)
-		txt->buf = (int *)mlx_get_data_addr(txt->img, &rt->bpp,  &rt->size, &rt->endian);
+		txt->buf = (int *)mlx_get_data_addr(txt->img, &rt->bpp\
+				, &rt->size, &rt->endian);
 	ft_free_twodim(&each);
-	// return (txt);
 }
 
 void			rt_comp_obj(t_object *o, t_rt *rt)

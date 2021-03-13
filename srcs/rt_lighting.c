@@ -12,7 +12,7 @@
 
 #include <rt.h>
 
-t_vec		rt_diffuse(t_hit rec, t_light *l, t_vec lo, double f_att)
+t_vec			rt_diffuse(t_hit rec, t_light *l, t_vec lo, double f_att)
 {
 	double	d;
 	t_vec	diff;
@@ -23,7 +23,7 @@ t_vec		rt_diffuse(t_hit rec, t_light *l, t_vec lo, double f_att)
 	return (diff);
 }
 
-t_vec		rt_specular(t_hit rec, t_light *l, t_vec lo, double f_att)
+t_vec			rt_specular(t_hit rec, t_light *l, t_vec lo, double f_att)
 {
 	t_object	*o;
 	double		s;
@@ -40,23 +40,22 @@ t_vec		rt_specular(t_hit rec, t_light *l, t_vec lo, double f_att)
 	return (spec);
 }
 
-
-t_sh_ray	rt_init_sh_ray(t_vec p, t_light *l)
+t_sh_ray		rt_init_sh_ray(t_vec p, t_light *l)
 {
 	t_sh_ray	sh_r;
 
 	sh_r.l_vec = (l->type == PL_LIGHT) ?\
-		     vec_pro_k(l->dir, -1.0) : vec_sub(l->pos, p);
+			vec_pro_k(l->dir, -1.0) : vec_sub(l->pos, p);
 	sh_r.r.dir = vec_unit(sh_r.l_vec);
-	sh_r.r.origin = vec_add(p, vec_pro_k(sh_r.r.dir, 0.001));
+	sh_r.r.origin = vec_add(p, vec_pro_k(sh_r.r.dir, 0.0001));
 	sh_r.l = l;
 	return (sh_r);
 }
 
-t_vec		rt_lighting(t_thread *th, t_light *l)
+t_vec			rt_lighting(t_thread *th, t_light *l)
 {
-	double	f_att;
-	t_vec	col;
+	double		f_att;
+	t_vec		col;
 	t_sh_ray	sh_r;
 
 	rt_ambient(th->rt->scene->ambient, l, th->rec, &col);
@@ -68,36 +67,10 @@ t_vec		rt_lighting(t_thread *th, t_light *l)
 			f_att = (l->type == PL_LIGHT) ? 1.0\
 				: ft_clamping(1 / ((vec_length(sh_r.l_vec)\
 								+ vec_length(th->rec.ray->dir)) * 0.02));
-			col = vec_add(col, vec_add(rt_specular(th->rec, l, sh_r.l_vec, f_att),\
-						rt_diffuse(th->rec, l, sh_r.l_vec, f_att)));
+			col = vec_add(col, vec_add(rt_specular(th->rec, l, sh_r.l_vec,\
+				f_att), rt_diffuse(th->rec, l, sh_r.l_vec, f_att)));
 		}
 		l = l->next;
 	}
 	return (col);
 }
-
-// double		angle_between(t_vec a, t_vec b)
-// {
-// 	return (acos(vec_dot(a, b) / (vec_length(a) * vec_length(b))));
-// }
-// typedef struct s_light_shading
-// {
-// 	t_vec		l_vec;
-// 	t_hit		rec;
-// 	double		closest;
-// 	int			shade;
-
-
-// }				t_li_sh;
-
-
-// t_li_sh		rt_init_shade(t_sh_ray sh, t_vec p)
-// {
-// 	t_li_sh s;
-
-		
-// 	s.rec.curr_obj = NULL;
-// 	s.l_vec = (sh.l->type == PL_LIGHT) ?\
-// 		 vec_pro_k(sh.l->dir, -1.0) : vec_sub(sh.l->pos, p);
-// 	s.closest = (sh.l->type == PL_LIGHT) ? 10000.0 : vec_length(s.l_vec);
-// }

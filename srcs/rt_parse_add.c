@@ -84,11 +84,8 @@ int			rt_ax_parse(char *val, t_object *o, t_rt *rt)
 
 int			rt_add_filter(char *val)
 {
-	//
 	if (!ft_strcmp(val, "sepia"))
 		return (SEPIA);
-	else if (!ft_strcmp(val, "black-white"))
-		return (BNW);
 	else if (!ft_strcmp(val, "negative"))
 		return (NEGATIVE);
 	else if (!ft_strcmp(val, "gray"))
@@ -108,14 +105,14 @@ void		rt_add_option(t_tag *tag, t_rt *rt)
 		else if (!ft_strcmp(TA->name, "stereo"))
 			rt->scene->stereo = rt_ctod(TA->value, rt);
 		else if (!ft_strcmp(TA->name, "filter"))
-			rt->filter = rt_add_filter(TA->value);//fnct for filters;
+			rt->filter = rt_add_filter(TA->value);
 		TA = TA->next;
 	}
 	if (rt->filter == -1)
 		rt_exit(rt, "Option: fiter", "unknown.", EXIT_FAILURE);
 	if (rt->scene->aa <= 0 || rt->scene->aa > 9)
 		rt_exit(rt, "Option: aa", "should be positive & <= 9", EXIT_FAILURE);
-	if (rt->scene->stereo < 0 || rt->scene->stereo > 9)///
+	if (rt->scene->stereo < 0 || rt->scene->stereo > 9)
 		rt_exit(rt, "Option: Stereo", "should be positive & < 10"\
 				, EXIT_FAILURE);
 	rt->scene->ambient = ft_clamping(rt->scene->ambient);

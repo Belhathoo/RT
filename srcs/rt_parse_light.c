@@ -16,15 +16,13 @@ int			rt_check_light_type(char *val)
 {
 	if (!ft_strcmp(val, "point"))
 		return (PT_LIGHT);
-	else if (!ft_strcmp(val, "soft")) // sft / spot
-		return (SP_LIGHT);
 	else if (!ft_strcmp(val, "parallel"))
 		return (PL_LIGHT);
 	else
 		return (-1);
 }
 
-void		rt_check_lights(t_light *l,t_rt *rt)
+void		rt_check_lights(t_light *l, t_rt *rt)
 {
 	if (l->dir.x == 0 && l->dir.y == 0 && l->dir.z == 0)
 		rt_exit(rt, "light: ", "direction vector is non-zero!", EXIT_FAILURE);
@@ -35,14 +33,11 @@ void		rt_check_lights(t_light *l,t_rt *rt)
 		rt_exit(rt, "light", "no light have black color", EXIT_FAILURE);
 	if (l->type == -1)
 		rt_exit(rt, "light: ", "unknown type", EXIT_FAILURE);
-	// check if soft first !! for radius !
-	// if (l->radius <= 0.0)
-	// 	rt_exit(rt, "", "light: radius should be positive", EXIT_FAILURE);
 	rt_adjustment(&l->col);
 	l->intensity = ft_clamping(l->intensity);
 }
 
-void	rt_add_light(t_tag *tag, t_rt *rt)
+void		rt_add_light(t_tag *tag, t_rt *rt)
 {
 	t_light *l;
 	t_light	*tmp;
@@ -61,10 +56,6 @@ void	rt_add_light(t_tag *tag, t_rt *rt)
 			l->intensity = rt_ctod(TA->value, rt);
 		else if (!ft_strcmp(TA->name, "color"))
 			l->col = rt_ctovec(TA->value, rt);
-		else if (!ft_strcmp(TA->name, "angle"))
-			l->angle = rt_ctod(TA->value, rt);
-		// else if (!ft_strcmp(TA->name, "radius"))
-		// 	l->radius = rt_ctod(TA->value, rt);
 		TA = TA->next;
 	}
 	rt_check_lights(l, rt);

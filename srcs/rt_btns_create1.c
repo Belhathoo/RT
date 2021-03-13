@@ -10,9 +10,7 @@ t_button	*save_button(t_rt *rt)
 	ret->deflt = mlx_xpm_file_to_image(rt->mlx ,"buttons/save0.xpm", &ret->w, &ret->h);
 	ret->img = mlx_xpm_file_to_image(rt->mlx ,"buttons/save_no.xpm", &ret->w, &ret->h);
 	if (!ret->img || !ret->deflt)
-	{
-		// rt_exit(rt, "buttons : img unfound", EXIT_FAILURE);
-	}
+		rt_exit(rt, "", "buttons : img unfound", EXIT_FAILURE);
 	ret->deflt_data = (int*)mlx_get_data_addr(ret->deflt, &ret->bpp, &ret->size, &ret->endian);
 	ret->img_data = (int*)mlx_get_data_addr(ret->img, &ret->bpp, &ret->size, &ret->endian);
 	mlx_put_image_to_window(rt->mlx, rt->win, ret->deflt, (int)ret->pos.x, (int)ret->pos.y);
