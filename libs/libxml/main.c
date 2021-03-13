@@ -7,8 +7,10 @@ int main(int argc, char **argv)
 	if (argc != 2)
 		return (0);
 	x = xml_init(argv[1]);
+
 	if (xml_parse(x) == -1)
-		printf("xml: -1\n");
+		{printf("xml: -1\n");
+		exit(0);}
 
 /*
 	xml=-1, recheck! 

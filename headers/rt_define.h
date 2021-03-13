@@ -72,9 +72,9 @@
 
 # define NONE_FILTER 0
 # define SEPIA 1
-# define BNW 2
-# define MOTION_BLUR 4
-# define NEGATIVE 8
-# define CARTOON 16
+# define BNW 2 //
+# define NEGATIVE 3
+# define GRAY 4
+# define MOTION_BLUR 5
 
 #endif

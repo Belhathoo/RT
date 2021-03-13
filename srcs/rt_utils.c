@@ -71,7 +71,7 @@ int		is_equal(t_vec a, t_vec b)
 	return ((a.x == b.x) && (a.y == b.y) && (a.z == b.z));
 }
 
- double		radtodeg(double angle)
+double		radtodeg(double angle)
 {
 	return ((angle * 180) / M_PI);
 }

@@ -23,7 +23,7 @@ void		rt_check_o_annex(t_object *o, t_rt *rt)
 			rt_exit(rt, o->name, "slicing pnt is outside the sphere!"\
 			, EXIT_FAILURE);
 		if (!ft_strcmp(o->name, "cylinder") && !in_cylindr(o))  // jessie
-			rt_exit(rt, " ", "slicing pnt is outside the cylinder!"\
+			rt_exit(rt, o->name, ": slicing pnt is outside the cylinder!"\
 			, EXIT_FAILURE);
 	}
 	if (!ft_strcmp(o->name, "l_cone") && o->height >= o->width)
@@ -77,6 +77,6 @@ void		rt_check_obj(t_object *o, t_rt *rt)
 	o->rot = rotation(o->dir, o->rot);
 	rt_get_repere(o);
 	(o->sl_ax != 0) ? rt_slice_ax(o) : 0;
-	rt_comp_obj(o, rt); //// events...
+	rt_comp_obj(o, rt); //// events...free
 	rt_all_clamp(o);
 }

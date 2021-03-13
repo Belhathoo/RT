@@ -30,7 +30,6 @@ char *xml_set_attr(char *attr_str, t_xml *x)
 
   attr = ft_strtrim(attr_str);
   len = ft_strlen(attr);
-  // printf("__%s__\n", attr_str);
   if (attr[len - 1] == '/')
   {
     attr[len - 1] = '\0';
@@ -43,7 +42,7 @@ char *xml_set_attr(char *attr_str, t_xml *x)
       closing tags !! 
   */
   if (len <= 2 || attr[0] != '\"' || attr[len - 1] != '\"')
-    xml_exit(x, ft_strdup("syntax error: quotes"), EXIT_FAILURE);
+    xml_exit(x, "syntax error: quotes", EXIT_FAILURE);
   attr_str = ft_strsub(attr, 1, len - 2);
   free(attr); 
   return (attr_str);
@@ -68,6 +67,7 @@ int xml_parse(t_xml *x)
   
   x->data = get_full_text(x->fd); /// add maximum tailee !!!!!!!!!!!
   len = ft_strlen(x->data);
+
   i = 1;
   if ((data = ft_strchr(x->data, '<')) == NULL)
     return (-1);
@@ -84,11 +84,11 @@ int xml_parse(t_xml *x)
         return (-1);
       i++;
     }
+    if (i == j)
+      xml_exit(x, "< / > error", EXIT_FAILURE);
     i++;
 
     // recheck this if !!
-    if (i >= len)
-      break;
     
     xml_set_tag(ft_strsub(&data[j], 0, i - j - 1), x);
     

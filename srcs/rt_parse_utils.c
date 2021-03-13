@@ -58,16 +58,17 @@ void		rt_ctotxt(char *str, t_texture *txt, t_rt *rt)
 	txt->is_txt = 1;
 	txt->buf = NULL;
 	txt->img = NULL;
-	txt->mv1 = 0.0;
-	txt->mv2 = 0.0;
+	// txt->mv1 = 0.0;
+	// txt->mv2 = 0.0;
 	txt->img = mlx_xpm_file_to_image(rt->mlx, each[0], &txt->width, &txt->height);
-	if (!txt->img)
+	txt->buf = (int *)import_bmp(each[0], &txt->width, &txt->height);
+	if (!txt->img && !txt->buf)
 	{
 		ft_free_twodim(&each);
 		rt_exit(rt, "Texture: ", " file unsupported", EXIT_FAILURE);
 	}
-	txt->buf = (int *)mlx_get_data_addr(txt->img, &rt->bpp,\
-		&rt->size, &rt->endian);
+	if (txt->img)
+		txt->buf = (int *)mlx_get_data_addr(txt->img, &rt->bpp,  &rt->size, &rt->endian);
 	ft_free_twodim(&each);
 	// return (txt);
 }

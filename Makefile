@@ -20,7 +20,7 @@ SRCS = rt.c\
 		rt_buttons.c\
 		rt_buttons_noi.c\
 		rt_btns_create.c\
-		rt_bmp_extractor.c\
+		rt_btns_create1.c\
 		rt_draw.c\
 		rt_draw_utils.c\
 		rt_hit.c\
@@ -38,7 +38,6 @@ SRCS = rt.c\
 		rt_hit_torus.c\
 		rt_hit_parabole.c\
 		rt_hit_cube.c\
-		rt_hit_dingdong.c\
 		rt_solve_quartic.c\
 		rt_solve_cubic.c\
 		rt_solve_quadric.c\
@@ -57,7 +56,12 @@ SRCS = rt.c\
 		rt_negatives.c\
 		rt_slicing.c\
 		rt_perlin.c\
-		
+		rt_bmp_init.c\
+		rt_bmp_extractor.c\
+		rt_bmp_decode.c\
+		rt_bmp_imgs.c\
+		rt_filters.c\
+		rt_progress.c
 
 
 SRC = $(add prefix srcs/, $(SRCS))
@@ -66,7 +70,7 @@ SRCS_NORM = $(SRCS)
 OBJS_DIR = objs
 OBJ = $(SRCS:%.c=$(OBJS_DIR)/%.o)
 
-HEADERS = rt.h rt_struct.h rt_define.h
+HEADERS = rt.h rt_define.h rt_struct.h rt_struct_annx.h
 HEADER = headers
 HEADERS_NORM = $(HEADERS)
 
@@ -103,7 +107,7 @@ MLX = -lm -I $(MLX_DIR) -L $(MLX_DIR) -lmlx -lXext -lX11
 endif
 
 
-CFLAGS = #-Wall -Wextra # -Werror
+CFLAGS = -Wall -Wextra # -Werror
 LIBFT_DIR = libs/libft
 XML_DIR = libs/libxml
 VEC_DIR = libs/libvec

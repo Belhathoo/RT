@@ -2,18 +2,14 @@
 
 
 <Camera
-  lookfrom="0 5.0 15.0"
+  lookfrom="0 80.0 150.0"
   lookat="0 0 0"
   fov="60"
   />
 
 <Option aa="2"/>
 
-<Object name="cube" position="0.0 0.0 0.0" direction="0 1.0 0.0"
+<Object name="parabol" position="0.0 -200.0 -3000.0" direction="0 1.0 0.0"
 rotation="0 0 0" translation="0 0 0"
- size="5.0" color="1.0 0.0 0.0"  />
+ size="3.0" color="1.0 0.0 0.0"  />
 
- 
-<Object name="sphere" position="0.0 5.0 0.0" direction="0 1.0 0.0"
-rotation="0 0 0" translation="0 0 0"
- size="0.5" color="1.0 1.0 0.0"  />

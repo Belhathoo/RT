@@ -12,52 +12,53 @@
 
 #include <rt.h>
 
-/*
-   if pl light no att, intensity = 1.0 fix ?
-   */
-int			rt_shading(t_thread *th, t_ray sh_r, t_light *l, t_vec *col\
-				, int depth)
+double		angle_between(t_vec a, t_vec b)
 {
-	t_hit		rec;
-	t_object	*o;
-	int			shade;
-	double		closest;
-	t_ray		sc_r;
-	t_vec		l_vec;
-	double		dot;
-
-	shade = 0;
-	l_vec = (l->type == PL_LIGHT) ?\
-			vec_pro_k(l->dir, -1.0) : vec_sub(l->pos, th->rec.p);
-	closest = (l->type == PL_LIGHT) ? 10000.0 : vec_length(l_vec);
-	rec.curr_obj = NULL;
-	if (rt_hit(th->rt->scene, &sh_r, &rec, closest) && (shade = 1))
-		o = rec.curr_obj;
-	if (depth > 1 && shade && o->refr != 0.0)
-	{
-		// if (!o->txt.is_txt || o->txt.is_trans) recheck ( problem for refr < 1 previously !!)
-		{
-			sc_r = rt_refraction(rec, sh_r, o);
-			/* refract dont stock sc dir for reflected! {segfault} 
-			// create separated fresnel function (aka change some of rt_refract && rt_refraction)
-			*/
-			dot = vec_dot(vec_unit(sc_r.dir), vec_unit(l_vec));
-			if ((dot > 0.40))
-			{
-				*col = vec_pro_k(*col, dot * o->refr * 0.7);
-				return (rt_shading(th, sc_r, l, col, depth - 1));
-			}
-		}
-	}
-	return (shade);
+	return (acos(vec_dot(a, b) / (vec_length(a) * vec_length(b))));
 }
-
 void			rt_ambient(double amb, t_light *l, t_hit rec, t_vec *col)
 {
 	t_object	*o;
 
 	o = rec.curr_obj;
-	*col = vec_add(*col, vec_pro_k(rec.col, amb));
+	*col = vec_add(vec3(0.0), vec_pro_k(rec.col, amb));
 	if (l)
 		*col = vec_add(*col, vec_prod(*col, o->mat.ka));
+}
+
+t_li_sh		rt_init_shade(t_sh_ray sh, t_vec p)
+{
+	t_li_sh s;
+
+	s.o = NULL;
+	s.rec.curr_obj = NULL;
+	s.l_vec = (sh.l->type == PL_LIGHT) ?\
+		 vec_pro_k(sh.l->dir, -1.0) : vec_sub(sh.l->pos, p);
+	s.closest = (sh.l->type == PL_LIGHT) ? 10000.0 : vec_length(s.l_vec);
+	return (s);
+}
+
+int			rt_shading(t_thread *th, t_sh_ray sh_r, t_vec *col, int depth)
+{
+	int			shade;
+	t_sh_ray	sc_r;
+	double		dot;
+	t_li_sh		s;
+
+	s = rt_init_shade(sh_r, th->rec.p);
+	shade = 0;
+	if (rt_hit(th->rt->scene, &sh_r.r, &(s.rec), s.closest) && (shade = 1))
+		s.o = s.rec.curr_obj;
+	if (depth > 1 && shade && s.o->refr != 0.0)
+	{
+		sc_r.r = rt_refraction(s.rec, sh_r.r, s.o);
+		sc_r.l = sh_r.l;
+		dot = vec_dot(vec_unit(sc_r.r.dir), vec_unit(s.l_vec));
+		if ((dot > 0.40))
+		{
+			*col = vec_pro_k(*col, dot * s.o->refr * 0.7);
+			return (rt_shading(th, sc_r, col, depth - 1));
+		}
+	}
+	return (shade);
 }

@@ -23,7 +23,7 @@ void			xml_to_rt(t_xml *x, t_rt *rt)
 			rt_add_camera(x->tags, rt);
 		else if (!ft_strcmp(x->tags->name, "Object"))
 			rt_add_object(x->tags, rt);
-		else if (!ft_strcmp(x->tags->name, "N_Object"))
+		else if (!ft_strcmp(x->tags->name, "Neg_Object"))
 			rt_add_neg_object(x->tags, rt);
 		else if (!ft_strcmp(x->tags->name, "Light"))
 			rt_add_light(x->tags, rt);
@@ -42,7 +42,7 @@ void			rt_parser(t_rt *rt, char **argv)
 		xml_exit(x, "-1\n", EXIT_FAILURE);
 	// err. (check redo in main libxml)
 	xml_to_rt(x, rt);
-	// printf("%d", RS->light->type);
+	// printf("%d", rt->scene->light->type);
 	rt->name_sc = argv[1];
 	xml_close(x);
 }

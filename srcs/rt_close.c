@@ -53,8 +53,8 @@ void    rt_exit(t_rt *rt, char *m, char *m1, int err)
 	}
 	(m) ? ft_putstr(m) : 0;
 	(m1) ? ft_putendl(m1) : 0;
-	rt_free_lights(RS->light);
-	rt_free_objects(RS->object);
+	rt_free_lights(rt->scene->light);
+	rt_free_objects(rt->scene->object);
 	// free(rt->bt);
 	free(rt->scene);
 	exit(err);

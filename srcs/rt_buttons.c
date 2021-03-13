@@ -14,34 +14,33 @@
 
 void        save_btn(t_rt *rt)
 {
-	// swap_button_by_id(SAVE_BTN , rt);
 	image_create(rt);  
 }
 
 void        cam_btn(t_rt *rt)
 {
-	RS->key_cam = (RS->key_cam + 1) % 2;
+	rt->scene->key_cam = (rt->scene->key_cam + 1) % 2;
 	swap_button_by_id(CAM_BTN, rt);
 }
 
 void            mvt_btn(t_rt *rt)
 {
 	swap_button_by_id(MVT_BTN , rt);
-	RS->sl_obj = NULL; // rmve for mac
-	RS->key_mvt = (RS->key_mvt + 1) % 2;
-	if (!RS->key_mvt && RS->key_cam == 1)
+	rt->scene->sl_obj = NULL; // rmve for mac
+	rt->scene->key_mvt = (rt->scene->key_mvt + 1) % 2;
+	if (!rt->scene->key_mvt && rt->scene->key_cam == 1)
 		swap_button_by_id(CAM_BTN, rt);
-	RS->key_cam = 0;
-	RS->key = 1;
+	rt->scene->key_cam = 0;
+	rt->scene->key = 1;
 	rt_reset(rt);
 }
 
 void        light_btn(t_rt *rt)
 {
-	if (RS->light)
-		RS->light = NULL;
+	if (rt->scene->light)
+		rt->scene->light = NULL;
 	else if (rt->s_light)
-		RS->light = rt->s_light;
+		rt->scene->light = rt->s_light;
 	else
 		return ;
 	swap_button_by_id(LGHT_BTN , rt);
@@ -50,20 +49,20 @@ void        light_btn(t_rt *rt)
 
 void        dame_btn(t_rt *rt)
 {
-	if (RS->sl_obj->txt.is_txt == 0)
+	if (rt->scene->sl_obj->txt.is_txt == 0)
 	{
-		if (RS->sl_obj->noi.is_noise == 0)
+		if (rt->scene->sl_obj->noi.is_noise == 0)
 		{
-			RS->sl_obj->noi.is_noise = 1;
-			RS->sl_obj->noi.type = DAMIER;
-			RS->sl_obj->scale = 14;
+			rt->scene->sl_obj->noi.is_noise = 1;
+			rt->scene->sl_obj->noi.type = DAMIER;
+			rt->scene->sl_obj->scale = 14;
 		}
-		else if (RS->sl_obj->noi.type == DAMIER)
-			RS->sl_obj->noi.is_noise = 0; // scale!
+		else if (rt->scene->sl_obj->noi.type == DAMIER)
+			rt->scene->sl_obj->noi.is_noise = 0; // scale!
 		else
 		{
-			RS->sl_obj->scale = 14;
-			RS->sl_obj->noi.type = DAMIER;
+			rt->scene->sl_obj->scale = 14;
+			rt->scene->sl_obj->noi.type = DAMIER;
 		}
 		rt_reset(rt); //--
 	}
@@ -72,20 +71,20 @@ void        dame_btn(t_rt *rt)
 
 void        circ_btn(t_rt *rt)
 {
-	if (RS->sl_obj->txt.is_txt == 0)
+	if (rt->scene->sl_obj->txt.is_txt == 0)
 	{
-		if (RS->sl_obj->noi.is_noise == 0)
+		if (rt->scene->sl_obj->noi.is_noise == 0)
 		{
-			RS->sl_obj->noi.is_noise = 1;
-			RS->sl_obj->noi.type = CIRCLES;
-			RS->sl_obj->scale = 10;
+			rt->scene->sl_obj->noi.is_noise = 1;
+			rt->scene->sl_obj->noi.type = CIRCLES;
+			rt->scene->sl_obj->scale = 10;
 		}
-		else if (RS->sl_obj->noi.type == CIRCLES)
-			RS->sl_obj->noi.is_noise = 0; // scale!
+		else if (rt->scene->sl_obj->noi.type == CIRCLES)
+			rt->scene->sl_obj->noi.is_noise = 0; // scale!
 		else
 		{
-			RS->sl_obj->scale = 10;
-			RS->sl_obj->noi.type = CIRCLES;
+			rt->scene->sl_obj->scale = 10;
+			rt->scene->sl_obj->noi.type = CIRCLES;
 		}
 		rt_reset(rt); //--
 	}
@@ -93,20 +92,20 @@ void        circ_btn(t_rt *rt)
 
 void        v1_btn(t_rt *rt)
 {
-	if (RS->sl_obj->txt.is_txt == 0)
+	if (rt->scene->sl_obj->txt.is_txt == 0)
 	{
-		if (RS->sl_obj->noi.is_noise == 0)
+		if (rt->scene->sl_obj->noi.is_noise == 0)
 		{
-			RS->sl_obj->noi.is_noise = 1;
-			RS->sl_obj->noi.type = VORONOI1;
-			RS->sl_obj->scale = 4;
+			rt->scene->sl_obj->noi.is_noise = 1;
+			rt->scene->sl_obj->noi.type = VORONOI1;
+			rt->scene->sl_obj->scale = 4;
 		}
-		else if (RS->sl_obj->noi.type == VORONOI1)
-			RS->sl_obj->noi.is_noise = 0; // scale!
+		else if (rt->scene->sl_obj->noi.type == VORONOI1)
+			rt->scene->sl_obj->noi.is_noise = 0; // scale!
 		else
 		{
-			RS->sl_obj->scale = 4;
-			RS->sl_obj->noi.type = VORONOI1;
+			rt->scene->sl_obj->scale = 4;
+			rt->scene->sl_obj->noi.type = VORONOI1;
 		}
 		rt_reset(rt); //--
 	}
@@ -114,20 +113,20 @@ void        v1_btn(t_rt *rt)
 
 void        v2_btn(t_rt *rt)
 {
-	if (RS->sl_obj->txt.is_txt == 0)
+	if (rt->scene->sl_obj->txt.is_txt == 0)
 	{
-		if (RS->sl_obj->noi.is_noise == 0)
+		if (rt->scene->sl_obj->noi.is_noise == 0)
 		{
-			RS->sl_obj->noi.is_noise = 1;
-			RS->sl_obj->noi.type = VORONOI2;
-			RS->sl_obj->scale = 2.0;
+			rt->scene->sl_obj->noi.is_noise = 1;
+			rt->scene->sl_obj->noi.type = VORONOI2;
+			rt->scene->sl_obj->scale = 2.0;
 		}
-		else if (RS->sl_obj->noi.type == VORONOI2)
-			RS->sl_obj->noi.is_noise = 0; // scale!
+		else if (rt->scene->sl_obj->noi.type == VORONOI2)
+			rt->scene->sl_obj->noi.is_noise = 0; // scale!
 		else
 		{
-			RS->sl_obj->scale = 2.0;
-			RS->sl_obj->noi.type = VORONOI2;
+			rt->scene->sl_obj->scale = 2.0;
+			rt->scene->sl_obj->noi.type = VORONOI2;
 		}
 		rt_reset(rt); //--
 	}
@@ -136,20 +135,20 @@ void        v2_btn(t_rt *rt)
 
 void        v3_btn(t_rt *rt)
 {
-	if (RS->sl_obj->txt.is_txt == 0)
+	if (rt->scene->sl_obj->txt.is_txt == 0)
 	{
-		if (RS->sl_obj->noi.is_noise == 0)
+		if (rt->scene->sl_obj->noi.is_noise == 0)
 		{
-			RS->sl_obj->noi.is_noise = 1;
-			RS->sl_obj->noi.type = VORONOI3;
-			RS->sl_obj->scale = 0.1;
+			rt->scene->sl_obj->noi.is_noise = 1;
+			rt->scene->sl_obj->noi.type = VORONOI3;
+			rt->scene->sl_obj->scale = 0.1;
 		}
-		else if (RS->sl_obj->noi.type == VORONOI3)
-			RS->sl_obj->noi.is_noise = 0; // scale!
+		else if (rt->scene->sl_obj->noi.type == VORONOI3)
+			rt->scene->sl_obj->noi.is_noise = 0; // scale!
 		else
 		{
-			RS->sl_obj->scale = 0.1;
-			RS->sl_obj->noi.type = VORONOI3;
+			rt->scene->sl_obj->scale = 0.1;
+			rt->scene->sl_obj->noi.type = VORONOI3;
 		}
 		rt_reset(rt); //--
 	}

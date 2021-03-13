@@ -48,7 +48,7 @@ t_ray		rt_reflection(t_hit rec, t_ray r)
 
 t_ray		rt_refraction(t_hit rec, t_ray r, t_object *o)
 {
-	t_ray	rt;
+	t_ray	rf_r;
 	t_vec	out_n;
 	t_vec	refl;
 	float	ior;
@@ -64,8 +64,8 @@ t_ray		rt_refraction(t_hit rec, t_ray r, t_object *o)
 		out_n = rec.n;
 		ior = 1 / o->refr;
 	}
-	if (rt_refract(r.dir, out_n, ior, &rt.dir) == 0)
-		rt.dir = refl;
-	rt.origin = vec_add(rec.p, vec_pro_k(rt.dir, 0.001));
-	return (rt);
+	if (rt_refract(r.dir, out_n, ior, &rf_r.dir) == 0)
+		rf_r.dir = refl;
+	rf_r.origin = vec_add(rec.p, vec_pro_k(rf_r.dir, 0.001));
+	return (rf_r);
 }

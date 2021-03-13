@@ -26,7 +26,7 @@ void    xml_check_tag(char  *t_name, t_xml *x)
 		xml_exit(x, ft_strdup("Only One Camera Allowed !"), 1);
 
 	if (!(!ft_strncmp(str, "Camera", 6) || !ft_strncmp(str, "Object", 6)\
-				|| !ft_strncmp(str, "N_Object", 8) || !ft_strncmp(str, "Light", 5)\
+				|| !ft_strncmp(str, "Neg_Object", 8) || !ft_strncmp(str, "Light", 5)\
 				|| !ft_strncmp(str, "Option", 6)))
 		xml_exit(x, ft_strdup("Tag Unknown!"), 1); // check repeated tags !
 	/*
@@ -66,7 +66,7 @@ int     xml_check_attr(char *t_name, char *a_name, t_xml *x)
 	else if (!ft_strcmp(t_name, "Option"))
 	{
 		if (!ft_strcmp(a_name, "aa") || !ft_strcmp(a_name, "amb")
-				|| !ft_strcmp(a_name, "stereo"))//|| !ft_strcmp(a_name, "filter"))
+				|| !ft_strcmp(a_name, "stereo") || !ft_strcmp(a_name, "filter"))
 			return (1);
 	}
 	else if (!ft_strcmp(t_name, "Light"))
@@ -77,7 +77,7 @@ int     xml_check_attr(char *t_name, char *a_name, t_xml *x)
 				|| !ft_strcmp(a_name, "direction"))
 			return (1);
 	}
-	else if (!ft_strcmp(t_name, "N_Object"))
+	else if (!ft_strcmp(t_name, "Neg_Object"))
 	{
 		if (!ft_strcmp(a_name, "name") || !ft_strcmp(a_name, "position")\
 				|| !ft_strcmp(a_name, "direction") ||!ft_strcmp(a_name, "angle")\

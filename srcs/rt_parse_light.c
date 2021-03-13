@@ -12,35 +12,29 @@
 
 #include <rt.h>
 
-int		rt_check_light_type(t_rt *rt, char *val)
+int			rt_check_light_type(char *val)
 {
 	if (!ft_strcmp(val, "point"))
 		return (PT_LIGHT);
-	else if (!ft_strcmp(val, "spot"))
+	else if (!ft_strcmp(val, "soft")) // sft / spot
 		return (SP_LIGHT);
 	else if (!ft_strcmp(val, "parallel"))
 		return (PL_LIGHT);
 	else
-		rt_exit(rt, "", "light type unknown", EXIT_FAILURE);
-	return (-1);
+		return (-1);
 }
 
-void	rt_check_lights(t_light *l, t_rt *rt)
+void		rt_check_lights(t_light *l,t_rt *rt)
 {
-	/*
-	   init dir/radius/angle for other light types !!!!
-	   */
-	// check color (0 0 0) && intensity < 0
-	// check type
 	if (l->dir.x == 0 && l->dir.y == 0 && l->dir.z == 0)
-		rt_exit(rt, "", "light: direction vector is non-zero!", EXIT_FAILURE);
+		rt_exit(rt, "light: ", "direction vector is non-zero!", EXIT_FAILURE);
 	if ((l->intensity = ft_clamping(l->intensity)) == 0.0)
-		rt_exit(rt, "", "light: intensity is a positive number ]0-1]"\
+		rt_exit(rt, "light", "intensity is a positive number ]0-1]"\
 			, EXIT_FAILURE);
-	if (l->angle < 0.0 || l->angle > 180.0)
-		rt_exit(rt, "", "light: angle should be in ]0-180].", EXIT_FAILURE);
 	if (l->col.x == 0.0 && l->col.y == 0.0 && l->col.z == 0.0)
-		rt_exit(rt, "", "light: no light have black color", EXIT_FAILURE);
+		rt_exit(rt, "light", "no light have black color", EXIT_FAILURE);
+	if (l->type == -1)
+		rt_exit(rt, "light: ", "unknown type", EXIT_FAILURE);
 	// check if soft first !! for radius !
 	// if (l->radius <= 0.0)
 	// 	rt_exit(rt, "", "light: radius should be positive", EXIT_FAILURE);
@@ -54,11 +48,11 @@ void	rt_add_light(t_tag *tag, t_rt *rt)
 	t_light	*tmp;
 
 	l = rt_init_light(rt);
-	tmp = RS->light;
+	tmp = rt->scene->light;
 	while (TA)
 	{
 		if (!ft_strcmp(TA->name, "type"))
-			l->type = rt_check_light_type(rt, TA->value);
+			l->type = rt_check_light_type(TA->value);
 		else if (!ft_strcmp(TA->name, "position"))
 			l->pos = rt_ctovec(TA->value, rt);
 		else if (!ft_strcmp(TA->name, "direction"))
@@ -74,7 +68,7 @@ void	rt_add_light(t_tag *tag, t_rt *rt)
 		TA = TA->next;
 	}
 	rt_check_lights(l, rt);
-	RS->light = l;
+	rt->scene->light = l;
 	l->next = tmp;
 }
 
@@ -85,7 +79,7 @@ void		rt_set_coef(t_object *o)
 	if (o->material)
 	{
 		if (!ft_strcmp(o->material, "bl_plastic"))
-			o->mat = (t_material){vec3(0.0), vec3(0.01), vec3(0.5), 32, 0.0, 0.0};
+			o->mat = (t_material){vec3(0.20), vec3(0.01), vec3(0.5), 32, 0.0, 0.0};
 		else if (!ft_strcmp(o->material, "cu"))
 			o->mat = (t_material){vec(0.33, 0.23, 0.02), vec(0.78, 0.568, 0.113)\
 				, vec(0.99, 0.94, 0.807), 27.897, 0.0, 0.0};

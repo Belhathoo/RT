@@ -23,11 +23,11 @@
 # include <float.h>
 # include <pthread.h>
 # include <rt_define.h>
+# include <rt_struct_annx.h>
 
 /*
  * Structures
  */
-
 typedef struct	s_ray
 {
 	t_vec		origin;
@@ -78,8 +78,6 @@ typedef struct	s_button
 	int			endian;
 	void		*deflt;
 	int			*deflt_data;
-	void		*data_data;
-	int			*data;
 	void		*select;
 	int			state;
 	int			h;
@@ -133,12 +131,18 @@ typedef	struct	s_l
 	t_vec		pos;
 	t_vec		dir;
 	t_vec		col;
-	t_vec		l_vec;
 	double		intensity;
 	double		radius; // for soft shaddows !! not for sure
 	double		angle;
 	struct s_l	*next;
 }				t_light;
+
+typedef struct	s_ry_light
+{
+	t_ray		r;
+	t_light		*l;
+	t_vec		l_vec;
+}				t_sh_ray;
 
 typedef struct	s_hit
 {
@@ -167,6 +171,28 @@ typedef struct	s_hit
 
 	int			tx;
 }				t_hit;
+
+typedef struct s_light_shading
+{
+	t_vec		l_vec;
+	double		closest;
+	t_object	*o;
+	t_hit		rec;
+}				t_li_sh;
+
+typedef  struct s_slice
+{
+	t_object	plan;
+	t_hit		recp;
+	t_vec		p1;
+	t_vec		p0;
+	t_vec		ax;
+	t_vec		my0;
+	t_vec		my1;
+	double		s0;
+	double		s1;
+	int			ret;
+}				t_slice;
 
 typedef struct	s_camera
 {
@@ -229,8 +255,8 @@ typedef struct	s_rt
 	t_vec		btns_up;
 	t_vec		btns_noi;
 	t_light		*s_light;
-	t_vec		*ran; /// perlin 
-	int			hash[255]; //perlin
+	t_vec		*ran; // free 
+	int			hash[255];
 }				t_rt;
 
 typedef struct	s_thread
@@ -238,112 +264,7 @@ typedef struct	s_thread
 	int			i;
 	t_rt		*rt;
 	t_hit		rec;
-	t_texture	*t;
+	// t_texture	*t;
 }				t_thread;
 
-typedef	struct	s_mobius
-{
-	double		a;
-	double		b;
-	double		c;
-	double		d;
-	double		e;
-	double		f;
-	double		radius;
-}				t_mobius;
-
-typedef  struct s_slice
-{
-	t_object	plan;
-	t_hit		recp;
-	t_vec		p1;
-	t_vec		p0;
-	t_vec		ax;
-	t_vec		my0;
-	t_vec		my1;
-	double		s0;
-	double		s1;
-	int			ret;
-}				t_slice;
-
-typedef struct	s_voronoi
-{
-	float		valuechange;
-	float		isborder;
-	t_vec		cellcolor;
-	t_vec		p;
-	t_vec		noise_v;
-	t_vec		fcolor;
-	t_vec		ffcolor;
-	t_vec		fcol;
-	t_vec		ffcol;
-}				t_voronoi;
-
-typedef struct	s_image
-{
-	char		signature[2];
-	int			file_size;
-	int			reserved;
-	int			data_offset;
-	int			size_header;
-	int			width;
-	int			height;
-	short		planes;
-	short		bpp;
-	int			rest_info[6];
-}				t_image;
-
-typedef	struct	s_coef
-{
-	double		m;
-	double		n;
-	double		o;
-	double		p;
-	double		q;
-}				t_coef;
-
-typedef struct	s_quartic
-{
-	double		a;
-	double		b;
-	double		c;
-	double		d;
-	double		z;
-	double		u;
-	double		v;
-	double		sub;
-	double		sq_a;
-	double		p;
-	double		q;
-	double		r;
-}				t_quartic;
-
-typedef struct	s_cubic
-{
-	double		a;
-	double		b;
-	double		c;
-	double		d;
-	double		sq_a;
-	double		p;
-	double		q;
-	double		cb_p;
-}				t_cubic;
-
-typedef struct	s_cell
-{
-	t_vec		base;
-	t_vec		cell;
-	t_vec		cellcol;
-	t_vec		tocell;
-	t_vec		closest;
-	t_vec		closetcell;
-	t_vec		toclosest;
-	t_vec		diff;
-	t_vec		tocenter;
-	t_vec		celldifference;
-	double		mindistocell;
-	double		minedgedistance;
-	double		edgedistance;
-}				t_cell;
 #endif

@@ -34,7 +34,7 @@ void  xml_set_tag(char *tag_str, t_xml *x)
 	tag_str = xml_trim(tag_str, x);
 
 
-	list = ft_strsplit(tag_str, '=');
+	list = ft_strsplit(tag_str, '='); 
 
 	if (!list && (ft_twodimlen(list) <= 1 || ft_strchr(tag_str, '=') == NULL))
 		xml_exit(x, ft_strdup("empty tag"), EXIT_FAILURE);

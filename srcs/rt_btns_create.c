@@ -12,8 +12,6 @@
 
 # include <rt.h>
 
-
-
 void		square_fill(t_rt *data, int color, t_vec pos, t_vec size)
 {
 	int		i;
@@ -45,124 +43,23 @@ void		ctrl_name(t_rt *data)
 	square_str(data, data->scene->sl_obj->name , (t_vec){700, 10}, (t_vec){900, 50});
 }
 
-void	swap_void(void *dflt, void *img, size_t n)
+
+void	swap_void(void **dflt, void **img)
 {
 	void *p;
 
-	// p = malloc(n);
-	// ft_memcpy(p, dflt, n);
-	// ft_memcpy(dflt, img, n);
-	// ft_memcpy(img, p, n);
-	// free(p);
-	p = dflt;
-	dflt = img;
-	img = p;
+	p = *dflt;
+	*dflt = *img;
+	*img = p;
 }
 
 void	swap_button_by_id(int	id, t_rt *rt)
 {
-	// swap_void(rt->bt[id]->deflt_data, rt->bt[id]->img_data,
-	// sizeof(int) * rt->bt[id]->w * rt->bt[id]->h);
 	void *p;
-	p = rt->bt[id]->data_data;
-	rt->bt[id]->data_data = rt->bt[id]->img;
-	rt->bt[id]->img = p;
-	mlx_put_image_to_window(rt->mlx, rt->win, rt->bt[id]->data_data, (int)rt->bt[id]->pos.x, (int)rt->bt[id]->pos.y);	
+	swap_void(&rt->bt[id]->deflt, &rt->bt[id]->img);
+	mlx_put_image_to_window(rt->mlx, rt->win, rt->bt[id]->deflt, (int)rt->bt[id]->pos.x, (int)rt->bt[id]->pos.y);	
 }
 
-t_button	*save_button(t_rt *rt)
-{
-	t_button *ret;
-
-	ret = (t_button *)malloc(sizeof(t_button));
-	ret->name = ft_strdup("save");
-	ret->pos = vec(1270, 752, 0);
-	ret->deflt = mlx_xpm_file_to_image(rt->mlx ,"buttons/save0.xpm", &ret->w, &ret->h);
-	ret->img = mlx_xpm_file_to_image(rt->mlx ,"buttons/save_no.xpm", &ret->w, &ret->h);
-	ret->data_data = mlx_xpm_file_to_image(rt->mlx ,"buttons/save0.xpm", &ret->w, &ret->h);
-	if (!ret->img || !ret->deflt || !ret->data_data)
-	{
-		rt_exit(rt, 0, "buttons : img unfound", EXIT_FAILURE);
-	}
-	ret->deflt_data = (int*)mlx_get_data_addr(ret->deflt, &ret->bpp, &ret->size, &ret->endian);
-	ret->img_data = (int*)mlx_get_data_addr(ret->img, &ret->bpp, &ret->size, &ret->endian);
-	ret->data = (int*)mlx_get_data_addr(ret->img, &ret->bpp, &ret->size, &ret->endian);
-	mlx_put_image_to_window(rt->mlx, rt->win, ret->deflt, (int)ret->pos.x, (int)ret->pos.y);
-	return (ret);
-}
-
-t_button	*mvmnt_button(t_rt *rt)
-{
-	t_button *ret;
-
-	ret = (t_button *)malloc(sizeof(t_button));
-	ret->name = ft_strdup("A_button");
-	ret->pos = vec_add(rt->btns_up, vec(15, 10, 0));
-	ret->deflt = mlx_xpm_file_to_image(rt->mlx ,"buttons/stop.xpm", &ret->w, &ret->h);
-	ret->img = mlx_xpm_file_to_image(rt->mlx ,"buttons/play.xpm", &ret->w, &ret->h);
-	ret->data_data = mlx_xpm_file_to_image(rt->mlx ,"buttons/stop.xpm", &ret->w, &ret->h);
-	ret->deflt_data = (int*)mlx_get_data_addr(ret->deflt, &ret->bpp, &ret->size, &ret->endian);
-	ret->img_data = (int*)mlx_get_data_addr(ret->img, &ret->bpp, &ret->size, &ret->endian);
-	ret->data = (int*)mlx_get_data_addr(ret->img, &ret->bpp, &ret->size, &ret->endian);
-	mlx_put_image_to_window(rt->mlx, rt->win, ret->deflt, (int)ret->pos.x, (int)ret->pos.y);
-	return (ret);
-}
-
-t_button	*cam_button(t_rt *rt)
-{
-	t_button *ret;
-
-	ret = (t_button *)malloc(sizeof(t_button));
-	ret->name = ft_strdup("cam_button");
-	ret->pos = vec_add(rt->btns_up, vec(25, 140, 0));
-	ret->deflt = mlx_xpm_file_to_image(rt->mlx ,"buttons/c_off0.xpm", &ret->w, &ret->h);
-	ret->img = mlx_xpm_file_to_image(rt->mlx ,"buttons/c_on.xpm", &ret->w, &ret->h);
-	ret->data_data = mlx_xpm_file_to_image(rt->mlx ,"buttons/c_off.xpm", &ret->w, &ret->h);
-	ret->deflt_data = (int*)mlx_get_data_addr(ret->deflt, &ret->bpp, &ret->size, &ret->endian);
-	ret->img_data = (int*)mlx_get_data_addr(ret->img, &ret->bpp, &ret->size, &ret->endian);
-	ret->data = (int*)mlx_get_data_addr(ret->img, &ret->bpp, &ret->size, &ret->endian);
-	mlx_put_image_to_window(rt->mlx, rt->win, ret->deflt, (int)ret->pos.x, (int)ret->pos.y);
-	return (ret);
-}
-
-
-t_button	*light_button(t_rt *rt)
-{
-	t_button *ret;
-
-	ret = (t_button *)malloc(sizeof(t_button));
-	ret->name = ft_strdup("light_button");
-	ret->pos = vec_add(rt->btns_up, vec(17, 250, 0));
-	if (rt->scene->light)
-		ret->deflt = mlx_xpm_file_to_image(rt->mlx ,"buttons/lon.xpm", &ret->w, &ret->h);
-	else
-		ret->deflt = mlx_xpm_file_to_image(rt->mlx ,"buttons/loff1.xpm", &ret->w, &ret->h);
-	ret->img = mlx_xpm_file_to_image(rt->mlx ,"buttons/loff1.xpm", &ret->w, &ret->h);
-	ret->data_data = mlx_xpm_file_to_image(rt->mlx ,"buttons/lon.xpm", &ret->w, &ret->h);
-	ret->deflt_data = (int*)mlx_get_data_addr(ret->deflt, &ret->bpp, &ret->size, &ret->endian);
-	ret->img_data = (int*)mlx_get_data_addr(ret->img, &ret->bpp, &ret->size, &ret->endian);
-	ret->data = (int*)mlx_get_data_addr(ret->img, &ret->bpp, &ret->size, &ret->endian);
-	mlx_put_image_to_window(rt->mlx, rt->win, ret->deflt, (int)ret->pos.x, (int)ret->pos.y);
-	return (ret);
-}
-
-
-t_button	*damier_button(t_rt *rt)
-{
-	t_button *ret;
-
-	ret = (t_button *)malloc(sizeof(t_button));
-	ret->name = ft_strdup("damier_button");
-	ret->pos = rt->btns_noi;
-	ret->deflt = mlx_xpm_file_to_image(rt->mlx ,"buttons/damier.xpm", &ret->w, &ret->h);
-	ret->img = mlx_xpm_file_to_image(rt->mlx ,"buttons/damier.xpm", &ret->w, &ret->h);
-	ret->data_data = mlx_xpm_file_to_image(rt->mlx ,"buttons/damier.xpm", &ret->w, &ret->h);
-	ret->deflt_data = (int*)mlx_get_data_addr(ret->deflt, &ret->bpp, &ret->size, &ret->endian);
-	ret->img_data = (int*)mlx_get_data_addr(ret->img, &ret->bpp, &ret->size, &ret->endian);
-	ret->data = (int*)mlx_get_data_addr(ret->img, &ret->bpp, &ret->size, &ret->endian);
-	mlx_put_image_to_window(rt->mlx, rt->win, ret->deflt, (int)ret->pos.x, (int)ret->pos.y);
-	return (ret);
-}
 
 void	create_buttons(int	size, t_rt *rt)
 {
@@ -184,32 +81,27 @@ void	create_buttons(int	size, t_rt *rt)
 	rt->size_bt = size;
 }
 
-void	select_button(int x, int y, t_rt *rt)
-{
-	int i = 0;
-	while (i < rt->size_bt)
-	{
-		if (((int)rt->bt[i]->pos.x <= x && x <= (int)rt->bt[i]->pos.x + rt->bt[i]->w) && ((int)rt->bt[i]->pos.y <= y && y <= (int)rt->bt[i]->pos.y + rt->bt[i]->h))
-		{
-			swap_void(rt->bt[i]->deflt_data, rt->bt[i]->img_data, sizeof(int) * rt->bt[i]->w * rt->bt[i]->h);
-			mlx_put_image_to_window(rt->mlx, rt->win, rt->bt[i]->deflt, (int)rt->bt[i]->pos.x, (int)rt->bt[i]->pos.y);
-		}
-		i++;
-	}
-}
-
-
-
 int		get_selected_button(int x, int y, t_rt *rt)
 {
 		int i = 0;
 	while (i < rt->size_bt)
 	{
-		if (((int)rt->bt[i]->pos.x <= x && x <= (int)rt->bt[i]->pos.x + rt->bt[i]->w) && ((int)rt->bt[i]->pos.y <= y && y <= (int)rt->bt[i]->pos.y + rt->bt[i]->h))
-		{
+		if ((((int)rt->bt[i]->pos.x <= x) &&( x <= (int)rt->bt[i]->pos.x + rt->bt[i]->w))\
+		&& (((int)rt->bt[i]->pos.y <= y) && (y <= (int)rt->bt[i]->pos.y + rt->bt[i]->h)))
 			return (i);
-		}
 		i++;
 	}
 	return (-1);
+}
+void	free_buttons(t_rt *rt)
+{
+	int i;
+
+	i = 0;
+	while (i < rt->size_bt)
+	{
+		(rt->bt[i]) ? free(rt->bt[i]) : 0;
+		i++;
+	}
+	rt->bt ? free(rt->bt) : 0;
 }

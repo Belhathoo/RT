@@ -12,6 +12,16 @@
 
 #include <rt.h>
 
+t_vec		rt_get_rec_col(t_object *o, t_hit *rec, t_rt *rt)
+{
+		if (o->txt.is_txt == 1)
+			return (rt_get_color_from_texture(o, &rec->u, &rec->v));
+		else if (o->noi.is_noise == 1)
+			return (rt_noise(rt, o, rec));
+		else
+			return (o->col);
+}
+
 t_vec		rt_raytracer(t_thread *th, t_ray r, int depth)
 {
 	t_vec		color;
@@ -24,14 +34,9 @@ t_vec		rt_raytracer(t_thread *th, t_ray r, int depth)
 	if (rt_hit(th->rt->scene, &r, &rec, MAX))
 	{
 		o = rec.curr_obj;
-		if (o->txt.is_txt == 1)
-			rec.col = rt_get_color_from_texture(o, &rec.u, &rec.v);
-		else if (o->noi.is_noise == 1)
-			rec.col = rt_noise(th->rt, o, &rec);
-		else
-			rec.col = o->col;
+		rec.col = rt_get_rec_col(o, &rec, th->rt);
 		th->rec = rec;
-		color = rt_lighting(th, th->RS->light);
+		color = rt_lighting(th, th->rt->scene->light);
 		if (depth > 1)
 		{
 			color = vec_add(color, (o->refl) ? vec_pro_k(rt_raytracer(th,\
@@ -63,44 +68,35 @@ void		rt_start(t_rt *rt, void* (*rt_runner)(t_thread *t))
 
 int		progress_bar(t_rt *rt)
 {
-	if ((RS->key_mvt == 0 || RS->key == 1)\
-		&& (RS->progress <= 12 && RS->select <= RS->aa + 1))
+	if ((rt->scene->key_mvt == 0 || rt->scene->key == 1)\
+		&& (rt->scene->progress <= 12 && rt->scene->select <= rt->scene->aa + 1))
 	{
 		// mlx_destroy_image(rt->mlx, rt->img);
 		// rt->img = mlx_new_image(rt->mlx, IMG_WIDTH, IMG_HEIGHT + 8);
 		// ft_bzero(rt->data, IMG_WIDTH * IMG_HEIGHT * 4);
-		ft_putstr("--00\n");
+		// ft_putstr("--00\n");
 	}
-	if (RS->key_mvt == 0)
+	if (rt->scene->key_mvt == 0)
 	{
-		RS->key_cam = 0;
-		if (RS->progress == 1)
-			rt_start(rt, rt_run_12);
-		else if (RS->progress == 2)
-			rt_start(rt, rt_run_25);
-		else if (RS->progress == 3)
-			rt_start(rt, rt_run_50);
-		else if (RS->progress >= 4 && RS->progress <= 12\
-			&& RS->select <= RS->aa + 1)
-		{
-			rt_start(rt, rt_run);
-			RS->select++;
-		}
-		if (RS->progress <= 12 && RS->select <= RS->aa + 1)
+        rt_progress_run(rt);
+		if (rt->scene->progress <= 12 && rt->scene->select <= rt->scene->aa + 1)
 		{
 			progress_fill(rt);
-			RS->progress++;
+			rt->scene->progress++;
+			if (rt->filter && rt->scene->select == rt->scene->aa)
+			{
+				if (rt->filter == SEPIA)
+					rt_sepia_filter(rt->data);
+				else if (rt->filter == NEGATIVE)
+					rt_filter_neg(rt->data);
+				else if (rt->filter == GRAY)
+					rt_filter_gray(rt->data);
+			}
 			mlx_put_image_to_window(rt->mlx, rt->win, rt->img\
 				, FRAME_LFT, FRAME_UP);
 			// ft_putendl("aa");
 		}
 	}
-	if (RS->key_mvt == 1 && RS->key == 1)
-	{
-		rt_start(rt, rt_run_12);
-		RS->progress = 0;
-		RS->key = 0;
-		mlx_put_image_to_window(rt->mlx, rt->win, rt->img, FRAME_LFT, FRAME_UP);
-	}
+	rt_mvt_run(rt);
 	return (0);
 }

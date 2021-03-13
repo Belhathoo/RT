@@ -50,7 +50,7 @@ void		rt_add_neg_object(t_tag *tag, t_rt *rt)
 {
 	t_object	obj;
 
-	if (RS->is_neg != 0)
+	if (rt->scene->is_neg != 0)
 		rt_exit(rt, "Negative object", "Only one is allowed.", EXIT_FAILURE);
 	obj = rt_init_neg_object();
 	while (TA)
@@ -64,8 +64,8 @@ void		rt_add_neg_object(t_tag *tag, t_rt *rt)
 		TA = TA->next;
 	}
 	rt_check_neg_obj(&obj, rt);
-	RS->is_neg = 1;
-	RS->n_obj = obj;
+	rt->scene->is_neg = 1;
+	rt->scene->n_obj = obj;
 }
 
 int			rt_ax_parse(char *val, t_object *o, t_rt *rt)
@@ -78,8 +78,23 @@ int			rt_ax_parse(char *val, t_object *o, t_rt *rt)
 		return (3);
 	else
 		rt_exit(rt, o->name, ": slice_ax should be X | Y | Z."\
-			, EXIT_FAILURE);
+				, EXIT_FAILURE);
 	return (-1);
+}
+
+int			rt_add_filter(char *val)
+{
+	//
+	if (!ft_strcmp(val, "sepia"))
+		return (SEPIA);
+	else if (!ft_strcmp(val, "black-white"))
+		return (BNW);
+	else if (!ft_strcmp(val, "negative"))
+		return (NEGATIVE);
+	else if (!ft_strcmp(val, "gray"))
+		return (GRAY);
+	else
+		return (-1);
 }
 
 void		rt_add_option(t_tag *tag, t_rt *rt)
@@ -87,20 +102,21 @@ void		rt_add_option(t_tag *tag, t_rt *rt)
 	while (TA)
 	{
 		if (!ft_strcmp(TA->name, "aa"))
-			RS->aa = (int)rt_ctod(TA->value, rt);
+			rt->scene->aa = (int)rt_ctod(TA->value, rt);
 		else if (!ft_strcmp(TA->name, "amb"))
-			RS->ambient = rt_ctod(TA->value, rt);
+			rt->scene->ambient = rt_ctod(TA->value, rt);
 		else if (!ft_strcmp(TA->name, "stereo"))
-			RS->stereo = rt_ctod(TA->value, rt);
+			rt->scene->stereo = rt_ctod(TA->value, rt);
 		else if (!ft_strcmp(TA->name, "filter"))
-			rt->filter = NONE_FILTER;//fnct for filters;
+			rt->filter = rt_add_filter(TA->value);//fnct for filters;
 		TA = TA->next;
 	}
-	/* filter fnct */
-	if (RS->aa <= 0 || RS->aa > 9)
+	if (rt->filter == -1)
+		rt_exit(rt, "Option: fiter", "unknown.", EXIT_FAILURE);
+	if (rt->scene->aa <= 0 || rt->scene->aa > 9)
 		rt_exit(rt, "Option: aa", "should be positive & <= 9", EXIT_FAILURE);
-	if (RS->stereo < 0 || RS->stereo > 10)///
-		rt_exit(rt, "Option: Stereo", "should be positive & <= 10"\
+	if (rt->scene->stereo < 0 || rt->scene->stereo > 9)///
+		rt_exit(rt, "Option: Stereo", "should be positive & < 10"\
 				, EXIT_FAILURE);
-	RS->ambient = ft_clamping(RS->ambient);
+	rt->scene->ambient = ft_clamping(rt->scene->ambient);
 }

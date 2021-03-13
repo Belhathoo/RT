@@ -17,12 +17,12 @@ void		rt_select_obj(t_rt *rt, int col, int row)
 	t_ray		r;
 	t_hit   rec;
 
-	r = rt_get_ray(&RS->cam, (double)(col + 0.5) / IMG_WIDTH,
+	r = rt_get_ray(&rt->scene->cam, (double)(col + 0.5) / IMG_WIDTH,
 			(double)(row + 0.5) / IMG_HEIGHT);
 	if (rt_hit(rt->scene, &r, &rec, MAX))
-		RS->sl_obj = rec.curr_obj;
+		rt->scene->sl_obj = rec.curr_obj;
 	else
-		RS->sl_obj = NULL;
+		rt->scene->sl_obj = NULL;
 }
 
 int				rt_mouse(int button, int x, int y, t_rt *rt)
@@ -31,16 +31,16 @@ int				rt_mouse(int button, int x, int y, t_rt *rt)
 	int btn;
 
 	if (button == 2)
-		RS->sl_obj = NULL;
+		rt->scene->sl_obj = NULL;
 	if (button == 1 &&
 			((x > FRAME_LFT && x < IMG_WIDTH + FRAME_RGHT) \
 			 && y > FRAME_UP && y < IMG_HEIGHT + FRAME_DWN))
 	{
 		rt_select_obj(rt, x - FRAME_LFT, (int)IMG_HEIGHT - (y - FRAME_UP));
-		if (RS->sl_obj != NULL)
+		if (rt->scene->sl_obj != NULL)
 		{
 			ft_putstr(" - selected_object:");
-			ft_putendl(RS->sl_obj->name);
+			ft_putendl(rt->scene->sl_obj->name);
 		}
 	}
 	btn = get_selected_button(x, y, rt);
@@ -50,12 +50,12 @@ int				rt_mouse(int button, int x, int y, t_rt *rt)
 			save_btn(rt);
 		if (btn == MVT_BTN)
 			mvt_btn(rt);
-		if (RS->key_mvt == 1)
+		if (rt->scene->key_mvt == 1)
 		{
 			(btn == LGHT_BTN) ? light_btn(rt) : 0;
 			if (btn == CAM_BTN)
 				cam_btn(rt);
-			else if (RS->sl_obj != NULL)
+			else if (rt->scene->sl_obj != NULL)
 			{
 				(btn == DAME_BTN ) ? dame_btn(rt) : 0;
 				(btn == CIRC_BTN ) ? circ_btn(rt) : 0;

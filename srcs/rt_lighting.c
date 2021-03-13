@@ -40,30 +40,64 @@ t_vec		rt_specular(t_hit rec, t_light *l, t_vec lo, double f_att)
 	return (spec);
 }
 
+
+t_sh_ray	rt_init_sh_ray(t_vec p, t_light *l)
+{
+	t_sh_ray	sh_r;
+
+	sh_r.l_vec = (l->type == PL_LIGHT) ?\
+		     vec_pro_k(l->dir, -1.0) : vec_sub(l->pos, p);
+	sh_r.r.dir = vec_unit(sh_r.l_vec);
+	sh_r.r.origin = vec_add(p, vec_pro_k(sh_r.r.dir, 0.001));
+	sh_r.l = l;
+	return (sh_r);
+}
+
 t_vec		rt_lighting(t_thread *th, t_light *l)
 {
 	double	f_att;
 	t_vec	col;
-	t_ray	sh_r;
-	t_vec	l_vec;
+	t_sh_ray	sh_r;
 
-	col = vec3(0.0);
-	rt_ambient(th->RS->ambient, l, th->rec, &col);
+	rt_ambient(th->rt->scene->ambient, l, th->rec, &col);
 	while (l)
 	{
-		l_vec = (l->type == PL_LIGHT) ?\
-				vec_pro_k(l->dir, -1.0) : vec_sub(l->pos, th->rec.p);
-		sh_r.dir = vec_unit(l_vec);
-		sh_r.origin = vec_add(th->rec.p, vec_pro_k(sh_r.dir, 0.01));
-		if (rt_shading(th, sh_r, l, &col, MAX_DEPTH) == 0)
+		sh_r = rt_init_sh_ray(th->rec.p, l);
+		if (rt_shading(th, sh_r, &col, MAX_DEPTH) == 0)
 		{
 			f_att = (l->type == PL_LIGHT) ? 1.0\
-				: ft_clamping(1 / ((vec_length(l_vec)\
-							+ vec_length(th->rec.ray->dir)) * 0.02));
-			col = vec_add(col, vec_add(rt_specular(th->rec, l, l_vec, f_att),\
-						rt_diffuse(th->rec, l, l_vec, f_att)));
+				: ft_clamping(1 / ((vec_length(sh_r.l_vec)\
+								+ vec_length(th->rec.ray->dir)) * 0.02));
+			col = vec_add(col, vec_add(rt_specular(th->rec, l, sh_r.l_vec, f_att),\
+						rt_diffuse(th->rec, l, sh_r.l_vec, f_att)));
 		}
 		l = l->next;
 	}
 	return (col);
 }
+
+// double		angle_between(t_vec a, t_vec b)
+// {
+// 	return (acos(vec_dot(a, b) / (vec_length(a) * vec_length(b))));
+// }
+// typedef struct s_light_shading
+// {
+// 	t_vec		l_vec;
+// 	t_hit		rec;
+// 	double		closest;
+// 	int			shade;
+
+
+// }				t_li_sh;
+
+
+// t_li_sh		rt_init_shade(t_sh_ray sh, t_vec p)
+// {
+// 	t_li_sh s;
+
+		
+// 	s.rec.curr_obj = NULL;
+// 	s.l_vec = (sh.l->type == PL_LIGHT) ?\
+// 		 vec_pro_k(sh.l->dir, -1.0) : vec_sub(sh.l->pos, p);
+// 	s.closest = (sh.l->type == PL_LIGHT) ? 10000.0 : vec_length(s.l_vec);
+// }

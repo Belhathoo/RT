@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*																			*/
-/*														:::      ::::::::   */
-/*   rt.h												:+:      :+:    :+:   */
-/*													+:+ +:+		 +:+     */
-/*   By: belhatho <marvin@42.fr>					+#+  +:+       +#+		*/
-/*												+#+#+#+#+#+   +#+			*/
-/*   Created: 2021/03/11 14:29:25 by belhatho		  #+#    #+#				*/
-/*   Updated: 2021/03/11 15:50:32 by belhatho		 ###   ########.fr       */
+/*														:::									::::::::			 */
+/*			 rt.h												:+:									:+:						:+:			 */
+/*													+:+ +:+		 +:+						 */
+/*			 By: belhatho <marvin@42.fr>					+#+			+:+									 +#+		*/
+/*												+#+#+#+#+#+			 +#+			*/
+/*			 Created: 2021/03/11 14:29:25 by belhatho					#+#						#+#				*/
+/*			 Updated: 2021/03/11 15:50:32 by belhatho		 ###			 ########.fr									 */
 /*																			*/
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@
 
 #include<stdio.h> /// // 
 
-/* Parse  */
+/* Parse			*/
 
 t_vec			rt_rot_dir(t_vec *d, t_vec r);
 t_vec			rt_ctovec(char *str, t_rt *rt);
 double			rt_ctod(char *str, t_rt *rt);
-void		   	rt_ctotxt(char *str, t_texture *t, t_rt *rt);
+void					 	rt_ctotxt(char *str, t_texture *t, t_rt *rt);
 
 void			rt_parser(t_rt *p, char **av);
 void			rt_add_object(t_tag *t, t_rt *rt);
@@ -55,6 +55,8 @@ t_vec			anti_aa(t_thread *t, double col, double row, int select);
 int				progress_bar(t_rt *rt);
 t_vec			rt_stereoscopy(t_thread *t, double col, double row, int select);
 
+void			rt_progress_run(t_rt *rt);
+void			rt_mvt_run(t_rt *rt);
 void			rt_start(t_rt *rt, void *(*rt_runner)(t_thread *t));
 void			*rt_run(t_thread *t);
 void			*rt_run_50(t_thread *t);
@@ -69,7 +71,7 @@ void			progress_fill(t_rt *rt);
  */
 
 void			rt_ambient(double amb, t_light *l, t_hit rec, t_vec *col);
-int				rt_shading(t_thread *th, t_ray sh_r, t_light *l, t_vec *c, int dpt);
+int				rt_shading(t_thread *th, t_sh_ray sh_r, t_vec *c, int dpt);
 t_vec			rt_lighting(t_thread *th, t_light *t);
 
 t_vec			rt_reflect(t_vec v, t_vec n);
@@ -124,13 +126,13 @@ t_vec			rotation(t_vec dir, t_vec rot);
 void			ft_float_swap(double *a, double *b);
 
 double			degtorad(double angle);
-double			degtorad(double angle);
+double			radtodeg(double angle);
 void			rt_get_repere(t_object *ob);
 t_vec			rt_rotz(t_vec vec, double angle);
 t_vec			rt_roty(t_vec vec, double angle);
 t_vec			rt_rotx(t_vec vec, double angle);
 int				is_yequal(t_vec a, t_vec b);
-double      	ffmax(double a, double b);
+double			ffmax(double a, double b);
 void			my_mlx_putpixel(t_vec *data, int x, int y, t_vec color);
 t_vec			my_mlx_getpixel(t_vec *data, int x, int y);
 t_vec			ft_rot_vec(t_vec a, t_vec b, double t);
@@ -161,6 +163,17 @@ double			rt_frac(double value);
 t_vec			rt_lerp(t_vec a, t_vec b, float f);
 t_vec			rt_voronoi(t_vec p, t_object *o);
 t_vec			rt_start_voronoi(t_vec p, t_object *o);
+unsigned char	*import_bmp(char *path,
+				int *width, int *height);
+void	free2d(unsigned char ***str);
+int						get_image(t_bmp *bmp);
+t_bmp			*init_bmp();
+void			destroy_bmp(t_bmp *bmp);
+unsigned int	bytes_to_number(unsigned char *str, unsigned int n);
+
+void			rt_sepia_filter(int *data);
+void			rt_filter_neg(int *data);
+void            rt_filter_gray(int *data);
 
 /*
  * Events
@@ -194,6 +207,11 @@ t_button	*circles_button(t_rt *rt);
 t_button	*voronoi1_button(t_rt *rt);
 t_button	*voronoi2_button(t_rt *rt);
 t_button	*voronoi3_button(t_rt *rt);
+t_button	*save_button(t_rt *rt);
+t_button	*mvmnt_button(t_rt *rt);
+t_button	*cam_button(t_rt *rt);
+t_button	*light_button(t_rt *rt);
+
 
 /*
  * Init
@@ -220,7 +238,7 @@ int			negative(t_hit *record);
 int			rt_negative_sphere(t_object *sphere, t_ray *r, t_hit *rec);
 int			rt_negative_cylinder(t_object *o, t_ray *r, t_hit *rec);
 int			rt_negative_cone(t_object *o, t_ray *r, t_hit *rec);
-void    	rt_init_negative(t_hit *rec);
+void							rt_init_negative(t_hit *rec);
 
 
 /*

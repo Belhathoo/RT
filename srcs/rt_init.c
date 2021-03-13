@@ -55,7 +55,7 @@ t_light			*rt_init_light(t_rt *rt)
 	light->angle = 30.0;
 	light->pos = vec(5.0, 5.0, 15.0);
 	light->col = vec(1.0, 1.0, 1.0);
-	light->dir = vec(0.0, 1.0, 0.0);
+	light->dir = vec(0.0, -1.0, 0.0);
 	light->intensity = 0.8;
 	light->next = NULL;
 	return (light);
@@ -97,7 +97,7 @@ t_object		*rt_init_object(t_rt *rt)
 	if (!(obj = (struct s_o*)malloc(sizeof(struct s_o))))
 		rt_exit(rt, "", "Cannot allocate!", EXIT_FAILURE);
 	obj->name = NULL;
-	obj->material = NULL; // make default material!!
+	obj->material = NULL;
 	obj->pos = vec(0.0, 0.0, 0.0);
 	obj->size = 3.0;
 	obj->radius = 3.0;
@@ -112,6 +112,9 @@ t_object		*rt_init_object(t_rt *rt)
 	obj->col = vec(1.0, 0.7, 0.3);
 	obj->txt.is_txt = 0;
 	obj->txt.is_trans = 0;
+	obj->txt.scale = 1.0;
+	obj->txt.mv1 = 0.0;
+	obj->txt.mv2 = 0.0;
 	obj->noi = rt_init_noise();
 	obj->scale = 1.5;
 	obj->is_sliced = 0;
@@ -149,7 +152,8 @@ t_scene		*rt_init_scene(t_rt *rt)
 
 void		rt_init(t_rt *rt)
 {
-	init_perlin(rt);
+	// 3azzouz me3guuuuaz to after parse add int perlin rt struct
+	init_perlin(rt); 
 	rt->img = NULL;
 	rt->mlx = NULL;
 	rt->data = NULL;

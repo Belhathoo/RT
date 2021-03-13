@@ -103,7 +103,7 @@ void		rt_add_object(t_tag *tag, t_rt *rt)
 	t_object	*tmp;
 
 	obj = rt_init_object(rt);
-	tmp = RS->object;
+	tmp = rt->scene->object;
 	while (tag->attr)
 	{
 		if (!ft_strcmp(tag->attr->name, "name"))
@@ -120,6 +120,6 @@ void		rt_add_object(t_tag *tag, t_rt *rt)
 		tag->attr = tag->attr->next;
 	}
 	rt_check_obj(obj, rt);
-	RS->object = obj;
+	rt->scene->object = obj;
 	obj->next = tmp;
 }

@@ -17,9 +17,9 @@ void			progress_fill(t_rt *rt)
 	int i;
 	int j;
 
-	(RS->select == RS->aa) ? (RS->progress = 12) : 0;
+	(rt->scene->select == rt->scene->aa) ? (rt->scene->progress = 12) : 0;
 	i = -1;
-	while (++i < ((double)IMG_WIDTH / (double)12) * (double)(RS->progress))
+	while (++i < ((double)IMG_WIDTH / (double)12) * (double)(rt->scene->progress))
 	{
 		j = -1;
 		while (++j < 5)
@@ -37,7 +37,7 @@ t_vec			infinite_pixels(t_thread *t, t_vec cr, int select, t_vec cl)
 	color = cl;
 	while (++i < select)
 	{
-		tmp = my_mlx_getpixel(t->RS->data1[i], cr.x, IMG_HEIGHT - cr.y);
+		tmp = my_mlx_getpixel(t->rt->scene->data1[i], cr.x, IMG_HEIGHT - cr.y);
 		color = vec_add(color, tmp);
 	}
 	return (color);
@@ -58,6 +58,7 @@ void			init_tab(t_vec *tab)
 
 t_vec			anti_aa(t_thread *t, double col, double row, int select)
 {
+	//stereo
 	t_vec		tab[9];
 	t_vec		color;
 	t_vec		colo;
@@ -65,19 +66,19 @@ t_vec			anti_aa(t_thread *t, double col, double row, int select)
 	double		anti_a;
 
 	init_tab(tab);
-	anti_a = sqrt(t->RS->max_anti_a);
+	anti_a = sqrt(t->rt->scene->max_anti_a);
 	colo = vec3(0.0);
 	if (t->rt->scene->stereo)
 		color = rt_stereoscopy(t, col, row, select);
 	else
 	{
-		r = rt_get_ray(&t->RS->cam,\
+		r = rt_get_ray(&t->rt->scene->cam,\
 			(double)((col + ((tab[select].x + 0.5) / anti_a)) / IMG_WIDTH),\
 			(double)((row + ((tab[select].y + 0.5) / anti_a)) / IMG_HEIGHT));
 		color = rt_raytracer(t, r, MAX_DEPTH);
 	}
 	colo = infinite_pixels(t, (t_vec){col, row, 0}, select, color);
-	my_mlx_putpixel(t->RS->data1[select], col, IMG_HEIGHT - row, color);
+	my_mlx_putpixel(t->rt->scene->data1[select], col, IMG_HEIGHT - row, color);
 	return (colo);
 }
 
@@ -86,7 +87,7 @@ t_vec			rt_anti_aliasing(t_thread *t, int col, int row)
 	t_vec	color;
 
 	color = vec(0, 0, 0);
-	color = anti_aa(t, (double)col, (double)row, t->RS->select); //
-	color = vec_div_k(color, t->RS->select + 1); //
+	color = anti_aa(t, (double)col, (double)row, t->rt->scene->select); //
+	color = vec_div_k(color, t->rt->scene->select + 1); //
 	return (color);
 }

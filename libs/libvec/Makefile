@@ -16,7 +16,7 @@ BUILD_PRINT = $(GREEN_COLOR)libvec.a successfully compiles$(NO_COLOR)
 OK_STRING=$(OK_COLOR)[OK]$(NO_COLOR)
 KO_STRING=$(ERROR_COLOR)[KO]$(NO_COLOR)
 
-CFLAGS = #-Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 
 all: $(NAME)
 

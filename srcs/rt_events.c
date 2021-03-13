@@ -14,52 +14,52 @@
 
 void		rt_reset(t_rt *rt)
 {
-	RS->progress = 1;
-	RS->select = 0;
-	if (RS->key_cam == 1)
+	rt->scene->progress = 1;
+	rt->scene->select = 0;
+	if (rt->scene->key_cam == 1)
 	{
-		RS->cam = rt_init_camera(RS->cam.lookfrom,
-				RS->cam.lookat, RS->cam.fov);
+		rt->scene->cam = rt_init_camera(rt->scene->cam.lookfrom,
+				rt->scene->cam.lookat, rt->scene->cam.fov);
 	}
-	else if (RS->sl_obj)
+	else if (rt->scene->sl_obj)
 	{
-		if (RS->sl_obj->compos)
-			get_cube_compos(RS->sl_obj, rt);
+		if (rt->scene->sl_obj->compos)
+			get_cube_compos(rt->scene->sl_obj, rt);
 	}
-	RS->key = 1;
+	rt->scene->key = 1;
 }
 
 int			rt_keys(int key, t_rt *rt)
 {
 	//rt selt obj in main.c !!!! for linux events
-	// (RS->sl_obj) ? ft_putendl(RS->sl_obj->name) : 0;
+	// (rt->scene->sl_obj) ? ft_putendl(rt->scene->sl_obj->name) : 0;
 	if (key == K_ESC)
 		rt_close(rt);
 	if (key == K_A)
 		mvt_btn(rt);
 	if (key == K_S)
 		save_btn(rt);
-	if (RS->key_mvt == 1)
+	if (rt->scene->key_mvt == 1)
 	{ //
 		if (key == K_C)
 			cam_btn(rt);
 		else if (key == K_L)
 			light_btn(rt);
 	}//
-	if (RS->key_mvt == 1)
+	if (rt->scene->key_mvt == 1)
 	{
-		if (RS->key_cam == 1)
-			(rt_move(key, &RS->cam.lookfrom)) ? rt_reset(rt) : 0;
-		else if (RS->sl_obj != NULL)
+		if (rt->scene->key_cam == 1)
+			(rt_move(key, &rt->scene->cam.lookfrom)) ? rt_reset(rt) : 0;
+		else if (rt->scene->sl_obj != NULL)
 		{
-			if (rt_move(key, &RS->sl_obj->pos)\
-			&& rt_move(key, &RS->sl_obj->sl_pnt))
+			if (rt_move(key, &rt->scene->sl_obj->pos)\
+			&& rt_move(key, &rt->scene->sl_obj->sl_pnt))
 				rt_reset(rt);
-			if (rt_rot_event(key, RS->sl_obj))
+			if (rt_rot_event(key, rt->scene->sl_obj))
 				rt_reset(rt);
 		}
 		if (key == K_N)
-			RS->sl_obj = (RS->sl_obj) ? RS->sl_obj->next : RS->object;//=wsl!
+			rt->scene->sl_obj = (rt->scene->sl_obj) ? rt->scene->sl_obj->next : rt->scene->object;//=wsl!
 	}
 	return (0);
 }
