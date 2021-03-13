@@ -6,26 +6,26 @@
 /*   By: msoulaim <msoulaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 16:56:46 by msoulaim          #+#    #+#             */
-/*   Updated: 2021/03/06 19:11:26 by msoulaim         ###   ########.fr       */
+/*   Updated: 2021/03/13 18:51:38 by msoulaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rt.h>
 
-void        save_btn(t_rt *rt)
+void	save_btn(t_rt *rt)
 {
-	image_create(rt);  
+	image_create(rt);
 }
 
-void        cam_btn(t_rt *rt)
+void	cam_btn(t_rt *rt)
 {
 	rt->scene->key_cam = (rt->scene->key_cam + 1) % 2;
 	swap_button_by_id(CAM_BTN, rt);
 }
 
-void            mvt_btn(t_rt *rt)
+void	mvt_btn(t_rt *rt)
 {
-	swap_button_by_id(MVT_BTN , rt);
+	swap_button_by_id(MVT_BTN, rt);
 	rt->scene->sl_obj = NULL; // rmve for mac
 	rt->scene->key_mvt = (rt->scene->key_mvt + 1) % 2;
 	if (!rt->scene->key_mvt && rt->scene->key_cam == 1)
@@ -35,7 +35,7 @@ void            mvt_btn(t_rt *rt)
 	rt_reset(rt);
 }
 
-void        light_btn(t_rt *rt)
+void	light_btn(t_rt *rt)
 {
 	if (rt->scene->light)
 		rt->scene->light = NULL;
@@ -43,11 +43,11 @@ void        light_btn(t_rt *rt)
 		rt->scene->light = rt->s_light;
 	else
 		return ;
-	swap_button_by_id(LGHT_BTN , rt);
+	swap_button_by_id(LGHT_BTN, rt);
 	rt_reset(rt);
 }
 
-void        dame_btn(t_rt *rt)
+void	dame_btn(t_rt *rt)
 {
 	if (rt->scene->sl_obj->txt.is_txt == 0)
 	{
@@ -68,8 +68,7 @@ void        dame_btn(t_rt *rt)
 	}
 }
 
-
-void        circ_btn(t_rt *rt)
+void	circ_btn(t_rt *rt)
 {
 	if (rt->scene->sl_obj->txt.is_txt == 0)
 	{
@@ -90,7 +89,7 @@ void        circ_btn(t_rt *rt)
 	}
 }
 
-void        v1_btn(t_rt *rt)
+void	v1_btn(t_rt *rt)
 {
 	if (rt->scene->sl_obj->txt.is_txt == 0)
 	{
@@ -111,7 +110,7 @@ void        v1_btn(t_rt *rt)
 	}
 }
 
-void        v2_btn(t_rt *rt)
+void	v2_btn(t_rt *rt)
 {
 	if (rt->scene->sl_obj->txt.is_txt == 0)
 	{
@@ -132,8 +131,7 @@ void        v2_btn(t_rt *rt)
 	}
 }
 
-
-void        v3_btn(t_rt *rt)
+void	v3_btn(t_rt *rt)
 {
 	if (rt->scene->sl_obj->txt.is_txt == 0)
 	{
