@@ -14,10 +14,11 @@
 <Object name="sphere" position="-10.0 0.0 0.0" 
 radius="4" material="goxld" refr="0.0"/>
 
-<Object name="sphere" position="0.0 0.0 0.0" radius="4">
+<Object name="sphere" texture="xpm/earth.xpm" txt_trans="b"
+ refr="1.1" scale="1.0" position="0.0 0.0 05.0" radius="6">
 
 <Object name="sphere" position="10.0 0.0 0.0" radius="4">
 
-<Light direction="0 0 -1" position="0 .0 20" />
+<Light type="parallel" direction="0 0 -1" position="0 .0 20" />
 
 

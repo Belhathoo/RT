@@ -44,19 +44,19 @@ void		rt_add_light(t_tag *tag, t_rt *rt)
 
 	l = rt_init_light(rt);
 	tmp = rt->scene->light;
-	while (TA)
+	while (tag->attr)
 	{
-		if (!ft_strcmp(TA->name, "type"))
-			l->type = rt_check_light_type(TA->value);
-		else if (!ft_strcmp(TA->name, "position"))
-			l->pos = rt_ctovec(TA->value, rt);
-		else if (!ft_strcmp(TA->name, "direction"))
-			l->dir = vec_unit(rt_ctovec(TA->value, rt));
-		else if (!ft_strcmp(TA->name, "intensity"))
-			l->intensity = rt_ctod(TA->value, rt);
-		else if (!ft_strcmp(TA->name, "color"))
-			l->col = rt_ctovec(TA->value, rt);
-		TA = TA->next;
+		if (!ft_strcmp(tag->attr->name, "type"))
+			l->type = rt_check_light_type(tag->attr->value);
+		else if (!ft_strcmp(tag->attr->name, "position"))
+			l->pos = rt_ctovec(tag->attr->value, rt);
+		else if (!ft_strcmp(tag->attr->name, "direction"))
+			l->dir = vec_unit(rt_ctovec(tag->attr->value, rt));
+		else if (!ft_strcmp(tag->attr->name, "intensity"))
+			l->intensity = rt_ctod(tag->attr->value, rt);
+		else if (!ft_strcmp(tag->attr->name, "color"))
+			l->col = rt_ctovec(tag->attr->value, rt);
+		tag->attr = tag->attr->next;
 	}
 	rt_check_lights(l, rt);
 	rt->scene->light = l;

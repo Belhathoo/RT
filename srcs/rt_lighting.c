@@ -62,13 +62,16 @@ t_vec			rt_lighting(t_thread *th, t_light *l)
 	while (l)
 	{
 		sh_r = rt_init_sh_ray(th->rec.p, l);
-		if (rt_shading(th, sh_r, &col, MAX_DEPTH) == 0)
+		if (!(vec_dot(sh_r.l_vec, th->rec.n) < 0))
 		{
-			f_att = (l->type == PL_LIGHT) ? 1.0\
-				: ft_clamping(1 / ((vec_length(sh_r.l_vec)\
+			if (rt_shading(th, sh_r, &col, MAX_DEPTH) == 0)
+			{
+				f_att = (l->type == PL_LIGHT) ? 1.0\
+					: ft_clamping(1 / ((vec_length(sh_r.l_vec)\
 								+ vec_length(th->rec.ray->dir)) * 0.02));
-			col = vec_add(col, vec_add(rt_specular(th->rec, l, sh_r.l_vec,\
-				f_att), rt_diffuse(th->rec, l, sh_r.l_vec, f_att)));
+				col = vec_add(col, vec_add(rt_specular(th->rec, l, sh_r.l_vec,\
+					f_att), rt_diffuse(th->rec, l, sh_r.l_vec, f_att)));
+			}
 		}
 		l = l->next;
 	}

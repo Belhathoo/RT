@@ -79,6 +79,7 @@ int				rt_hit_cone(t_object *obj, t_ray *ray, t_hit *record);
 int				rt_hit_lcone(t_object *o, t_ray *r, t_hit *rec);
 int				rt_hit_plan(t_object *obj, t_ray *ray, t_hit *record);
 int				rt_hit_care(t_object *o, t_ray *ray, t_hit *rec);
+int				rt_hit_disc(t_object *o, t_ray *ray, t_hit *rec);
 
 int				rt_hit_torus(t_object *obj, t_ray *ray, t_hit *record);
 int				rt_hit_parabol(t_object *obj, t_ray *ray, t_hit *record);
@@ -90,6 +91,7 @@ int				rt_hit_mobius(t_object *o, t_ray *ray, t_hit *rec);
 void			cylinder_uv(t_object *o, t_hit *rec);
 void			cone_uv(t_object *o, t_hit *rec);
 void			sphere_uv(t_object *o, t_hit *rec);
+void			plane_uv(t_hit *rec, t_object *o);
 t_vec			normale_cylinder(t_object *o, t_ray *r, t_hit *rec);
 t_vec			normale_cone(t_object *o, t_ray *r, t_hit *rec);
 int				rt_plan_intersect(t_object *o, t_slice s, t_hit *rec\
@@ -134,11 +136,12 @@ void			rt_slice_ax(t_object *o);
 t_texture		rt_init_txt(void);
 t_vec			rt_get_color_from_texture(t_object *o, double *u, double *v);
 t_vec			rt_torus_noise(t_hit *rec);
-
+int				rt_one_slice(t_object *o, t_ray *r, t_hit *rec);
 int				trans_texture(t_ray *ray, t_object *obj, t_hit *rec);
 int				rt_add_noise(char *val, t_rt *rt);
 t_vec			rt_noise_damier(t_hit *rec);
 t_vec			rt_noise(t_rt *rt, t_object *o, t_hit *rec);
+void			init_perlin(t_rt *rt);
 t_vec			perlin(t_rt *rt, t_vec v, t_object *obj);
 t_vec			rt_rand1dto3d(double value);
 t_vec			rt_rand3dto3d(t_vec value);
@@ -224,7 +227,6 @@ void			rt_init_negative(t_hit *rec);
 
 
 int				rt_slicing(t_object *o, t_ray *r, t_hit *rec);
-int				in_cylindr(t_object *o);//
 int				in_sphere(t_object *o);
 
 #endif

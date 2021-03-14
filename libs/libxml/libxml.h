@@ -5,21 +5,21 @@
 # include <fcntl.h>
 # include <stdio.h>//delete me and add 2>/dev/null in makefile
 
-# define TA tag->attr
+// # define TA tag->attr
 
-typedef struct	s_attr
+typedef struct		s_attr
 {
 	char			*name;
 	char			*value;
-  struct s_attr 	*next;
-}				t_attr;
+  struct s_attr		*next;
+}					t_attr;
 
-typedef struct	s_tag
+typedef struct		s_tag
 {
-	char		*name;
-	t_attr		*attr;
-  struct s_tag *next;
-}				t_tag;
+	char			*name;
+	t_attr			*attr;
+  struct s_tag		*next;
+}					t_tag;
 
 typedef struct		s_xml
 {
@@ -39,11 +39,11 @@ void	xml_set_tag(char *tag_str, t_xml *x);
 char	*xml_set_attr(char *attr_str, t_xml *x);
 
 void	xml_check_tag(char  *t_name, t_xml *x);
-int     xml_check_attr(char *t_name, char *a_name, t_xml *x);
+int     xml_check_attr(char *t_name, char *a_name);
 
-char	*xml_trim(char *attr_name, t_xml *x);
+char	*xml_trim(char *attr_name);
 
-void	xml_exit(t_xml *x, char *msg, int err);
+void	xml_exit(t_xml *x, char *m1, char *msg, int err);
 void	xml_close(t_xml *x);
 
 #endif

@@ -30,6 +30,8 @@ char	*get_full_text(const int fd)
 		text = (char*)malloc(sum + BUFF_SIZE + 1);
 		ft_strcpy(text, tmp);
 		free(tmp);
+		if (sum > 4096)
+			break ;
 	}
 	text[sum] = '\0';
 	return (text);

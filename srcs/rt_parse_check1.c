@@ -45,6 +45,8 @@ int			rt_check_objs(t_object *obj, char *str)
 		obj->hit = rt_hit_parabol;
 	else if (!ft_strcmp(str, "RECTANGLE"))
 		obj->hit = rt_hit_care;
+	else if (!ft_strcmp(str, "DISC"))
+		obj->hit = rt_hit_disc;
 	else if (!ft_strcmp(str, "L_CYLINDER"))
 		obj->hit = rt_hit_lcylinder;
 	else if (!ft_strcmp(str, "L_CONE"))

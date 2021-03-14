@@ -15,7 +15,7 @@
 void			xml_to_rt(t_xml *x, t_rt *rt)
 {
 	if (x->cam_nbr != 1)
-		xml_exit(x, "One Camera !!", EXIT_FAILURE);
+		xml_exit(x, "", "One Camera !!", EXIT_FAILURE);
 	// obj_nbr == 0 >> with UI can add objects
 	while (x->tags)
 	{
@@ -39,7 +39,7 @@ void			rt_parser(t_rt *rt, char **argv)
 
 	x = xml_init(argv[1]);
 	if (xml_parse(x) == -1)
-		xml_exit(x, "-1\n", EXIT_FAILURE);
+		  xml_exit(x, " tags"," < / >", EXIT_FAILURE);
 	// err. (check redo in main libxml)
 	xml_to_rt(x, rt);
 	xml_close(x);

@@ -53,15 +53,15 @@ void		rt_add_neg_object(t_tag *tag, t_rt *rt)
 	if (rt->scene->is_neg != 0)
 		rt_exit(rt, "Negative object", "Only one is allowed.", EXIT_FAILURE);
 	obj = rt_init_neg_object();
-	while (TA)
+	while (tag->attr)
 	{
-		if (!ft_strcmp(TA->name, "name"))
+		if (!ft_strcmp(tag->attr->name, "name"))
 		{
-			obj.name = ft_strdup(TA->value);
+			obj.name = ft_strdup(tag->attr->value);
 			rt_check_neg_obj_name(&obj, rt);
 		}
 		rt_add_negs(tag->attr, &obj, rt);
-		TA = TA->next;
+		tag->attr = tag->attr->next;
 	}
 	rt_check_neg_obj(&obj, rt);
 	rt->scene->is_neg = 1;
@@ -96,17 +96,17 @@ int			rt_add_filter(char *val)
 
 void		rt_add_option(t_tag *tag, t_rt *rt)
 {
-	while (TA)
+	while (tag->attr)
 	{
-		if (!ft_strcmp(TA->name, "aa"))
-			rt->scene->aa = (int)rt_ctod(TA->value, rt);
-		else if (!ft_strcmp(TA->name, "amb"))
-			rt->scene->ambient = rt_ctod(TA->value, rt);
-		else if (!ft_strcmp(TA->name, "stereo"))
-			rt->scene->stereo = rt_ctod(TA->value, rt);
-		else if (!ft_strcmp(TA->name, "filter"))
-			rt->filter = rt_add_filter(TA->value);
-		TA = TA->next;
+		if (!ft_strcmp(tag->attr->name, "aa"))
+			rt->scene->aa = (int)rt_ctod(tag->attr->value, rt);
+		else if (!ft_strcmp(tag->attr->name, "amb"))
+			rt->scene->ambient = rt_ctod(tag->attr->value, rt);
+		else if (!ft_strcmp(tag->attr->name, "stereo"))
+			rt->scene->stereo = rt_ctod(tag->attr->value, rt);
+		else if (!ft_strcmp(tag->attr->name, "filter"))
+			rt->filter = rt_add_filter(tag->attr->value);
+		tag->attr = tag->attr->next;
 	}
 	if (rt->filter == -1)
 		rt_exit(rt, "Option: fiter", "unknown.", EXIT_FAILURE);

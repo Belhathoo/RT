@@ -56,22 +56,6 @@ int		in_sphere(t_object *o)
 	return (1);
 }
 
-int		in_cylindr(t_object *o)
-{
-	//// recheck !!
-
-	t_vec a;
-	t_vec b;
-	double c;
-
-	a = vec_sub(o->pos, o->sl_pnt);
-	b = vec_cross(a, o->rot);
-	c = vec_length(b) / vec_length(o->rot);
-	if (c >= o->radius)
-		return (0);
-	return (1);
-}
-
 int			inside_slicing(t_object *o, t_ray *r, t_hit *rec)
 {
 	t_slice s;

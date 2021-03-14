@@ -30,6 +30,7 @@ SRCS = rt.c\
 		rt_utils.c\
 		rt_close.c\
 		rt_hit_sphere.c\
+		rt_hit_disc.c\
 		rt_hit_cylinder.c\
 		rt_hit_lcylinder.c\
 		rt_hit_cone.c\

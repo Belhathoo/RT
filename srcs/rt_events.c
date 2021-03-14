@@ -24,7 +24,7 @@ void		rt_reset(t_rt *rt)
 	else if (rt->scene->sl_obj)
 	{
 		if (rt->scene->sl_obj->compos)
-			get_cube_compos(rt->scene->sl_obj, rt);
+			get_cube_compos(rt->scene->sl_obj, rt); //leak
 	}
 	rt->scene->key = 1;
 }

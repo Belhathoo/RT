@@ -37,9 +37,9 @@ void		square_str(t_rt *data, char *str, t_vec pos, t_vec size)
 
 void		ctrl_name(t_rt *data)
 {
-	square_fill(data, 0xFFFFFF, (t_vec){700, 10}, (t_vec){900, 50});
+	square_fill(data, 0xFFFFFF, (t_vec){700, 10, 0}, (t_vec){900, 50, 0});
 	square_str(data, data->scene->sl_obj->name,
-					(t_vec){700, 10}, (t_vec){900, 50});
+					(t_vec){700, 10, 0}, (t_vec){900, 50, 0});
 }
 
 void		swap_void(void **dflt, void **img)
@@ -53,8 +53,6 @@ void		swap_void(void **dflt, void **img)
 
 void		swap_button_by_id(int id, t_rt *rt)
 {
-	void *p;
-
 	swap_void(&rt->bt[id]->deflt, &rt->bt[id]->img);
 	mlx_put_image_to_window(rt->mlx, rt->win, rt->bt[id]->deflt,
 				(int)rt->bt[id]->pos.x, (int)rt->bt[id]->pos.y);

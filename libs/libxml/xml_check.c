@@ -17,16 +17,12 @@ void		xml_check_tag(char *t_name, t_xml *x)
 	char	*str;
 
 	str = t_name;
-	// str = ft_strupcase(str);
-	/*
-	   Check for cam numbers!!
-	   */
 	if (!ft_strncmp(str, "Camera", 6) && x->cam_nbr > 1)
-		xml_exit(x, ("Only One Camera Allowed !"), 1);
+		xml_exit(x, "", ("Only One Camera Allowed !"), 1);
 	if (!(!ft_strncmp(str, "Camera", 6) || !ft_strncmp(str, "Object", 6)\
 		|| !ft_strncmp(str, "Neg_Object", 8) || !ft_strncmp(str, "Light", 5)\
 		|| !ft_strncmp(str, "Option", 6)))
-		xml_exit(x, ("Tag Unknown!"), 1);
+		xml_exit(x, "", ("Tag Unknown!"), 1);
 }
 
 int			xml_check_att_val(char *a_name)
@@ -48,7 +44,7 @@ int			xml_check_att_val(char *a_name)
 	return (0);
 }
 
-int			xml_check_attr(char *t_name, char *a_name, t_xml *x)
+int			xml_check_attr(char *t_name, char *a_name)
 {
 	if (!ft_strcmp(t_name, "Object") && (xml_check_att_val(a_name)))
 		return (1);

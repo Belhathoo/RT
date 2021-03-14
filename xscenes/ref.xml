@@ -4,9 +4,9 @@
 <Camera	lookfrom="0 15.0 20.0" />
 
 
-<Option aa="4" filter="sepia" stereo="0.6" >
+<Option aa="4" filter="sepia"  >
 
-<Object name="plan" color="0 0.9 1.0" position="0 -3.0 -8.0"/>
+<Object name="plan" slice_vec="0 1 1" color="0 0.9 1.0" refr="1.2" position="0 -3.0 0.0"/>
 
 
 <Object name="sphere" color="1 1 1" radius="4.0" material="glass">

@@ -22,9 +22,6 @@ void		rt_check_o_annex(t_object *o, t_rt *rt)
 		if (!ft_strcmp(o->name, "sphere") && !in_sphere(o))
 			rt_exit(rt, o->name, "slicing pnt is outside the sphere!"\
 			, EXIT_FAILURE);
-		if (!ft_strcmp(o->name, "cylinder") && !in_cylindr(o))  // jessie
-			rt_exit(rt, o->name, ": slicing pnt is outside the cylinder!"\
-			, EXIT_FAILURE);
 	}
 	if (!ft_strcmp(o->name, "l_cone") && o->height >= o->width)
 		rt_exit(rt, o->name, ": height should be < width. (init: w:5 h:2.5) "\
