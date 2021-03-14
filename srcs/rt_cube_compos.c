@@ -12,6 +12,7 @@
 
 #include <rt.h>
 
+/* rotation from parse baa9**/
 void			rt_init_compos(t_object *obj, t_object *comp)
 {
 	comp->name = NULL;

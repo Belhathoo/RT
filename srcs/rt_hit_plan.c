@@ -6,18 +6,15 @@
 /*   By: belhatho <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/07 19:05:46 by belhatho          #+#    #+#             */
-/*   Updated: 2021/03/12 17:02:46 by belhatho         ###   ########.fr       */
+/*   Updated: 2021/03/14 18:06:31 by belhatho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rt.h>
 
-
-int      cutt_plane(t_hit *rec, t_object *o)
+int			cutt_plane(t_hit *rec, t_object *o)
 {
-	double largeur;
-	double longeur;
-	t_vec   pnt;
+	t_vec	pnt;
 
 	pnt = vec_sub(rec->p, o->pos);
 	if (o->name && !ft_strcmp(o->name, "rectangle"))
@@ -32,17 +29,14 @@ int      cutt_plane(t_hit *rec, t_object *o)
 					|| fabs(vec_dot(pnt, o->vec2)) > o->size))
 			return (0);
 	}
-
 	return (1);
 }
-
 
 void			plane_uv(t_hit *rec, t_object *o)
 {
 	t_vec p;
 
 	p = vec_sub(rec->p, o->pos);
-
 	if (o->txt.is_txt)
 	{
 		p = vec_add(p, vec_add(vec_pro_k(o->vec1, o->txt.mv1), vec_pro_k(o->vec2, o->txt.mv2)));
@@ -57,17 +51,16 @@ void			plane_uv(t_hit *rec, t_object *o)
 	{
 		rec->u = rt_frac(vec_dot(vec_div_k(vec_sub(rec->p, o->pos), 10.0),vec_cross(o->rot,o->vec1)));
 		rec->v = rt_frac(vec_dot(vec_div_k(vec_sub(rec->p, o->pos), 10.0), o->vec1));
-
 	}
 }
 
-int     rt_hit_plan(t_object *o, t_ray *r, t_hit *rec)
+int			rt_hit_plan(t_object *o, t_ray *r, t_hit *rec)
 {
-	double  t;
+	double	t;
 
 	t = ((vec_dot(o->rot, o->pos) - vec_dot(o->rot, r->origin))
 			/ vec_dot(o->rot, r->dir));
-	if ( t > rec->closest || t <= EPS)
+	if (t > rec->closest || t <= EPS)
 		return (0);
 	rec->t = t;
 	if (rec->negative[0] <= rec->t && rec->t <= rec->negative[1])
@@ -82,9 +75,9 @@ int     rt_hit_plan(t_object *o, t_ray *r, t_hit *rec)
 	return (1);
 }
 
-int         rt_hit_care(t_object *o, t_ray *ray, t_hit *rec)
+int				rt_hit_care(t_object *o, t_ray *ray, t_hit *rec)
 {
-	double  t;
+	double		t;
 
 	t = ((vec_dot(o->rot, o->pos) - vec_dot(o->rot, ray->origin))
 			/ vec_dot(o->rot, ray->dir));
@@ -97,7 +90,7 @@ int         rt_hit_care(t_object *o, t_ray *ray, t_hit *rec)
 		rec->n = vec_dot(ray->dir, o->rot) > 0 ? vec_pro_k(o->rot, -1) : o->rot;
 		plane_uv(rec, o);
 		if (o->txt.is_txt && o->txt.is_trans && !(trans_texture(ray, o, rec)))
-			return(0);
+			return (0);
 		return (1);
 	}
 	return (0);

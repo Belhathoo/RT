@@ -33,4 +33,4 @@ width="7" height="5" direction="10 .0 1.0"  noise="perlin" scale="5" />
 <Object name="cube" position="0.0 -1.0 0.0" color="0.8 0 0"
 size="2" noise="perlin" scale="20"/>
 
-<Light type="parallel" position="0.0 15 -15" intensity="0.5" color="1 1 1.0"/>
+<Light type="point" position="0.0 15 -15" intensity="0.5" color="1 1 1.0"/>

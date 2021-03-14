@@ -2,22 +2,20 @@
 
 
 <Camera
-  lookfrom="0.0 010.0 20.0"
+  lookfrom="0.0 20.0 20.0"
   lookat="0 0 0"
   fov="60"
   />
 
 <Option aa="9" amb="0.2"/>
 
-<Object name="sphere" position="0.0 5.0 0.0" direction="0 1.0  0.0" 
-material="ic0e" radius="1.0" color="1 0. 0."  />
 
 <Object name="cube" position="0 0 0" color="0.0 0.0 01" 
- n_color="1 1 0" material="bl1_plastic" refl="01.0" size="5"
- direction="0 10 0" >
+ n_color="1 1 0" material="mirror" size="8" rotation="0 0 0"
+ direction="0 0.0 1.0" >
 
 
 
-<Light position="0 05.0 8.0"/>
+<Light position="0 05.0 5.0"/>
 <Light position="0 10.0 18.0"/>
 

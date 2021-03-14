@@ -12,17 +12,16 @@
 
 #include <rt.h>
 
-void background(t_rt *rt)
+void		background(t_rt *rt)
 {
-	int i;
-	int j;
+	int		i;
+	int		j;
+	void	*img;
+	int		*data;
 
 	i = -1;
-	void *img;
-	int *data;
 	img = mlx_new_image(rt->mlx, WIN_WIDTH, WIN_HEIGHT);
 	data = (int*)mlx_get_data_addr(img, &rt->bpp, &rt->size, &rt->endian);
-
 	while (j = -1, ++i < WIN_WIDTH)
 		while (++j < WIN_HEIGHT)
 			data[j * (int)WIN_WIDTH + i] = 0x00202f;
@@ -30,11 +29,9 @@ void background(t_rt *rt)
 	mlx_put_image_to_window(rt->mlx, rt->win, img, 0, 0);
 }
 
-
-int main(int argc, char **argv)
+int			main(int argc, char **argv)
 {
-	t_rt rt;
-
+	t_rt 	rt;
 
 	rt_init(&rt);
 	rt.scene = rt_init_scene(&rt);
@@ -51,11 +48,10 @@ int main(int argc, char **argv)
 	create_buttons(9, &rt);
 	rt.s_light = rt.scene->light;
 			rt.scene->sl_obj = rt.scene->object; //
+
 	mlx_hook(rt.win, 17, (1L << 17), rt_close, &rt);
 	mlx_hook(rt.win, 4, (1L << 0), rt_mouse, &rt);
 	mlx_hook(rt.win, 2, (1L << 0), rt_keys, &rt);
-
-
 	mlx_loop_hook(rt.mlx, &progress_bar, &rt);
 	mlx_loop(rt.mlx);
 	return (EXIT_SUCCESS);

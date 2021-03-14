@@ -58,7 +58,7 @@ void			*rt_run_12(t_thread *t);
 
 t_vec			rt_stereoscopy(t_thread *t, double col, double row, int select);
 void			progress_fill(t_rt *rt);
-void		rt_init_stereo(t_rt *rt);
+void			rt_init_stereo(t_rt *rt);
 
 void			rt_ambient(double amb, t_light *l, t_hit rec, t_vec *col);
 int				rt_shading(t_thread *th, t_sh_ray sh_r, t_vec *c, int dpt);
@@ -68,7 +68,6 @@ t_vec			rt_reflect(t_vec v, t_vec n);
 int				rt_refract(t_vec i, t_vec n, float ior, t_vec *rf);
 t_ray			rt_reflection(t_hit rec, t_ray r);
 t_ray			rt_refraction(t_hit rec, t_ray r, t_object *o);
-
 
 int				rt_hit(t_scene *scene, t_ray *r, t_hit *record, double closest);
 

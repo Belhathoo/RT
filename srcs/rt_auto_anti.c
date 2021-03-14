@@ -19,7 +19,8 @@ void			progress_fill(t_rt *rt)
 
 	(rt->scene->select == rt->scene->aa) ? (rt->scene->progress = 12) : 0;
 	i = -1;
-	while (++i < ((double)IMG_WIDTH / (double)12) * (double)(rt->scene->progress))
+	while (++i < ((double)IMG_WIDTH / (double)12)\
+					* (double)(rt->scene->progress))
 	{
 		j = -1;
 		while (++j < 5)

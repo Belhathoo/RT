@@ -40,9 +40,9 @@ t_vec		rt_raytracer(t_thread *th, t_ray r, int depth)
 		if (depth > 1)
 		{
 			color = vec_add(color, (o->refl) ? vec_pro_k(rt_raytracer(th,\
-							rt_reflection(th->rec, r), depth - 1), o->refl) : vec3(0.0));
+			rt_reflection(th->rec, r), depth - 1), o->refl) : vec3(0.0));
 			color = vec_add(color, (o->refr) ? (rt_raytracer(th,\
-							rt_refraction(th->rec, r, o), depth - 1)) : vec3(0.0));
+			rt_refraction(th->rec, r, o), depth - 1)) : vec3(0.0));
 		}
 	}
 	rt_adjustment(&color);
@@ -74,7 +74,7 @@ void		rt_set_filter(t_rt *rt)
 		rt_sepia_filter(rt->data);
 	else if (rt->filter == NEGATIVE)
 		rt_filter_neg(rt->data);
-	else /*if (rt->filter == GRAY)*/
+	else if (rt->filter == GRAY)
 		rt_filter_gray(rt->data);
 }
 

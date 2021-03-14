@@ -1,7 +1,7 @@
 <!DOCTYPE xml>
 
 
-<Camera lookat=""/>
+<Camera lookat=" "/>
 
 <Object name="sphere" position="0 0 0" direction="3 0 0" rotation="1 0 0" 
 translation="0 4 0" radius="3"  

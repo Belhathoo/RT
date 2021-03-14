@@ -1,4 +1,16 @@
-# include <rt.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rt_perlin.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: belhatho <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/14 19:21:39 by belhatho          #+#    #+#             */
+/*   Updated: 2021/03/14 19:21:46 by belhatho         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <rt.h>
 
 long double		ft_frac(long double value)
 {
@@ -10,8 +22,8 @@ long double		ft_acc(t_vec c[2][2][2], t_vec v, long double acc)
 	int			i;
 	int			j;
 	int			k;
-	t_vec	weight;
-	t_vec	noise;
+	t_vec		weight;
+	t_vec		noise;
 
 	noise = vec(v.x * v.x * (3.0 - 2.0 * v.x), v.y * v.y *
 	(3.0 - 2.0 * v.y), v.z * v.z * (3.0 - 2.0 * v.z));
@@ -36,8 +48,8 @@ long double		ft_acc(t_vec c[2][2][2], t_vec v, long double acc)
 
 long double		noise(t_rt *rt, t_vec v)
 {
-	t_vec	c[2][2][2];
-	t_vec	acc;
+	t_vec		c[2][2][2];
+	t_vec		acc;
 	int			i;
 	int			j;
 	int			k;
@@ -77,13 +89,13 @@ long double		perlin_noise(t_rt *rt, t_vec v, int depth)
 		v = vec_pro_k(v, 2.0);
 	}
 	return (fabs((double)acc));
-};
+}
 
 t_vec			perlin(t_rt *rt, t_vec v, t_object *obj)
 {
 	t_vec		dist;
 	long double	result;
-    
+
 	result = obj->scale * perlin_noise(rt, v, 2);
 	dist.x = (long double)obj->col.x * result;
 	dist.y = (long double)obj->col.y * result;
