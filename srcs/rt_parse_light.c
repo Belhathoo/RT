@@ -74,6 +74,8 @@ void		rt_set_coef_ann(t_object *o)
 		o->mat = (t_material){vec3(0.25), vec3(0.2), vec3(0.5), 70, 0.0, 1.50};
 	else if (!ft_strcmp(o->material, "water"))
 		o->mat = (t_material){vec3(0.5), vec3(0.1), vec3(0.05), 20, 0.0, 1.20};
+	else if (!ft_strcmp(o->material, "holo"))
+		o->mat.kt = 4.0;
 }
 
 void		rt_set_coef(t_object *o)

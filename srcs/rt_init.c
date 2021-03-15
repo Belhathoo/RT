@@ -92,6 +92,7 @@ void			rt_init_obj_ann(t_object *obj)
 	obj->refr = 0.0;
 	obj->txt.is_txt = 0;
 	obj->txt.is_trans = 0;
+	obj->txt.repet_txt = 0;
 	obj->txt.scale = 1.0;
 	obj->txt.mv1 = 0.0;
 	obj->txt.mv2 = 0.0;

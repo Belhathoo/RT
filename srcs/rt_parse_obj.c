@@ -65,6 +65,8 @@ int			rt_add_txt_noi(t_attr *attr, t_object *obj, t_rt *rt)
 		obj->txt.mv2 = rt_ctod(attr->value, rt);
 	else if (!ft_strcmp(attr->name, "txt_trans"))
 		obj->txt.is_trans = rt_trans_txt(rt, obj, attr->value);
+	else if (!ft_strcmp(attr->name, "txt_duplicate"))
+		obj->txt.repet_txt = 1;
 	else if (!ft_strcmp(attr->name, "scale"))
 		obj->scale = rt_ctod(attr->value, rt);
 	else if (!ft_strcmp(attr->name, "noise") && (obj->noi.is_noise = 1))

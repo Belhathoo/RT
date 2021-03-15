@@ -38,7 +38,7 @@ static void		clean_tag(t_tag **tag)
 	t_attr	*tmp_attr;
 
 	curr_tag = *tag;
-	// printf("tagName: %s\n", curr_tag->name);
+	printf("tagName: %s\n", curr_tag->name);
 	free(curr_tag->name);
 	curr_attr = curr_tag->attr;
 	while (curr_attr != NULL)

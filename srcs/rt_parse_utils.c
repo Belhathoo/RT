@@ -52,7 +52,7 @@ void			rt_ctotxt(char *str, t_texture *txt, t_rt *rt)
 	if (!each || ft_twodimlen(each) != 1)
 	{
 		ft_free_twodim(&each);
-		rt_exit(rt, "", "must be One value for texture data.\n", EXIT_FAILURE);
+		rt_exit(rt, "texture", "must be One value.\n", EXIT_FAILURE);
 	}
 	txt->is_txt = 1;
 	txt->buf = NULL;
@@ -63,7 +63,7 @@ void			rt_ctotxt(char *str, t_texture *txt, t_rt *rt)
 	if (!txt->img && !txt->buf)
 	{
 		ft_free_twodim(&each);
-		rt_exit(rt, "Texture: ", " file unsupported", EXIT_FAILURE);
+		rt_exit(rt, "texture: ", " file unsupported", EXIT_FAILURE);
 	}
 	if (txt->img)
 		txt->buf = (int *)mlx_get_data_addr(txt->img, &rt->bpp\

@@ -31,7 +31,8 @@ int			xml_check_att_val(char *a_name)
 		|| !ft_strcmp(a_name, "direction") || !ft_strcmp(a_name, "translation")\
 		|| !ft_strcmp(a_name, "rotation") || !ft_strcmp(a_name, "radius")\
 		|| !ft_strcmp(a_name, "r") || !ft_strcmp(a_name, "color")\
-		|| !ft_strcmp(a_name, "texture") || !ft_strcmp(a_name, "txt_mv1")
+		|| !ft_strcmp(a_name, "texture") || !ft_strcmp(a_name, "txt_mv1")\
+		|| !ft_strcmp(a_name, "txt_duplicate")
 		|| !ft_strcmp(a_name, "txt_mv2") | !ft_strcmp(a_name, "txt_trans")\
 		|| !ft_strcmp(a_name, "noise") || !ft_strcmp(a_name, "slice_ax")\
 		|| !ft_strcmp(a_name, "slice_vec") || !ft_strcmp(a_name, "slice_pnt")\
