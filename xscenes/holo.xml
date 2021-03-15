@@ -11,7 +11,7 @@
 
 
 <Object name="cube" size="20" position=".0 10.0 -10.0" direction="1.0 0 1"
- radius="50.0" material="holo0" scale="1" texture="xpm/sun.xpm"/>
+ radius="50.0" material="holo" scale="1" texture="xpm/sun.xpm"/>
 
 <Object name="sphere" material="diamond" scale="1.0" noise="voronoi1"
 position="10.0 0.0 -10.0" color="0 0 1.0"/>

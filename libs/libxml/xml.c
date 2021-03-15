@@ -74,6 +74,7 @@ int			xml_parse(t_xml *x)
 	x->data = get_full_text(x->fd);
 	if ((data = ft_strchr(x->data, '<')) == NULL)
 		return (-1);
+	
 	i = 1;
 	while (data[i])
 	{
@@ -111,7 +112,7 @@ t_xml		*xml_init(char *chemin)
 		xml_exit(x, chemin, ": must be a file", EXIT_FAILURE);
 	if (get_next_line(x->fd, &buf) == 0)
 		xml_exit(x, chemin, ": empty file", EXIT_FAILURE);
-	if (ft_strncmp(buf, "<!DOCTYPE xml>", 14) != 0)
+	if (ft_strcmp(buf, "<!DOCTYPE xml>") != 0)
 		xml_exit(x, chemin, ": document type <!DOCTYPE xml>", EXIT_FAILURE);
 	free(buf);
 	return (x);

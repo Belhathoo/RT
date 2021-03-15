@@ -1,0 +1,36 @@
+<!DOCTYPE xml>
+
+<Camera lookfrom="0.0 12 32" />
+
+<Option aa="6.0" amb="0.40"/>
+
+
+<Object name="rectangle" position="0 -10 0" height="50" width="50"
+ txt_duplicate="1" scale="0.1" texture="xpm/hbk.xpm" color="1 1 1" >
+
+<Object name="mobius" radius="5" height="2.5" color="0 1 1" refr="1.0">
+
+<Object name="l_cone" position="-0 04 -28" height="-18.0" width="0" angle="60"
+ texture="xpm/0.xpm" scale="0.51" color="0.1 0.1 0.2" txt_duplicate="1" >
+
+<Object name="cube" position="-16 01.0 15.0" direction="1 00 0"
+ size="2.5" noise="circles" scale="7">
+
+<Object name="cube_troue" position="16 0.0 15.0" refr="1.40" color="10 0.1 0" >
+<Object name="sphere" position="0.0 10 -15.0" radius="3.50" refr="1.20"
+color="1 0 0" texture="xpm/sun.xpm">
+<Light position="0 10 -13" intensity="0.84">
+
+<Object name="rectangle" position="-23 0 -23" radius="5" color="0 0 0.2" height="6.0" width="12.0" 
+direction="0 0 10" rotation="0 45 0" material="mirror">
+<Object name="rectangle" position="23 0 -23" radius="5" color="0 0 0.2" height="6.0" width="12.0" 
+direction="0 0 10" rotation="0 -45 0" material="mirror">
+
+<Object name="torus" position="20 -2.50 -5" radius="4.5" r="1.7" direction="0 0 10" rotation="0 -45 0"
+texture="xpm/snake.xpm" txt_duplicate="0.0" >
+
+<Object name="l_cylinder" position="-20 -2.5.0 -5.0" height="10.0" radius="3.0" 
+scale="10" noise="perlin" color="01.0 0.0 0.0">
+
+
+

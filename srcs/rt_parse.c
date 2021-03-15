@@ -15,7 +15,7 @@
 void			xml_to_rt(t_xml *x, t_rt *rt)
 {
 	if (x->cam_nbr != 1)
-		xml_exit(x, "", "One Camera !!", EXIT_FAILURE);
+		xml_exit(x, "should be a", " camera in the scene", EXIT_FAILURE);
 	while (x->tags)
 	{
 		if (!ft_strcmp(x->tags->name, "Camera"))
