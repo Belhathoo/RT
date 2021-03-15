@@ -1,0 +1,21 @@
+<!DOCTYPE xml>
+
+<Camera
+
+  lookfrom="0.0 10 30.0"
+  lookat="0 0 0"
+  fov="60"
+  />
+
+<Option aa="5" amb="0.40"/>
+
+<Object name="plan" position="0 0 -10" direction="0 1 0" scale="0.1" texture="xpm/brick.xpm" color="0.1 0.8 0.8" txt_duplicate="1.0" txt_mv1="0.0" txt_mv2="0.0">
+
+<Object name="sphere" position="10.0 6.0 14" direction="0 1 1" scale="1.0" texture="xpm/earth1.xpm"  radius="2" color="1 1 1" txt_mv1="0.5" txt_mv2="0.5">
+<Object name="cylinder" position="-10.0 0 14"  scale="0.5" texture="xpm/cylindertxt.xpm"  radius="1.8" txt_duplicate="1.0" color="1 0 0"  txt_mv1="0.0" txt_mv2="0.0">
+<Light position="0 0 20" color="1 1 1" >
+
+<Object name="cone" position="0.0 6 14"  scale="0.5" angle="30" texture="xpm/corner.xpm" txt_duplicate="1" radius="7" color="1 0 0" >
+<Light position="0 0 20" color="1 1 1" >
+
+<Light position="20 20 20" color="1 1 0" >

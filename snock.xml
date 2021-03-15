@@ -1,0 +1,33 @@
+<!DOCTYPE xml>
+
+
+<Camera
+
+  lookfrom="0 10.0 -40.0"
+  lookat="0 0 0"
+  fov="60"
+  />
+
+<Object name="cube" size="0.7" position="-20 -1.3 -21" color="0 0 1"> 
+<Object name="plan" position="0 20 70" txt_duplicate="f" texture="xpm/NY.xpm" scale="0.01" direction="0 0 1">
+<Object name="rectangle" width="70" height="35" position="0, -2, 0" direction="0, 1, 0" color="0 1 0" />
+<Object name="sphere" position="0, 0, 0" radius="2" color="1 0 0" />
+<Object name="sphere" position="2, 0, 3.5" radius="2" color="1 1 0" />
+<Object name="sphere" position="-2, 0, 3.5" radius="2" color="1 0 0" />
+<Object name="sphere" position="-4, 0, 7" radius="2" color="1 1 0" />
+<Object name="sphere" position="0, 0, 7" radius="2" color="0 0 0" />
+<Object name="sphere" position="4, 0, 7" radius="2" color="1 0 0" />
+<Object name="sphere" position="6, 0, 10.5" radius="2" color="1 1 0" />
+<Object name="sphere" position="2, 0, 10.5" radius="2" color="1 0 0" />
+<Object name="sphere" position="-2, 0, 10.5" radius="2" color="1 1 0" />
+<Object name="sphere" position="-6, 0, 10.5" radius="2" color="1 0 0" />
+<Object name="sphere" position="-8, 0, 14" radius="2" color="1 1 0" />
+<Object name="sphere" position="-4, 0, 14" radius="2" color="1 1 0" />
+<Object name="sphere" position="0, 0, 14" radius="2" color="1 0 0" />
+<Object name="sphere" position="4, 0, 14" radius="2" color="1 1 0" />
+<Object name="sphere" position="8, 0, 14" radius="2" color="1 0 0" />
+<Object name="sphere" position="5, 0, -20)" radius="2" color="1 1 1" />
+<Object name="l_cylinder" position="-15, -1, -8" height="50" direction="0.25, 0.0, -1" rotation="0 0 0" radius="0.8" color="0.76 0.54, 0.37" />
+
+<Light position="60, 100, -50" intensity="0.7" />
+<Light position="-60, 100, -50" intensity="0.7" />

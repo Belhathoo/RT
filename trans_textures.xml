@@ -1,0 +1,18 @@
+<!DOCTYPE xml>
+
+<Camera
+
+  lookfrom="0.0 20 70.0"
+  lookat="0 0 10"
+  fov="60"
+  />
+
+<Option aa="5" amb="0.40"/>
+
+<Object name="plan"  position="0 -20 -30" direction="0 10 0" color="0.1 0.8 0.8" >
+
+<Object name="sphere" position="0.0 0.0 25" radius="7" texture="xpm/earth.xpm" txt_trans="b" txt_mv1="-30.5" txt_mv2="-20.5" >
+<Object name="sphere" position="-20.0 0 15" radius="7" texture="xpm/rmv_r.xpm" txt_trans="r" >
+<Object name="sphere" position="20.0 0 15" radius="7"  texture="xpm/bools.xpm" txt_trans="g" >
+
+<Light position="0.0 80.0 40.01" intensity="0.7" color="1.0 1.0 1.0"/>

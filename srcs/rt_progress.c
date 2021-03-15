@@ -35,7 +35,7 @@ void		rt_mvt_run(t_rt *rt)
 	
 	if (rt->scene->dyn == 1)
 	{
-		rt_start(rt, rt_run_25);
+		rt_start(rt, rt_run_50);
 		rt->scene->key = 1;
 		o = rt->scene->sl_obj;
 		while (o)
