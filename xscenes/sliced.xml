@@ -6,7 +6,7 @@
   fov="60"
   />
 
-<Object name="cylinder" texture="xpm/earth.xpm" direction="0.0 1.0 0" 
+<Object name="cylinder" texture="xpm/earth_day.xpm" direction="0.0 1.0 0" 
 translation="0 2.0 0" color="0.5 0.5 0.9" material="ko" slice_pnt="0 0 0"
  radius="2.0"/>
 

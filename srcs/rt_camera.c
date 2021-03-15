@@ -12,16 +12,20 @@
 
 #include <rt.h>
 
-int			is_equaly(t_vec b)
+int				is_equaly(t_vec b)
 {
-	if ((float)b.y <= 1.0001 && (float)b.y >= 0.9999 && (float)b.x <= 0.000001 && (float)b.x >= -0.000001 && (float)b.z <= 0.000001 && (float)b.z >= -0.000001)
+	if ((float)b.y <= 1.0001 && (float)b.y >= 0.9999 && (float)b.x <= 0.000001\
+		&& (float)b.x >= -0.000001 && (float)b.z <= 0.000001\
+					&& (float)b.z >= -0.000001)
 		return (1);
-	if ((float)b.y >= -1.0001 && (float)b.y <= -0.9999 && (float)b.x <= 0.000001 && (float)b.x >= -0.000001 && (float)b.z <= 0.000001 && (float)b.z >= -0.000001)
+	if ((float)b.y >= -1.0001 && (float)b.y <= -0.9999\
+		&& (float)b.x <= 0.000001 && (float)b.x >= -0.000001\
+			&& (float)b.z <= 0.000001 && (float)b.z >= -0.000001)
 		return (-1);
 	return (0);
 }
 
-void		rt_uv_cam(t_vec w, t_vec *u, t_vec *v)
+void			rt_uv_cam(t_vec w, t_vec *u, t_vec *v)
 {
 	t_vec	vup;
 

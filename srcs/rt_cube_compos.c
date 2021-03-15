@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   rt_cube_compos.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: belhatho <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ibel-kha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/13 15:18:10 by belhatho          #+#    #+#             */
-/*   Updated: 2021/03/13 15:18:14 by belhatho         ###   ########.fr       */
+/*   Created: 2021/03/14 19:22:53 by ibel-kha          #+#    #+#             */
+/*   Updated: 2021/03/14 19:32:55 by ibel-kha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rt.h>
 
-/* rotation from parse baa9**/
 void			rt_init_compos(t_object *obj, t_object *comp)
 {
 	comp->name = NULL;

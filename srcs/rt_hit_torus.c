@@ -1,12 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rt_hit_torus.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: belhatho <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/15 17:42:47 by belhatho          #+#    #+#             */
+/*   Updated: 2021/03/15 17:42:52 by belhatho         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <rt.h>
 
-void  torus_uv(t_hit *rec, t_object *o)
+void			torus_uv(t_hit *rec, t_object *o)
 {
-	t_vec p;
-	double phi;
-	double theta;
-	double tmp;
+	t_vec	p;
+	double	phi;
+	double	theta;
+	double	tmp;
 
 	p = vec_pro_k(vec_sub(rec->p, o->pos), 1.0);
 	p = vec(vec_dot(p, o->vec1), vec_dot(p, o->rot), vec_dot(p, o->vec2));
@@ -16,7 +27,7 @@ void  torus_uv(t_hit *rec, t_object *o)
 	rec->u = 0.5 + phi / 2 * M_PI;
 	rec->v = 0.5 + theta / 2 * M_PI;
 	rec->u = rec->u - floor(rec->u);
-    rec->v = rec->v - floor(rec->v);
+	rec->v = rec->v - floor(rec->v);
 }
 
 t_vec			rt_torus_normal(t_ray *ray, t_hit *rec, t_object *obj)
@@ -34,12 +45,12 @@ t_vec			rt_torus_normal(t_ray *ray, t_hit *rec, t_object *obj)
 	m = obj->r * obj->r - k * k;
 	m = sqrt(m);
 	normal = vec_sub(rec->p, vec_sub(a, vec_pro_k(vec_sub(obj->pos, a),
-	m / obj->radius + m)));
+					m / obj->radius + m)));
 	normal = vec_unit(normal);
 	return (normal);
 }
 
-static int	rt_torus_params(t_ray *ray, t_hit *record, t_object *obj)
+static int		rt_torus_params(t_ray *ray, t_hit *record, t_object *obj)
 {
 	t_coef c;
 	double coe[5];
@@ -50,18 +61,21 @@ static int	rt_torus_params(t_ray *ray, t_hit *record, t_object *obj)
 	c.o = vec_dot(record->or, record->or);
 	c.p = vec_dot(ray->dir, obj->rot);
 	c.q = vec_dot(record->or, obj->rot);
-	coe[0] = c.o * c.o - 2 * c.o * (obj->radius * obj->radius + obj->r * obj->r) +
-	4 * obj->radius * obj->radius * c.q * c.q + pow((obj->radius * obj->radius - obj->r * obj->r), 2);
-	coe[1] = 4 * c.n * c.o - 4 * c.n * (obj->radius * obj->radius + obj->r * obj->r) +
-	8 * obj->radius * obj->radius * c.p * c.q;
-	coe[2] = 4 * c.n * c.n + 2 * c.m * c.o - 2 * c.m * (obj->radius * obj->radius +
-	obj->r * obj->r) + 4 * obj->radius * obj->radius * c.p * c.p;
+	coe[0] = c.o * c.o - 2 * c.o * (obj->radius * obj->radius\
+		+ obj->r * obj->r) + 4 * obj->radius * obj->radius * c.q * c.q\
+		+ pow((obj->radius * obj->radius - obj->r * obj->r), 2);
+	coe[1] = 4 * c.n * c.o - 4 * c.n *\
+		(obj->radius * obj->radius + obj->r * obj->r)\
+		+ 8 * obj->radius * obj->radius * c.p * c.q;
+	coe[2] = 4 * c.n * c.n + 2 * c.m * c.o - 2 * c.m\
+			* (obj->radius * obj->radius + obj->r * obj->r)\
+			+ 4 * obj->radius * obj->radius * c.p * c.p;
 	coe[3] = 4 * c.m * c.n;
 	coe[4] = c.m * c.m;
-       return(rt_check_distance(coe, record));   
+	return (rt_check_distance(coe, record));
 }
 
-int			rt_hit_torus(t_object *obj, t_ray *ray, t_hit *record)
+int				rt_hit_torus(t_object *obj, t_ray *ray, t_hit *record)
 {
 	if (rt_torus_params(ray, record, obj))
 	{
@@ -70,5 +84,5 @@ int			rt_hit_torus(t_object *obj, t_ray *ray, t_hit *record)
 		torus_uv(record, obj);
 		return (1);
 	}
-	return(0);
+	return (0);
 }

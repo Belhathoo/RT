@@ -12,7 +12,7 @@
 
 #include <rt.h>
 
-void		*rt_run(t_thread *t)
+void			*rt_run(t_thread *t)
 {
 	t_vec		c;
 	int			color;
@@ -84,7 +84,6 @@ void			*rt_run_25(t_thread *t)
 
 void			*rt_run_12(t_thread *t)
 {
-	// t_vec		c;
 	int			color;
 	int			col;
 	int			row;
@@ -95,7 +94,6 @@ void			*rt_run_12(t_thread *t)
 		col = (int)(t->i * IMG_WIDTH / NBTHREAD) - 1;
 		while (++col < (int)((t->i + 1) * IMG_WIDTH / NBTHREAD))
 		{
-			// c = rt_anti_aliasing(t, col, row);
 			color = rt_rgb_to_int(rt_anti_aliasing(t, col, row));
 			rt_mlx_putpixel(t->rt, col, IMG_HEIGHT - row, color);
 			rt_mlx_putpixel(t->rt, col + 1, IMG_HEIGHT - row, color);

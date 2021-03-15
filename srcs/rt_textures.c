@@ -1,43 +1,39 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rt_textures.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: belhatho <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/15 18:13:33 by belhatho          #+#    #+#             */
+/*   Updated: 2021/03/15 18:13:39 by belhatho         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <rt.h>
 
-
 t_vec		rt_get_color_from_texture(t_object *o, double *u, double *v)
 {
-	int		i;
-	int		j;
-	int 	color;
+	int		ij[2];
+	int		color;
 	t_vec	c;
 
-	*u *= o->scale;
-	*v *= o->scale;
-	if (o->txt.repet_txt)
-	{
-		*u = rt_frac(*u);
-		*v = rt_frac(*v);
-	}
-	else
-	{
-		if(*u > 1 || *u < 0)
-			return (o->col);
-		if(*v > 1 || *v < 0)
-			return (o->col);
-	}
-	i = *u * o->txt.width;
-	j = (1.0 - *v) * o->txt.height - 0.001;
-	i = (i < 0) ? 0 : i;
-	j = (j < 0) ? 0 : j;
-	i = (i > o->txt.width - 1) ? o->txt.width - 1 : i;
-	j = (j > o->txt.height - 1) ? o->txt.height - 1 : j;
-	color = o->txt.buf[j * o->txt.width + i];
-
+	if (rt_uv_txt(o, u, v) == 1)
+		return (o->col);
+	ij[0] = *u * o->txt.width;
+	ij[1] = (1.0 - *v) * o->txt.height - 0.001;
+	ij[0] = (ij[0] < 0) ? 0 : ij[0];
+	ij[1] = (ij[1] < 0) ? 0 : ij[1];
+	ij[0] = (ij[0] > o->txt.width - 1) ? o->txt.width - 1 : ij[0];
+	ij[1] = (ij[1] > o->txt.height - 1) ? o->txt.height - 1 : ij[1];
+	color = o->txt.buf[ij[1] * o->txt.width + ij[0]];
 	c = rt_int_to_rgb(color);
-	return(c);
+	return (c);
 }
 
-int    remove_r(t_ray *ray, t_object *obj, t_hit *rec)
+int			remove_r(t_ray *ray, t_object *obj, t_hit *rec)
 {
-	t_vec vect;
+	t_vec	vect;
 
 	vect = rt_get_color_from_texture(obj, &rec->u, &rec->v);
 	if ((vect.z < vect.x && vect.y < vect.x))
@@ -49,16 +45,15 @@ int    remove_r(t_ray *ray, t_object *obj, t_hit *rec)
 		sphere_uv(obj, rec);
 		vect = rt_get_color_from_texture(obj, &rec->u, &rec->v);
 		if ((vect.z < vect.x && vect.y < vect.x))
-			return 0;
+			return (0);
 		return (1);
 	}
-
 	return (1);
 }
 
-int    remove_g(t_ray *ray, t_object *obj, t_hit *rec)
+int			remove_g(t_ray *ray, t_object *obj, t_hit *rec)
 {
-	t_vec vect;
+	t_vec	vect;
 
 	vect = rt_get_color_from_texture(obj, &rec->u, &rec->v);
 	if ((vect.z < vect.y && vect.x < vect.y))
@@ -70,16 +65,16 @@ int    remove_g(t_ray *ray, t_object *obj, t_hit *rec)
 		sphere_uv(obj, rec);
 		vect = rt_get_color_from_texture(obj, &rec->u, &rec->v);
 		if ((vect.z < vect.y && vect.x < vect.y))
-			return 0;
+			return (0);
 		return (1);
 	}
-
 	return (1);
 }
 
-int    remove_b(t_ray *ray, t_object *obj, t_hit *rec)
+int			remove_b(t_ray *ray, t_object *obj, t_hit *rec)
 {
 	t_vec vect;
+
 	vect = rt_get_color_from_texture(obj, &rec->u, &rec->v);
 	if ((vect.x < vect.z && vect.y < vect.z))
 	{
@@ -90,10 +85,9 @@ int    remove_b(t_ray *ray, t_object *obj, t_hit *rec)
 		sphere_uv(obj, rec);
 		vect = rt_get_color_from_texture(obj, &rec->u, &rec->v);
 		if ((vect.x < vect.z && vect.x < vect.z))
-			return 0;
+			return (0);
 		return (1);
 	}
-
 	return (1);
 }
 

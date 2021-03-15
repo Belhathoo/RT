@@ -6,7 +6,7 @@
 /*   By: belhatho <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 18:59:11 by belhatho          #+#    #+#             */
-/*   Updated: 2021/03/13 18:59:13 by belhatho         ###   ########.fr       */
+/*   Updated: 2021/03/15 15:42:06 by belhatho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ void		rt_progress_run(t_rt *rt)
 void		rt_mvt_run(t_rt *rt)
 {
 	t_object	*o;
-	
+
 	if (rt->scene->dyn == 1)
 	{
-		rt_start(rt, rt_run_50);
+		rt_start(rt, rt_run_12);
 		rt->scene->key = 1;
 		o = rt->scene->sl_obj;
 		while (o)
@@ -45,16 +45,13 @@ void		rt_mvt_run(t_rt *rt)
 			o = o->next;
 		}
 		mlx_put_image_to_window(rt->mlx, rt->win, rt->img, FRAME_LFT, FRAME_UP);
-
 	}
-	else
+	else if (rt->scene->key_mvt == 1 && rt->scene->key == 1)
 	{
-		if (rt->scene->key_mvt == 1 && rt->scene->key == 1)
-		{
-			rt_start(rt, rt_run_50);
-			rt->scene->progress = 0;
-			rt->scene->key = 0;
-			mlx_put_image_to_window(rt->mlx, rt->win, rt->img, FRAME_LFT, FRAME_UP);
-		}
+		rt_start(rt, rt_run_50);
+		rt->scene->progress = 0;
+		rt->scene->key = 0;
+		mlx_put_image_to_window(rt->mlx, rt->win\
+				, rt->img, FRAME_LFT, FRAME_UP);
 	}
 }

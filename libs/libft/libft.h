@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oouklich <ouklichoussama@gmail.com>        +#+  +:+       +#+        */
+/*   By: ibel-kha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/06 19:15:58 by oouklich          #+#    #+#             */
-/*   Updated: 2019/11/21 16:21:45 by oouklich         ###   ########.fr       */
+/*   Created: 2019/05/18 02:56:26 by ibel-kha          #+#    #+#             */
+/*   Updated: 2019/05/19 14:30:34 by ibel-kha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,6 @@ typedef struct		s_list
 }					t_list;
 
 # define BUFF_SIZE 15
-
-# define RAND48_SEED_0	(0x330e)
-# define RAND48_SEED_1	(0xabcd)
-# define RAND48_SEED_2	(0x1234)
-# define RAND48_MULT_0	(0xe66d)
-# define RAND48_MULT_1	(0xdeec)
-# define RAND48_MULT_2	(0x0005)
-# define RAND48_ADD		(0x000b)
 
 double				ft_mind3(double a, double b, double c);
 double				ft_maxd3(double a, double b, double c);
@@ -115,6 +107,6 @@ char				*ft_strupcase(char *str);
 char				*ft_strlowcase(char *str);
 double				ft_rand48(void);
 double				ft_atod(char *str);
-double		ft_clamping(double value);
+double				ft_clamping(double value);
 
 #endif

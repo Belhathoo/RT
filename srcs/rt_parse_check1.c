@@ -51,8 +51,6 @@ int			rt_check_objs(t_object *obj, char *str)
 		obj->hit = rt_hit_lcylinder;
 	else if (!ft_strcmp(str, "L_CONE"))
 		obj->hit = rt_hit_lcone;
-	else if (!ft_strcmp(str, "GLASSE"))
-		obj->hit = rt_hit_glasse;
 	else if (!ft_strcmp(str, "CUBE_TROUE"))
 		obj->hit = rt_hit_cube_troue;
 	else

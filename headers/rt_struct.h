@@ -25,9 +25,6 @@
 # include <rt_define.h>
 # include <rt_struct_annx.h>
 
-/*
- * Structures
- */
 typedef struct	s_ray
 {
 	t_vec		origin;
@@ -165,8 +162,8 @@ typedef struct	s_hit
 	double		coef[4];
 
 	int			is_n;
-	double		negative[2];
-	t_vec		negative_normal;
+	double		neg[2];
+	t_vec		neg_n;
 
 	int			tx;
 }				t_hit;

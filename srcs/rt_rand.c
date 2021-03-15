@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rt_rand.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: belhatho <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/15 18:06:15 by belhatho          #+#    #+#             */
+/*   Updated: 2021/03/15 18:06:25 by belhatho         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <rt.h>
 
-double		rt_rand3dto1d(t_vec value, t_vec dot_dir)
+double			rt_rand3dto1d(t_vec value, t_vec dot_dir)
 {
-	t_vec		small_value; 
+	t_vec		small_value;
 	double		random;
 
 	small_value = vec(cos(value.x), cos(value.y), cos(value.z));
@@ -11,12 +23,12 @@ double		rt_rand3dto1d(t_vec value, t_vec dot_dir)
 	return (random);
 }
 
-double		rt_rand1dto1d(double value, double mutator)
+double			rt_rand1dto1d(double value, double mutator)
 {
 	return (rt_frac(sin(value + mutator) * 143758.5453));
 }
 
-t_vec		rt_rand1dto3d(double value)
+t_vec			rt_rand1dto3d(double value)
 {
 	return (vec(
 	rt_rand1dto1d(value, 3.9812),
@@ -24,7 +36,7 @@ t_vec		rt_rand1dto3d(double value)
 	rt_rand1dto1d(value, 5.7241)));
 }
 
-t_vec		rt_rand3dto3d(t_vec value)
+t_vec			rt_rand3dto3d(t_vec value)
 {
 	return (vec(
 	rt_rand3dto1d(value, vec(102.989, 708.233, 370.719)),

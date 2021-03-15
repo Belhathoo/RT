@@ -59,7 +59,6 @@ void			init_tab(t_vec *tab)
 
 t_vec			anti_aa(t_thread *t, double col, double row, int select)
 {
-	//stereo
 	t_vec		tab[9];
 	t_vec		color;
 	t_vec		colo;
@@ -88,7 +87,7 @@ t_vec			rt_anti_aliasing(t_thread *t, int col, int row)
 	t_vec	color;
 
 	color = vec(0, 0, 0);
-	color = anti_aa(t, (double)col, (double)row, t->rt->scene->select); //
-	color = vec_div_k(color, t->rt->scene->select + 1); //
+	color = anti_aa(t, (double)col, (double)row, t->rt->scene->select);
+	color = vec_div_k(color, t->rt->scene->select + 1);
 	return (color);
 }

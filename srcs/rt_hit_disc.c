@@ -1,16 +1,32 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rt_hit_disc.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: belhatho <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/15 17:32:38 by belhatho          #+#    #+#             */
+/*   Updated: 2021/03/15 17:32:45 by belhatho         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <rt.h>
 
 int			rt_hit_disc(t_object *o, t_ray *r, t_hit *rec)
 {
+	t_vec centre;
+	t_vec normal;
+	t_vec point;
 
-	t_vec centre = o->pos;
-	t_vec normal = o->rot;
-	rec->t = ((vec_dot(normal, centre) - vec_dot(normal, r->origin)) / vec_dot(normal, r->dir));
+	centre = o->pos;
+	normal = o->rot;
+	point = vec_sub(vec_ray(r, rec->t), centre);
+	rec->t = ((vec_dot(normal, centre) - vec_dot(normal, r->origin))\
+			/ vec_dot(normal, r->dir));
 	if (rec->t >= rec->closest || rec->t <= EPS)
 		return (0);
-	t_vec point = vec_sub(vec_ray(r, rec->t),centre);
 	if (vec_length(point) >= o->radius)
-		return(0);
+		return (0);
 	rec->p = vec_ray(r, rec->t);
 	rec->n = vec_dot(r->dir, o->rot) > 0 ? vec_pro_k(o->rot, -1) : o->rot;
 	plane_uv(rec, o);

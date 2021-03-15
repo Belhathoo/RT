@@ -55,7 +55,7 @@ void		xml_affect_curent(char *chr_str, char ***lst, t_attr *curr_attr\
 		}
 		else
 			chr_str = ft_strrchr(list[i], ' ');
-		if (!chr_str && ft_free_twodim(lst))
+		if (!chr_str && (ft_free_twodim(lst)))
 			xml_exit(x, "", " syntax error", EXIT_FAILURE);
 		curr_attr->value = xml_set_attr(\
 				ft_strsub(list[i], 0, chr_str - list[i]), x);

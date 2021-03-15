@@ -3,6 +3,7 @@ NAME = rt
 
 SRCS = rt.c\
 		rt_init.c\
+		rt_init_ann.c\
 		rt_camera.c\
 		rt_auto_anti.c\
 		rt_anti_aliasing.c\
@@ -12,12 +13,15 @@ SRCS = rt.c\
 		rt_parse_obj.c\
 		rt_parse_light.c\
 		rt_parse_utils.c\
+		rt_utils_annx.c\
+		rt_utils1.c\
 		rt_parse_check.c\
 		rt_parse_check1.c\
 		rt_events.c\
 		rt_events_keys.c\
 		rt_events_mouse.c\
 		rt_buttons.c\
+		rt_buttons_ann.c\
 		rt_buttons_noi.c\
 		rt_btns_create.c\
 		rt_btns_create1.c\
@@ -44,7 +48,6 @@ SRCS = rt.c\
 		rt_solve_quadric.c\
 		rt_textures.c\
 		rt_noise.c\
-		rt_hit_glasse.c\
 		rt_hit_cube_troue.c\
 		rt_noise_utils.c\
 		rt_voronoi.c\
@@ -55,7 +58,9 @@ SRCS = rt.c\
 		rt_rotation.c\
 		rt_cube_compos.c\
 		rt_negatives.c\
+		rt_neg_utils.c\
 		rt_slicing.c\
+		rt_slicing_utils.c\
 		rt_perlin.c\
 		rt_bmp_init.c\
 		rt_bmp_extractor.c\
@@ -108,7 +113,7 @@ MLX = -lm -I $(MLX_DIR) -L $(MLX_DIR) -lmlx -lXext -lX11
 endif
 
 
-CFLAGS = -Wall -Wextra #-Werror
+CFLAGS = -Wall -Wextra -Werror
 LIBFT_DIR = libs/libft
 XML_DIR = libs/libxml
 VEC_DIR = libs/libvec
@@ -123,7 +128,7 @@ $(NAME): $(OBJS_DIR) $(OBJ)
 	@make libft.a -C $(LIBFT_DIR)
 	@make libxml.a -C $(XML_DIR)
 	@make libvec.a -C $(VEC_DIR)
-	@gcc $(CFLAGS) -o $(NAME) $(filter-out $<, $+) $(LIBS)
+	@gcc $(CFLAGS) -o $(NAME) $(OBJ) $(LIBS)
 	@echo "$(BUILD_PRINT)"
 
 
@@ -149,18 +154,5 @@ fclean: clean
 	@make fclean -C $(VEC_DIR)
 
 re: fclean all
-
-norm: $(SRCS_NORM) $(HEADERS_NORM) $(LIBFT_NORM)
-
-NORM = norminette $< | awk 'BEGIN{i = 0}{if ($$1 != "Norme:") i++}END{if (i == 0) print "$(OK_STRING)"; else print "$(KO_STRING)"}'
-
-$(SRCS_NORM) : % : srcs/%
-	@echo "check norminette $< ==> `$(NORM)`"
-
-$(HEADERS_NORM) : % : headers/%
-	@echo "check norminette $< ==> `$(NORM)`"
-
-$(LIBFT_NORM) : % : $(LIBFT_DIR)/%
-	@echo "check norminette $< ==> `$(NORM)`"
 
 .PHONY: all, clean, fclean, re, norm

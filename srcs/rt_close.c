@@ -18,13 +18,11 @@ void		rt_free_compos(t_object *o)
 
 	while (o->compos)
 	{
-		ft_putendl("--9");
 		tmp = o->compos->compos;
 		free(o->compos);
-		o->compos = tmp;	
+		o->compos = tmp;
 	}
 }
-
 
 void		rt_free_objects(t_object *object)
 {
@@ -71,14 +69,14 @@ void		rt_exit(t_rt *rt, char *m, char *m1, int err)
 	*/
 	if (err == EXIT_FAILURE)
 		ft_putstr("error: ");
-		// rt = NULL; //unused error fixing
 	(m) ? ft_putstr(m) : 0;
 	(m1) ? ft_putendl(m1) : 0;
 	rt_free_lights(rt->scene->light);
 	rt_free_objects(rt->scene->object);
-	free(rt->bt); //
+	free(rt->bt);
 	free(rt->scene);
 	free(rt->ran);
+	rt = NULL;
 	exit(err);
 }
 

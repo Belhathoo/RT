@@ -1,8 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rt_solve_quartic.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: belhatho <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/15 18:11:11 by belhatho          #+#    #+#             */
+/*   Updated: 2021/03/15 18:11:19 by belhatho         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <rt.h>
 
 static int	rt_case_one(double coeffs[4], double s[4], double *q,
-double *p)
+		double *p)
 {
 	int		num;
 
@@ -57,9 +68,9 @@ static int	rt_case_two(double coeffs[4], double s[4], t_quartic *q)
 	return (num);
 }
 
-int     rt_solve_quartic(double w[5], double s[4])
+int			rt_solve_quartic(double w[5], double s[4])
 {
-    double		coeffs[4];
+	double			coeffs[4];
 	t_quartic		q;
 	int				i;
 	int				num;
@@ -82,5 +93,4 @@ int     rt_solve_quartic(double w[5], double s[4])
 	while (++i < num)
 		s[i] -= q.sub;
 	return (num);
-
 }

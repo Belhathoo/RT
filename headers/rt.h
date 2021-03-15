@@ -12,8 +12,6 @@
 
 #ifndef RT_H
 # define RT_H
-// zid f get full text dial libft de 3azzi
-
 
 # include <rt_struct.h>
 
@@ -36,9 +34,6 @@ void			rt_check_neg_obj_name(t_object *obj, t_rt *rt);
 void			rt_check_lights(t_light *l, t_rt *rt);
 void			rt_set_coef(t_object *o);
 void			rt_comp_obj(t_object *o, t_rt *rt);
-void			ft_get_data(t_rt *p, int fd); ///// ADD MAX !!
-int				ft_fr(char **str);
-
 
 t_ray			rt_ray(t_vec a, t_vec b);
 t_ray			rt_get_ray(t_camera *p, double u, double v);
@@ -85,9 +80,9 @@ int				rt_hit_torus(t_object *obj, t_ray *ray, t_hit *record);
 int				rt_hit_parabol(t_object *obj, t_ray *ray, t_hit *record);
 int				rt_hit_cube(t_object *oo, t_ray *r, t_hit *record);
 
-int				rt_hit_glasse(t_object *o, t_ray *r, t_hit *rec);
 int				rt_hit_cube_troue(t_object *obj, t_ray *ray, t_hit *record);
 int				rt_hit_mobius(t_object *o, t_ray *ray, t_hit *rec);
+int				rt_uv_txt(t_object *o, double *u, double *v);
 void			cylinder_uv(t_object *o, t_hit *rec);
 void			cone_uv(t_object *o, t_hit *rec);
 void			sphere_uv(t_object *o, t_hit *rec);
@@ -96,8 +91,6 @@ t_vec			normale_cylinder(t_object *o, t_ray *r, t_hit *rec);
 t_vec			normale_cone(t_object *o, t_ray *r, t_hit *rec);
 int				rt_plan_intersect(t_object *o, t_slice s, t_hit *rec\
 					, t_ray *r, double t);
-
-
 
 double			fmax(double a, double b);
 t_vec			vec_ray(t_ray *r, double t);
@@ -131,8 +124,6 @@ t_vec			rt_rot_pnt(t_object *o, t_vec (*rot_ax)(t_vec vec\
 int				rt_ax_parse(char *val, t_object *o, t_rt *rt);
 void			rt_slice_ax(t_object *o);
 
-
-
 t_texture		rt_init_txt(void);
 t_vec			rt_get_color_from_texture(t_object *o, double *u, double *v);
 t_vec			rt_torus_noise(t_hit *rec);
@@ -154,6 +145,7 @@ double			rt_frac(double value);
 t_vec			rt_lerp(t_vec a, t_vec b, float f);
 t_vec			rt_voronoi(t_vec p, t_object *o);
 t_vec			rt_start_voronoi(t_vec p, t_object *o);
+void			check_voronoi(t_cell *tmp, t_cell *cell);
 unsigned char	*import_bmp(char *path,\
 				int *width, int *height);
 void			free2d(unsigned char ***str);
@@ -165,9 +157,6 @@ unsigned int	bytes_to_number(unsigned char *str, unsigned int n);
 void			rt_sepia_filter(int *data);
 void			rt_filter_neg(int *data);
 void			rt_filter_gray(int *data);
-
-
-
 
 int				rt_mouse(int button, int x, int y, t_rt *rt);
 int				rt_keys(int key, t_rt *rt);
@@ -202,9 +191,6 @@ t_button		*mvmnt_button(t_rt *rt);
 t_button		*cam_button(t_rt *rt);
 t_button		*light_button(t_rt *rt);
 
-
-
-
 void			rt_init(t_rt *rt);
 t_scene			*rt_init_scene(t_rt *rt);
 t_object		*rt_init_object(t_rt *rt);
@@ -213,21 +199,20 @@ t_light			*rt_init_light(t_rt *rt);
 t_camera		rt_init_camera(t_vec lookfrom, t_vec lookat, double vfov);
 void			init_tab(t_vec *tab);
 
-
-
 void			rt_exit(t_rt *rt, char *m1, char *msg, int err);
 void			rt_free_compos(t_object *o);
 int				rt_close(t_rt *rt);
-
 
 int				negative(t_hit *record);
 int				rt_negative_sphere(t_object *sphere, t_ray *r, t_hit *rec);
 int				rt_negative_cylinder(t_object *o, t_ray *r, t_hit *rec);
 int				rt_negative_cone(t_object *o, t_ray *r, t_hit *rec);
+void			aff_coef_ncylinder(t_hit *rec, t_object *o, t_ray *r);
+void			aff_coef_ncone(t_hit *rec, t_object *o, t_ray *r);
 void			rt_init_negative(t_hit *rec);
 
-
 int				rt_slicing(t_object *o, t_ray *r, t_hit *rec);
+t_object		rt_sl_plan(t_object *o, t_vec ax);
 int				in_sphere(t_object *o);
 
 #endif

@@ -1,10 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rt_solve_cubic.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: belhatho <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/15 18:10:23 by belhatho          #+#    #+#             */
+/*   Updated: 2021/03/15 18:10:30 by belhatho         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <rt.h>
 
 static int	rt_case_1(double s[2], double *q)
 {
 	int			num;
-	double	u;
+	double		u;
 
 	if (is_zero(*q))
 	{
@@ -22,7 +33,7 @@ static int	rt_case_1(double s[2], double *q)
 }
 
 static int	rt_case_2(double s[3], double *q, double *p,
-  double *cb_p)
+		double *cb_p)
 {
 	double	phi;
 	double	t;
@@ -43,7 +54,7 @@ static int	rt_case_3(double s[3], double *q, double *d)
 
 	sqrt_d = sqrt(*d);
 	u = cbrt(sqrt_d - (*q));
-	v = - cbrt(sqrt_d + (*q));
+	v = -cbrt(sqrt_d + (*q));
 	s[0] = u + v;
 	return (1);
 }
@@ -52,7 +63,7 @@ int			rt_solve_cubic(double w[4], double s[3])
 {
 	int			i;
 	int			num;
-	double	sub;
+	double		sub;
 	t_cubic		c;
 
 	c.a = w[2] / w[3];

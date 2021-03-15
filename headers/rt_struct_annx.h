@@ -108,7 +108,7 @@ typedef struct		s_cell
 
 typedef struct		s_header
 {
-	unsigned int	bm_headersize;//
+	unsigned int	bm_headersize;
 	unsigned int	width;
 	unsigned int	height;
 	unsigned short	bpp;

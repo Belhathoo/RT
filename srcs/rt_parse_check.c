@@ -71,10 +71,9 @@ void		rt_check_obj(t_object *o, t_rt *rt)
 		rt_exit(rt, o->name, "scale should be strictly positive", EXIT_FAILURE);
 	rt_check_o_annex(o, rt);
 	o->angle = degtorad(o->angle) / 2;
-	
 	o->rot = rotation(o->dir, o->rot);
 	rt_get_repere(o);
 	(o->sl_ax != 0) ? rt_slice_ax(o) : 0;
-	rt_comp_obj(o, rt); //// events...free
+	rt_comp_obj(o, rt);
 	rt_all_clamp(o);
 }

@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rt_hit_sphere.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ibel-kha <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/11 18:31:37 by ibel-kha          #+#    #+#             */
+/*   Updated: 2021/03/15 17:00:39 by belhatho         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <rt.h>
 
@@ -17,30 +28,30 @@ t_vec	ft_rot_vec(t_vec a, t_vec b, double t)
 	return (res);
 }
 
-void		sphere_uv(t_object *o, t_hit *rec)
+void	sphere_uv(t_object *o, t_hit *rec)
 {
 	double	phi;
 	double	theta;
 	t_vec	p;
 
-    p = vec_sub(rec->p, o->pos);
+	p = vec_sub(rec->p, o->pos);
 	p = ft_rot_vec(p, o->rot, o->txt.mv1);
-    p = ft_rot_vec(p, o->vec1, o->txt.mv2);
+	p = ft_rot_vec(p, o->vec1, o->txt.mv2);
 	p = vec(vec_dot(p, o->vec2), vec_dot(p, o->vec1), vec_dot(p, o->rot));
 	phi = atan2(p.z, p.x);
 	theta = asin(p.y / o->radius);
-	rec->u = (phi + M_PI) / (2.0 * M_PI); 
+	rec->u = (phi + M_PI) / (2.0 * M_PI);
 	rec->v = (theta + M_PI / 2.0) / M_PI;
 	rec->u = rt_frac(rec->u);
 	rec->v = rt_frac(rec->v);
 	return ;
 }
 
-int     rt_sphere_params(t_object *obj, t_ray *ray, t_hit *rec)
+int		rt_sphere_params(t_object *obj, t_ray *ray, t_hit *rec)
 {
 	rec->or = vec_sub(ray->origin, obj->pos);
 	rec->a = vec_dot(ray->dir, ray->dir);
-	rec->b = 2.0 * vec_dot(rec->or, ray->dir); 
+	rec->b = 2.0 * vec_dot(rec->or, ray->dir);
 	rec->c = vec_dot(rec->or, rec->or) - (obj->radius * obj->radius);
 	rec->delta = rec->b * rec->b - 4.0 * rec->a * rec->c;
 	if (rec->delta >= 0.0)
@@ -66,17 +77,17 @@ int		rt_hit_sphere(t_object *obj, t_ray *ray, t_hit *rec)
 		{
 			rec->p = vec_ray(ray, rec->t);
 			if (rec->tx == 1)
-				rec->n = vec_pro_k(obj->sl_vec , -1);
-			else if (rec->is_n == 1 && rec->t == rec->negative[1])
-				rec->n = rec->negative_normal;
+				rec->n = vec_pro_k(obj->sl_vec, -1);
+			else if (rec->is_n == 1 && rec->t == rec->neg[1])
+				rec->n = rec->neg_n;
 			else if (rec->t1 <= EPS)
 				rec->n = vec_div_k(vec_sub(rec->p, obj->pos), -obj->radius);
 			else
 				rec->n = vec_div_k(vec_sub(rec->p, obj->pos), obj->radius);
 			sphere_uv(obj, rec);
-			
-			if (obj->txt.is_txt && obj->txt.is_trans && !(trans_texture(ray, obj, rec)))
-	     	  return(0);
+			if (obj->txt.is_txt && obj->txt.is_trans && \
+					!(trans_texture(ray, obj, rec)))
+				return (0);
 			return (1);
 		}
 	}

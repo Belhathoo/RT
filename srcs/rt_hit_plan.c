@@ -6,21 +6,21 @@
 /*   By: belhatho <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/07 19:05:46 by belhatho          #+#    #+#             */
-/*   Updated: 2021/03/14 18:06:31 by belhatho         ###   ########.fr       */
+/*   Updated: 2021/03/14 18:53:12 by ibel-kha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rt.h>
 
-int				cutt_plane(t_hit *rec, t_object *o)
+int		cutt_plane(t_hit *rec, t_object *o)
 {
 	t_vec	pnt;
 
 	pnt = vec_sub(rec->p, o->pos);
 	if (o->name && !ft_strcmp(o->name, "rectangle"))
 	{
-		if ((fabs(vec_dot(pnt, o->vec1)) > o->width 
-					|| fabs(vec_dot(pnt, vec_cross(o->rot,o->vec1))) > o->height))
+		if ((fabs(vec_dot(pnt, o->vec1)) > o->width
+			|| fabs(vec_dot(pnt, vec_cross(o->rot, o->vec1))) > o->height))
 			return (0);
 	}
 	else
@@ -32,34 +32,32 @@ int				cutt_plane(t_hit *rec, t_object *o)
 	return (1);
 }
 
-void			plane_uv(t_hit *rec, t_object *o)
+void	plane_uv(t_hit *rec, t_object *o)
 {
-	t_vec p;
-	float r;
+	t_vec	p;
+	float	r;
 
 	p = vec_sub(rec->p, o->pos);
 	if (o->txt.is_txt)
 	{
 		r = (float)o->txt.height / (float)o->txt.width;
 		p = vec_add(p, vec_add(vec_pro_k(o->vec1, o->txt.mv1), \
-		vec_pro_k(o->vec2, o->txt.mv2)));
-		p = vec_add(p, vec_add(vec_pro_k(o->vec1, (1 / o->scale / 2) / r),\
-		 vec_pro_k(o->vec2, 1/o->scale/2)));
+					vec_pro_k(o->vec2, o->txt.mv2)));
+		p = vec_add(p, vec_add(vec_pro_k(o->vec1, (1 / o->scale / 2) / r), \
+					vec_pro_k(o->vec2, 1 / o->scale / 2)));
 		rec->u = vec_dot(p, o->vec1) * r;
 		rec->v = vec_dot(p, o->vec2);
 	}
-
 	else if (o->noi.is_noise)
 	{
-		rec->u = rt_frac(vec_dot(vec_div_k(vec_sub(rec->p, o->pos),\
-		 10.0),vec_cross(o->rot,o->vec1)));
-		rec->v = rt_frac(vec_dot(vec_div_k(vec_sub(rec->p, o->pos), 10.0),\
-		o->vec1));
-
+		rec->u = rt_frac(vec_dot(vec_div_k(vec_sub(rec->p, o->pos), 10.0),\
+					vec_cross(o->rot, o->vec1)));
+		rec->v = rt_frac(vec_dot(vec_div_k(vec_sub(rec->p, o->pos), \
+		10.0), o->vec1));
 	}
 }
 
-int			rt_hit_plan(t_object *o, t_ray *r, t_hit *rec)
+int		rt_hit_plan(t_object *o, t_ray *r, t_hit *rec)
 {
 	double	t;
 
@@ -68,21 +66,19 @@ int			rt_hit_plan(t_object *o, t_ray *r, t_hit *rec)
 	if (t > rec->closest || t <= EPS)
 		return (0);
 	rec->t = t;
-	if (rec->negative[0] <= rec->t && rec->t <= rec->negative[1])
+	if (rec->neg[0] <= rec->t && rec->t <= rec->neg[1])
 		return (0);
 	rec->p = vec_ray(r, rec->t);
 	rec->n = vec_dot(r->dir, o->rot) > 0 ? vec_pro_k(o->rot, -1) : o->rot;
 	plane_uv(rec, o);
-	if (o->is_sliced == 1 && rt_one_slice(o, r, rec) == 0)
-		return (0);
 	if (o->txt.is_txt && o->txt.is_trans && !(trans_texture(r, o, rec)))
 		return (0);
 	return (1);
 }
 
-int				rt_hit_care(t_object *o, t_ray *ray, t_hit *rec)
+int		rt_hit_care(t_object *o, t_ray *ray, t_hit *rec)
 {
-	double		t;
+	double	t;
 
 	t = ((vec_dot(o->rot, o->pos) - vec_dot(o->rot, ray->origin))
 			/ vec_dot(o->rot, ray->dir));
@@ -94,7 +90,8 @@ int				rt_hit_care(t_object *o, t_ray *ray, t_hit *rec)
 			return (0);
 		rec->n = vec_dot(ray->dir, o->rot) > 0 ? vec_pro_k(o->rot, -1) : o->rot;
 		plane_uv(rec, o);
-		if (o->txt.is_txt && o->txt.is_trans && !(trans_texture(ray, o, rec)))
+		if (o->txt.is_txt && o->txt.is_trans && \
+		!(trans_texture(ray, o, rec)))
 			return (0);
 		return (1);
 	}

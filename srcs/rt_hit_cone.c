@@ -1,32 +1,43 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rt_hit_cone.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ibel-kha <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/11 18:41:04 by ibel-kha          #+#    #+#             */
+/*   Updated: 2021/03/14 18:55:31 by ibel-kha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <rt.h>
 
 void	cone_uv(t_object *o, t_hit *rec)
 {
 	t_vec	d;
-    float	r;
-	
+	float	r;
+
 	r = (float)o->txt.height / (float)o->txt.width;
 	d = vec_sub(rec->p, o->pos);
 	d = vec_add(d, vec_pro_k(o->rot, o->txt.mv1));
-	d = ft_rot_vec(d, o->rot, o->txt.mv2); 
+	d = ft_rot_vec(d, o->rot, o->txt.mv2);
 	d = vec(vec_dot(d, o->vec2), vec_dot(d, o->rot), vec_dot(d, o->vec1));
-	rec->u= (atan2(d.x, d.z) + (M_PI )) / (2*M_PI);
-	rec->v= (d.y / o->radius) * r;
+	rec->u = (atan2(d.x, d.z) + (M_PI)) / (2 * M_PI);
+	rec->v = (d.y / o->radius) * r;
 }
 
-t_vec  normale_cone(t_object *o, t_ray *r, t_hit *rec)
+t_vec	normale_cone(t_object *o, t_ray *r, t_hit *rec)
 {
 	t_vec normale;
 
-	rec->tmp = vec_pro_k(o->rot, (vec_dot(r->dir, o->rot) 
+	rec->tmp = vec_pro_k(o->rot, (vec_dot(r->dir, o->rot)
 				* rec->t + vec_dot(rec->or, o->rot)));
 	rec->tmp = vec_pro_k(rec->tmp, (1 + pow(tan(o->angle), 2)));
 	normale = vec_unit(vec_sub(vec_sub(rec->p, o->pos), rec->tmp));
 	return (normale);
 }
 
-int			rt_cone_params(t_object *o, t_ray *r, t_hit *rec)
+int		rt_cone_params(t_object *o, t_ray *r, t_hit *rec)
 {
 	rec->or = vec_sub(r->origin, o->pos);
 	rec->coef[0] = vec_dot(r->dir, r->dir) - ((1 + pow(tan(o->angle), 2))
@@ -45,7 +56,7 @@ int			rt_cone_params(t_object *o, t_ray *r, t_hit *rec)
 	return (1);
 }
 
-int			rt_hit_cone(t_object *o, t_ray *r, t_hit *rec)
+int		rt_hit_cone(t_object *o, t_ray *r, t_hit *rec)
 {
 	if (rt_cone_params(o, r, rec))
 	{
@@ -58,17 +69,18 @@ int			rt_hit_cone(t_object *o, t_ray *r, t_hit *rec)
 			rec->p = vec_ray(r, rec->t);
 			if (rec->tx == 1)
 				rec->n = vec_pro_k(o->sl_vec, -1);
-			else if (rec->is_n == 1 && rec->t == rec->negative[1])
-				rec->n = rec->negative_normal;
+			else if (rec->is_n == 1 && rec->t == rec->neg[1])
+				rec->n = rec->neg_n;
 			else if (rec->t1 <= EPS)
 				rec->n = normale_cone(o, r, rec);
 			else
 				rec->n = normale_cone(o, r, rec);
 			cone_uv(o, rec);
-			if (o->txt.is_txt && o->txt.is_trans && !(trans_texture(r, o, rec)))
-	     	  return(0);
+			if (o->txt.is_txt && o->txt.is_trans && \
+					!(trans_texture(r, o, rec)))
+				return (0);
 			return (1);
 		}
 	}
-	return(0);
+	return (0);
 }

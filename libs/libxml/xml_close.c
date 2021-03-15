@@ -12,15 +12,13 @@
 
 #include <libxml.h>
 
-// display tag & attr in error display !!!!
-
 void			xml_exit(t_xml *x, char *m1, char *msg, int err)
 {
 	if (err == EXIT_FAILURE)
 	{
 		ft_putstr("libxml: ");
 		ft_putstr(m1);
-		ft_putendl(msg); //no strdup
+		ft_putendl(msg);
 		xml_close(x);
 		exit(EXIT_FAILURE);
 	}
@@ -38,19 +36,16 @@ static void		clean_tag(t_tag **tag)
 	t_attr	*tmp_attr;
 
 	curr_tag = *tag;
-	printf("tagName: %s\n", curr_tag->name);
 	free(curr_tag->name);
 	curr_attr = curr_tag->attr;
 	while (curr_attr != NULL)
 	{
 		tmp_attr = curr_attr->next;
-		// printf("[\"%s\" = {%s}]  ", curr_attr->name, curr_attr->value);
 		free(curr_attr->name);
 		free(curr_attr->value);
 		free(curr_attr);
 		curr_attr = tmp_attr;
 	}
-	// printf("\n\n");
 	free(curr_tag);
 }
 

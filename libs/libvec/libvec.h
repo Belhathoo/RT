@@ -1,29 +1,41 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   libvec.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: belhatho <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/15 18:25:28 by belhatho          #+#    #+#             */
+/*   Updated: 2021/03/15 18:25:35 by belhatho         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef LIBVEC_H
-#define LIBVEC_H
+# define LIBVEC_H
 
-#include <libft.h>
+# include <libft.h>
 
-typedef struct		s_vector
+typedef struct	s_vector
 {
-	double      x;
-	double      y;
-	double      z;
+	double		x;
+	double		y;
+	double		z;
 }				t_vec;
 
-t_vec		vec(double x, double y, double z);
-t_vec		vec3(double x);
-t_vec		vec_unit(t_vec a);
-t_vec		vec_sub(t_vec a, t_vec b);
-t_vec		vec_add(t_vec a, t_vec b);
-t_vec		vec_add_k(t_vec a, double k);
-t_vec		vec_prod(t_vec a, t_vec b);
-t_vec		vec_pro_k(t_vec a, double k);
-t_vec		vec_div(t_vec a, t_vec b);
-t_vec		vec_div_k(t_vec a, double k);
-t_vec       vec_cross(t_vec a, t_vec b);
-double      vec_dot(t_vec a, t_vec b);
-double      vec_length(t_vec a);
-double      vec_lengthsquared(t_vec a);
-t_vec       vec_fabs(t_vec v);
+t_vec			vec(double x, double y, double z);
+t_vec			vec3(double x);
+t_vec			vec_unit(t_vec a);
+t_vec			vec_sub(t_vec a, t_vec b);
+t_vec			vec_add(t_vec a, t_vec b);
+t_vec			vec_add_k(t_vec a, double k);
+t_vec			vec_prod(t_vec a, t_vec b);
+t_vec			vec_pro_k(t_vec a, double k);
+t_vec			vec_div(t_vec a, t_vec b);
+t_vec			vec_div_k(t_vec a, double k);
+t_vec			vec_cross(t_vec a, t_vec b);
+double			vec_dot(t_vec a, t_vec b);
+double			vec_length(t_vec a);
+double			vec_lengthsquared(t_vec a);
+t_vec			vec_fabs(t_vec v);
 
 #endif

@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rt_solve_quadric.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: belhatho <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/15 18:10:57 by belhatho          #+#    #+#             */
+/*   Updated: 2021/03/15 18:11:01 by belhatho         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <rt.h>
 
@@ -8,9 +19,9 @@ int				is_zero(double delta)
 
 int				rt_solve_quadric(double w[3], double s[2])
 {
-	 double	p;
-	 double	q;
-	 double	d;
+	double	p;
+	double	q;
+	double	d;
 
 	p = w[1] / (2.0 * w[2]);
 	q = w[0] / w[2];

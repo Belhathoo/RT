@@ -1,28 +1,39 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   vec_op_ad.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: belhatho <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/15 18:26:02 by belhatho          #+#    #+#             */
+/*   Updated: 2021/03/15 18:26:06 by belhatho         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-# include <libvec.h>
+#include <libvec.h>
 
-double      vec_dot(t_vec a, t_vec b)
+double		vec_dot(t_vec a, t_vec b)
 {
 	return (a.x * b.x + a.y * b.y + a.z * b.z);
 }
 
-t_vec       vec_cross(t_vec a, t_vec b)
+t_vec		vec_cross(t_vec a, t_vec b)
 {
 	return (vec((a.y * b.z - a.z * b.y), -(a.x * b.z - a.z * b.x),
 				(a.x * b.y - a.y * b.x)));
 }
 
-double      vec_length(t_vec a)
+double		vec_length(t_vec a)
 {
 	return (sqrt(a.x * a.x + a.y * a.y + a.z * a.z));
 }
 
-double      vec_lengthsquared(t_vec a)
+double		vec_lengthsquared(t_vec a)
 {
 	return (a.x * a.x + a.y * a.y + a.z * a.z);
 }
 
-t_vec    vec_fabs(t_vec v)
+t_vec		vec_fabs(t_vec v)
 {
 	return (vec(fabs(v.x), fabs(v.y), fabs(v.z)));
 }
