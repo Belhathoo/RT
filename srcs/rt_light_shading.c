@@ -50,8 +50,6 @@ int			rt_shading(t_thread *th, t_sh_ray sh_r, t_vec *col, int depth)
 	shade = 0;
 	if (rt_hit(th->rt->scene, &sh_r.r, &(s.rec), s.closest) && (shade = 1))
 		s.o = s.rec.curr_obj;
-	// if (vec_dot(sh_r.r.dir, th->rec.ray->dir) > 0.0) && th->rec.curr_obj->refr == 0.0)
-	// 	return (shade);
 	if (depth > 1 && shade && s.o->refr != 0.0)
 	{
 		sc_r.r = rt_refraction(s.rec, sh_r.r, s.o);
