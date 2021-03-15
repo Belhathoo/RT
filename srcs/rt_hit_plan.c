@@ -12,7 +12,7 @@
 
 #include <rt.h>
 
-int			cutt_plane(t_hit *rec, t_object *o)
+int				cutt_plane(t_hit *rec, t_object *o)
 {
 	t_vec	pnt;
 
@@ -35,22 +35,27 @@ int			cutt_plane(t_hit *rec, t_object *o)
 void			plane_uv(t_hit *rec, t_object *o)
 {
 	t_vec p;
+	float r;
 
 	p = vec_sub(rec->p, o->pos);
 	if (o->txt.is_txt)
 	{
-		p = vec_add(p, vec_add(vec_pro_k(o->vec1, o->txt.mv1), vec_pro_k(o->vec2, o->txt.mv2)));
-		p = vec_pro_k(p, o->scale);
-		rec->u = vec_dot(p, o->vec1);
-		rec->v = vec_dot(p, vec_cross(o->rot,o->vec1));
-		rec->u -= floor(rec->u);
-		rec->v -= floor(rec->v); 
+		r = (float)o->txt.height / (float)o->txt.width;
+		p = vec_add(p, vec_add(vec_pro_k(o->vec1, o->txt.mv1), \
+		vec_pro_k(o->vec2, o->txt.mv2)));
+		p = vec_add(p, vec_add(vec_pro_k(o->vec1, (1 / o->scale / 2) / r),\
+		 vec_pro_k(o->vec2, 1/o->scale/2)));
+		rec->u = vec_dot(p, o->vec1) * r;
+		rec->v = vec_dot(p, o->vec2);
 	}
 
 	else if (o->noi.is_noise)
 	{
-		rec->u = rt_frac(vec_dot(vec_div_k(vec_sub(rec->p, o->pos), 10.0),vec_cross(o->rot,o->vec1)));
-		rec->v = rt_frac(vec_dot(vec_div_k(vec_sub(rec->p, o->pos), 10.0), o->vec1));
+		rec->u = rt_frac(vec_dot(vec_div_k(vec_sub(rec->p, o->pos),\
+		 10.0),vec_cross(o->rot,o->vec1)));
+		rec->v = rt_frac(vec_dot(vec_div_k(vec_sub(rec->p, o->pos), 10.0),\
+		o->vec1));
+
 	}
 }
 

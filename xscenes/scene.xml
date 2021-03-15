@@ -9,8 +9,8 @@
 
 <Option aa="01.0"/>
 
-<Object name="sphere" position="0.0 0.0 6.0" radius="2.5"
-color="1.0 1.0 1.0"  texture="xpm/earth1.xpm" />
+<Object name="cylinder" position="0.0 0.0 6.0" radius="2.5"
+color="1.0 1.0 1.0" scale="0.2"  texture="xpm/earth1.xpm" />
 
 <Object name="sphere" position="-5 0 2" texture="xpm/moon.xpm" radius="1.50"/>
 

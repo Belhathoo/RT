@@ -3,7 +3,7 @@
 
 <Camera lookat="1 1 1"/>
 
-<Object na me="spher e" position="0 0 0" direction="3 0 0" rotation="1 0 0" 
+<Object name="cube_troue" position="0 0 0" direction="3 0 0" rotation="1 0 0" 
 translation="0 4 0" radius="4"  
 color="0.1 0.0 1"
       >

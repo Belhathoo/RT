@@ -1,20 +1,18 @@
 
 #include <rt.h>
 
-void    cone_uv(t_object *o, t_hit *rec)
+void	cone_uv(t_object *o, t_hit *rec)
 {
-	t_vec d;
-
+	t_vec	d;
+    float	r;
+	
+	r = (float)o->txt.height / (float)o->txt.width;
 	d = vec_sub(rec->p, o->pos);
-	d = vec_add(d, vec_pro_k(o->rot, o->txt.mv1)); //
-	d = ft_rot_vec(d, o->rot, o->txt.mv2);
-	if (o->txt.is_txt)
-		d = vec_div_k(d, o->scale);
-	d = vec(vec_dot(d, o->vec1), vec_dot(d, o->rot), vec_dot(d, o->vec2));
-	rec->u= (atan2(d.x, d.z) + M_PI / (2.0 * M_PI));
-	rec->v= d.y;
-	rec->u= rec->u - floor(rec->u);
-	rec->v= rec->v- floor(rec->v);
+	d = vec_add(d, vec_pro_k(o->rot, o->txt.mv1));
+	d = ft_rot_vec(d, o->rot, o->txt.mv2); 
+	d = vec(vec_dot(d, o->vec2), vec_dot(d, o->rot), vec_dot(d, o->vec1));
+	rec->u= (atan2(d.x, d.z) + (M_PI )) / (2*M_PI);
+	rec->v= (d.y / o->radius) * r;
 }
 
 t_vec  normale_cone(t_object *o, t_ray *r, t_hit *rec)

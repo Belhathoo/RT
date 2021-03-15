@@ -2,20 +2,36 @@
 
 #include <rt.h>
 
+
 t_vec		rt_get_color_from_texture(t_object *o, double *u, double *v)
 {
 	int		i;
 	int		j;
     int 	color;
-	t_vec c;
+	t_vec	c;
+
+	*u *= o->scale;
+	*v *= o->scale;
+	o->txt.repet_txt = 1;
+   if (o->txt.repet_txt)
+   {
+	 *u = rt_frac(*u);
+	 *v = rt_frac(*v);
+   }
+   else
+   {
+	if(*u > 1 || *u < 0)
+	   return (o->col);
+	if(*v > 1 || *v < 0)
+	  return (o->col);
+   }
 	i = *u * o->txt.width;
 	j = (1.0 - *v) * o->txt.height - 0.001;
-	i = (i < 0) ? 0 : i;
-	j = (j < 0) ? 0 : j;
+	// i = (i < 0) ? 0 : i;
+	// j = (j < 0) ? 0 : j;
 	i = (i > o->txt.width - 1) ? o->txt.width - 1 : i;
 	j = (j > o->txt.height - 1) ? o->txt.height - 1 : j;
 	color = o->txt.buf[j * o->txt.width + i];
-
 	c = rt_int_to_rgb(color);
     return(c);
 }

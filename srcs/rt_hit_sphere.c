@@ -23,14 +23,10 @@ void		sphere_uv(t_object *o, t_hit *rec)
 	double	theta;
 	t_vec	p;
 
-	o->txt.mv1 = 0.0;
-	o->txt.mv2 = 0.0;
     p = vec_sub(rec->p, o->pos);
 	p = ft_rot_vec(p, o->rot, o->txt.mv1);
     p = ft_rot_vec(p, o->vec1, o->txt.mv2);
-	 if (o->txt.is_txt)
-	  p = vec_div_k(p, o->scale);
-	p = vec(vec_dot(p, o->vec1), vec_dot(p, o->vec2), vec_dot(p, o->rot));
+	p = vec(vec_dot(p, o->vec2), vec_dot(p, o->vec1), vec_dot(p, o->rot));
 	phi = atan2(p.z, p.x);
 	theta = asin(p.y / o->radius);
 	rec->u = (phi + M_PI) / (2.0 * M_PI); 

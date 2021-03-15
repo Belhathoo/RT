@@ -96,7 +96,7 @@ void			rt_init_obj_ann(t_object *obj)
 	obj->txt.mv1 = 0.0;
 	obj->txt.mv2 = 0.0;
 	obj->noi = rt_init_noise();
-	obj->scale = 1.5;
+	obj->scale = 1;
 	obj->is_sliced = 0;
 	obj->sl_pnt = vec(0.0, 0.0, 0.0);
 	obj->sl_vec = vec(0.0, -1.0, 0.0);

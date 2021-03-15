@@ -43,6 +43,7 @@ typedef	struct	s_texture
 	int			*buf;
 	int			width;
 	int			height;
+	int			repet_txt;
 	double		scale;
 	double		mv1;
 	double		mv2;

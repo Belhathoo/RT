@@ -1,9 +1,15 @@
 
 #include <rt.h>
 
+t_vec		normale_cube_troue(t_vec p)
+{
+	t_vec	n;
 
-
-///// normale ya wld l9hbaaaa
+	n.x = 4 * pow(p.x, 3) - 10 * p.x;
+	n.y = 4 * pow(p.y, 3) - 10 * p.y;
+	n.z = 4 * pow(p.z, 3) - 10 * p.z;
+	return (vec_unit(n));
+}
 
 int     rt_cube_params(t_object *obj, t_ray *ray, t_hit *record)
 {
@@ -33,6 +39,7 @@ int     rt_hit_cube_troue(t_object *obj, t_ray *ray, t_hit *record)
 	if (rt_cube_params(obj, ray, record))
 	{
 		record->p = vec_ray(ray, record->t);
+		record->n = normale_cube_troue(record->p);
 		return (1);
 	}
 	return (0);
