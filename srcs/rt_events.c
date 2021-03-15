@@ -34,13 +34,15 @@ int			rt_keys(int key, t_rt *rt)
 {
 	if (key == K_ESC)
 		rt_close(rt);
-	if (key == K_A)//
-		mvt_btn(rt);
-	if (key == K_S)//
+	if (key == K_S)
 		save_btn(rt);
+	if (!rt->scene->dyn && key == K_A)//
+		mvt_btn(rt);
+	if (rt->scene->dyn && key == K_L)//
+		light_btn(rt);
 	if (rt->scene->key_mvt == 1)//
 	{
-		if (key == K_C)
+		if (!rt->scene->dyn && key == K_C)
 			cam_btn(rt);
 		else if (key == K_L)
 			light_btn(rt);
@@ -52,7 +54,7 @@ int			rt_keys(int key, t_rt *rt)
 		else if (rt->scene->sl_obj != NULL)
 		{
 			if (rt_move(key, &rt->scene->sl_obj->pos)\
-				&& rt_move(key, &rt->scene->sl_obj->sl_pnt))
+					&& rt_move(key, &rt->scene->sl_obj->sl_pnt))
 				rt_reset(rt);
 			if (rt_rot_event(key, rt->scene->sl_obj))
 				rt_reset(rt);

@@ -29,6 +29,20 @@ void		background(t_rt *rt)
 	mlx_put_image_to_window(rt->mlx, rt->win, img, 0, 0);
 }
 
+void		init(t_rt *rt)
+{
+	rt->win = mlx_new_window(rt->mlx, WIN_WIDTH, WIN_HEIGHT, "RT");
+	rt->img = mlx_new_image(rt->mlx, IMG_WIDTH, IMG_HEIGHT);
+	rt->data = (int*)mlx_get_data_addr(rt->img, &rt->bpp, &rt->size, &rt->endian);
+	background(rt);
+
+	create_buttons(9, rt);
+	rt->s_light = rt->scene->light;
+
+}
+
+
+
 int			main(int argc, char **argv)
 {
 	t_rt 	rt;
@@ -37,16 +51,22 @@ int			main(int argc, char **argv)
 	rt.scene = rt_init_scene(&rt);
 	rt.mlx = mlx_init();
 	if (argc == 2)
-		rt_parser(&rt, argv);
+	{
+		// char milky[21] = "./xscenes/milky_way.xml";
+		if (!ft_strcmp(argv[1], "milky"))
+		{
+			rt_parser(&rt, "./xscenes/milky_way.xml");	
+			rt.scene->dyn = 1;
+			rt.scene->key = 1;
+			rt.scene->key_mvt = 0;
+			rt.scene->sl_obj = rt.scene->object;
+		}
+		else
+			rt_parser(&rt, argv[1]);
+	}
 	else
 		rt_exit(&rt, 0, ft_strdup("usage: ./rt scene_file"), EXIT_FAILURE);
-	rt.win = mlx_new_window(rt.mlx, WIN_WIDTH, WIN_HEIGHT, "RT");
-	rt.img = mlx_new_image(rt.mlx, IMG_WIDTH, IMG_HEIGHT);
-	rt.data = (int*)mlx_get_data_addr(rt.img, &rt.bpp, &rt.size, &rt.endian);
-	background(&rt);
-
-	create_buttons(9, &rt);
-	rt.s_light = rt.scene->light;
+	init(&rt);
 			rt.scene->sl_obj = rt.scene->object; //
 
 	mlx_hook(rt.win, 17, (1L << 17), rt_close, &rt);

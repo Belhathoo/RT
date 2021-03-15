@@ -1,0 +1,49 @@
+<!DOCTYPE xml>
+
+<Camera
+
+  lookfrom="0.0 0.0 50.0"
+  lookat="0 0 0"
+  fov="60"
+  />
+
+<Option aa="5.0" amb="0.3" stereo="0.0" />
+
+
+<Object name="plan" direction="0  0 1 " position="0 120 -205" rotation="-5 0 0"
+ txt_duplicate="1" txt_mv2="1.5" scale="0.00195" texture="xpm/deep-space.xpm">
+
+
+<Object name="sphere" position="0 00 0" radius="10.0" refr="00"
+texture="xpm/sun.xpm" txt_duplicate="1">
+<Light position="0 0 0">
+
+<Object name="sphere" position="15 -8 22" radius="2.0"
+texture="xpm/jupiter.xpm" txt_mv2="0.5.0" >
+
+<Object name="sphere" position="20 3 3" radius="2.0"
+texture="xpm/mars.xpm">
+
+<Object name="sphere" position="-10 -7 28" radius="1.80"
+texture="xpm/earth1.xpm" txt_mv1="10.0" txt_mv2="8">
+<Object name="sphere" position="-13 -6.5 28" radius="0.50"
+texture="xpm/moon.xpm"  >
+
+<Object name="sphere" position="-20 -5 3" radius="2.0"
+texture="xpm/haumea.xpm">
+
+<Object name="sphere" position="-34 -1 -02" radius="2.0"
+texture="xpm/saturn.xpm">
+<Object name="torus" position="-34 -1 -02" r="0.15" radius="4.0" direction="1 1 0"
+scale="1.0" texture="xpm/saturn_ring.xpm">
+
+<Object name="sphere" position="-18 10 -18" radius="2.0"
+texture="xpm/neptune.xpm">
+
+<Object name="sphere" position="12 25 -45" radius="2.0"
+texture="xpm/uranus.xpm">
+
+<Object name="sphere" position="25 18 -32" radius="2.0"
+texture="xpm/makemake.xpm">
+
+<Light type="parallel" position="0 10 -40" intensity="015">

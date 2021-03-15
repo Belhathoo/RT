@@ -73,7 +73,7 @@ void		init_perlin(t_rt *rt)
 	int i;
 
 	if (!(rt->ran = (t_vec *)malloc(256 * sizeof(t_vec))))
-		rt_exit(rt, " perlin: ", "Cannot allacte", EXIT_FAILURE);
+		rt_exit(rt, "perlin: ", "Cannot allacte", EXIT_FAILURE);
 	i = 0;
 	while (i < 256)
 	{
@@ -136,6 +136,7 @@ t_scene		*rt_init_scene(t_rt *rt)
 
 	if (!(scene = (struct s_scene*)malloc(sizeof(struct s_scene))))
 		rt_exit(rt, "", "Cannot allocate!", EXIT_FAILURE);
+	scene->dyn = 0;
 	scene->progress = 1;
 	scene->select = 0;
 	scene->max_anti_a = 9;
@@ -155,6 +156,8 @@ t_scene		*rt_init_scene(t_rt *rt)
 void		rt_init(t_rt *rt)
 {
 	rt->is_perlin = 0;
+	rt->ran = NULL;
+	rt->bt = NULL;
 	rt->img = NULL;
 	rt->mlx = NULL;
 	rt->data = NULL;

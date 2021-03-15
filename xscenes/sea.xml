@@ -1,0 +1,28 @@
+<!DOCTYPE xml>
+
+<Camera
+  lookfrom="0.0 5.0 30.0"
+  lookat="0 0 0"
+  fov="60"
+  />
+
+<Option aa="5.0" amb="0.3" stereo="0.0" />
+
+
+<Object name="plan" direction="0  0 1 " position="0 30 -205" rotation="-5 0 0"
+ refr="0.0" txt_duplicate="1" scale="0.003" texture="xpm/sky.xpm">
+
+<Light type="parallel" position="0 10 -40" intensity="0.15">
+
+<Object name="sphere" position="0 20 -100" radius="15.0" refr="02.0"
+txt_duplicate="1" txt_mv1="1" texture="xpm/sun.xpm">
+
+<Object name="plan"  position="0 -5.0 0" direction="0 1 0"
+scale="0.001" texture="xpm/water.xpm" color="0 00 0" 
+refl="0.00" material="water">
+
+<Object name="plan" position="0 -5.1 0" scale="0.05" 
+txt_duplicate="1" refr="1.0" texture="xpm/sand.xpm">
+
+
+

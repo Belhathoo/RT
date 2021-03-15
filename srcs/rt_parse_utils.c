@@ -52,7 +52,7 @@ void			rt_ctotxt(char *str, t_texture *txt, t_rt *rt)
 	if (!each || ft_twodimlen(each) != 1)
 	{
 		ft_free_twodim(&each);
-		rt_exit(rt, "texture", "must be One value.\n", EXIT_FAILURE);
+		rt_exit(rt, "texture: ", "attr not valid.\n", EXIT_FAILURE);
 	}
 	txt->is_txt = 1;
 	txt->buf = NULL;
@@ -63,7 +63,7 @@ void			rt_ctotxt(char *str, t_texture *txt, t_rt *rt)
 	if (!txt->img && !txt->buf)
 	{
 		ft_free_twodim(&each);
-		rt_exit(rt, "texture: ", " file unsupported", EXIT_FAILURE);
+		rt_exit(rt, str, ": texture:  file unsupported", EXIT_FAILURE);
 	}
 	if (txt->img)
 		txt->buf = (int *)mlx_get_data_addr(txt->img, &rt->bpp\
@@ -79,10 +79,6 @@ void			rt_comp_obj(t_object *o, t_rt *rt)
 
 void			rt_get_repere(t_object *o)
 {
-	t_vec vup;
-
-	vup = vec(0.0, 1.0, 0.0);
-
 	o->vec1 = vec_unit(vec_cross(o->rot, vec(0.0, 1.0, 0.0)));
 	if (!(vec_dot(vec_cross(o->rot, vec(0.0, 1.0, 0.0)), vec3(1.0))))
 		o->vec1 = vec_unit(vec_cross(o->rot, vec(1.0, 0.0, 0.0)));

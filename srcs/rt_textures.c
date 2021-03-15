@@ -1,4 +1,3 @@
-/* ************************************************************************** */
 
 #include <rt.h>
 
@@ -7,51 +6,50 @@ t_vec		rt_get_color_from_texture(t_object *o, double *u, double *v)
 {
 	int		i;
 	int		j;
-    int 	color;
+	int 	color;
 	t_vec	c;
 
 	*u *= o->scale;
 	*v *= o->scale;
-	o->txt.repet_txt = 1;
-   if (o->txt.repet_txt)
-   {
-	 *u = rt_frac(*u);
-	 *v = rt_frac(*v);
-   }
-   else
-   {
-	if(*u > 1 || *u < 0)
-	   return (o->col);
-	if(*v > 1 || *v < 0)
-	  return (o->col);
-   }
+	if (o->txt.repet_txt)
+	{
+		*u = rt_frac(*u);
+		*v = rt_frac(*v);
+	}
+	else
+	{
+		if(*u > 1 || *u < 0)
+			return (o->col);
+		if(*v > 1 || *v < 0)
+			return (o->col);
+	}
 	i = *u * o->txt.width;
 	j = (1.0 - *v) * o->txt.height - 0.001;
-	 i = (i < 0) ? 0 : i;
-	 j = (j < 0) ? 0 : j;
+	i = (i < 0) ? 0 : i;
+	j = (j < 0) ? 0 : j;
 	i = (i > o->txt.width - 1) ? o->txt.width - 1 : i;
 	j = (j > o->txt.height - 1) ? o->txt.height - 1 : j;
 	color = o->txt.buf[j * o->txt.width + i];
 
 	c = rt_int_to_rgb(color);
-    return(c);
+	return(c);
 }
 
 int    remove_r(t_ray *ray, t_object *obj, t_hit *rec)
 {
-    t_vec vect;
+	t_vec vect;
 
-     vect = rt_get_color_from_texture(obj, &rec->u, &rec->v);
-	 if ((vect.z < vect.x && vect.y < vect.x))
-	 {
+	vect = rt_get_color_from_texture(obj, &rec->u, &rec->v);
+	if ((vect.z < vect.x && vect.y < vect.x))
+	{
 		if (!ft_strcmp(obj->name, "plan"))
-		     return (0);
+			return (0);
 		rec->p = vec_ray(ray, rec->t1);
 		rec->n = vec_div_k(vec_sub(rec->p, obj->pos), -obj->size);
 		sphere_uv(obj, rec);
 		vect = rt_get_color_from_texture(obj, &rec->u, &rec->v);
 		if ((vect.z < vect.x && vect.y < vect.x))
-			 return 0;
+			return 0;
 		return (1);
 	}
 
@@ -60,19 +58,19 @@ int    remove_r(t_ray *ray, t_object *obj, t_hit *rec)
 
 int    remove_g(t_ray *ray, t_object *obj, t_hit *rec)
 {
-    t_vec vect;
+	t_vec vect;
 
-     vect = rt_get_color_from_texture(obj, &rec->u, &rec->v);
-	 if ((vect.z < vect.y && vect.x < vect.y))
-	 {
-		  if (!ft_strcmp(obj->name, "plan"))
-		     return (0);
+	vect = rt_get_color_from_texture(obj, &rec->u, &rec->v);
+	if ((vect.z < vect.y && vect.x < vect.y))
+	{
+		if (!ft_strcmp(obj->name, "plan"))
+			return (0);
 		rec->p = vec_ray(ray, rec->t1);
 		rec->n = vec_div_k(vec_sub(rec->p, obj->pos), -obj->size);
 		sphere_uv(obj, rec);
 		vect = rt_get_color_from_texture(obj, &rec->u, &rec->v);
 		if ((vect.z < vect.y && vect.x < vect.y))
-			 return 0;
+			return 0;
 		return (1);
 	}
 
@@ -81,18 +79,18 @@ int    remove_g(t_ray *ray, t_object *obj, t_hit *rec)
 
 int    remove_b(t_ray *ray, t_object *obj, t_hit *rec)
 {
-    t_vec vect;
-     vect = rt_get_color_from_texture(obj, &rec->u, &rec->v);
-	 if ((vect.x < vect.z && vect.y < vect.z))
-	 {
-		 if (!ft_strcmp(obj->name, "plan"))
-		     return (0);
+	t_vec vect;
+	vect = rt_get_color_from_texture(obj, &rec->u, &rec->v);
+	if ((vect.x < vect.z && vect.y < vect.z))
+	{
+		if (!ft_strcmp(obj->name, "plan"))
+			return (0);
 		rec->p = vec_ray(ray, rec->t1);
 		rec->n = vec_div_k(vec_sub(rec->p, obj->pos), -obj->size);
 		sphere_uv(obj, rec);
 		vect = rt_get_color_from_texture(obj, &rec->u, &rec->v);
 		if ((vect.x < vect.z && vect.x < vect.z))
-			 return 0;
+			return 0;
 		return (1);
 	}
 
@@ -103,10 +101,10 @@ int			trans_texture(t_ray *ray, t_object *obj, t_hit *rec)
 {
 	if (obj->txt.is_trans == 1 && !remove_r(ray, obj, rec))
 		return (0);
- else if (obj->txt.is_trans == 2 && !remove_g(ray, obj, rec))
-		    return (0);
-else if (obj->txt.is_trans == 3 && !remove_b(ray, obj, rec))
-      return (0);
- else
-   return (1);
+	else if (obj->txt.is_trans == 2 && !remove_g(ray, obj, rec))
+		return (0);
+	else if (obj->txt.is_trans == 3 && !remove_b(ray, obj, rec))
+		return (0);
+	else
+		return (1);
 }

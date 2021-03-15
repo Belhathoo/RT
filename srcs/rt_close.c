@@ -70,16 +70,15 @@ void		rt_exit(t_rt *rt, char *m, char *m1, int err)
 	/*  certain cases xml free !
 	*/
 	if (err == EXIT_FAILURE)
-	{
 		ft_putstr("error: ");
 		// rt = NULL; //unused error fixing
-	}
 	(m) ? ft_putstr(m) : 0;
 	(m1) ? ft_putendl(m1) : 0;
 	rt_free_lights(rt->scene->light);
 	rt_free_objects(rt->scene->object);
-	// free(rt->bt);
+	free(rt->bt); //
 	free(rt->scene);
+	free(rt->ran);
 	exit(err);
 }
 
@@ -87,6 +86,6 @@ int			rt_close(t_rt *rt)
 {
 	mlx_destroy_image(rt->mlx, rt->img);
 	mlx_destroy_window(rt->mlx, rt->win);
-	rt_exit(rt, "", "HAPPY CODING", EXIT_SUCCESS);
+	rt_exit(rt, "HAPPY CODING", " ^_^", EXIT_SUCCESS);
 	return (EXIT_SUCCESS);
 }

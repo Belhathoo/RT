@@ -44,6 +44,7 @@ int				rt_mouse(int button, int x, int y, t_rt *rt)
 {
 	int btn;
 
+// ft_putnbr(button);
 	if (button == 2)
 		rt->scene->sl_obj = NULL;
 	if (button == 1 &&
@@ -57,16 +58,19 @@ int				rt_mouse(int button, int x, int y, t_rt *rt)
 			ft_putendl(rt->scene->sl_obj->name);
 		}//
 	}
+	if (!rt->scene->dyn)
+{
 	btn = get_selected_button(x, y, rt);
 	if (btn != -1)
 	{
 		if (btn == SAVE_BTN)
 			save_btn(rt);
-		if (btn == MVT_BTN)
+		{if (btn == MVT_BTN)
 			mvt_btn(rt);
 		if (rt->scene->key_mvt == 1)
-			rt_mouse_btn(btn, rt);
+			rt_mouse_btn(btn, rt);}
 		return (0);
 	}
+}
 	return (0);
 }

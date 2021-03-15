@@ -216,6 +216,7 @@ typedef struct	s_scene
 	t_object	*object;
 	t_object	*sl_obj;
 
+	int			dyn;
 	int			aa;
 	double		ambient;
 

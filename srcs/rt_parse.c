@@ -32,11 +32,11 @@ void			xml_to_rt(t_xml *x, t_rt *rt)
 	}
 }
 
-void			rt_parser(t_rt *rt, char **argv)
+void			rt_parser(t_rt *rt, char *argv)
 {
 	t_xml		*x;
 
-	x = xml_init(argv[1]);
+	x = xml_init(argv);
 	if (xml_parse(x) == -1)
 		xml_exit(x, " tags", " < / >", EXIT_FAILURE);
 	xml_to_rt(x, rt);
@@ -44,5 +44,5 @@ void			rt_parser(t_rt *rt, char **argv)
 	xml_close(x);
 	if (rt->is_perlin)
 		init_perlin(rt);
-	rt->name_sc = argv[1];
+	rt->name_sc = argv;
 }

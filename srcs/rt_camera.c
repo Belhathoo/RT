@@ -12,7 +12,7 @@
 
 #include <rt.h>
 
-int			is_equaly(t_vec a, t_vec b)
+int			is_equaly(t_vec b)
 {
 	if ((float)b.y <= 1.0001 && (float)b.y >= 0.9999 && (float)b.x <= 0.000001 && (float)b.x >= -0.000001 && (float)b.z <= 0.000001 && (float)b.z >= -0.000001)
 		return (1);
@@ -26,17 +26,10 @@ void		rt_uv_cam(t_vec w, t_vec *u, t_vec *v)
 	t_vec	vup;
 
 	vup = vec(0.0, 1.0, 0.0);
-	if (is_equaly(vup, w) == 1)
-	{
-		ft_putendl("y");
+	if (is_equaly(w) == 1)
 		vup = vec(0.0, 0.0, 1.0);
-	}
-	else if (is_equaly(vup, w) == -1)
-	{
-		ft_putendl("-y");
+	else if (is_equaly(w) == -1)
 		vup = vec(0.0, 0.0, 1.0);
-	}
-	ft_putendl("no");
 	*u = vec_cross(w, vup);
 	*v = vec_cross(*u, w);
 	*u = vec_unit(*u);
@@ -49,9 +42,6 @@ t_camera		rt_init_camera(t_vec lookfrom, t_vec lookat, double vfov)
 
 	c.w = vec_unit(vec_sub(lookat, lookfrom));
 	rt_uv_cam(c.w, &c.u, &c.v);
-	printf("lk. %f %f %f\t\n", lookfrom.x,lookfrom.y ,lookfrom.z);
-	printf("w. %f %f %f\t\n", c.w.x,c.w.y ,c.w.z);
-	printf("u. %f %f %f\n", c.u.x,c.u.y ,c.u.z);
 	c.half_h = tan((vfov * M_PI / 180.0) / 2.0);
 	c.half_w = (IMG_WIDTH / IMG_HEIGHT) * c.half_h;
 	c.origin = lookfrom;

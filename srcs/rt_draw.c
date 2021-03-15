@@ -40,9 +40,9 @@ t_vec		rt_raytracer(t_thread *th, t_ray r, int depth)
 		if (depth > 1)
 		{
 			color = vec_add(color, (o->refl) ? vec_pro_k(rt_raytracer(th,\
-			rt_reflection(th->rec, r), depth - 1), o->refl) : vec3(0.0));
+							rt_reflection(th->rec, r), depth - 1), o->refl) : vec3(0.0));
 			color = vec_add(color, (o->refr) ? (rt_raytracer(th,\
-			rt_refraction(th->rec, r, o), depth - 1)) : vec3(0.0));
+							rt_refraction(th->rec, r, o), depth - 1)) : vec3(0.0));
 		}
 	}
 	rt_adjustment(&color);
@@ -80,28 +80,24 @@ void		rt_set_filter(t_rt *rt)
 
 int		progress_bar(t_rt *rt)
 {
-	if ((rt->scene->key_mvt == 0 || rt->scene->key == 1)\
-			&& (rt->scene->progress <= 12 && rt->scene->select <= rt->scene->aa + 1))
+
+	if (!rt->scene->dyn)
 	{
-		// mlx_destroy_image(rt->mlx, rt->img);
-		// rt->img = mlx_new_image(rt->mlx, IMG_WIDTH, IMG_HEIGHT + 8);
-		// ft_bzero(rt->data, IMG_WIDTH * IMG_HEIGHT * 4);
-		// ft_putstr("--00\n");
-	}
-	if (rt->scene->key_mvt == 0)
-	{
-		rt_progress_run(rt);
-		if (rt->scene->progress <= 12 && rt->scene->select <= rt->scene->aa + 1)
+		if (rt->scene->key_mvt == 0)
 		{
-			progress_fill(rt);
-			rt->scene->progress++;
-			if (rt->filter && rt->scene->select == rt->scene->aa)
-				rt_set_filter(rt);
-			mlx_put_image_to_window(rt->mlx, rt->win, rt->img\
-					, FRAME_LFT, FRAME_UP);
-			// ft_putendl("aa");
+			rt_progress_run(rt);
+			if (rt->scene->progress <= 12 && rt->scene->select <= rt->scene->aa + 1)
+			{
+				progress_fill(rt);
+				rt->scene->progress++;
+				if (rt->filter && rt->scene->select == rt->scene->aa)
+					rt_set_filter(rt);
+				mlx_put_image_to_window(rt->mlx, rt->win, rt->img\
+						, FRAME_LFT, FRAME_UP);
+				// ft_putendl("aa");
+			}
 		}
 	}
-	rt_mvt_run(rt);
+		rt_mvt_run(rt);
 	return (0);
 }

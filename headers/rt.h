@@ -21,7 +21,7 @@ t_vec			rt_rot_dir(t_vec *d, t_vec r);
 t_vec			rt_ctovec(char *str, t_rt *rt);
 double			rt_ctod(char *str, t_rt *rt);
 void			rt_ctotxt(char *str, t_texture *t, t_rt *rt);
-void			rt_parser(t_rt *p, char **av);
+void			rt_parser(t_rt *p, char *av);
 void			rt_add_object(t_tag *t, t_rt *rt);
 void			rt_add_neg_object(t_tag *t, t_rt *rt);
 void			rt_add_option(t_tag *tag, t_rt *rt);
