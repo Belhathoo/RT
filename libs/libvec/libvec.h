@@ -3,11 +3,11 @@
 
 #include <libft.h>
 
-typedef struct	s_vector
+typedef struct		s_vector
 {
 	double      x;
-    double      y;
-    double      z;
+	double      y;
+	double      z;
 }				t_vec;
 
 t_vec		vec(double x, double y, double z);

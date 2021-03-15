@@ -44,7 +44,7 @@ t_vec		rt_roty(t_vec vec, double angle)
 
 t_vec		rotation(t_vec dir, t_vec rot)
 {
-	return (rt_rotz(rt_roty(rt_rotx(dir, rot.x), rot.z), rot.y));
+	return (rt_roty(rt_rotz(rt_rotx(dir, rot.x), rot.z), rot.y));
 }
 
 t_vec		rt_rot_pnt(t_object *o, t_vec (*rot_ax)(t_vec vec, double angle)

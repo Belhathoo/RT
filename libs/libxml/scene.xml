@@ -1,14 +1,13 @@
 <!DOCTYPE xml>
 
 
-<Camera lookat=" "/>
+<Camera lookat="1 1 1"/>
 
-<Object name="sphere" position="0 0 0" direction="3 0 0" rotation="1 0 0" 
-translation="0 4 0" radius="3"  
-color="0.1 0.0 1.0"   
-material="al"
+<Object na me="spher e" position="0 0 0" direction="3 0 0" rotation="1 0 0" 
+translation="0 4 0" radius="4"  
+color="0.1 0.0 1"
       >
 
 <Light type="parallel" position="0 0 0"></Light  >
 
-<Option aa="4.0"/>
+<Option aa="4.0" />

@@ -12,33 +12,12 @@
 
 #include <libxml.h>
 
-t_attr		*xml_new_attr(void)
-{
-	t_attr *attr;
-
-	attr = (t_attr*)malloc(sizeof(struct s_attr));
-	attr->name = NULL;
-	attr->value = NULL;
-	attr->next = NULL;
-	return (attr);
-}
-
-t_tag		*xml_new_tag(void)
-{
-	t_tag	*tag;
-
-	tag = (t_tag*)malloc(sizeof(t_tag));
-	tag->name = NULL;
-	tag->attr = NULL;
-	tag->next = NULL;
-	return (tag);
-}
-
 char		*xml_set_attr(char *attr_str, t_xml *x)
 {
 	char	*attr;
 	int		len;
 
+	attr = NULL;
 	attr = ft_strtrim(attr_str);
 	len = ft_strlen(attr);
 	if (attr[len - 1] == '/')
@@ -50,7 +29,10 @@ char		*xml_set_attr(char *attr_str, t_xml *x)
 		len = ft_strlen(attr);
 	}
 	if (len <= 2 || attr[0] != '\"' || attr[len - 1] != '\"')
+	{
+		free(attr);
 		xml_exit(x, "syntax error: ", "quotes", EXIT_FAILURE);
+	}
 	attr_str = ft_strsub(attr, 1, len - 2);
 	free(attr);
 	return (attr_str);
@@ -66,6 +48,22 @@ char		*xml_trim(char *attr_name)
 	return (attr_name);
 }
 
+int			xml_tg(char *data, int *k, char c, int x)
+{
+	char b;
+
+	b = (c == '<') ? '>' : '<';
+	while (data[*k] && data[*k] != c)
+	{
+		if (x == 1)
+			(data[*k] == '\t' || data[*k] == '\n') ? data[*k] = ' ' : 0;
+		if (data[*k] == b)
+			return (-1);
+		(*k)++;
+	}
+	return (1);
+}
+
 int			xml_parse(t_xml *x)
 {
 	char	*data;
@@ -74,36 +72,24 @@ int			xml_parse(t_xml *x)
 	int		j;
 
 	x->data = get_full_text(x->fd);
-	i = 1;
 	if ((data = ft_strchr(x->data, '<')) == NULL)
 		return (-1);
+	i = 1;
 	while (data[i])
 	{
 		j = i;
-		while (data[i] && data[i] != '>')
-		{
-			(data[i] == '\t' || data[i] == '\n') ? data[i] = ' ' : 0;
-			if (data[i] == '<')
-				return (-1);
-			i++;
-		}
+		if (xml_tg(data, &i, '>', 1) == -1)
+			return (-1);
 		if (!data[i] || i == j)
 			return (-1);
 		i++;
-		tag = ft_strsub(&data[j], 0, i - j - 1);
-		tag = xml_trim(tag);
-		if (ft_strlen(tag) == 0)
-			xml_exit(x, "", "< / > error", EXIT_FAILURE);
-		xml_set_tag(tag, x);
-		while (data[i] && data[i] != '<')
-		{
-			if (data[i] == '>')
-				return (-1);
-			i++;
-		}
+		tag = xml_trim(ft_strsub(&data[j], 0, i - j - 1));
+		if ((ft_strlen(tag) == 0)\
+			|| ((xml_set_tag(tag, x) && xml_tg(data, &i, '<', 0) == -1)))
+			return (-1);
 		(data[i]) ? i++ : 0;
 	}
-	free(x->data);
+	ft_strdel(&x->data);
 	return (EXIT_SUCCESS);
 }
 

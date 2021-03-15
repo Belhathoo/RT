@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-void	ft_free_twodim(char ***to)
+int		ft_free_twodim(char ***to)
 {
 	char	**to_free;
 	int		i;
@@ -25,4 +25,5 @@ void	ft_free_twodim(char ***to)
 		i++;
 	}
 	free(to_free);
+	return (1);
 }

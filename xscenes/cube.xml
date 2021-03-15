@@ -2,7 +2,7 @@
 
 
 <Camera
-  lookfrom="0.0 20.0 20.0"
+  lookfrom="0.0 0.0 45.0"
   lookat="0 0 0"
   fov="60"
   />
@@ -11,8 +11,8 @@
 
 
 <Object name="cube" position="0 0 0" color="0.0 0.0 01" 
- n_color="1 1 0" material="mirror" size="8" rotation="0 0 0"
- direction="0 0.0 1.0" >
+ n_color="1 1 0" material="mirro1r" size="8" rotation="0 0 0"
+ direction="01.0 01.0 01.0" >
 
 
 

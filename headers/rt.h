@@ -12,6 +12,8 @@
 
 #ifndef RT_H
 # define RT_H
+// zid f get full text dial libft de 3azzi
+
 
 # include <rt_struct.h>
 
@@ -19,7 +21,6 @@ t_vec			rt_rot_dir(t_vec *d, t_vec r);
 t_vec			rt_ctovec(char *str, t_rt *rt);
 double			rt_ctod(char *str, t_rt *rt);
 void			rt_ctotxt(char *str, t_texture *t, t_rt *rt);
-
 void			rt_parser(t_rt *p, char **av);
 void			rt_add_object(t_tag *t, t_rt *rt);
 void			rt_add_neg_object(t_tag *t, t_rt *rt);
@@ -215,6 +216,7 @@ void			init_tab(t_vec *tab);
 
 
 void			rt_exit(t_rt *rt, char *m1, char *msg, int err);
+void			rt_free_compos(t_object *o);
 int				rt_close(t_rt *rt);
 
 

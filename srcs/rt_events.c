@@ -20,20 +20,13 @@ void		rt_reset(t_rt *rt)
 	rt->scene->select = 0;
 	o = rt->scene->sl_obj;
 	if (rt->scene->key_cam == 1)
-	{
 		rt->scene->cam = rt_init_camera(rt->scene->cam.lookfrom,
 				rt->scene->cam.lookat, rt->scene->cam.fov);
-	}
 	else if (o && o->compos)
-		get_cube_compos(o, rt); //leak
-	// {
-		// while (o->compos)
-		// {
-		// 	rt_move(key, &o->compos->pos);
-		// 	rt_rot_event(key, &o);
-		// 	o = o->compos;
-		// }
-	// }
+	{
+		rt_free_compos(o);
+		get_cube_compos(o, rt);
+	}
 	rt->scene->key = 1;
 }
 

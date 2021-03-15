@@ -39,7 +39,6 @@ void			rt_parser(t_rt *rt, char **argv)
 	x = xml_init(argv[1]);
 	if (xml_parse(x) == -1)
 		xml_exit(x, " tags", " < / >", EXIT_FAILURE);
-	// err. (check redo in main libxml)
 	xml_to_rt(x, rt);
 	xml_close(x);
 	if (rt->is_perlin)

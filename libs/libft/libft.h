@@ -41,7 +41,7 @@ void				ft_swap_d(double *a, double *b);
 void				ft_swap_i(int *a, int *b);
 int					get_next_line(int fd, char **line);
 char				*get_full_text(const int fd);
-void				ft_free_twodim(char ***to_free);
+int					ft_free_twodim(char ***to_free);
 int					ft_twodimlen(char **twodim);
 int					ft_tolower(int c);
 int					ft_isprint(int c);

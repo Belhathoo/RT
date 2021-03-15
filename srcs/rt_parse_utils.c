@@ -82,28 +82,9 @@ void			rt_get_repere(t_object *o)
 	t_vec vup;
 
 	vup = vec(0.0, 1.0, 0.0);
-	if (is_yequal(vup, o->rot) == 1)
-	{
-		o->vec1 = vec(1.0, 0.0, 0.0);
-		o->vec2 = vec(0.0, 0.0, 1.0);
-	}
-	else
-	{
-		if (is_yequal(vup, o->rot) == -1)
-		{
-			o->vec1 = vec(-1.0, 0.0, 0.0);
-			o->vec2 = vec(0.0, 0.0, 1.0);
-		}
-		else
-		{
-			o->vec1 = vec_cross(vup, o->rot);
-			o->vec2 = vec_cross(o->vec1, o->rot);
-		}
 
-	}
-
-	// o->vec1 = vec_unit(vec_cross(o->rot, vec(0.0, 1.0, 0.0)));
-	// if (!(vec_dot(vec_cross(o->rot, vec(0.0, 1.0, 0.0)), vec3(1.0))))
-	// 	o->vec1 = vec_unit(vec_cross(o->rot, vec(1.0, 0.0, 0.0)));
-	o->vec2 = (vec_cross(o->rot, o->vec1));
+	o->vec1 = vec_unit(vec_cross(o->rot, vec(0.0, 1.0, 0.0)));
+	if (!(vec_dot(vec_cross(o->rot, vec(0.0, 1.0, 0.0)), vec3(1.0))))
+		o->vec1 = vec_unit(vec_cross(o->rot, vec(1.0, 0.0, 0.0)));
+	o->vec2 = vec_unit(vec_cross(o->rot, o->vec1));
 }

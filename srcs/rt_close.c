@@ -12,6 +12,20 @@
 
 #include <rt.h>
 
+void		rt_free_compos(t_object *o)
+{
+	t_object *tmp;
+
+	while (o->compos)
+	{
+		ft_putendl("--9");
+		tmp = o->compos->compos;
+		free(o->compos);
+		o->compos = tmp;	
+	}
+}
+
+
 void		rt_free_objects(t_object *object)
 {
 	t_object	*obj;

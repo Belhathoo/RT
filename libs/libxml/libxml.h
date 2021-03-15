@@ -43,10 +43,10 @@ typedef struct		s_xml
 
 int					xml_parse(t_xml *x);
 t_xml				*xml_init(char *chemin);
-t_tag				*xml_new_tag(void);
-t_attr				*xml_new_attr(void);
+t_tag				*xml_new_tag(t_xml *x);
+t_attr				*xml_new_attr(t_xml *x);
 
-void				xml_set_tag(char *tag_str, t_xml *x);
+int					xml_set_tag(char *tag_str, t_xml *x);
 char				*xml_set_attr(char *attr_str, t_xml *x);
 void				xml_check_tag(char *t_name, t_xml *x);
 int					xml_check_attr(char *t_name, char *a_name);

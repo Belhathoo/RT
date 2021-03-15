@@ -12,49 +12,35 @@
 
 #include <rt.h>
 
-int		is_yequal(t_vec a, t_vec b)
+int			is_equaly(t_vec a, t_vec b)
 {
-	// 	if ((int)(100 * b.y) == 100*a.y && (float)b.x == (float)0.00\
-	// 	&& (float)b.z == (float)0.00) < (float)0.01)
-	// 	return (1);
-	// if ((int)(b.y * 100) == -100 * a.y)// && (float)b.x == (float)0.0\
-	// 	&& (float)b.z == (float)0.0)//< (float)0.01)
-	// 	return (-1);
-	if ((float)a.y == (float)b.y && (float)b.x == (float)a.x\
-		&& (float)b.z == (float)a.z)// < (float)0.01)
+	if ((float)b.y <= 1.0001 && (float)b.y >= 0.9999 && (float)b.x <= 0.000001 && (float)b.x >= -0.000001 && (float)b.z <= 0.000001 && (float)b.z >= -0.000001)
 		return (1);
-	if ((float)a.y == (float)-b.y && (float)b.x == (float)a.x\
-		&& (float)b.z == (float)a.z)//< (float)0.01)
+	if ((float)b.y >= -1.0001 && (float)b.y <= -0.9999 && (float)b.x <= 0.000001 && (float)b.x >= -0.000001 && (float)b.z <= 0.000001 && (float)b.z >= -0.000001)
 		return (-1);
 	return (0);
 }
 
-void			rt_uv_cam(t_vec w, t_vec *u, t_vec *v)
+void		rt_uv_cam(t_vec w, t_vec *u, t_vec *v)
 {
 	t_vec	vup;
 
-	vup = vec_unit(vec(0.0, 1.0, 0.0));
-	if (is_yequal(vup, w) == 1)
+	vup = vec(0.0, 1.0, 0.0);
+	if (is_equaly(vup, w) == 1)
 	{
-		ft_putendl("ll");
-		*u = vec(1.0, 0.0, 0.0);
-		*v = vec(0.0, 0.0, 1.0);
+		ft_putendl("y");
+		vup = vec(0.0, 0.0, 1.0);
 	}
-	else
+	else if (is_equaly(vup, w) == -1)
 	{
-		if (is_yequal(vup, w) == -1)
-		{
-		ft_putendl("-ll");
-			*u = vec(-1.0, 0.0, 0.0);
-			*v = vec(0.0, 0.0, 1.0);
-		}
-		else
-		{
-		ft_putendl("no");
-			*u = vec_unit(vec_cross(w, vup));
-			*v = vec_unit(vec_cross(*u, w));
-		}
+		ft_putendl("-y");
+		vup = vec(0.0, 0.0, 1.0);
 	}
+	ft_putendl("no");
+	*u = vec_cross(w, vup);
+	*v = vec_cross(*u, w);
+	*u = vec_unit(*u);
+	*v = vec_unit(*v);
 }
 
 t_camera		rt_init_camera(t_vec lookfrom, t_vec lookat, double vfov)

@@ -38,19 +38,19 @@ static void		clean_tag(t_tag **tag)
 	t_attr	*tmp_attr;
 
 	curr_tag = *tag;
-	printf("tagName: %s\n", curr_tag->name);
+	// printf("tagName: %s\n", curr_tag->name);
 	free(curr_tag->name);
 	curr_attr = curr_tag->attr;
 	while (curr_attr != NULL)
 	{
 		tmp_attr = curr_attr->next;
-		printf("[\"%s\" = {%s}]  ", curr_attr->name, curr_attr->value);
+		// printf("[\"%s\" = {%s}]  ", curr_attr->name, curr_attr->value);
 		free(curr_attr->name);
 		free(curr_attr->value);
 		free(curr_attr);
 		curr_attr = tmp_attr;
 	}
-	printf("\n\n");
+	// printf("\n\n");
 	free(curr_tag);
 }
 
@@ -66,5 +66,7 @@ void			xml_close(t_xml *x)
 		clean_tag(&curr_tag);
 		curr_tag = tmp_tag;
 	}
+	if (x->data)
+		ft_strdel(&x->data);
 	close(x->fd);
 }

@@ -15,17 +15,17 @@
 int		rt_move(int key, t_vec *vec)
 {
 	if (key == K_NP_PLU)
-		vec->z += 0.87;
+		vec->z += 0.987654321;
 	else if (key == K_NP_MIN)
-		vec->z -= 0.87;
+		vec->z -= 0.987654321;
 	else if (key == K_UP)
-		vec->y += 0.87;
+		vec->y += 0.987654321;
 	else if (key == K_DWN)
-		vec->y -= 0.87;
+		vec->y -= 0.987654321;
 	else if (key == K_LFT)
-		vec->x -= 0.87;
+		vec->x -= 0.987654321;
 	else if (key == K_RGHT)
-		vec->x += 0.87;
+		vec->x += 0.987654321;
 	else
 		return (0);
 	return (1);
