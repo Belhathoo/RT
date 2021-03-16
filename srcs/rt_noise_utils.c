@@ -26,7 +26,7 @@ int			rt_add_noise(char *val, t_rt *rt)
 		return (4);
 	else if (!ft_strcmp(val, "perlin") && (rt->is_perlin = 1))
 		return (5);
-	rt_exit(rt, val, "noise: unknown type.", EXIT_FAILURE);
+	rt_exit(rt, val, ": noise: unknown type.", EXIT_FAILURE);
 	return (-1);
 }
 
