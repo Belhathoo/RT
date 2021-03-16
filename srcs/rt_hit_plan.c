@@ -46,7 +46,7 @@ void	plane_uv(t_hit *rec, t_object *o)
 		p = vec_add(p, vec_add(vec_pro_k(o->vec1, (1 / o->scale / 2) / r), \
 					vec_pro_k(o->vec2, 1 / o->scale / 2)));
 		rec->u = vec_dot(p, o->vec1) * r;
-		rec->v = vec_dot(p, o->vec2);
+		rec->v = vec_dot(p, o->rot);
 	}
 	else if (o->noi.is_noise)
 	{

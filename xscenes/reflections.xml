@@ -1,27 +1,16 @@
 <!DOCTYPE xml>
 
 
-<Camera	lookfrom="0 -.0 25.0" 
+<Camera	lookfrom="0 0.0 25.0" 
 lookat="0 0 0">
 
 
 <Option aa="8">
 
-<Object name="plan" position="0 0 -50" 
-direction="0 0 1" txt_duplicate="1" texture="xpm/sky.xpm" scale="0.0091">
-
-<Object name="rectangle" noise="damier" scale="4"
- direction="0 0 -1" position="0 0 -10" height="15" width="40"/>
+<Object name="plan" position="0 0 0" 
+direction="0 0 1" texture="xpm/earth_day.xpm" scale="0.1">
 
 
-<Object name="sphere" color="1 1 1" position="-20 -4 0" radius="3.0" refl="1.0">
-<Object name="sphere" color="1 1 1" position="-12 -2 0" radius="3.0" refl= "0.8">
-
-<Object name="sphere" color="1 1 1" position="-4 0 0" radius="3.0" refl="0.6">
-<Object name="sphere" color="1 1 1" position="4  2 0" radius="3.0" refl="0.4">
-
-<Object name="sphere" color="1 1 1" position="12 4 0" radius="3.0"  refl="0.20">
-<Object name="sphere" color="1 1 1" position="20 6 0" radius="3.0"  refl="0.0">
 
 
-<Light type="parallel" intensity="0.5" direction="0 0 -10"/>
+<Light position="0 0 20" intensity="0.5" direction="0 0 -10"/>

@@ -6,7 +6,7 @@
   fov="60"
   />
 
-<Option aa="2"/>
+<Option aa="8"/>
 
 
 <Object name="sphere" position="-5.0 0.0 0.0" direction="0 1.0 1.0"

@@ -1,0 +1,23 @@
+<!DOCTYPE xml>
+
+
+<Camera   lookfrom="0 -10 -70.0"
+  lookat="0 0 0"
+  fov="60"
+  />
+
+
+<Object name="cylinder" slice_pnt="40 0 0" direction="0 1 0" slice_vec="1 0 0"
+ position="40.0 0 -0.0"
+radius="15" color="0.878 0.969 0.98"/>
+
+<Object name="cylinder" slice_pnt="-40 0 0" direction="0 1 0" slice_vec="0 1 0"
+ position="-40.0 0 -0.0"
+radius="15"/>
+
+<Object name="cylinder" slice_pnt="0 0 0" direction="0 1 0" slice_vec="0 0 1"
+ position="0.0 0 -0.0"
+radius="15" color="0.8314 0.9451 0.9765" />
+
+<Light position="0 10.0 30" intensity="1.0" />
+<Light position="0 10.0 -30" intensity="1.0" />
