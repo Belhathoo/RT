@@ -7,9 +7,11 @@
   lookat="0 0 0"
   fov="60"
   />
+<Option aa="5.0">
 
 <Object name="cube" size="0.7" position="-20 -1.3 -21" color="0 0 1"> 
-<Object name="plan" position="0 20 70" txt_duplicate="f" texture="xpm/NY.xpm" scale="0.01" direction="0 0 1">
+<Object name="plan" position="0 20 70" txt_duplicate="0" txt_mv1="-1" texture="xpm/NY.xpm" scale="0.01"
+ direction="0 0 -1">
 <Object name="rectangle" width="70" height="35" position="0, -2, 0" direction="0, 1, 0" color="0 1 0" />
 <Object name="sphere" position="0, 0, 0" radius="2" color="1 0 0" />
 <Object name="sphere" position="2, 0, 3.5" radius="2" color="1 1 0" />

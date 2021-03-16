@@ -1,0 +1,27 @@
+<!DOCTYPE xml>
+
+
+<Camera	lookfrom="0 0.0 25.0" 
+lookat="0 0 0">
+
+
+<Option aa="8">
+
+<Object name="plan" position="0 0 -50" 
+direction="0 0 1" txt_duplicate="1" texture="xpm/sky.xpm" scale="0.01">
+
+<Object name="rectangle" noise="damier" scale="4"
+ direction="0 0 -1" position="0 0.0 -10.0" height="15" width="40"/>
+
+
+<Object name="sphere" color="1 1 1" position="-20 -4 0" radius="3.0" refr="1.0">
+<Object name="sphere" color="1 1 1" position="-12 -2 0" radius="3.0" refr="1.2">
+
+<Object name="sphere" color="1 1 1" position="-4 0 0" radius="3.0" refr="1.40">
+<Object name="sphere" color="1 1 1" position="4  2 0" radius="3.0" refr="1.50">
+
+<Object name="sphere" color="1 1 1" position="12 4 0" radius="3.0"  refr="2.0">
+<Object name="sphere" color="1 1 1" position="20 6 0" radius="3.0"  refr="4.0">
+
+
+<Light type="parallel" intensity="0.01" direction="0 0 -10"/>
