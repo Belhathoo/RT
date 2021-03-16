@@ -15,11 +15,9 @@
 int			rt_hit_disc(t_object *o, t_ray *r, t_hit *rec)
 {
 	t_vec centre;
-	t_vec normal;
 	t_vec point;
 
 	centre = o->pos;
-	normal = o->rot;
 	rec->t = ((vec_dot(o->rot, o->pos) - vec_dot(o->rot, r->origin))
 			/ vec_dot(o->rot, r->dir));
 	point = vec_sub(vec_ray(r, rec->t), centre);
