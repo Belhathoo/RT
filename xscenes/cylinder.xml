@@ -6,7 +6,7 @@
   />
 
 
-<Object name="cylinder" direction="0 1.0 .0" position="-2 -5.0 -3.0" />
+<Object name="cylinder" slice_ax="x" slice_vec="1 0 0" direction="0 1.0 .0" position="-2 -5.0 -3.0" />
 
 <Light position="-10 10 20" intensity="1.0" />
 <Light position="10 10 20" intensity="1.0" />

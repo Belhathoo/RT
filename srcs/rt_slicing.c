@@ -29,19 +29,20 @@ int			inside_slicing(t_object *o, t_ray *r, t_hit *rec)
 		return (1);
 	if ((s.s0 > 0 && s.s1 <= 0))
 	{
-		rt_plan_intersect(o, s, rec, r, rec->t0);
+		s.t = rec->t0;
+		rt_plan_intersect(o, s, rec, r);
 		return (1);
 	}
 	return (0);
 }
 
-int			rt_plan_intersect(t_object *o, t_slice s, t_hit *rec, t_ray *r, double t)
+int			rt_plan_intersect(t_object *o, t_slice s, t_hit *rec, t_ray *r)
 {
 	ft_memcpy(&s.recp, rec, sizeof(t_hit));
 	s.plan = rt_sl_plan(o, s.ax);
 	rt_init_negative(&s.recp);
 	s.ret = rt_hit_plan(&s.plan, r, &s.recp);
-	if ((rt_hit_plan(&s.plan, r, &s.recp) == 1) && (s.recp.t < t))
+	if ((rt_hit_plan(&s.plan, r, &s.recp) == 1) && (s.recp.t < s.t))
 	{
 		rec->tx = 1;
 		rec->t0 = s.recp.t;
@@ -65,9 +66,10 @@ int			rt_slicing(t_object *o, t_ray *r, t_hit *rec)
 	{
 		s.p1 = vec_ray(r, rec->t1);
 		s.my1 = vec_unit(vec_sub(s.p1, o->sl_pnt));
+		s.t = rec->t1;
 		if (vec_dot(s.my1, s.ax) <= 0)
 			return (0);
-		return (rt_plan_intersect(o, s, rec, r, rec->t1));
+		return (rt_plan_intersect(o, s, rec, r));
 	}
 	return (1);
 }

@@ -188,6 +188,7 @@ typedef struct	s_slice
 	double		s0;
 	double		s1;
 	int			ret;
+	double		t;
 }				t_slice;
 
 typedef struct	s_camera
@@ -253,7 +254,7 @@ typedef struct	s_rt
 	t_vec		btns_noi;
 	t_light		*s_light;
 	int			is_perlin;
-	t_vec		*ran;// free
+	t_vec		*ran;
 	int			hash[255];
 }				t_rt;
 

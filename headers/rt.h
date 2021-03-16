@@ -6,7 +6,7 @@
 /*   By: belhatho <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 17:40:08 by belhatho          #+#    #+#             */
-/*   Updated: 2021/03/13 17:40:10 by belhatho         ###   ########.fr       */
+/*   Updated: 2021/03/16 15:16:40 by belhatho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void			plane_uv(t_hit *rec, t_object *o);
 t_vec			normale_cylinder(t_object *o, t_ray *r, t_hit *rec);
 t_vec			normale_cone(t_object *o, t_ray *r, t_hit *rec);
 int				rt_plan_intersect(t_object *o, t_slice s, t_hit *rec\
-					, t_ray *r, double t);
+					, t_ray *r);
 
 double			fmax(double a, double b);
 t_vec			vec_ray(t_ray *r, double t);

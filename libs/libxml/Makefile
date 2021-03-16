@@ -29,7 +29,6 @@ $(NAME): $(OBJS)
 	@ar rc $(NAME) $^
 	@ranlib $(NAME)
 	@echo "$(BUILD_PRINT)"
-	gcc main.c -o xml -L . -lxml -I . -I ../libft -L ../libft -lft
 
 COMPILE_OBJECT = gcc $(CFLAGS) -o $@ -c $< -I ../libft -I . && echo "$(OK_STRING)" || echo "$(KO_STRING)" 
 
