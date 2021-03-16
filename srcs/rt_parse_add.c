@@ -41,7 +41,7 @@ void		rt_add_negs(t_attr *attr, t_object *obj, t_rt *rt)
 	else if (!ft_strcmp(attr->name, "rotation"))
 		obj->rot = rt_ctovec(attr->value, rt);
 	else if (!ft_strcmp(attr->name, "radius"))
-		obj->size = rt_ctod(attr->value, rt);
+		obj->radius = rt_ctod(attr->value, rt);
 	else if (!ft_strcmp(attr->name, "angle"))
 		obj->angle = rt_ctod(attr->value, rt);
 }

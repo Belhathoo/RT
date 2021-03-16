@@ -16,10 +16,10 @@ void		rt_check_cam(t_camera c, t_rt *rt)
 {
 	if (c.lookat.x == c.lookfrom.x && c.lookat.y == c.lookfrom.y\
 			&& c.lookat.z == c.lookfrom.z)
-		rt_exit(rt, "", "camera: lookat & lookfrom should be different!"\
+		rt_exit(rt, "camera::", " lookat & lookfrom should be different!"\
 				, EXIT_FAILURE);
 	if (c.fov < 4.0 || c.fov > 180)
-		rt_exit(rt, "", "camera: fov is an angle [4-180]", EXIT_FAILURE);
+		rt_exit(rt, "camera::", " fov is an angle [4-180]", EXIT_FAILURE);
 }
 
 int			rt_check_basic_obj(t_object *obj, char *str)

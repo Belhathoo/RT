@@ -21,7 +21,7 @@ t_button	*save_button(t_rt *rt)
 	ret->deflt = mlx_xpm_file_to_image(rt->mlx, "buttons/save0.xpm",
 					&ret->w, &ret->h);
 	ret->img = mlx_xpm_file_to_image(rt->mlx,
-						"buttons/save_no.xpm", &ret->w, &ret->h);
+						"buttons/save0.xpm", &ret->w, &ret->h);
 	if (!ret->img || !ret->deflt)
 		rt_exit(rt, "buttons", " : img unfound", EXIT_FAILURE);
 	ret->deflt_data = (int*)mlx_get_data_addr(ret->deflt, &ret->bpp,

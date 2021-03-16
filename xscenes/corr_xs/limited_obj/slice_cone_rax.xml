@@ -1,0 +1,46 @@
+<!DOCTYPE xml>
+
+
+<Camera   lookfrom="0 -1 0.0"
+  lookat="0 -10 0"
+  fov="60"
+  />
+
+<Object name="cone" slice_pnt="-90 -60 0" direction="0 1 0" slice_vec="0 1 1"
+ position="-90.0 0 -0.0" 
+angle="30" color="0.878 0.2 0"/>
+
+<Object name="cone" slice_pnt="-60 -50 0" direction="0 1 0" slice_vec="0 1 1"
+ position="-60.0 0 -0.0" 
+angle="30" color="0.878 0.2 0"/>
+
+<Object name="cone" slice_pnt="-30 -40 0" direction="0 1 0" slice_vec="0 1 1"
+ position="-30.0 0 -0.0" 
+angle="30" color="0.1 0.3 0.98"/>
+
+<Object name="cone" slice_pnt="-0 -30 0" direction="0 1 0" slice_vec="0 1 1"
+ position="-0.0 0 -0.0" 
+angle="30" color="0.88 0.651 0.1"/>
+
+<Object name="cone" slice_pnt="30 -20 0" direction="0 1 0" slice_vec="0 1 1"
+ position="30.0 0 -0.0" 
+angle="30" color="0.88 0.651 0.1"/>
+
+<Object name="cone" slice_pnt="60 -10 0" direction="0 1 0" slice_vec="0 1 1"
+ position="60.0 0 -0.0" 
+angle="30" color="0.88 0.651 0.1"/>
+
+<Object name="cone" slice_pnt="90 0 0" direction="0 1 0" slice_vec="0 1 1"
+ position="90.0 0 -0.0" 
+angle="30" color="0.88 0.651 0.1"/>
+
+
+ 
+<Light position="0 30.0 5" intensity="1.0" />
+<Light position="0 30.0 -5" intensity="1.0" />
+<Light position="15 30.0 -50" intensity="1.0" />
+<Light position="-15 30.0 50" intensity="1.0" />
+<Light position="30 -30.0 -5" intensity="1.0" />
+<Light position="-30 -30.0 5" intensity="1.0" />
+<Light position="50 -30.0 -50" intensity="1.0" />
+<Light position="-50 -30.0 50" intensity="1.0" />

@@ -65,11 +65,11 @@ int		rt_sphere_params(t_object *obj, t_ray *ray, t_hit *rec)
 	return (0);
 }
 
-int		rt_hit_sphere(t_object *obj, t_ray *ray, t_hit *rec)
+int		rt_hit_sphere(t_object *o, t_ray *ray, t_hit *rec)
 {
-	if (rt_sphere_params(obj, ray, rec))
+	if (rt_sphere_params(o, ray, rec))
 	{
-		if (obj->is_sliced == 1 && rt_slicing(obj, ray, rec) == 0)
+		if ((o->is_sl == 1 || o->sl_ax) && rt_slicing(o, ray, rec) == 0)
 			return (0);
 		if (negative(rec) == 0)
 			return (0);
@@ -77,16 +77,16 @@ int		rt_hit_sphere(t_object *obj, t_ray *ray, t_hit *rec)
 		{
 			rec->p = vec_ray(ray, rec->t);
 			if (rec->tx == 1)
-				rec->n = vec_pro_k(obj->sl_vec, -1);
+				rec->n = vec_pro_k(o->sl_vec, -1);
 			else if (rec->is_n == 1 && rec->t == rec->neg[1])
 				rec->n = rec->neg_n;
 			else if (rec->t1 <= EPS)
-				rec->n = vec_div_k(vec_sub(rec->p, obj->pos), -obj->radius);
+				rec->n = vec_div_k(vec_sub(rec->p, o->pos), -o->radius);
 			else
-				rec->n = vec_div_k(vec_sub(rec->p, obj->pos), obj->radius);
-			sphere_uv(obj, rec);
-			if (obj->txt.is_txt && obj->txt.is_trans && \
-					!(trans_texture(ray, obj, rec)))
+				rec->n = vec_div_k(vec_sub(rec->p, o->pos), o->radius);
+			sphere_uv(o, rec);
+			if (o->txt.is_txt && o->txt.is_trans && \
+					!(trans_texture(ray, o, rec)))
 				return (0);
 			return (1);
 		}

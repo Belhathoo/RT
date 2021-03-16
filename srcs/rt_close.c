@@ -65,10 +65,10 @@ void		rt_free_lights(t_light *light)
 
 void		rt_exit(t_rt *rt, char *m, char *m1, int err)
 {
-	/*  certain cases xml free !
-	*/
 	if (err == EXIT_FAILURE)
 		ft_putstr("error: ");
+	if (rt->x)
+		xml_close(rt->x);
 	(m) ? ft_putstr(m) : 0;
 	(m1) ? ft_putendl(m1) : 0;
 	rt_free_lights(rt->scene->light);

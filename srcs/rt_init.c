@@ -35,7 +35,7 @@ void			rt_init_obj_ann(t_object *obj)
 	obj->txt.mv2 = 0.0;
 	obj->noi = rt_init_noise();
 	obj->scale = 1;
-	obj->is_sliced = 0;
+	obj->is_sl = 0;
 	obj->sl_pnt = vec(0.0, 0.0, 0.0);
 	obj->sl_vec = vec(0.0, -1.0, 0.0);
 	obj->sl_ax = 0.0;
@@ -93,6 +93,7 @@ t_scene			*rt_init_scene(t_rt *rt)
 void			rt_init(t_rt *rt)
 {
 	rt->is_perlin = 0;
+	rt->x = NULL;
 	rt->ran = NULL;
 	rt->bt = NULL;
 	rt->img = NULL;

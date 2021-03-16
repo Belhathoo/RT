@@ -11,7 +11,7 @@
 <Object name="plan" direction="0 0 1" position="0 0 -40"
  refl="1.0" color="10 10 10" scale="1.5" noise="voronoi2" />
 <Object name="plan" scale="1.5" direction="0 1 0" scale="0.10" 
-texture="xpm/brick.xpm" position="0 -6.0 10"/>
+texture="xpm/brick.xpm" txt_duplicate="1" position="0 -6.0 10"/>
 
 <Object name="sphere" position=".0 10.0 -10.0" direction="1.0 0 1"
 radius="4.0" refr="4.0" scale="1" texture="xpm/sun.xpm"/>

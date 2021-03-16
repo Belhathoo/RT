@@ -28,11 +28,10 @@ void		background(t_rt *rt)
 		while (++j < WIN_HEIGHT)
 			data[j * (int)WIN_WIDTH + i] = 0x00202f;
 	}
-	// mlx_pixel_put(rt->mlx, rt->win, i, j, 0x00202f);
 	mlx_put_image_to_window(rt->mlx, rt->win, img, 0, 0);
 }
 
-void		init(t_rt *rt)
+void		init_mlx(t_rt *rt)
 {
 	rt->win = mlx_new_window(rt->mlx, WIN_WIDTH, WIN_HEIGHT, "RT");
 	rt->img = mlx_new_image(rt->mlx, IMG_WIDTH, IMG_HEIGHT);
@@ -50,12 +49,21 @@ void		rt_hook(t_rt *rt)
 	mlx_hook(rt->win, 2, (1L << 0), rt_keys, rt);
 }
 
-void		rt_dynamic(char *av, t_rt *rt)
+void		rt_parse(char *av, t_rt *rt)
 {
+	rt->scene->dyn = 0;
 	if (!ft_strcmp(av, "milky"))
 	{
-		rt_parser(rt, "./xscenes/milky_way.xml");
+		rt_parser(rt, "./dscenes/milky_way.xml");
 		rt->scene->dyn = 1;
+		rt->scene->key = 1;
+		rt->scene->key_mvt = 0;
+		rt->scene->sl_obj = rt->scene->object;
+	}
+	else if (!ft_strcmp(av, "holo"))
+	{
+		rt_parser(rt, "./dscenes/holo.xml");
+		rt->scene->dyn = 2;
 		rt->scene->key = 1;
 		rt->scene->key_mvt = 0;
 		rt->scene->sl_obj = rt->scene->object;
@@ -72,14 +80,11 @@ int			main(int argc, char **argv)
 	rt.scene = rt_init_scene(&rt);
 	rt.mlx = mlx_init();
 	if (argc == 2)
-	{
-		rt_dynamic(argv[1], &rt);
-	}
+		rt_parse(argv[1], &rt);
 	else
 		rt_exit(&rt, 0, ft_strdup("usage: ./rt scene_file"), EXIT_FAILURE);
-	init(&rt);
+	init_mlx(&rt);
 	rt_hook(&rt);
-	// rt.scene->sl_obj = rt.scene->object; //
 	mlx_loop_hook(rt.mlx, &progress_bar, &rt);
 	mlx_loop(rt.mlx);
 	return (EXIT_SUCCESS);

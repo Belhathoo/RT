@@ -12,18 +12,35 @@
 
 #include <rt.h>
 
+void	cone_uv1(t_object *o, t_hit *rec)
+{
+	t_vec	d;
+
+	d = vec_sub(rec->p, o->pos);
+	d = vec_div_k(d, o->scale);
+	d = vec(vec_dot(d, o->vec2), vec_dot(d, o->rot), vec_dot(d, o->vec1));
+	rec->u = (atan2(d.x, d.z) + (M_PI)) / (2 * M_PI);
+	rec->v = (d.y / o->radius);
+}
+
 void	cone_uv(t_object *o, t_hit *rec)
 {
 	t_vec	d;
 	float	r;
 
-	r = (float)o->txt.height / (float)o->txt.width;
-	d = vec_sub(rec->p, o->pos);
-	d = vec_add(d, vec_pro_k(o->rot, o->txt.mv1));
-	d = ft_rot_vec(d, o->rot, o->txt.mv2);
-	d = vec(vec_dot(d, o->vec2), vec_dot(d, o->rot), vec_dot(d, o->vec1));
-	rec->u = (atan2(d.x, d.z) + (M_PI)) / (2 * M_PI);
-	rec->v = (d.y / o->radius) * r;
+	if (o->txt.is_txt)
+	{
+		r = (float)o->txt.height / (float)o->txt.width;
+		d = vec_sub(rec->p, o->pos);
+		d = vec_add(d, vec_pro_k(o->rot, o->txt.mv1));
+		d = vec_add(d, vec_pro_k(o->rot, ((1 / o->scale / 2) / r) * o->radius));
+		d = ft_rot_vec(d, o->rot, o->txt.mv2);
+		d = vec(vec_dot(d, o->vec2), vec_dot(d, o->rot), vec_dot(d, o->vec1));
+		rec->u = (atan2(d.x, d.z) + (M_PI)) / (2 * M_PI);
+		rec->v = (d.y / o->radius) * r;
+	}
+	else
+		cone_uv1(o, rec);
 }
 
 t_vec	normale_cone(t_object *o, t_ray *r, t_hit *rec)
@@ -60,7 +77,7 @@ int		rt_hit_cone(t_object *o, t_ray *r, t_hit *rec)
 {
 	if (rt_cone_params(o, r, rec))
 	{
-		if (o->is_sliced == 1 && rt_slicing(o, r, rec) == 0)
+		if ((o->is_sl == 1 || o->sl_ax) && rt_slicing(o, r, rec) == 0)
 			return (0);
 		if (negative(rec) == 0)
 			return (0);

@@ -1,0 +1,48 @@
+<!DOCTYPE xml>
+
+
+<Camera   lookfrom="-20 20 -80.0"
+  lookat="-20 10 0"
+  fov="60"
+  />
+
+<Object name="sphere" slice_pnt="-60 -6 0" direction="0 0 1" slice_vec="0 -1 0"
+ position="-60.0 0 -0.0"
+radius="15" color="0.878 0.969 0.98"/>
+
+<Object name="sphere" slice_pnt="-40 6 0" direction="0 0 1" slice_vec="0 1 0"
+ position="-40.0 0 -0.0" material="gold"
+radius="15"/>
+
+<Object name="sphere" slice_pnt="-20 -6 0" direction="0 0 1" slice_vec="-1 -1 0"
+ position="-20.0 0 -0.0"
+radius="15" color="0.8314 0.9451 0.9765" />
+
+<Object name="sphere" slice_pnt="0 6 0" direction="0 0 1" slice_vec="1 1 0"
+ position="0.0 0 -0.0" material="bl_plastic"
+radius="15" color="0.1 0.1 0.8"  />
+
+<Object name="sphere" slice_pnt="20 -6 0" direction="0 0 1" slice_vec="0 -1 0"
+ position="20.0 0 -0.0"  material="cu" color="0.722 0.451 0.2"
+radius="15"  />
+
+<Object name="sphere" slice_pnt="40 6 0" direction="0 0 1" slice_vec="0 1 0"
+ position="40.0 0 -0.0"
+radius="15" color="0.7255 0.949 1" />
+
+<Object name="sphere" slice_pnt="60 -6 0" direction="0 0 1" slice_vec="0 -1 1"
+ position="60.0 0 -0.0"
+radius="15" color="0.5 0 0" />
+
+<Object name="sphere" slice_pnt="-80 6 0" direction="0 0 1" slice_vec="0 1 1"
+ position="-80.0 0 -0.0" material="chrome"
+radius="15" color="0.8588 0.8941 0.9816" />
+ 
+<Light position="0 30.0 5" intensity="1.0" />
+<Light position="0 30.0 -5" intensity="1.0" />
+<Light position="15 30.0 -50" intensity="1.0" />
+<Light position="-15 30.0 50" intensity="1.0" />
+<Light position="30 -30.0 -5" intensity="1.0" />
+<Light position="-30 -30.0 5" intensity="1.0" />
+<Light position="50 -30.0 -50" intensity="1.0" />
+<Light position="-50 -30.0 50" intensity="1.0" />

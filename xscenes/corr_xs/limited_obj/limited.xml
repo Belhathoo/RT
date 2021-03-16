@@ -1,0 +1,51 @@
+<!DOCTYPE xml>
+
+
+<Camera
+lookfrom="0.0 15.0 -8"
+lookat="0 0 0"
+  />
+
+<Object name="l_cylinder" height="4.0" position="8.0 0.0 0.0" direction="0 1.0  0.75"
+ radius="1.0" color="0.5 0 0"  />
+
+<Object name="l_cylinder" height="2.0" position="5.0 0.0 0.0" direction="0 1.0  0.75" 
+ radius="1.0" color="0.5 0 0"  />
+
+<Object name="l_cylinder" height="0.5" position="-4.0 0.0 0.0" direction="0 1.0  0.75" 
+ radius="1.0" color="0.5 0 0"  />
+
+ <Object name="plan" position="0.0 -5.0 0.0" color="1 1 1" direction="0 1 0"  />
+
+
+
+<Object name="l_cone" height="0.0" width="1" 
+position="8.0 5.0 0.0"
+angle="60" color="0.5 2 1"  />
+
+<Object name="l_cone" height="-1.0" width="4" 
+position="5.0 5.0 0.0"
+angle="60" color="0.5 2 1"  />
+
+<Object name="l_cone" height="1.0" width="2" 
+position="-1.0 5.0 0.0"
+angle="60" color="0.5 2 1"  />
+
+<Object name="l_cone" height="-10.0" width="-9" 
+position="-4.0 5.0 0.0"
+angle="60" color="0.5 2 1"  />
+
+<Object name="disc" 
+position="-8.0 7.0 0.0" radius="5" color="0.5 0.3 0.5"  />
+
+<Object name="disc"
+position="8.0 9.0 0.0" radius="2" color="0.5 0.1 0.5"  />
+
+<Object name="rectangle" position="0 -4 -5.0" width="5" height="3">
+<Object name="rectangle" position="0 4 5.0" width="5" height="2">
+<Object name="rectangle" position="4 0 -5.0" width="1" height="1">
+
+<Light position="0 10 5.0" intensity="1.0" color="1 0 0"/>
+<Light position="0 -10 -5.0" intensity="1.0" color="0 1 0"/>
+<Light position="0 -10 5.0" intensity="1.0" color="0 0 1"/>
+<Light position="0 10 -5.0" intensity="1.0" />

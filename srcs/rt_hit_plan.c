@@ -71,7 +71,7 @@ int		rt_hit_plan(t_object *o, t_ray *r, t_hit *rec)
 	rec->p = vec_ray(r, rec->t);
 	rec->n = vec_dot(r->dir, o->rot) > 0 ? vec_pro_k(o->rot, -1) : o->rot;
 	plane_uv(rec, o);
-	if (o->is_sliced == 1 && rt_one_slice(o, r, rec) == 0)
+	if ((o->is_sl == 1 || o->sl_ax) && rt_one_slice(o, r, rec) == 0)
 		return (0);
 	if (o->txt.is_txt && o->txt.is_trans && !(trans_texture(r, o, rec)))
 		return (0);

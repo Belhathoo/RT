@@ -26,7 +26,6 @@ void	cam_btn(t_rt *rt)
 void	mvt_btn(t_rt *rt)
 {
 	swap_button_by_id(MVT_BTN, rt);
-	// rt->scene->sl_obj = NULL; // rmve for mac
 	rt->scene->key_mvt = (rt->scene->key_mvt + 1) % 2;
 	if (!rt->scene->key_mvt && rt->scene->key_cam == 1)
 		swap_button_by_id(CAM_BTN, rt);

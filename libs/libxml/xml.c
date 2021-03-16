@@ -74,7 +74,6 @@ int			xml_parse(t_xml *x)
 	x->data = get_full_text(x->fd);
 	if ((data = ft_strchr(x->data, '<')) == NULL)
 		return (-1);
-	
 	i = 1;
 	while (data[i])
 	{

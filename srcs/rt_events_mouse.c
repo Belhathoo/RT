@@ -57,8 +57,8 @@ int				rt_mouse(int button, int x, int y, t_rt *rt)
 		if (button == 2)
 			rt->scene->sl_obj = NULL;
 		if (button == 1 &&
-				((x > FRAME_LFT && x < IMG_WIDTH + FRAME_RGHT)\
-				&& y > FRAME_DWN && y < IMG_HEIGHT + FRAME_UP))
+				((x > FRAME_LFT && x < IMG_WIDTH + FRAME_LFT)\
+				&& y > FRAME_UP && y < IMG_HEIGHT + FRAME_UP))
 			rt_select_obj(rt, x - FRAME_LFT, (int)IMG_HEIGHT - (y - FRAME_UP));
 		if (btn != -1)
 		{

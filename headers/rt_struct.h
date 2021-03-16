@@ -111,7 +111,7 @@ typedef struct	s_o
 	t_noise		noi;
 	float		scale;
 	int			(*hit)();
-	int			is_sliced;
+	int			is_sl;
 
 	struct s_m	mat;
 	float		refl;
@@ -256,6 +256,7 @@ typedef struct	s_rt
 	int			is_perlin;
 	t_vec		*ran;
 	int			hash[255];
+	t_xml		*x;
 }				t_rt;
 
 typedef struct	s_thread

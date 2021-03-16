@@ -65,7 +65,7 @@ t_object		rt_init_neg_object(void)
 	obj.radius = 2.0;
 	obj.dir = vec(0.0, 1.0, 0.0);
 	obj.rot = vec(0.0, 0.0, 0.0);
-	obj.is_sliced = 0;
+	obj.is_sl = 0;
 	obj.txt.is_txt = 0;
 	obj.noi.is_noise = 0;
 	obj.next = NULL;

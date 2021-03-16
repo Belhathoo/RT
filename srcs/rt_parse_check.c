@@ -14,7 +14,7 @@
 
 void		rt_check_o_annex(t_object *o, t_rt *rt)
 {
-	if (o->is_sliced == 1)
+	if (o->is_sl == 1)
 	{
 		if (o->sl_ax != 0)
 			rt_exit(rt, o->name, ": only one slicing is possible"\

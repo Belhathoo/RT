@@ -88,9 +88,9 @@ int			rt_add_mat_sl(t_attr *attr, t_object *obj, t_rt *rt)
 		obj->refl = ft_clamping(rt_ctod(attr->value, rt));
 	else if (!ft_strcmp(attr->name, "refr"))
 		obj->refr = rt_ctod(attr->value, rt);
-	else if (!ft_strcmp(attr->name, "slice_vec") && (obj->is_sliced = 1))
+	else if (!ft_strcmp(attr->name, "slice_vec") && (obj->is_sl = 1))
 		obj->sl_vec = rt_ctovec(attr->value, rt);
-	else if (!ft_strcmp(attr->name, "slice_pnt") && (obj->is_sliced = 1))
+	else if (!ft_strcmp(attr->name, "slice_pnt") && (obj->is_sl = 1))
 		obj->sl_pnt = rt_ctovec(attr->value, rt);
 	else if (!ft_strcmp(attr->name, "slice_ax"))
 		obj->sl_ax = rt_ax_parse(attr->value, obj, rt);

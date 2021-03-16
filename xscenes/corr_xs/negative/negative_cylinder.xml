@@ -1,0 +1,22 @@
+<!DOCTYPE xml>
+
+
+<Camera
+  lookfrom="10.0 10.0 30.0"
+  lookat="0 0 0"
+  fov="60"
+  />
+
+<Option aa="5" amb="0.4">
+
+
+<Neg_Object name="cylinder" radius="5.0" direction="0 0 1">
+
+<Object name="cylinder" position="-0 0.0 10.0" direction="0 1 0" radius="6" color="0.5 0.6 0"/>
+<Object name="cylinder" position="0 0.0 0.0" direction="0 1 0" radius="7" color="0.5 0.0 0.6"/>
+<Object name="cylinder" position="0 0.0 -15.0" direction="0 1 0" radius="8" color="0.3 0.5 0"/>
+<Object name="cylinder" position="0 0.0 -30.0" direction="0 1 0" radius="9" color="0.1 0.6 0.6"/>
+
+<Light position="20.0 25.0 50.0" color="1 1 1" intensity="0.51" />
+<Light position="-20.0 -25.0 -50.0" color="1 1 1" intensity="0.51" />
+<Light position="20.0 25.0 -50.0" color="1 1 1" intensity="0.51" />
