@@ -24,7 +24,7 @@ n_color1="0 0 1.0" n_color="1.0 1.0 0.0" material="gold"/>
   material="diamond"/>
 
 <Object name="sphere" radius="2.0" texture="xpm/earth_day.xpm" color="1 0 0"
-  material="ice" refr="1.50" scale="01"/>
+  material="ice" refr="1.50" scale="01" direction="1 1 1"/>
 
 
 <Light position="0 15 20.0 "/>

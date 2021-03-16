@@ -2,23 +2,23 @@
 
 
 <Camera
-  lookfrom="0 8.0 30.0"
+  lookfrom="0.0 10.0 15.0"
   lookat="0 0 0"
   fov="60"
   />
 
-<Option aa="5"/>
-<Object name="cube" position="0.0 0.0 0.0" size="20" material="bl_plastic"
-color="0 0 1.0" refl="01.0" >
+<Option aa="5" amb="0.4">
 
-<Object name="cube_troue" position="0.0 -4.0 -4.0" direction="0 1.0 0.0"
-rotation="0 0 0" translation="0 0 0" 
-size="3.0" color="10 0.0 0.0" />
+<Object name="cylinder" position="5.0 5.0 -2.0" direction="0 01 0" rotation="0 01 0" 
+translation="0 0 0" radius="2.0" r="0.1" scale="01." txt_duplicate="1" texture="xpm/holo.bmp" material="ko"  color="1 0 0"/>
 
-<Object name="sphere" radius="1.5" refr="1.40" position="0 -4 -4" 
-texture="xpm/sun.xpm" scale="1.0" color=" 0.8 0.8 0.8">
+<Object name="sphere" position="0.0 0.0 0.0"  direction="1 0 0.51" rotation="0 01 0" 
+translation="0 0 0" radius="5" txt_duplicate="1" texture="xpm/limited_0.bmp"  color="1 0 1"/>
 
-<Object name="plan" color="0 1 1" position="0 -16 0">
+<Object name="cone" position="0.0 0.0 0.0" direction="1 0 0.51" rotation="0 01 0" 
+translation="0 0 0" radius="5" txt_duplicate="1" texture="xpm/test.bmp"  color="1 1 1"/>
 
+<Object name="plan" position="0.0 -5.0 0.0" direction="0 1 0" rotation="0 01 0" 
+translation="0 0 0" radius="5"  txt_duplicate="1" texture="xpm/cube_1.bmp"  color="0.5 0.6 0.5"/>
 
-<Light position="0 -4 -8" color="1 1 1" />
+<Light position="20.0 25.0 50.0" color="1 1 1" intensity="0.51" />

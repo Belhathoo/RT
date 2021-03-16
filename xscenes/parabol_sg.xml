@@ -1,0 +1,24 @@
+<!DOCTYPE xml>
+
+
+<Camera
+  lookfrom="0 0.0 60.0"
+  lookat="0 0 0"
+  fov="60"
+  />
+
+<Option aa="2"/>
+
+
+
+<Object name="parabol" radius="1.0"  direction="1.0 1.0 0.0" position="-10 0 10"
+rotation="00 0 00"   color= "0 1.0 1.0"/>
+
+<Object name="plan" position="0 0 -60" rotation="0 0 0"
+direction="0 0 1" radius="20" color="0 0 1" />
+
+<Object name="plan" position="0 -10 -40" rotation="0 0 0"
+direction="0 1 0" radius="20" color="1 0 0" />
+
+
+<Light position="-40 80 60" intensity="1.2" color="1.0 1.0 1.0"/>

@@ -7,17 +7,17 @@
 	fov="60"
 	/>
 
-<Option aa="01.0"/>
+<Option aa="04.0"/>
 
 <Object name="cylinder" position="0.0 0.0 6.0" radius="2.5"
 color="1.0 1.0 1.0" txt_duplicate="1"  texture="xpm/earth1.xpm" />
 
-<Object name="sphere" position="-5 0 2" texture="xpm/moon.xpm" radius="1.50"/>
+<Object name="sphere" position="-7 0 2" texture="xpm/moon.xpm" radius="1.50"/>
 
 <Object name="sphere" position="7 0 3.0 " color="0 0.2 0.9"
 material="gold" radius="2.0"/>
 
 <Object name="plan" position="0 0 -9.0" rotation="0 0 0"
-direction="0 0 1" texture="xpm/stars.xpm" material="ice0"/>
+direction="0 0 1" txt_duplicate="1" texture="xpm/sky.xpm" scale="0.091"/>
 
 <Light position=" 0 05 15" />

@@ -63,7 +63,7 @@ void			rt_ctotxt(char *str, t_texture *txt, t_rt *rt)
 	if (!txt->img && !txt->buf)
 	{
 		ft_free_twodim(&each);
-		rt_exit(rt, str, ": texture:  file unsupported", EXIT_FAILURE);
+		rt_exit(rt, "", "texture:  file unsupported", EXIT_FAILURE);
 	}
 	if (txt->img)
 		txt->buf = (int *)mlx_get_data_addr(txt->img, &rt->bpp\

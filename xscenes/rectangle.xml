@@ -1,7 +1,7 @@
 <!DOCTYPE xml>
 
 
-Option aa="2"/>
+<Option aa="2"/>
 <Camera
   lookfrom="0.0 0.0 20.0"
   lookat="0 0 0"
@@ -10,8 +10,7 @@ Option aa="2"/>
 
 
 <Object name="rectangle" direction="0 0 -10" rotation="0 0 0" height="7" width="12.0" color="0 1 1"
- material="bl_plasc" texture="xpm/earth1.xpm" slice_ax="x" txt_trans="b" txt_mv2="-5" scale="0.05" position="0 0 0" >
+ material="bl_plasc" noise="voronoi3" scale="0.05" position="0 0 0" >
 
-<Object name="disc" direction="0 1 1"  slice_vec="0 1 0">
 
 <Light position="0 5 40"/>

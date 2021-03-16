@@ -1,0 +1,48 @@
+<!DOCTYPE xml>
+
+<Camera
+  lookfrom="0 5.0 15.0"
+  lookat="0 0 0"
+  fov="60"
+  />
+
+<Option aa="2"/>
+
+
+<Object name="sphere" position="-5.0 0.0 0.0" direction="0 1.0 1.0"
+rotation="0 01 0" noise="damier"  radius="2.0"
+ scale="30.0" n_color="1.0 1.0 1.0" n_color1="0.2 0.8 0.9" />
+
+<Object name="cylinder" position="5.0 0.0 0.0" direction="0 1.0 0.0"
+ noise="voronoi3"  radius="1.0"
+ scale="0.01" n_color1="1.0 0.0 0.0" n_color="1 1 1.0" />
+
+ <Object name="cone" position="0.0 0.0 0.0" direction="0 1.0 0.0"
+ noise="circles"  angle="40.0" scale="10" n_color1="1.0 0.3 0.3" n_color="1 1 1.0" />
+
+
+ <Object name="cube" position="3.0 0.0 5.0" direction="0 1.0 0.0"
+ noise="damier"  size="1.0" angle="40.0" scale="10" n_color1="0.2 0.6 0.33" n_color="1 0 1.0" />
+
+<Object name="plan" position="0.0 -5.0 0.0" direction="0 1.0 0.0"
+ noise="damier" translation="0 0 0" scale="14.0"  />
+
+
+ <Object name="plan" position="-15.0 0.0 0.0" direction="1 1.0 0.0"
+ noise="voronoi2"/>
+
+<Object name="plan" position="15.0 0.0 0.0" direction="-1 1.0 0.0"
+ noise="voronoi1" />
+
+
+<Object name="plan" n_color1="1.0 1.0 1.0" n_color="0.0 0.0 0.0" position="0.0 2.0 -10.0" direction="0.0 0.0 1.0"
+ noise="circles" 
+ scale="1.0"  />
+
+<Light position="0.0 0.0 5.01" intensity="0.9" color="1.0 1.0 1.0"/>
+<Light position="05.0 15.0 15.01" intensity="0.7" color="1.0 1.0 1.0"/>
+<Light position="05.0 15.0 0.01" intensity="0.7" color="1.0 1.0 1.0"/>
+
+<Object name="torus" position="0.0 0.0 0.0" direction="0 1.0 0.0" scale="14"
+rotation="0 01 0" noise="circles"  n_color1="0.5 0.5 1" n_color="0 1 1" radius="10.0" r="0.5"
+/>

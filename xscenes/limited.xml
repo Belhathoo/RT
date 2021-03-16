@@ -2,7 +2,7 @@
 
 
 <Camera
-lookfrom="0.0 12.0 0"
+lookfrom="0.0 10.0 15"
 lookat="0.0 0.0 0.0"
   />
 
