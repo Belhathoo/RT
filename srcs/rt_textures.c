@@ -20,8 +20,8 @@ t_vec		rt_get_color_from_texture(t_object *o, double *u, double *v)
 
 	if (rt_uv_txt(o, u, v) == 1)
 		return (o->col);
-	ij[0] = *u * o->txt.width;
-	ij[1] = (1.0 - *v) * o->txt.height - 0.001;
+	ij[0] = (1 - *u) * o->txt.width;
+	ij[1] =  *v * o->txt.height - 0.001;
 	ij[0] = (ij[0] < 0) ? 0 : ij[0];
 	ij[1] = (ij[1] < 0) ? 0 : ij[1];
 	ij[0] = (ij[0] > o->txt.width - 1) ? o->txt.width - 1 : ij[0];
